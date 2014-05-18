@@ -12,7 +12,6 @@
 
         <!--Global View Model Locator-->
         <ResourceDictionary>
-
             <ResourceDictionary 
                     x:Key = "StandardSolidBrushColor"
                     Source = "/Themes/ExpressionDark.xaml"
