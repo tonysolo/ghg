@@ -6,24 +6,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              StartupUri="MainV.xaml" mc:Ignorable="d">
-    
+
     <Application.Resources>
-        
-        
-         <!--Global View Model Locator-->
+
+
+        <!--Global View Model Locator-->
         <ResourceDictionary>
-            <!--
-                ResourceDictionary.MergedDictionaries-->
-                <ResourceDictionary 
-                    x:Key ="StandardSolidBrushColor" 
+
+            <ResourceDictionary 
+                    x:Key = "StandardSolidBrushColor"
                     Source = "/Themes/ExpressionDark.xaml"
                     />
-           <!--/ResourceDictionary.MergedDictionaries  -->
-               
-            
-         <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
-         </ResourceDictionary>       
-        
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+        </ResourceDictionary>
+
     </Application.Resources>
-    
+
 </Application>
