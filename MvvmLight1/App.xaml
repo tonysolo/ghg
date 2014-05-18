@@ -1,4 +1,5 @@
 ﻿<Application x:Class="MvvmLight1.App"
+           
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:MvvmLight1.ViewModel"
@@ -8,9 +9,12 @@
              mc:Ignorable="d">
     
     <Application.Resources>
-        <!--Global View Model Locator-->
+        
+         <!--Global View Model Locator-->
+
         <vm:ViewModelLocator x:Key="Locator"
-                             d:IsDataSource="True" />
+                             d:IsDataSource="True"/>
+        <!--ResourceDictionary Source = "ExpressionDark.xaml" /-->
     </Application.Resources>
     
 </Application>
