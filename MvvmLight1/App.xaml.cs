@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight.Threading;
 namespace MvvmLight1
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic App.xaml
     /// </summary>
     public partial class App : Application
     {
