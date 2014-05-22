@@ -6,3 +6,5 @@ ghg
 
 for large scale epidemiology, ehealth storage.
 
+#Data Stucture#
+
