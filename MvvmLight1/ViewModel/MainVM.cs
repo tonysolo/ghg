@@ -1,5 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using MvvmLight1.Model;
+using GalaSoft.MvvmLight.Command;
+using System;
+using System.Windows;
+
 
 namespace MvvmLight1.ViewModel
 {
@@ -19,45 +23,75 @@ namespace MvvmLight1.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
+    /// 
+
     public class MainVM : ViewModelBase
     {
-        private readonly IDataService _dataService;
+        // private readonly IDataService _dataService;
 
         /// <summary>
         /// The <see cref="WelcomeTitle" /> property's name.
         /// </summary>
-       // public const string WelcomeTitlePropertyName = "WelcomeTitle";
+        // public const string WelcomeTitlePropertyName = "WelcomeTitle";
 
-        private string _welcomeTitle = string.Empty;
 
-        /// <summary>
-        /// Gets the WelcomeTitle property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public string WelcomeTitle
+
+        private void ShowMesg()
         {
-            get
-            {
-                return _welcomeTitle;
-            }
-
-            set
-            {
-                if (_welcomeTitle == value)
-                {
-                    return;
-                }
-
-                _welcomeTitle = value;
-                RaisePropertyChanged("Welcome Title");
-            }
+            MessageBox.Show("This is a test");
         }
 
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+        public RelayCommand EditMap { get; private set; }
+
+        private void SetupRelayCommands()
+        {
+            EditMap = new RelayCommand(ShowMesg);
+        }
+
         public MainVM(IDataService dataService)
         {
+            SetupRelayCommands();
+        }
+    }
+}
+
+
+
+
+/*  
+  private string _welcomeTitle = string.Empty;
+
+  /// <summary>
+  /// Gets the WelcomeTitle property.
+  /// Changes to that property's value raise the PropertyChanged event. 
+  /// </summary>
+  public string WelcomeTitle
+  {
+      get
+      {
+          return _welcomeTitle;
+      }
+
+      set
+      {
+          if (_welcomeTitle == value)
+          {
+              return;
+          }
+
+          _welcomeTitle = value;
+          RaisePropertyChanged("Welcome Title");
+      }
+  }
+  */
+/// <summary>
+/// Initializes a new instance of the MainViewModel class.
+/// </summary>
+/*        public MainVM(IDataService dataService)
+        {
+            SetupRelayCommands();
+
+
             _dataService = dataService;
             _dataService.GetData(
                 (item, error) =>
@@ -69,8 +103,10 @@ namespace MvvmLight1.ViewModel
                     }
 
                     WelcomeTitle = item.Title;
-                });
+                }); 
+
         }
+       
        //todo  test this code
         
         ////public override void Cleanup()
@@ -80,4 +116,4 @@ namespace MvvmLight1.ViewModel
         ////    base.Cleanup();
         ////}
     }
-}
+ */

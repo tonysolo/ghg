@@ -8,13 +8,13 @@
              StartupUri="MainV.xaml" mc:Ignorable="d">
 
     <Application.Resources>
-
-
-        <!--Global View Model Locator-->
+        <!--Global View Model Locator  
+         x:Key = "StandardSolidBrushColor"        
+        -->
         <ResourceDictionary>
             <ResourceDictionary 
-                    x:Key = "StandardSolidBrushColor"
-                    Source = "/Themes/ExpressionDark.xaml"
+                    x:Key = "Themes"
+                    Source = "Themes\ExpressionDark.xaml"
                     />
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
         </ResourceDictionary>
