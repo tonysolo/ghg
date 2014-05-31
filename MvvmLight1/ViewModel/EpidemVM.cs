@@ -34,9 +34,12 @@ namespace MvvmLight1.ViewModel
         /// <summary>
         /// Initializes a new instance of the EpidemVM class.
         /// </summary>
+        /// 
         public EpidemVM() { }
 
-        public EpidemVM(string str) { }
+        //public EpidemVM(string str) { }
+
+
 
 
     }
