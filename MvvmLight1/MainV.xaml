@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
-        Height="400"
-        Width="300"
         Title="Global Health Grid"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
+        Height="400"
+        Width="230"
+        
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <!--Window.Resources>
@@ -31,7 +32,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="140"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock
@@ -64,7 +65,7 @@
             FontSize="20"          
             Content="Epidemiology" 
             Grid.ColumnSpan="2"
-            Command="{Binding EditMap}"
+            Command="{Binding EditEpidemiology}"
             />
         <Button
              Margin="4"

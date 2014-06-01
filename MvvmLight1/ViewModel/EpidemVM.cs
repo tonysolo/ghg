@@ -12,7 +12,9 @@ namespace MvvmLight1.ViewModel
     public class EpidemVM : ViewModelBase
     {
         public string[] Genders { get { return Enum.GetNames(typeof(Model.gender)); } }
-        public string[] AgeGroups { get { return Enum.GetNames(typeof(Model.agegroup)); } }
+        public string[] AgeGroups { 
+            get { return Enum.GetNames(typeof(Model.agegroup)); } 
+        }
         public string[] Facilities { get { return Enum.GetNames(typeof(Model.agegroup)); } }
         public string[] Stays { get { return Enum.GetNames(typeof(Model.stay)); } }
         public string[] Funders { get { return Enum.GetNames(typeof(Model.funder)); } }
@@ -35,12 +37,7 @@ namespace MvvmLight1.ViewModel
         /// Initializes a new instance of the EpidemVM class.
         /// </summary>
         /// 
-        public EpidemVM() { }
-
-        //public EpidemVM(string str) { }
-
-
-
+        public EpidemVM()  { }
 
     }
 }

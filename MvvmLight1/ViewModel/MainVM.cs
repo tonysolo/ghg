@@ -41,11 +41,21 @@ namespace MvvmLight1.ViewModel
             MessageBox.Show("This is a test");
         }
 
+ private void ShowEpidemiologyDlg()
+        {
+          EpidemV v =   new EpidemV();
+          v.ShowDialog();
+
+        }
+
+
         public RelayCommand EditMap { get; private set; }
+        public RelayCommand EditEpidemiology { get; private set; }
 
         private void SetupRelayCommands()
         {
             EditMap = new RelayCommand(ShowMesg);
+            EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
         }
 
         public MainVM(IDataService dataService)
