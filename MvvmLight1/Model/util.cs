@@ -7,7 +7,7 @@ namespace MvvmLight1.Model
 {
     enum gender { female, male }
     enum agegroup { Neonate, FirstYear, TwoToSixYears, SevenToTwelve, TeenAge, TwentyToForty, FortyToSixty, SixtyAndOlder }
-    enum facilty { Outpatient, Level1Hosp, Level2Hosp, Level3Hosp }
+    enum facilty {ConsultingRoom, Clinic, Level1Hosp, Level2Hosp, Level3Hosp }
     enum stay { Outpatient, Inpatient }
     enum funder { Public, Private }
     enum treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }

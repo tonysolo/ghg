@@ -44,7 +44,7 @@
                  <TextBlock
                     FontSize="8"                   
                     Text="ICD's" />                              
-                <ComboBox/>
+                <TextBox/>
 
                 <TextBlock
                     FontSize="8"                   
@@ -55,32 +55,40 @@
                     />
                 <TextBlock
                     FontSize="8"                   
-                    Text="Genders" />
+                    Text="Gender" />
                 <ComboBox
                     ItemsSource="{Binding Genders}"
                     SelectedIndex="0"
                     />
                 <TextBlock
                     FontSize="8"                   
-                    Text="Region" />
+                    Text="From Region" />
                 <ComboBox
                     ItemsSource="{Binding Regions}"
                     SelectedIndex="0"
                     />
                 <TextBlock
                     FontSize="8"                   
-                    Text="Treater" />
+                    Text="Referred by" />
+                <ComboBox
+                   ItemsSource="{Binding Qualifications}" 
+                   SelectedIndex="0"
+                    />
+                <TextBlock
+                	FontSize="8" Text="Treated by"/>
+               
+                <ComboBox
+                    ItemsSource="{Binding Qualifications}"
+                    SelectedIndex="2"
+                    />
+                 <TextBlock
+                    FontSize="8"                   
+                    Text="Specialty" />
                 <ComboBox
                     ItemsSource="{Binding Treaters}"
                     SelectedIndex="0"
                     />
-                <TextBlock
-                    FontSize="8"                   
-                    Text="Specialty" />
-                <ComboBox
-                    ItemsSource="{Binding Qualifications}"
-                    SelectedIndex="0"
-                    />
+                
                 <TextBlock
                     FontSize="8"                   
                     Text="Facility" />
@@ -88,13 +96,7 @@
                     ItemsSource="{Binding Facilities}"
                     SelectedIndex="0"
                     />
-                <TextBlock
-                    FontSize="8"                   
-                    Text="Type" />
-                <ComboBox
-                    ItemsSource="{Binding Stays}"
-                    SelectedIndex="0"
-                    />
+               
                 <TextBlock
                     FontSize="8"                   
                     Text="Region" />
@@ -107,16 +109,14 @@
                     Text="InOut" />
                 <ComboBox
                     ItemsSource="{Binding Stays}"
-                    SelectedIndex="0"
+                    SelectedIndex="{Binding Stay}"                 
                     />
 
                 <TextBlock
                     FontSize="8"                   
-                    Text="Visits" />
-                <ComboBox
-                    ItemsSource="{Binding Genders}"
-                    SelectedIndex="0"
+                    Text= "{Binding staymessage}" 
                     />
+                <TextBox/>
                 
                
 

@@ -20,11 +20,16 @@ namespace MvvmLight1.ViewModel
         public string[] Qualifications { get { return Enum.GetNames(typeof(Model.qualification)); } }
         public string[] Regions { get; set; } //will have to be set from map info
 
+       private byte _stay;
+
 public byte AgeGroup { get; set; }
-        public byte Gender { get; set; }
-        
+        public byte Gender { get; set; }       
         public byte Facility { get; set; }
-        public byte Stay { get; set; }
+        public byte Stay
+        {
+            get { return _stay; } 
+            set {_stay = value; RaisePropertyChanged("staymessage");}
+        }
         public byte Funder { get; set; }
         public byte Treater { get; set; }
         public byte Qualification { get; set; }
@@ -36,8 +41,7 @@ public byte AgeGroup { get; set; }
         {
             get
             {
-                if (Stay == 0) return "Number of Days";
-                else return "Number of Patients";
+                return (Stay==1) ? "Number of Days Admitted":"Number of Similar Outpatients";
             }
         }
         /// <summary>
