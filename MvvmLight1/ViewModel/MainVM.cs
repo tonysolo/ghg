@@ -34,18 +34,15 @@ namespace MvvmLight1.ViewModel
         /// </summary>
         // public const string WelcomeTitlePropertyName = "WelcomeTitle";
 
-
-
         private void ShowMesg()
         {
             MessageBox.Show("This is a test");
         }
 
- private void ShowEpidemiologyDlg()
+        private void ShowEpidemiologyDlg()
         {
-          EpidemV v =   new EpidemV();
-          v.ShowDialog();
-
+            EpidemV v = new EpidemV();
+            v.ShowDialog();
         }
 
 
