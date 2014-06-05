@@ -8,44 +8,47 @@
         Title="Epidemiology"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Height="460"
+        Height="450"
         Width="200"
         DataContext="{Binding Epidem, Source={StaticResource Locator}}">
-
     <Grid>
         <DockPanel
-           LastChildFill="True"
-            >
+  LastChildFill="True">
             <StatusBar
                 Height="25"
                 DockPanel.Dock="Bottom"/>
-
             <StackPanel
                 Width="50"
               DockPanel.Dock="Left"  
                 >
-                <TextBlock FontSize="50" Text="*" Padding="15 0,0,0"/>
+                <TextBlock  
+                    Margin="12"
+                    FontFamily="Segoe UI Symbol"               
+                        FontSize="16"
+                        Text ="&#xE202;" />
                 
-                <ListBox
-                    Height="150"
+                
+                <ListBox Height="130" />
+                <TextBlock
+                    Margin="12"
+                    FontFamily="Segoe UI Symbol"               
+                        FontSize="16"
+                        Text ="&#xE10B;" 
+                    
                     />
-                 <TextBlock FontSize="30" Text="X" Padding="15 0,0,0"/>
                 <ListBox
-                    Height="150"
+                    Height="170"
                     />
             </StackPanel>
-            
-            <StackPanel
-                >
+            <StackPanel>
                 <TextBlock
                     FontSize="8"
-                    Text="Date" />                              
+                    Text="Date" />
                 <DatePicker/>
-                 <TextBlock
+                <TextBlock
                     FontSize="8"                   
-                    Text="ICD's" />                              
+                    Text="ICD's" />
                 <TextBox/>
-
                 <TextBlock
                     FontSize="8"                   
                     Text="Age" />
@@ -63,50 +66,98 @@
                 <TextBlock
                     FontSize="8"                   
                     Text="From Region" />
-                <ComboBox
-                    ItemsSource="{Binding Regions}"
-                    SelectedIndex="0"
-                    />
+                <Grid Height="20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="25"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        FontFamily = "Segoe UI Symbol"
+                        FontSize="12"
+                        Content="&#x2638;" 
+                        />
+                    <ComboBox
+                        Grid.Column="1"
+                        />
+
+
+
+
+
+                </Grid>
+
+
+
+                <!--Button
+                		Width="25"
+                     />
+                    <ComboBox
+                		ItemsSource="{Binding Regions}"
+                		SelectedIndex="0"
+                       
+                        
+                    /-->
+
+                <!--/StackPanel-->
+
                 <TextBlock
                     FontSize="8"                   
                     Text="Referred by" />
+
                 <ComboBox
                    ItemsSource="{Binding Qualifications}" 
                    SelectedIndex="0"
                     />
+
                 <TextBlock
-                	FontSize="8" Text="Treated by"/>
-               
+                	FontSize="8" Text="Treated by"
+                    />
+
                 <ComboBox
                     ItemsSource="{Binding Qualifications}"
                     SelectedIndex="2"
                     />
-                 <TextBlock
+
+                <TextBlock
                     FontSize="8"                   
                     Text="Specialty" />
+
                 <ComboBox
                     ItemsSource="{Binding Treaters}"
                     SelectedIndex="0"
                     />
-                
+
                 <TextBlock
                     FontSize="8"                   
                     Text="Facility" />
+
                 <ComboBox
                     ItemsSource="{Binding Facilities}"
                     SelectedIndex="0"
                     />
-               
                 <TextBlock
                     FontSize="8"                   
-                    Text="Region" />
-                <ComboBox
+                    Text="Treatment Region" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        FontFamily = "Segoe UI Symbol"
+                        FontSize="12"
+                        Content="&#x2638;"
+                        />
+                    <ComboBox
+                    Grid.Column="1"  
                     ItemsSource="{Binding Regions}"
                     SelectedIndex="0"
                     />
+                </Grid>
                 <TextBlock
                     FontSize="8"                   
                     Text="InOut" />
+
                 <ComboBox
                     ItemsSource="{Binding Stays}"
                     SelectedIndex="{Binding Stay}"                 
@@ -116,13 +167,13 @@
                     FontSize="8"                   
                     Text= "{Binding staymessage}" 
                     />
+
                 <TextBox/>
-                
-               
-
-
 
             </StackPanel>
+
         </DockPanel>
+
     </Grid>
+
 </Window>
