@@ -16,5 +16,10 @@ namespace MvvmLight1.ViewModel
         public MapVM()
         {
         }
+
+
+
+
+
     }
 }
