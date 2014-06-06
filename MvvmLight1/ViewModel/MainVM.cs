@@ -39,6 +39,12 @@ namespace MvvmLight1.ViewModel
             MessageBox.Show("This is a test");
         }
 
+        //private void ShowMapDlg()
+   // {
+   // MapV v = new MapV();
+   // v.ShowDialog();
+   // }
+
         private void ShowEpidemiologyDlg()
         {
             EpidemV v = new EpidemV();
@@ -51,7 +57,7 @@ namespace MvvmLight1.ViewModel
 
         private void SetupRelayCommands()
         {
-            EditMap = new RelayCommand(ShowMesg);
+            EditMap = new RelayCommand(ShowMesg);  // (ShowMapDlg);
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
         }
 
