@@ -15,6 +15,12 @@ namespace MvvmLight1.ViewModel
         /// </summary>
         public LoaderVM()
         {
+            Model.settings.registered = true;
         }
+
+        public bool Registered 
+          { get {return Model.settings.registered;}
+            set { Model.settings.registered = value; }  
+          }
     }
 }
