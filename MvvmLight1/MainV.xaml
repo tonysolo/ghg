@@ -66,7 +66,7 @@
             Content="Epidemiology" 
             Grid.ColumnSpan="2"
             Command="{Binding EditEpidemiology}"
-            IsEnabled="{Binding IsRegistered}"
+            IsEnabled="{Binding isRegistered}"
             />
         <Button
              Margin="4"
@@ -74,7 +74,7 @@
             FontSize="20"
             Content="e-Health" 
             Grid.ColumnSpan="2"
-            IsEnabled="{Binding IsRegistered}"
+            IsEnabled="{Binding isRegistered}"
             />
         <!--TextBlock FontSize="36"
                    FontWeight="Bold"

@@ -34,8 +34,10 @@ namespace MvvmLight1.ViewModel
         /// </summary>
         // public const string WelcomeTitlePropertyName = "WelcomeTitle";
 
-        public bool IsRegistered { get { return Model.settings.registered; }
-                                   set { Model.settings.registered = value; }
+        public bool IsRegistered
+        {
+            get { return Model.settings.registered; }
+            set { Model.settings.registered = value; }
         }
 
 
@@ -45,10 +47,10 @@ namespace MvvmLight1.ViewModel
         }
 
         //private void ShowMapDlg()
-   // {
-   // MapV v = new MapV();
-   // v.ShowDialog();
-   // }
+        // {
+        // MapV v = new MapV();
+        // v.ShowDialog();
+        // }
 
         private void ShowEpidemiologyDlg()
         {
@@ -69,6 +71,13 @@ namespace MvvmLight1.ViewModel
         public MainVM(IDataService dataService)
         {
             SetupRelayCommands();
+            isRegistered = true;
+        }
+
+        public bool isRegistered
+        {
+            get { return Model.settings.registered; }
+            set { Model.settings.registered = value; }
         }
     }
 }
