@@ -34,7 +34,9 @@ namespace MvvmLight1.ViewModel
         /// </summary>
         // public const string WelcomeTitlePropertyName = "WelcomeTitle";
 
-        public bool IsRegistered { get { return Model.settings.registered; } }
+        public bool IsRegistered { get { return Model.settings.registered; }
+                                   set { Model.settings.registered = value; }
+        }
 
 
         private void ShowMesg()
