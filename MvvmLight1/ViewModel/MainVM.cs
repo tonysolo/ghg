@@ -62,6 +62,7 @@ namespace MvvmLight1.ViewModel
         public RelayCommand EditMap { get; private set; }
         public RelayCommand EditEpidemiology { get; private set; }
 
+
         private void SetupRelayCommands()
         {
             EditMap = new RelayCommand(ShowMesg);  // (ShowMapDlg);
@@ -71,14 +72,16 @@ namespace MvvmLight1.ViewModel
         public MainVM(IDataService dataService)
         {
             SetupRelayCommands();
-            isRegistered = true;
+            isRegistered = true;  //needs to be replaced with loader registration
         }
 
         public bool isRegistered
         {
             get { return Model.settings.registered; }
-            set { Model.settings.registered = value; }
-        }
+            set { Model.settings.registered = value; } 
+  //take out set - must be readonly except for loader registration to set it once on login
+            
+        }                                            
     }
 }
 
