@@ -12,9 +12,11 @@ namespace MvvmLight1.ViewModel
     /// 
     /// The main view is a menu with three items:
     /// 
-    /// 1 User registration - users need to register before they can do anything - view data, or 
-    /// add epidemiology or patient records. They need to log in before they can do anything.
+    /// 1 User registration
     /// 2 User login
+    /// 
+    /// users need to register and log in they can do anything - view data, or 
+    /// add epidemiology or add patient records. 
     /// 
     /// 3 Epidemiology view or edit
     /// 4 Patient e-health records to view or edit
