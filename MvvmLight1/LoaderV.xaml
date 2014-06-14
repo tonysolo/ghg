@@ -7,11 +7,11 @@
         mc:Ignorable="d ignore"
         Title="Loader Registration"
         WindowStartupLocation="CenterScreen"
-        Width="200"  
-        Height="450"
+        Width="180"  
+        Height="420"
         DataContext="{Binding Loader, Source={StaticResource Locator}}">
     <Grid>
-        <StackPanel Margin="10,20,5,0">
+        <StackPanel Margin="10,10,5,0">
             <TextBlock Text="Region" />
             <DockPanel LastChildFill="True">
                 <Button Width="25" DockPanel.Dock="Left"/>
@@ -28,11 +28,11 @@
                 ItemsSource = "{Binding Qualifications}"
                 SelectedIndex="{Binding qualifindex}"
                 />
-            <TextBlock Text="First Name"/>
+            <TextBlock Text="Registration Council"/>
             <TextBox/>
-            <TextBlock Text="Registration Council" />
+            <TextBlock ><Run Language="en-gb" Text="Registration Number"/></TextBlock>
             <TextBox/>
-            <TextBlock Text="Choose a Security Question" />
+            <TextBlock Text="Security Question" />
             <ComboBox
                 ItemsSource = "{Binding SecurityQuestions}"
                 SelectedIndex="{Binding securitychoiceindex}"

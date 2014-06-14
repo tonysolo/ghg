@@ -7,15 +7,31 @@ namespace MvvmLight1.Model
 {
     enum gender { female, male }
     enum agegroup { Neonate, FirstYear, TwoToSixYears, SevenToTwelve, TeenAge, TwentyToForty, FortyToSixty, SixtyAndOlder }
-    enum facilty {ConsultingRoom, Clinic, Level1Hosp, Level2Hosp, Level3Hosp }
+    enum facilty { ConsultingRoom, Clinic, Level1Hosp, Level2Hosp, Level3Hosp }
     enum stay { Outpatient, Inpatient }
     enum funder { Public, Private }
     enum treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }
     enum qualification { Coder, ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
 
-    static class settings 
+    static class settings
     {
-        public static bool registered { get; set; }   
+        public static bool registered { get; set; }
+
+        public static string[] securityquestions
+        {
+            get
+            {
+                string[] s = 
+{
+"Your oldest siblings's middle name ?",
+"Your oldest friends's middle name ?",
+"Your childhood nickname ?",
+"Your maternal grandmother's maiden name ?",
+"Where were you when you heard about 9/11 ?"
+};
+                return s;
+            }
+
     }
 
     /// <summary>
@@ -23,7 +39,7 @@ namespace MvvmLight1.Model
     /// </summary>
     static class qnnee
     {
-       
+
         /// <summary>
         ///
         /// </summary>
@@ -156,7 +172,7 @@ namespace MvvmLight1.Model
                     n++;
                 }
             }
-            char[] s = {','};
+            char[] s = { ',' };
             string[] coord1 = point(q0, n0, e0).Split(s);
             string[] coord2 = point(q, n, e).Split(s);
 
@@ -165,5 +181,8 @@ namespace MvvmLight1.Model
         }
 
 
+       
+        }
     }
 }
+

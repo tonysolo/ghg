@@ -23,6 +23,8 @@ namespace MvvmLight1.ViewModel
 
         public int SecurityChoice { get; set; }
 
+        public string[] SecurityQuestions { get { return Model.settings.securityquestions; } }
+
         public string SecurityAnswer { get; set; }
 
         public bool Registered 
