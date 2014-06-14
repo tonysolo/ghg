@@ -8,16 +8,16 @@ using System.Windows;
 namespace MvvmLight1.ViewModel
 {
     /// <summary>
-    /// This class contains properties that the main View can data bind to.
+    /// This class contains properties that the main View can databind to.
     /// 
     /// The main view is a menu with three items:
     /// 
     /// 1 User registration - users need to register before they can do anything - view data, or 
     /// add epidemiology or patient records. They need to log in before they can do anything.
+    /// 2 User login
     /// 
-    /// 2 Epidemiology view or edit
-    /// 
-    /// 3 Patient records view or edit
+    /// 3 Epidemiology view or edit
+    /// 4 Patient e-health records to view or edit
     /// 
     /// <para>
     /// See http://www.galasoft.ch/mvvm
@@ -58,15 +58,23 @@ namespace MvvmLight1.ViewModel
             v.ShowDialog();
         }
 
+        private void ShowLoaderDlg()
+        {
+            LoaderV v = new LoaderV();
+            v.ShowDialog();
+        }
+
 
         public RelayCommand EditMap { get; private set; }
         public RelayCommand EditEpidemiology { get; private set; }
+        public RelayCommand EditLoader { get; private set; }
 
 
         private void SetupRelayCommands()
         {
             EditMap = new RelayCommand(ShowMesg);  // (ShowMapDlg);
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
+            EditLoader = new RelayCommand(ShowLoaderDlg);
         }
 
         public MainVM(IDataService dataService)
@@ -78,10 +86,10 @@ namespace MvvmLight1.ViewModel
         public bool isRegistered
         {
             get { return Model.settings.registered; }
-            set { Model.settings.registered = value; } 
-  //take out set - must be readonly except for loader registration to set it once on login
-            
-        }                                            
+            set { Model.settings.registered = value; }
+            //take out set - must be readonly except for loader registration to set it once on login
+
+        }
     }
 }
 

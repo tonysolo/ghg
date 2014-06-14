@@ -67,8 +67,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
-    <Compile Include="Loader.xaml.cs">
-      <DependentUpon>Loader.xaml</DependentUpon>
+    <Compile Include="LoaderV.xaml.cs">
+      <DependentUpon>LoaderV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\util.cs" />
     <Compile Include="Model\DataItem.cs" />
@@ -83,8 +83,8 @@
     <Compile Include="ViewModel\LoaderVM.cs" />
     <Compile Include="ViewModel\MapVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="Loader.xaml">
-      <SubType>Form</SubType>
+    <Page Include="LoaderV.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainV.xaml">

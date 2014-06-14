@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using System;
 
 namespace MvvmLight1.ViewModel
 {
@@ -17,6 +18,12 @@ namespace MvvmLight1.ViewModel
         {
             Model.settings.registered = true;
         }
+
+        public string[] Qualifications { get { return Enum.GetNames(typeof(Model.qualification)); } }
+
+        public int SecurityChoice { get; set; }
+
+        public string SecurityAnswer { get; set; }
 
         public bool Registered 
           { get {return Model.settings.registered;}

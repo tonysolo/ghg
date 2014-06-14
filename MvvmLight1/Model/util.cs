@@ -11,7 +11,7 @@ namespace MvvmLight1.Model
     enum stay { Outpatient, Inpatient }
     enum funder { Public, Private }
     enum treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }
-    enum qualification { ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
+    enum qualification { Coder, ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
 
     static class settings 
     {
