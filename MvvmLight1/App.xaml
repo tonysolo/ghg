@@ -12,13 +12,11 @@
          x:Key = "StandardSolidBrushColor"        
         -->
         <ResourceDictionary>
-            <ResourceDictionary 
+            <!--ResourceDictionary 
                     x:Key = "Themes"
                     Source = "Themes\ExpressionDark.xaml"
-                    />
+                    /-->
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
         </ResourceDictionary>
-
     </Application.Resources>
-
 </Application>

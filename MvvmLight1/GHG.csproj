@@ -41,6 +41,9 @@
     <Reference Include="GalaSoft.MvvmLight.WPF4">
       <HintPath>..\packages\MvvmLightLibs.4.2.30.0\lib\net40\GalaSoft.MvvmLight.WPF4.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Maps.MapControl.WPF">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Bing Maps WPF Control\V1\Libraries\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -69,6 +72,9 @@
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="LoaderV.xaml.cs">
       <DependentUpon>LoaderV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MapV.xaml.cs">
+      <DependentUpon>MapV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\util.cs" />
     <Compile Include="Model\DataItem.cs" />
@@ -100,6 +106,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="EpidemV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MapV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -77,9 +77,12 @@
             FontSize="20"
             Content="e-Health" 
             Grid.ColumnSpan="2"
-            IsEnabled="{Binding isRegistered}"
+            Command="{Binding EditMap}" 
             />
-        <!--TextBlock FontSize="36"
+        <!--
+         IsEnabled="{Binding isRegistered}"
+        
+        TextBlock FontSize="36"
                    FontWeight="Bold"
                    Foreground="Purple"
                    Text="{Binding WelcomeTitle}"
