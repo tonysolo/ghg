@@ -36,6 +36,7 @@ namespace MvvmLight1.ViewModel
             else
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
+                //SimpleIoc.Default.Register<userdata>();
             }
 
             SimpleIoc.Default.Register<MainVM>();
@@ -57,6 +58,7 @@ namespace MvvmLight1.ViewModel
         public LoaderVM Loader { get { return ServiceLocator.Current.GetInstance<LoaderVM>(); } }
         public eHealthVM eHealth { get { return ServiceLocator.Current.GetInstance<eHealthVM>(); } }
         public EpidemVM Epidem { get { return ServiceLocator.Current.GetInstance<EpidemVM>(); } }
+       // public userdata Userdata { get { return ServiceLocator.Current.GetInstance<userdata>(); } }
 
         /// <summary>
         /// Cleans up all the resources.

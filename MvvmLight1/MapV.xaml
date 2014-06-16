@@ -2,8 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-        Title="MapV" Height="300" Width="300">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="ToolWindow"
+        Title="MapV" Height="300" Width="300"
+         DataContext="{Binding Map, Source={StaticResource Locator}}">      
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
         <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                             Center="37.806029,-122.407007" ZoomLevel="16" Margin="0,0,10,0"/>
     </Grid>

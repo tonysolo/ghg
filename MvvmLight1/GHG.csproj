@@ -76,7 +76,7 @@
     <Compile Include="MapV.xaml.cs">
       <DependentUpon>MapV.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\util.cs" />
+    <Compile Include="Model\shared.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
@@ -88,7 +88,11 @@
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\LoaderVM.cs" />
     <Compile Include="ViewModel\MapVM.cs" />
+    <Compile Include="ViewModel\CoordVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="CoordV.xaml.cs">
+      <DependentUpon>CoordV.xaml</DependentUpon>
+    </Compile>
     <Page Include="LoaderV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +124,10 @@
     <Page Include="Themes\ExpressionDark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CoordV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

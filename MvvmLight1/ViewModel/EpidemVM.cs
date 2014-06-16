@@ -20,7 +20,6 @@ namespace MvvmLight1.ViewModel
         public string[] Qualifications { get { return Enum.GetNames(typeof(Model.qualification)); } }
         public string[] Regions { get; set; } //will have to be set from map info
 
-
         public byte AgeGroup { get; set; }
         public byte Gender { get; set; }
         public byte Facility { get; set; }

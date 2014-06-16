@@ -13,6 +13,41 @@ namespace MvvmLight1.Model
     enum treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }
     enum qualification { Coder, ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
 
+
+
+    public static class userdata 
+    {
+       static bool invalid;
+       static Dictionary<string, string> coords;
+       // string cloudid;
+       // public userdata() { invalid = false; }
+
+        static public void loaddata (string location_pin)
+        {
+            bool invalid = false;
+            cloudid = location_pin;
+        //validate and read prefs and GIS from cloud        
+        }
+
+       static void  AddCoords(string district, string qnnneee) 
+        {
+            coords.Add(district, qnnneee);
+            invalid = true;
+        }
+
+        void Save()
+        {
+            if (invalid == true)
+            {
+                //use cloudid to locate storage
+                //locate offset
+                //overwrite coords location
+            }
+        }
+    }
+
+
+
     static class settings
     {
         public static bool registered { get; set; }

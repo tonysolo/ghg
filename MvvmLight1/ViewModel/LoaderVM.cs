@@ -28,7 +28,8 @@ namespace MvvmLight1.ViewModel
         public string SecurityAnswer { get; set; }
 
         public bool Registered 
-          { get {return Model.settings.registered;}
+          { 
+            get {return Model.settings.registered;}
             set { Model.settings.registered = value; }  
           }
     }
