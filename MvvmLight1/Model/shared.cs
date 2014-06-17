@@ -24,8 +24,8 @@ namespace MvvmLight1.Model
 
         static public void loaddata (string location_pin)
         {
-            bool invalid = false;
-            cloudid = location_pin;
+            //bool invalid = false;
+            //cloudid = location_pin;
         //validate and read prefs and GIS from cloud        
         }
 
@@ -35,15 +35,15 @@ namespace MvvmLight1.Model
             invalid = true;
         }
 
-        void Save()
-        {
-            if (invalid == true)
-            {
+       // void Save()
+       // {
+       //     if (invalid == true)
+       //    {
                 //use cloudid to locate storage
                 //locate offset
                 //overwrite coords location
-            }
-        }
+        //    }
+       //}
     }
 
 

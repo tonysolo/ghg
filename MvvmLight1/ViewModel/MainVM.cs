@@ -81,7 +81,39 @@ namespace MvvmLight1.ViewModel
 
         public MainVM(IDataService dataService)
         {
+            //object item;
+            //object error;
+    string WelcomeTitle;
+   
+    IDataService _dataService = dataService;
+
+            _dataService.GetData((item,error) => 
+                {
+                    if (error != null)
+                    {
+                        // Report error here
+                        return;
+                    }
+
+                    WelcomeTitle = item.Title;
+                }); 
+
+
+
+
+
+
+
+
+
+
             SetupRelayCommands();
+
+
+
+
+
+
             isRegistered = true;  //needs to be replaced with loader registration
         }
 

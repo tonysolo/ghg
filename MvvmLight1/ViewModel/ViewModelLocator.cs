@@ -35,7 +35,7 @@ namespace MvvmLight1.ViewModel
             }
             else
             {
-                SimpleIoc.Default.Register<IDataService, DataService>();
+                SimpleIoc.Default.Register<IDataService, MainDataService>();
                 //SimpleIoc.Default.Register<userdata>();
             }
 

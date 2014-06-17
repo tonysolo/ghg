@@ -48,8 +48,8 @@
             Content="Register"
              Command="{Binding EditLoader}" 
             />
-            <!--" IsEnabled="{Binding isRegistered}"-->
-           
+        <!--" IsEnabled="{Binding isRegistered}"-->
+
         <Button
              Margin="4"
             Grid.Row="1"
@@ -57,7 +57,7 @@
             Content="Help"
             />
         <Button
-             Margin="4"
+             Margin="4,3,4,5"
             Grid.Row="2"
              Grid.Column="1"
             Content="Login"
