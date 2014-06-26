@@ -35,15 +35,15 @@ namespace MvvmLight1.Model
             invalid = true;
         }
 
-       // void Save()
-       // {
-       //     if (invalid == true)
-       //    {
-                //use cloudid to locate storage
-                //locate offset
-                //overwrite coords location
-        //    }
-       //}
+// void Save()
+// {
+//     if (invalid == true)
+//    {
+//use cloudid to locate storage
+//locate offset
+//overwrite coords location
+//    }
+//}
     }
 
 

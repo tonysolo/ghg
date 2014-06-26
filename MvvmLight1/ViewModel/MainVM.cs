@@ -83,20 +83,20 @@ namespace MvvmLight1.ViewModel
         {
             //object item;
             //object error;
-    string WelcomeTitle;
+   // string WelcomeTitle;
    
     IDataService _dataService = dataService;
 
-            _dataService.GetData((item,error) => 
-                {
-                    if (error != null)
-                    {
+           // _dataService.GetData((item,error) => 
+           //     {
+            //        if (error != null)
+           //         {
                         // Report error here
-                        return;
-                    }
+          //              return;
+           //         }
 
-                    WelcomeTitle = item.Title;
-                }); 
+           //         WelcomeTitle = item.Title;
+          //      }); 
 
 
 
