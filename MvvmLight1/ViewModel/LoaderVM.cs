@@ -27,7 +27,7 @@ namespace MvvmLight1.ViewModel
 
         public string SecurityAnswer { get; set; }
 
- public string SecurityAnswertest { get; set; }
+
 
         public bool Registered 
           { 
