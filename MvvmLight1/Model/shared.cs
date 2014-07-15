@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+//using System.IO;
+//using System.Net;
+//using System.Web;
+
 
 namespace MvvmLight1.Model
 {
@@ -187,24 +191,28 @@ namespace MvvmLight1.Model
                 // }
                 // return "";
             }
-
-            string incy(string coord) 
+/*
+            string incy(string coord)
             {
-               char[] carr = coord.ToCharArray(); 
-               if (coord.Length==7) carr[3]++; else carr[2]++;
-               return carr.ToString();
+                char[] carr = coord.ToCharArray();
+                if (coord.Length == 7) carr[3]++; else carr[2]++;
+                return carr.ToString();
             }
-            
-            
-            string incx(string coord) 
-            { 
-               char[] carr = coord.ToCharArray(); 
-               if (coord.Length==7) carr[6]++; else carr[5]++;
-               return carr.ToString();
-              }
 
-            string incxy(string coord) { return coord; }
 
+            string incx(string coord)
+            {
+                char[] carr = coord.ToCharArray();
+                if (coord.Length == 7) carr[6]++; else carr[5]++;
+                return carr.ToString();
+            }
+
+            string incxy(string coord)
+            {
+                coord = incx(coord);
+                return incy(coord);
+            }
+*/
             /// <summary>
             /// 
             /// </summary>
@@ -245,7 +253,11 @@ namespace MvvmLight1.Model
                  coord1[0], coord1[1], coord2[0], coord1[0], coord2[1], coord1[1], coord1[1], coord2[1]);
             }
 
-
+static void SendData(string s)
+{
+   // H
+    //HttpWebRequest hwr = new HttpWebRequest();
+}
 
         }
     }

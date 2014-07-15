@@ -5,12 +5,6 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GHG", "MvvmLight1\GHG.csproj", "{BA8B1914-733A-4A7A-8089-09617F7E7545}"
 EndProject
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "GHGRest", "GHGRest\GHGRest.ccproj", "{510FB5D2-8ED8-458E-A70A-FF756E60832B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcWebRole1", "MvcWebRole1\MvcWebRole1.csproj", "{C5801427-DDBA-445E-BD0F-93E3AA708ED2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcWebRole1.Tests", "MvcWebRole1.Tests\MvcWebRole1.Tests.csproj", "{0F6AFC3D-9F07-4BA1-B6A8-BA82882C2B28}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{729FBA13-D6F4-4FF2-A6C8-527E92CE373A}"
 	ProjectSection(SolutionItems) = preProject
 		ghg.txt = ghg.txt
@@ -26,18 +20,6 @@ Global
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Release|Any CPU.Build.0 = Release|Any CPU
-		{510FB5D2-8ED8-458E-A70A-FF756E60832B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{510FB5D2-8ED8-458E-A70A-FF756E60832B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{510FB5D2-8ED8-458E-A70A-FF756E60832B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{510FB5D2-8ED8-458E-A70A-FF756E60832B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5801427-DDBA-445E-BD0F-93E3AA708ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5801427-DDBA-445E-BD0F-93E3AA708ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5801427-DDBA-445E-BD0F-93E3AA708ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5801427-DDBA-445E-BD0F-93E3AA708ED2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F6AFC3D-9F07-4BA1-B6A8-BA82882C2B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F6AFC3D-9F07-4BA1-B6A8-BA82882C2B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F6AFC3D-9F07-4BA1-B6A8-BA82882C2B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F6AFC3D-9F07-4BA1-B6A8-BA82882C2B28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
