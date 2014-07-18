@@ -3,6 +3,9 @@ using MvvmLight1.Model;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Windows;
+//using System.Configuration;
+//using Microsoft.WindowsAzure.Storage;
+//using Microsoft.WindowsAzure.Storage.Table;
 
 
 namespace MvvmLight1.ViewModel

@@ -1,5 +1,6 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
+using MvvmLight1.Model;
 
 namespace MvvmLight1.ViewModel
 {
@@ -12,7 +13,8 @@ namespace MvvmLight1.ViewModel
     public class EpidemVM : ViewModelBase
     {
         public string[] Genders { get { return Enum.GetNames(typeof(Model.gender)); } }
-        public string[] AgeGroups { get { return Enum.GetNames(typeof(Model.agegroup)); } }
+        // public string[] AgeGroups { get {return AzureAccess.Qnames;} }
+        public string[] AgeGroups{ get { return Enum.GetNames(typeof(Model.agegroup)); } }
         public string[] Facilities { get { return Enum.GetNames(typeof(Model.facilty)); } }
         public string[] Stays { get { return Enum.GetNames(typeof(Model.stay)); } }
         public string[] Funders { get { return Enum.GetNames(typeof(Model.funder)); } }
