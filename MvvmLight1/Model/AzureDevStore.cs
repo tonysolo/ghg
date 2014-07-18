@@ -39,6 +39,12 @@ namespace MvvmLight1.Model
                 return sarr;
             }
         }
+
+        public static void LoadtoQueue(CloudQueueMessage msg, int queue, int waitsecs)
+        {
+           CloudQueueClient cqc = Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount.CreateCloudQueueClient();
+            cqc.GetQueueReference("t-0").AddMessage(msg,null,null,null,null);
+        }
         
     }
 }
