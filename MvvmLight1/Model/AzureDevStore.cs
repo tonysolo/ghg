@@ -37,7 +37,6 @@ namespace MvvmLight1.Model
                 string[] sarr = new string[ccarr.Length];
                 for (int i = 0; i < sarr.Length; i++) sarr[i] = ccarr[i].Name;
                 return sarr;
-
             }
         }
         
