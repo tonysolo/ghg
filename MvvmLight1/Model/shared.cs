@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 //using System.IO;
 //using System.Net;
 //using System.Web;
@@ -16,8 +17,6 @@ namespace MvvmLight1.Model
     enum funder { Public, Private }
     enum treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }
     enum qualification { Coder, ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
-
-
 
     public static class userdata
     {
@@ -50,8 +49,6 @@ namespace MvvmLight1.Model
         //}
     }
 
-
-
     static class settings
     {
         public static bool registered { get; set; }
@@ -67,9 +64,9 @@ namespace MvvmLight1.Model
 "Where were you when you heard about 9/11 ?" };
                 return s;
             }
-
         }
-
+    } 
+    
         /// <summary>
         /// collection of static methods for gis reqions and filenames
         /// </summary>
@@ -153,28 +150,16 @@ namespace MvvmLight1.Model
             /// </summary>
             /// <param name="qnnee"></param>
             /// <returns>lower left point of district or region</returns>
-            static string point(string qnnee)
+            static string point(string qnnee) 
             {
 
                 if ((qnnee.Length != 5) || (qnnee.Length != 7)) return "";
                 UInt16 q, n, e;
 
                 if (qnnee.Length == 5) { qnnee.Insert(5, "0"); qnnee.Insert(2, "0"); }
-                /* {
-                     q = Convert.ToUInt16(qnnee[0]);
-                     n = Convert.ToUInt16(qnnee.Substring(1, 2), 16);
-                     e = Convert.ToUInt16(qnnee.Substring(3, 2), 16);
-                     float fn = n / 128 * 90;
-                     float fe = n / 256 * 180;
-                     if (q == 1) fe *= -1;
-                     if (q == 2) fn *= -1;
-                     if (q == 3) { fe *= -1; fn *= -1; }
-                     return String.Format("{0},{1}", fn, fe);
-                 }*/
-                // if (qnnee.Length == 7)
-
-                //todo check that qnnee is alway length 7
-                // {
+               
+                //qnnee is alway converted to length 7
+               
                 q = Convert.ToUInt16(qnnee[0]);
                 n = Convert.ToUInt16(qnnee.Substring(1, 3), 16);
                 e = Convert.ToUInt16(qnnee.Substring(4, 3), 16);
@@ -183,39 +168,17 @@ namespace MvvmLight1.Model
                 if (q == 1) fe *= -1;
                 if (q == 2) fn *= -1;
                 if (q == 3) { fe *= -1; fn *= -1; }
-                return String.Format("{0},{1}", fn, fe);
-                // }
-                // return "";
+                return String.Format("{0},{1}", fn, fe);              
             }
-            /*
-                        string incy(string coord)
-                        {
-                            char[] carr = coord.ToCharArray();
-                            if (coord.Length == 7) carr[3]++; else carr[2]++;
-                            return carr.ToString();
-                        }
-
-
-                        string incx(string coord)
-                        {
-                            char[] carr = coord.ToCharArray();
-                            if (coord.Length == 7) carr[6]++; else carr[5]++;
-                            return carr.ToString();
-                        }
-
-                        string incxy(string coord)
-                        {
-                            coord = incx(coord);
-                            return incy(coord);
-                        }
-            */
+           
+            
             /// <summary>
             /// 
             /// </summary>
             /// <param name="qne"></param>
             /// <returns>four points (in a csv string) that are the corners of the region</returns>
 
-            static string Boundary(string qne)
+            static string Boundary(string qne) //qnnneee or qnnee
             {
                 string[] coords = new string[4];
                 if (qne.Length == 7)
@@ -227,17 +190,17 @@ namespace MvvmLight1.Model
                 }
 
                 UInt16 q = 0, n = 0, e = 0, q0 = 0, e0 = 0, n0 = 0;
+
                 if (qne.Length == 5)
                 {
                     q0 = q = Convert.ToUInt16(qne[0]);
                     n0 = n = Convert.ToUInt16(qne.Substring(1, 2), 16);
                     e0 = e = Convert.ToUInt16(qne.Substring(3, 2), 16);
 
-                    if (n < 127)
+                    if (n < 127) //cant calc to the poles
                     {
-                        if (e < 255) e = (UInt16)(e + 1); //toggle east west
-                        else if (q > 1) q = (UInt16)(5 - q);
-                        else q = (UInt16)(1 - q);
+                        if (e < 255) e = (UInt16)(e + 1); 
+                        else q = (q > 1) ? (UInt16)(5 - q): (UInt16)(1 - q);//toggle quadrant east west
                         n++;
                     }
                 }
@@ -249,13 +212,16 @@ namespace MvvmLight1.Model
                  coord1[0], coord1[1], coord2[0], coord1[0], coord2[1], coord1[1], coord1[1], coord2[1]);
             }
 
-            static void SendData(string s)
+            static string SecsToMidnight()
             {
-                // H
-                //HttpWebRequest hwr = new HttpWebRequest();
+                XDocument xd = XDocument.Load("http://www.earthtools.org/timezone/0/0/");
+                var s = xd.Document.Descendants("utctime");
+                return s.ToString();
             }
 
         }
-    }
-}
+
+        }
+    
+
 
