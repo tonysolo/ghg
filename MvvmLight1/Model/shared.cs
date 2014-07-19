@@ -55,19 +55,16 @@ namespace MvvmLight1.Model
     static class settings
     {
         public static bool registered { get; set; }
-
         public static string[] securityquestions
         {
             get
             {
-                string[] s = 
-{
+                string[] s = {
 "Your oldest siblings's middle name ?",
 "Your oldest friends's middle name ?",
 "Your childhood nickname ?",
 "Your maternal grandmother's maiden name ?",
-"Where were you when you heard about 9/11 ?"
-};
+"Where were you when you heard about 9/11 ?" };
                 return s;
             }
 
@@ -78,7 +75,6 @@ namespace MvvmLight1.Model
         /// </summary>
         static class qnnee
         {
-
             /// <summary>
             ///
             /// </summary>
@@ -191,28 +187,28 @@ namespace MvvmLight1.Model
                 // }
                 // return "";
             }
-/*
-            string incy(string coord)
-            {
-                char[] carr = coord.ToCharArray();
-                if (coord.Length == 7) carr[3]++; else carr[2]++;
-                return carr.ToString();
-            }
+            /*
+                        string incy(string coord)
+                        {
+                            char[] carr = coord.ToCharArray();
+                            if (coord.Length == 7) carr[3]++; else carr[2]++;
+                            return carr.ToString();
+                        }
 
 
-            string incx(string coord)
-            {
-                char[] carr = coord.ToCharArray();
-                if (coord.Length == 7) carr[6]++; else carr[5]++;
-                return carr.ToString();
-            }
+                        string incx(string coord)
+                        {
+                            char[] carr = coord.ToCharArray();
+                            if (coord.Length == 7) carr[6]++; else carr[5]++;
+                            return carr.ToString();
+                        }
 
-            string incxy(string coord)
-            {
-                coord = incx(coord);
-                return incy(coord);
-            }
-*/
+                        string incxy(string coord)
+                        {
+                            coord = incx(coord);
+                            return incy(coord);
+                        }
+            */
             /// <summary>
             /// 
             /// </summary>
@@ -253,11 +249,11 @@ namespace MvvmLight1.Model
                  coord1[0], coord1[1], coord2[0], coord1[0], coord2[1], coord1[1], coord1[1], coord2[1]);
             }
 
-static void SendData(string s)
-{
-   // H
-    //HttpWebRequest hwr = new HttpWebRequest();
-}
+            static void SendData(string s)
+            {
+                // H
+                //HttpWebRequest hwr = new HttpWebRequest();
+            }
 
         }
     }
