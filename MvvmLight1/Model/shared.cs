@@ -212,11 +212,18 @@ namespace MvvmLight1.Model
                  coord1[0], coord1[1], coord2[0], coord1[0], coord2[1], coord1[1], coord1[1], coord2[1]);
             }
 
-            static string SecsToMidnight()
+            static int SecsToMidnight(string qe)
             {
-                XDocument xd = XDocument.Load("http://www.earthtools.org/timezone/0/0/");
-                var s = xd.Document.Descendants("utctime");
-                return s.ToString();
+                byte q = Convert.ToByte(qe[0]);
+                byte e = Convert.ToByte(qe[1].ToString(),16);
+                int min = e*45;
+               
+                if (q==1 || q==3) min *= -1;
+                int y = 0; // = longit 0 SecsToMidnight
+                //uint x = y + 
+               // XDocument xd = XDocument.Load("http://www.earthtools.org/timezone/0/0/");
+               // var s = xd.Document.Descendants("utctime");
+                return y;
             }
 
         }
