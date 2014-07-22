@@ -12,7 +12,8 @@ communication message queue /  auto response service to email (loaders) when pos
 
 Loader <> L-blob communication (fixed length rec)
 
-loader registration with message queue communication to check registration and email
+loader registration with message queue communication to check registration and email. Gives friendly 
+feedback before authorization. Data saved as csv in 512 byte[] record. 
 
 Epidem <> e_blob (variable len + multiple rec spanning (needs checking))
 
