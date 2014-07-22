@@ -15,7 +15,7 @@ namespace ConsoleApplication3
         {
 
          for (int i = 0;i<32;i++)
-          Console.WriteLine(test.secstomidnight(tst[i]));
+          Console.WriteLine("Zone {0:x}  {1}  ", i ,test.secstomidnight(tst[i])/60);
           Console.ReadLine();
 
         }

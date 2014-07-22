@@ -6,17 +6,21 @@ Map click to make QNNEE.
 
 //done QNNEE to 4 points (Static)
 
-Time (seconds) to midnight (Static) 
+//done Time (seconds) to midnight (Static) 
 
-Worker-Role to read queues and build epidemiology
-
-List all QNNEE containers for SA and UK
+communication message queue /  auto response service to email (loaders) when possible.
 
 Loader <> L-blob communication (fixed length rec)
 
-Patient <> p-blob (variable len rec)
+loader registration with message queue communication to check registration and email
 
-Epidem <> e_blob (variable len + multiple rec spanning)
+Epidem <> e_blob (variable len + multiple rec spanning (needs checking))
+
+Worker-Role to read queues and build epidemiology
+
+Compile list of all QNNEE containers for SA and UK
+
+Patient <> p-blob (? variable len rec or fixed lengthe plus block blobs for images)
 
 userdata ? remove coord record facility from 'shared'
 

@@ -8,19 +8,15 @@ namespace ConsoleApplication3
 {
     public static class test
     {
-public static int secstomidnight(string qe)
-{
-    DateTime.UtcNow.
-    byte _qe = Convert.ToByte(qe, 16);    
-    bool east = (_qe & 0x10) == 0;
-    byte longit = (byte)(_qe & 0x07);
-    int timezonesecs = longit * 45 * 60;
-    timezonesecs = (east)? timezonesecs: timezonesecs *= -1;
-   // DateTime dt = DateTime.UtcNow;
-   // DateTime dt1 = dt.AddDays(1); 
-   // TimeSpan ts = dt1 - dt;
-   
-return (timezonesecs);
-}
+        public static int secstomidnight(string qe)
+        {
+            DateTime utc = DateTime.UtcNow;
+            int x = (utc.Second) + (utc.Minute * 60) + (utc.Hour * 60 * 60);
+            int utcsecstomidnight = (86400 - x);
+            byte _qe = Convert.ToByte(qe, 16);
+            byte longit = (byte)(_qe & 0x1f);
+            int timezonesecs = longit * 45 * 60;
+            return (timezonesecs - utcsecstomidnight + 86400) % 86400;
+        }
     }
 }
