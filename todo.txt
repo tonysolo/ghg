@@ -1,48 +1,26 @@
 
 
-Map click to make QNNEE.
 
-//done Point to QNNEE (Static)
+CURRENT
+Loader L-blob communication (fixed length rec) Data saved as csv in 512 byte[] record. 
+loader registration with message queue communication to check registration and email.
+communication message queue /  auto response service to email (loaders) when possible. 
+Gives friendly feedback to new loaders awaiting authorization. 
 
-//done QNNEE to 4 points (Static)
 
-//done Time (seconds) to midnight (Static) 
-
-communication message queue /  auto response service to email (loaders) when possible.
-
-Loader <> L-blob communication (fixed length rec)
-
-loader registration with message queue communication to check registration and email. Gives friendly 
-feedback before authorization. Data saved as csv in 512 byte[] record. 
-
+TODO
 Epidem <> e_blob (variable len + multiple rec spanning (needs checking))
-
 Worker-Role to read queues and build epidemiology
-
 Compile list of all QNNEE containers for SA and UK
-
 Patient <> p-blob (? variable len rec or fixed lengthe plus block blobs for images)
-
 userdata ? remove coord record facility from 'shared'
-
 loader data ? add top 40 to include commom codes and regions as isolated storage.
+QNNEE to 4 points (Static) utils
+Map click to make QNNEE. utils
 
+DONE
+Point to QNNEE (Static) Utils
+Time (seconds) to midnight (Static) move this to utils
 
-
-http://www.earthtools.org/timezone/40.71417/-74.00639
-
-which returns the following XML:
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<timezone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.earthtools.org/timezone.xsd">
-    <version>1.1</version>
-    <location>
-        <latitude>40.71417</latitude>
-        <longitude>-74.00639</longitude>
-    </location>
-    <offset>-5</offset>
-    <suffix>R</suffix>
-    <localtime>4 Dec 2005 12:06:56</localtime>
-    <isotime>2005-12-04 12:06:56 -0500</isotime>
-    <utctime>2005-12-04 17:06:56</utctime>
-    <dst>False</dst>
-</timezone>
+NOTES
+Secs to midnight relies on local clock set correctly (? use internet time check)
