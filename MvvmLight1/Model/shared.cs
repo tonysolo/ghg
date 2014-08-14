@@ -85,7 +85,8 @@ namespace MvvmLight1.Model
                 double lon = Convert.ToDouble(sarr[1]);
                 bool neglat = (lat < 0);
                 bool neglon = (lon < 0);
-                int q = (neglat && neglon) ? 3 : (neglat) ? 2 : (neglon) ? 1 : 0;
+                int q = 0; 
+                q = (neglat && neglon) ? 3 : (neglat) ? 2 : (neglon) ? 1 : 0;
                 int ilat = (int)Math.Round(lat / 180 * 4096);
                 int ilon = (int)Math.Round(lon / 180 * 4096);
                 return string.Format("{0:X1}{1:X3}{2:X3}", q, ilat, ilon);
@@ -104,7 +105,8 @@ namespace MvvmLight1.Model
                 double lon = Convert.ToDouble(sarr[1]);
                 bool neglat = (lat < 0);
                 bool neglon = (lon < 0);
-                int q = (neglat && neglon) ? 3 : (neglat) ? 2 : 1;
+                int q = 0; 
+                q = (neglat && neglon) ? 3 : (neglat) ? 2 : 1;
                 int ilat = (int)Math.Round(lat / 180 * 256);
                 int ilon = (int)Math.Round(lon / 180 * 256);
                 return string.Format("{0:X1}{1:X2}{2:X2}", q, ilat, ilon);

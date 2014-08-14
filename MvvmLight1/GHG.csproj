@@ -111,6 +111,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="eHealthV.xaml.cs">
+      <DependentUpon>eHealthV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoaderV.xaml.cs">
       <DependentUpon>LoaderV.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,7 @@
     </Compile>
     <Compile Include="ViewModel\eHealthVM.cs" />
     <Compile Include="ViewModel\EpidemVM.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\LoaderVM.cs" />
     <Compile Include="ViewModel\MapVM.cs" />
@@ -135,6 +139,10 @@
     <Compile Include="CoordV.xaml.cs">
       <DependentUpon>CoordV.xaml</DependentUpon>
     </Compile>
+    <Page Include="eHealthV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoaderV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
