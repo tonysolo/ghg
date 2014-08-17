@@ -14,6 +14,10 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Helpers;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using Microsoft.Practices.ServiceLocation;
 
 namespace MvvmLight1.ViewModel
@@ -28,7 +32,7 @@ namespace MvvmLight1.ViewModel
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
-        {
+        { 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             ////if (ViewModelBase.IsInDesignModeStatic)
@@ -42,14 +46,14 @@ namespace MvvmLight1.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MainVM>();//<MainViewModel>()
         }
 
-        public MainViewModel Main
+        public MainVM Main
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return ServiceLocator.Current.GetInstance<MainVM>();
             }
         }
         

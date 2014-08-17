@@ -3,6 +3,7 @@ using MvvmLight1.Model;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Windows;
+using MvvmLight1.ViewModel;
 //using System.Configuration;
 //using Microsoft.WindowsAzure.Storage;
 //using Microsoft.WindowsAzure.Storage.Table;
@@ -82,13 +83,13 @@ namespace MvvmLight1.ViewModel
             EditLoader = new RelayCommand(ShowLoaderDlg);
         }
 
-        public MainVM(IDataService dataService)
+        public MainVM()
         {
             //object item;
             //object error;
    // string WelcomeTitle;
    
-    IDataService _dataService = dataService;
+   // IDataService _dataService = dataService;
 
            // _dataService.GetData((item,error) => 
            //     {
@@ -117,7 +118,7 @@ namespace MvvmLight1.ViewModel
 
 
 
-            isRegistered = true;  //needs to be replaced with loader registration
+           // isRegistered = true;  //needs to be replaced with loader registration
         }
 
         public bool isRegistered
