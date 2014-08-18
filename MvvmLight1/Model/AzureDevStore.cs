@@ -10,6 +10,23 @@ using Microsoft.WindowsAzure.Storage.Queue;
 
 namespace MvvmLight1.Model
 {
+    public static class AzureUtil
+    {
+        public static int secstomidnight(string qe)
+        {
+            DateTime utc = DateTime.UtcNow;
+            int x = (utc.Second) + (utc.Minute * 60) + (utc.Hour * 60 * 60);
+            int utcsecstomidnight = (86400 - x);
+            byte _qe = Convert.ToByte(qe, 16);
+            byte longit = (byte)(_qe & 0x1f);
+            int timezonesecs = longit * 45 * 60;
+            return (timezonesecs - utcsecstomidnight + 86400) % 86400;
+        }
+
+
+    }
+
+
     public static class AzureDevStorage
     {
         public static string[] QueueNames
@@ -26,7 +43,7 @@ namespace MvvmLight1.Model
             }
         }
 
-        public static string[] BlobContainerNames 
+        public static string[] BlobContainerNames
         {
             get
             {
@@ -42,10 +59,13 @@ namespace MvvmLight1.Model
 
         public static void LoadtoQueue(CloudQueueMessage msg, int queue, int waitsecs)
         {
-           CloudQueueClient cqc = Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount.CreateCloudQueueClient();
-            cqc.GetQueueReference("t-0").AddMessage(msg,null,null,null,null);
+            string qname = "t-" + queue.ToString();
+            TimeSpan ts = new TimeSpan();
+            ts = TimeSpan.FromSeconds(waitsecs);
+            CloudQueueClient cqc = Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount.CreateCloudQueueClient();
+            cqc.GetQueueReference(qname).AddMessage(msg, null,ts, null, null);
         }
-        
+
     }
 }
 
