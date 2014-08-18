@@ -124,6 +124,9 @@
       <DependentUpon>MapV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\AzureDevStore.cs" />
+    <Compile Include="Model\AzureStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Model\DataItem.cs">
       <SubType>Code</SubType>
     </Compile>
