@@ -24,11 +24,28 @@ namespace MvvmLight1.Model
         }
 
 
-    }
+
+        public static bool PageBlobExists(CloudBlobClient client, string container, string key)
+        {
+            return client.GetContainerReference(container).
+                GetPageBlobReference(key). Exists();
+               
+        }
 
 
-    public static class AzureDevStorage
-    {
+        public static bool BlockBlobExists(CloudBlobClient client, string container, string key)
+        {
+            return client.GetContainerReference(container).
+                GetBlockBlobReference(key).Exists();
+                
+        }
+
+        public static bool ContainerExists(CloudBlobClient client, string container)
+        {
+            return client.GetContainerReference(container).Exists();
+        }
+
+
         public static string[] QueueNames
         {
             get
@@ -62,8 +79,9 @@ namespace MvvmLight1.Model
             string qname = "t-" + queue.ToString();
             TimeSpan ts = new TimeSpan();
             ts = TimeSpan.FromSeconds(waitsecs);
-            CloudQueueClient cqc = Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount.CreateCloudQueueClient();
-            cqc.GetQueueReference(qname).AddMessage(msg, null,ts, null, null);
+            CloudQueueClient cqc = Microsoft.WindowsAzure.Storage.CloudStorageAccount.
+                DevelopmentStorageAccount.CreateCloudQueueClient();
+            cqc.GetQueueReference(qname).AddMessage(msg, null, ts, null, null);
         }
 
     }
