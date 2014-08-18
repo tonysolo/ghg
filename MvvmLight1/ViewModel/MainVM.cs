@@ -112,6 +112,7 @@ namespace MvvmLight1.ViewModel
 
 
             SetupRelayCommands();
+            isRegistered = true;
 
 
 

@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         Height="450"
-        Width="200"
+        Width="250"
         DataContext="{Binding Epidem, Source={StaticResource Locator}}">
     <Grid>
         <DockPanel
