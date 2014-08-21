@@ -11,7 +11,7 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             int i = 8;
-
+            
             string s = "t-";
             s = s + i.ToString();
 

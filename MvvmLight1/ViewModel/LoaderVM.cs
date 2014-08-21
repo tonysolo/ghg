@@ -17,6 +17,9 @@ namespace MvvmLight1.ViewModel
         public LoaderVM()
         {
             Model.settings.registered = true;
+    string[] s = Model.AzureStorage.devListContainers();
+
+Model.AzureStorage.devListContainers();
         }
 
         public string[] Qualifications { get { return Enum.GetNames(typeof(Model.qualification)); } }
