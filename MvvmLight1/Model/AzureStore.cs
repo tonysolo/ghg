@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure;
 
+
 namespace MvvmLight1.Model
 {
    public static class AzureStorage
@@ -14,7 +15,11 @@ namespace MvvmLight1.Model
        public static string[] devListContainers()
        {
            string[] saa = new string[3];
-           CloudStorageAccount dev = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("devstorageaccount1"));
+           CloudStorageAccount dev = CloudStorageAccount.Parse
+               (
+               CloudConfigurationManager.
+               GetSetting("StorageConnectionString")
+               );
 
            CloudBlobClient blobClient = dev.CreateCloudBlobClient();
            CloudBlobContainer container = blobClient.GetContainerReference("2aabb");
