@@ -244,6 +244,7 @@
   <ItemGroup>
     <Content Include="bin\Debug\MvvmLight1.exe" />
     <Content Include="bin\Debug\MvvmLight1.pdb" />
+    <Resource Include="Todo.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />

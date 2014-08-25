@@ -1,0 +1,19 @@
+﻿work on all the views
+
+set relaycommands to control the whole flow
+save button on the main view
+region container (include) file with names of all regions for a country
+if (sa then include sa.cs)
+
+work on maps and regions
+borders for hi res and low res 80x80 km
+
+decide on fields for loaders
+decide on fields for patients
+
+loader and patient registration and loader hpcsa check
+
+epidemiology top 40 list and save in loader registration page
+
+? Write SAMJ article
+
