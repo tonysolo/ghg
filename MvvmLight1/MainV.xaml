@@ -46,7 +46,7 @@
              Margin="4"            
              Grid.Column="1"
             Content="Register"
-             Command="{Binding EditLoader}" 
+            Command="{Binding EditLoader}" 
             />
         <!--" IsEnabled="{Binding isRegistered}"-->
 

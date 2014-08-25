@@ -19,33 +19,14 @@ namespace MvvmLight1.ViewModel
         /// <summary>
         /// Initializes a new instance of the MvvmViewModel1 class.
         /// </summary>
+        /// 
+
+
+
+
         public LoaderVM()
         {
-            Model.settings.registered = true;
-            string s = Model.AzureStorage.devListContainers();
-            CloudStorageAccount account = Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount;
-
-            CloudBlobContainer container = account.CreateCloudBlobClient().GetContainerReference("2aabb");
-            CloudPageBlob loader = container.GetPageBlobReference("l");
-            loader.Create(1024);
-            string s1 = "Tony Manicom/n173 blandford road/n north riding, Randburg/n";
-            byte[] sb = Encoding.UTF8.GetBytes(s1);
-
-            // byte[] ba = new byte[512];
-            int grow = 512 - ((sb.Length) % 512);
-            Array.Resize(ref sb, sb.Length + grow);
-            //  for (int i = 0; i < sb.Length; i++) ba[i] = sb[i];      
-            //ba.
-            // byte[] x = new byte[512];
-            // for (int i = 0; i < 512; i++) x[i] = (byte)i;
-            loader.UploadFromByteArray(sb, 0, 512);
-
-            CloudPageBlob readerblob = container.GetPageBlobReference("l");
-            System.IO.Stream stream = readerblob.OpenRead();
-            byte[] buffer = new byte[512];
-            stream.Seek(0, System.IO.SeekOrigin.Begin);
-            stream.Read(buffer, 0, 512);
-            //Model.AzureStorage.devListContainers();
+            Model.AzureStorage.SetupAzureAccount();          
         }
 
         public string[] Qualifications { get { return Enum.GetNames(typeof(Model.qualification)); } }
