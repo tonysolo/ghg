@@ -12,20 +12,21 @@ namespace MvvmLight1.Model
 {
    public static class AzureStorage
     {
-       public static string[] devListContainers()
+       public static string devListContainers()
        {
-           string[] saa = new string[3];
+           //string[] saa = new string[10];
            CloudStorageAccount dev = CloudStorageAccount.Parse
                (
                CloudConfigurationManager.
                GetSetting("StorageConnectionString")
                );
-
+           //int i = 0;
            CloudBlobClient blobClient = dev.CreateCloudBlobClient();
            CloudBlobContainer container = blobClient.GetContainerReference("2aabb");
-           string s = blobClient.ListContainers().ToString();
+          // IEnumerable<CloudBlobContainer> cbc = blobClient.ListContainers();
+           string s = container.Name;
           
-           return saa; 
+          return s; 
        }
 
 

@@ -228,6 +228,17 @@ namespace MvvmLight1.Model
                 return y;
             }
 
+            static string toCSV(string[] sarr)
+            {
+                foreach (string s in sarr) s.Replace(',', ';');
+                return String.Join(",", sarr);
+            }
+
+            static string[] toSARR(string csv)
+            {
+                char[] c = {','};
+                return csv.Split(c);
+            }
         }
 
         }

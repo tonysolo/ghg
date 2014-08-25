@@ -46,7 +46,6 @@ namespace MvvmLight1.ViewModel
             set { Model.settings.registered = value; }
         }
 
-
         private void ShowMesg()
         {
             MessageBox.Show("This is a test");
@@ -85,54 +84,38 @@ namespace MvvmLight1.ViewModel
 
         public MainVM()
         {
-            //object item;
-            //object error;
-   // string WelcomeTitle;
-   
-   // IDataService _dataService = dataService;
-
-           // _dataService.GetData((item,error) => 
-           //     {
-            //        if (error != null)
-           //         {
-                        // Report error here
-          //              return;
-           //         }
-
-           //         WelcomeTitle = item.Title;
-          //      }); 
-
-
-
-
-
-
-
-
-
-
             SetupRelayCommands();
-            isRegistered = true;
-
-
-
-
-
-
-           // isRegistered = true;  //needs to be replaced with loader registration
+            IsRegistered = true;
         }
 
-        public bool isRegistered
-        {
-            get { return Model.settings.registered; }
-            set { Model.settings.registered = value; }
+
+      //  public bool isRegistered
+      //  {
+      //      get { return Model.settings.registered; }
+       //     set { Model.settings.registered = value; }
             //take out set - must be readonly except for loader registration to set it once on login
 
-        }
+       // }
     }
 }
+// isRegistered = true;  //needs to be replaced with loader registration
 
+//object item;
+//object error;
+// string WelcomeTitle;
 
+// IDataService _dataService = dataService;
+
+// _dataService.GetData((item,error) => 
+//     {
+//        if (error != null)
+//         {
+// Report error here
+//              return;
+//         }
+
+//         WelcomeTitle = item.Title;
+//      }); 
 
 
 /*  

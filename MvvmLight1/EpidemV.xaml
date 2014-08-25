@@ -75,6 +75,7 @@
                         FontFamily = "Segoe UI Symbol"
                         FontSize="12"
                         Content="&#x2638;" 
+                        Command="{Binding EditMap}"
                         />
                     <ComboBox
                         Grid.Column="1"
@@ -147,6 +148,7 @@
                         FontFamily = "Segoe UI Symbol"
                         FontSize="12"
                         Content="&#x2638;"
+                        Command="{Binding EditMap}"
                         />
                     <ComboBox
                     Grid.Column="1"  
