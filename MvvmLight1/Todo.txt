@@ -17,3 +17,49 @@ epidemiology top 40 list and save in loader registration page
 
 ? Write SAMJ article
 
+
+
+e-health can revolutionise healthcare and provide solutions for epidemics such as HIV and TB.
+
+The e-health system I describe is intended for population health management which means identifying 
+ways that help people look after their health and use healthcare resources in a sustainable cost effective 
+way. The idea is to use information technology to monitor and communicate with patients and healtcare providers 
+using ways to continually track of patients and providers, healthcare visits, epidemiology, statistics and costs.
+
+The planned e-health software will use Cloud computing and organise work by dividing the population according to 
+geographic region using GIS to name the regions and allocate patients and providers.
+
+The central design feature of the software is the ability to support 'actionable' patient data. This means the
+ability to track risks such as missed appointments or vaccinations and trigger actions such as sending an 
+sms warning to the patient and simultaneously recording the statistics. There are unlimited applications for this 
+technology which could for example impact management of HIV and TB by organising telemedicine, community health visits
+and recording statistics. 
+
+This means using technology to efficiently deal with the background repetitive tasks and freeing providers to do their 
+clinical work with proper information technology and planning.
+
+Cloud computing is ideal for the application and the cost is negligible.
+
+ 
+
+The ideal system would monitor epidemiology, 
+record individual patients healthcare status and all heathcare encounters, 
+including outpaients and inpatient treatments, 
+medication and prescriptions and referrals and telemedicine and 
+support population health management though triggers and alerts originating from ehealth data.
+
+Presently e-health systems are limited, poorly designed and many have failed in other countries.
+
+I believe that the problem for e-health is the scale of healthcare. There are billions of people
+and they all seek healthcare on average twice a year. For South Africa's population that's 100 million 
+visits a year. No database can handle that, particularly if data includes huge such as X-rays.
+
+A practical solution is to use Cloud data storage to provide the required scale. 
+The solution I describe uses GIS methods to distribute storage and processing and focuses on 'actionable' 
+data processing methods for population health management that will help monitor and control epidemics 
+such as HIV, TB and maternal and child mortality.
+
+Details
+
+The solution uses Microsoft Azure Cloud storage. Blob storage containers are individually named for each GIS region as descbed below and added to an Azure Storage account owned by the country enclosing 
+
