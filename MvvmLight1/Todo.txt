@@ -17,7 +17,10 @@ epidemiology top 40 list and save in loader registration page
 
 ? Write SAMJ article
 
+Implementing an e-health system for South Africa is part the Dept of Health stategic plan. Unfortunately there 
+are various obstacles and no good examples from other countries worth adapting.
 
+ 
 
 e-health can revolutionise healthcare and provide solutions for epidemics such as HIV and TB.
 
@@ -39,6 +42,15 @@ This means using technology to efficiently deal with the background repetitive t
 clinical work with proper information technology and planning.
 
 Cloud computing is ideal for the application and the cost is negligible.
+
+
+How tasks an risks will be tracked.
+
+When a patient is edited in any way, risks will be identifited and and the response will include updating the patient record to records the risk. 
+Anything ouside the patient record (eg sms the patient or emailing a provider) will be dispatched to a message queue. Because message queues 
+messages can only live for 7 days, messages delayed more than that will be stored in the patient record and can be delayed for any time. 
+Once a week the whole patient data page blob will be processed and all due <1 week messages will be queued and deleted from the patient record. 
+Its a bit convoluted but it will work!
 
  
 
