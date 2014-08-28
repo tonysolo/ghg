@@ -9,8 +9,9 @@
        
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Height="450"
-        Width="250"
+        Height="500"
+        Width="400"
+        IsEnabled="False"
         DataContext="{Binding eHealth, Source={StaticResource Locator}}">
 
 

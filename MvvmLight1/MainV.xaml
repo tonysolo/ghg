@@ -72,12 +72,12 @@
             IsEnabled="{Binding isRegistered}"
             />
         <Button
-             Margin="4"
+             Margin="4,1,4,7"
             Grid.Row="4"
             FontSize="20"
             Content="e-Health" 
             Grid.ColumnSpan="2"
-            Command="{Binding EditMap}" 
+            Command="{Binding EditEhealth}" 
             />
         <!--
          IsEnabled="{Binding isRegistered}"

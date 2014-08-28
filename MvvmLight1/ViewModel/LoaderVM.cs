@@ -26,7 +26,7 @@ namespace MvvmLight1.ViewModel
 
         public LoaderVM()
         {
-            Model.AzureStorage.SetupAzureAccount();          
+           // Model.AzureStorage.SetupAzureAccount();          
         }
 
         public string[] Qualifications { get { return Enum.GetNames(typeof(Model.qualification)); } }

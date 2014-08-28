@@ -69,10 +69,17 @@ namespace MvvmLight1.ViewModel
             v.ShowDialog();
         }
 
+        private void ShowEhealthDlg()
+        {
+            eHealthV v = new eHealthV();
+            v.ShowDialog();
+        }
+
 
         public RelayCommand EditMap { get; private set; }
         public RelayCommand EditEpidemiology { get; private set; }
         public RelayCommand EditLoader { get; private set; }
+ public RelayCommand EditEhealth { get; private set; }
 
 
         private void SetupRelayCommands()
@@ -80,6 +87,7 @@ namespace MvvmLight1.ViewModel
             EditMap = new RelayCommand(ShowMapDlg);  // (ShowMapDlg);
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             EditLoader = new RelayCommand(ShowLoaderDlg);
+            EditEhealth = new RelayCommand(ShowEhealthDlg);
         }
 
         public MainVM()

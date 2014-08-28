@@ -17,8 +17,13 @@ epidemiology top 40 list and save in loader registration page
 
 ? Write SAMJ article
 
-Implementing an e-health system for South Africa is part the Dept of Health stategic plan. Unfortunately there 
-are various obstacles and no good examples from other countries worth adapting.
+I think this might something of a gamechanger for public health. Many of the previous e-health attempts have failed. This one
+uses a much simpler geographic (GIS) mechanism without needing a database. We will see once its built.
+
+
+
+Implementing an e-health system for South Africa is part the Dept of Health stategic plan. However, its a slow process - there 
+are various obstacles and no good examples from other countries worth adapting and a lot of money has been wated on failed pojects.
 
  
 
