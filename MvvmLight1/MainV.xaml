@@ -55,6 +55,7 @@
             Grid.Row="1"
              Grid.Column="1"
             Content="Help"
+            Command="{Binding EditMap}"
             />
         <Button
              Margin="4,3,4,5"
