@@ -10,10 +10,10 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            int i = 8;
-            
-            string s = "t-";
-            s = s + i.ToString();
+            string s = tester.to_qnnee("-35.56,170.79");
+            string s1 = tester.IndexPoint(s);
+
+            string s3 = "";
 
         }
     }
