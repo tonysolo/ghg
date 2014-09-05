@@ -8,8 +8,8 @@ namespace ConsoleApp
 {
     static class tester
     {
-        public static string to_qnnneee(string deccoords) //input -23.56,23.79
-        {
+        public static string to_qnnneee(string deccoords) //input decimals -23.56,23.79
+        {                                                 //output qnnneee
             char[] delim = { ',' };
             string[] sarr = deccoords.Split(delim);
             double lat = System.Convert.ToDouble(sarr[0]);
@@ -27,7 +27,7 @@ namespace ConsoleApp
 
 
 
-        public static string to_qnnee(string deccoords) //input -23.56,23.79
+        public static string to_qnnee(string deccoords) //input -23.56,23.79 output qnnee
         {
             char[] delim = { ',' };
             string[] sarr = deccoords.Split(delim);
@@ -43,7 +43,7 @@ namespace ConsoleApp
         }
 
 
-        public static string IndexPoint(string qnnee)  //takes qnnee or qnnneee
+        public static string IndexPoint(string qnnee)  //takes qnnee or qnnneee result = minpoint/refpoint
         {
             double lat = 0, lon = 0;
 
@@ -63,23 +63,42 @@ namespace ConsoleApp
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-            return String.Format("{0:F2},{1:F2}", lat, lon); //comma separated
+            return String.Format("{0:F4},{1:F4}", lat, lon); //comma separated
         }
+
 
         public static string Boundary(string qnnee)
         {
-            Int16 q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
-            Int16 _lat0 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-            Int16 _lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-            Int16 _lat1 = (Int16)(_lat0 + 1);
-            Int16 _lon1 = (Int16)(_lon0 + 1);
+            if ((qnnee.Length != 5) || (qnnee.Length != 7)) return "";
 
-            // qnnee format points
             string[] saa = new string[4];
-            saa[0] = IndexPoint(qnnee);                        //q,lat0,lon0
-            saa[1] = IndexPoint(String.Format("{x:1}{x:2}{x:2}", q, _lat0, _lon1));
-            saa[2] = IndexPoint(String.Format("{x:1}{x:2}{x:2}", q, _lat1, _lon1));
-            saa[3] = IndexPoint(String.Format("{x:1}{x:2}{x:2}", q, _lat1, _lon0));
+            Int16 _lat0, _lon0, _lat1, _lon1;
+            Int16 q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
+            saa[0] = IndexPoint(qnnee);
+            
+
+            if (qnnee.Length == 5)
+            {
+                _lat0 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                _lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                _lat1 = (Int16)(_lat0 + 1);
+                _lon1 = (Int16)(_lon0 + 1);
+                
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon0));
+            }
+            else
+            {
+                _lat0 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                _lon0 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                _lat1 = (Int16)(_lat0 + 1);
+                _lon1 = (Int16)(_lon0 + 1);
+                
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon0));
+            }
 
             return String.Join(",", saa);
             // might need to use a different separator or make sure that the decimal point is never a comma
