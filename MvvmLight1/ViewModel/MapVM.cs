@@ -15,13 +15,15 @@ namespace MvvmLight1.ViewModel
 
 public class MapVM : ViewModelBase
     {
-
-
- private void ShowMsg()
+    //private string _centre; 
+    public string Centre { get; set; } 
+ 
+    private void ShowMsg()
         {
-            MessageBox.Show("This is a test");
+// Centre = "37.000,-122.000";
+       
+          //  MessageBox.Show("This is a test");
         }
-
 
 
 public RelayCommand Search {get; private set;}
@@ -38,6 +40,7 @@ Search = new RelayCommand(ShowMsg);
         /// </summary>
         public MapVM()
         {
+            Centre = "37.806029,-122.407007";
             SetupRelayCommands();
         }
 
