@@ -12,6 +12,17 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
-                            Center="37.806029,-122.407007" ZoomLevel="16" Margin="0,0,10,0"/>
+               Center="{Binding Centre}" 
+               ZoomLevel="16" 
+               Margin="0,0,0,0"/>
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal" 
+                    FlowDirection="LeftToRight" 
+                    >
+         <TextBox Width = "240" Text="sandton south africa"/>
+        <Button Width="50" Content="Search" Command="{Binding Search}"/>
+       </StackPanel>
+
+
     </Grid>
 </Window>
