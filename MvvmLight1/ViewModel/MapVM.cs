@@ -20,9 +20,9 @@ public class MapVM : ViewModelBase
  
     private void ShowMsg()
         {
-// Centre = "37.000,-122.000";
+       //Centre = "37.000,-122.000";
        
-          //  MessageBox.Show("This is a test");
+            MessageBox.Show("This is a test");
         }
 
 
