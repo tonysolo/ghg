@@ -63,13 +63,13 @@ namespace ConsoleApp
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-            return String.Format("{0:F4},{1:F4}", lat, lon); //comma separated
+            return String.Format(@"{0:F4},{1:F4}", lat, lon); //comma separated
         }
 
 
         public static string Boundary(string qnnee)
         {
-            if ((qnnee.Length != 5) || (qnnee.Length != 7)) return "";
+            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
             string[] saa = new string[4];
             Int16 _lat0, _lon0, _lat1, _lon1;

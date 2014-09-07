@@ -20,6 +20,7 @@ namespace MvvmLight1.Model
 
     public static class userdata
     {
+       
         static bool invalid;
         static Dictionary<string, string> coords;
         // string cloudid;
@@ -36,6 +37,7 @@ namespace MvvmLight1.Model
         {
             coords.Add(district, qnnneee);
             invalid = true;
+
         }
 
         // void Save()
