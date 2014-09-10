@@ -20,27 +20,68 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D1A52C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ghg.wiki", "http://localhost:49798", "{C3F25D00-F282-4073-B51F-F92887CD52C2}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_49798"
+		Debug.AspNetCompiler.PhysicalPath = "ghg.wiki\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49798\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_49798"
+		Release.AspNetCompiler.PhysicalPath = "ghg.wiki\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49798\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "ghg.wiki\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Debug|x64.ActiveCfg = Debug|x64
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Debug|x64.Build.0 = Debug|x64
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Release|x64.ActiveCfg = Release|x64
 		{BA8B1914-733A-4A7A-8089-09617F7E7545}.Release|x64.Build.0 = Release|x64
 		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B18B5916-AA2B-42F2-ABF6-6BF2F56E31BB}.Release|x64.ActiveCfg = Release|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Release|x64.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
