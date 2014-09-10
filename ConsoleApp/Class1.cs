@@ -83,7 +83,7 @@ namespace ConsoleApp
                 _lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
                 _lat1 = (Int16)(_lat0 + 1);
                 _lon1 = (Int16)(_lon0 + 1);
-                
+
                 saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon1));
                 saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon1));
                 saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon0));
