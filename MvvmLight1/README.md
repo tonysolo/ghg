@@ -83,4 +83,4 @@ The table shows how it works. Data is queued across 8 storage queues and setting
 
 ## Images ##
 
-There are mobile device scanner applications that could be used for recording hand-written notes or copying documents. These and other images will be compressed and stored as block blobs in the region container they will be automatically named and referenced in the patient's data.
+There are mobile device scanner applications that could be used for recording hand-written notes and copying documents. These and other images will be compressed and stored as block blobs in the region container they will be automatically named and referenced in the patient's data.
