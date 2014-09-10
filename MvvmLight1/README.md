@@ -10,7 +10,7 @@ For both applications healthcare providers use the system to record healthcare d
 
 E-Health is clinical information. It contains details for treatment, prescriptions and referrals. It belongs to the patient and is stored directly in the patient's private e-health record.
 
-E-Epidemiology contains information about the disease: the ICD-10 diagnostic codes and other data and it excludes person identifiable information. It is sorted and filed in shared storage and used for epidemiology statistics and surveillance.
+E-Epidemiology contains information about the disease: the ICD10 diagnostic codes and other data and it excludes person identifiable information. It is sorted and filed in shared storage and used for epidemiology statistics and surveillance.
 
    
 ### GHG - Azure Cloud Blob Storage Containers###
