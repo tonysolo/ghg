@@ -1,6 +1,6 @@
 # Global Health Grid - Storage and Processing #
 
-The purpose of this application is to store Healthcare data for Epidemiology and EHealth. It uses *Microsoft Azure Cloud Storage and Microsoft Bing Maps* for storing and retrieving health data using a *GIS grid that represents regions of approximately 80 X 80 Km at the equator*.
+The  purpose of this application is to store Healthcare data for Epidemiology and EHealth. It uses *Microsoft Azure Cloud Storage and Microsoft Bing Maps* for storing and retrieving health data using a *GIS grid that represents regions of approximately 80 X 80 Km at the equator*.
 
 GHG has two important applications: *Epidemiology* (e-epidemiology) and *Patient clinical records* (e-health).
 
