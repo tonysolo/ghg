@@ -13,6 +13,7 @@ namespace ConsoleApp
             string s = tester.to_qnnee("-35.56,170.79");
             string s1 = tester.IndexPoint(s);
             string b = tester.Boundary(s);
+            string c = tester.CentrePoint(s);
             string s4 = "";
 
         }
