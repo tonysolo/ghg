@@ -1,12 +1,12 @@
-# Global Health Grid (ghg) #
+# Global Health Grid - Storage and Processing #
 
-The purpose of this application is to store Healthcare data for Epidemiology and EHealth. It uses *Microsoft Azure Cloud Storage and Microsoft Bing Maps* for storing and retrieving health data using a *GIS grid that represents regions of approximately 80 X 80 Km at the equator*.
+The  purpose of this application is to store Healthcare data for Epidemiology and EHealth. It uses *Microsoft Azure Cloud Storage and Microsoft Bing Maps* for storing and retrieving health data using a *GIS grid that represents regions of approximately 80 X 80 Km at the equator*.
 
-GHG has two applications: *Epidemiology* (e-epidemiology) and   *Patient clinical records* (e-health).
+GHG has two important applications: *Epidemiology* (e-epidemiology) and *Patient clinical records* (e-health).
 
 ### e-Epidemiology and e-Health ###
  
-In both applications healthcare providers use the system to record healthcare data.
+For both applications healthcare providers use the system to record healthcare data.
 
 E-Health is clinical information. It contains details for treatment, prescriptions and referrals. It belongs to the patient and is stored directly in the patient's private e-health record.
 
@@ -70,7 +70,8 @@ The table shows how it works. Data is queued across 8 storage queues and setting
 
 ### Processing using Azure Queue Storage and Epidemiology data##
 
-|queue|--|--|--|--|
+|queue |
+|--|--|--|--|--|
 |0|0|8|16|24|
 |1|1|9|17|25|
 |2|2|10|18|26|
@@ -80,3 +81,6 @@ The table shows how it works. Data is queued across 8 storage queues and setting
 |6|6|14|22|30|
 |7|7|15|23|31|
 
+## Images ##
+
+There are mobile device scanner applications that could be used for recording hand-written notes and copying documents. These and other images will be compressed and stored as block blobs in the region container they will be automatically named and referenced in the patient's data

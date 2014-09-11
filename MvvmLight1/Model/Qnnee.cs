@@ -41,7 +41,9 @@ namespace MvvmLight1.Model
             return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
         }
 
-        static string IndexPoint(string qnnee)
+       
+
+        static string IndexPoint(string qnnee)//closest point to equator and meridian
         {
             double lat = 0, lon = 0;
 
@@ -64,6 +66,40 @@ namespace MvvmLight1.Model
             return String.Format("{0:F2}{1:F2}", lat, lon);
 
         }
+
+        public static string CentrePoint(string qnnee)
+        {
+            double lat = 0, lon = 0, lat1 = 0, lon1 = 0;
+
+            if (qnnee.Length == 5)
+            {
+                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                Int16 _lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                lat = ((double)_lat / 256 * 180);
+                lat1 = ((double)(_lat + 1) / 256 * 180);
+                lon = ((double)_lon / 256 * 180);
+                lon1 = ((double)(_lon + 1) / 256 * 180);
+
+            }
+            else if (qnnee.Length == 7)
+            {
+                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                lat = (_lat / 4096 * 180);
+                lat1 = ((double)(_lat + 1) / 256 * 180);
+                lon = (_lon / 4096 * 180);
+                lon1 = ((double)(_lon + 1) / 256 * 180);
+            }
+            lon = (lon + lon1) / 2;
+            lat = (lat + lat1) / 2;
+            if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
+            if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
+
+
+            return String.Format(@"{0:F4},{1:F4}", lat, lon); //comma separated
+        }
+ 
+   
     }
 
 

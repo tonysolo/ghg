@@ -1,6 +1,7 @@
 ﻿<Window x:Class="MvvmLight1.MainV"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.ignore.com"
@@ -49,20 +50,29 @@
                     DockPanel.Dock="Bottom"
          Margin="0,5,0,5">
                 <Button
+            Width="80"        
             Margin="10,0,10,0"
             Content="Epidemiology"            
             Command="{Binding EditEpidemiology}"
             IsEnabled="{Binding isRegistered}"
             />
                 <Button
+            Width="80"         
            Content="e-Health"           
             Command="{Binding EditEhealth}" 
             />
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Grid></Grid>
+                <Grid Height="200">
+                    <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
+               Center="{Binding Centre}" 
+               ZoomLevel="16" 
+               Margin="0,0,0,0"/>
+                </Grid>
                 <!--Holds the Map-->
-                <TextBlock Height="100"/>
+                <TextBlock Height="100"
+                           TextWrapping="Wrap"
+                           Text="testing This will be where the Epidemiology statistics goes"/>
                 <!--Contains the epidemiology info-->
             </StackPanel>
         </DockPanel>

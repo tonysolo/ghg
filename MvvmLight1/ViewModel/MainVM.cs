@@ -40,6 +40,8 @@ namespace MvvmLight1.ViewModel
         /// </summary>
         // public const string WelcomeTitlePropertyName = "WelcomeTitle";
 
+        public string Centre { get; set; }
+
         public bool IsRegistered
         {
             get { return Model.settings.registered; }
@@ -94,6 +96,7 @@ namespace MvvmLight1.ViewModel
         {
             SetupRelayCommands();
             IsRegistered = true;
+            Centre = "37.806029,-122.407007";
         }
 
 
