@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         Height="400"
-        Width="250"
+        Width="270"
         
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
@@ -21,74 +21,50 @@
         </ResourceDictionary>
     </Window.Resources-->
 
-    <Grid x:Name="LayoutRoot"
-      Margin="0,20,0,20"    
-          >
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBlock
-            Margin="10 5 5 5"          
-            Grid.RowSpan="3"
-            Text="Global Health Grid"
-            TextWrapping="Wrap"
-            FontSize="40"         
-            />
-        <Button
-             Margin="4"            
-             Grid.Column="1"
-            Content="Register"
-            Command="{Binding EditLoader}" 
-            />
-        <!--" IsEnabled="{Binding isRegistered}"-->
+    <Grid x:Name="LayoutRoot">
+        <DockPanel LastChildFill="True">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="30" Margin="3,3,3,3">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Login Code" FontSize="6"/>
+                <TextBox Width="70"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Margin="3 0 0 0" Text="PIN" FontSize="6"/>
+                    <TextBox Margin ="3 0 3 0" 
+                Width="40"/>
+                </StackPanel>
+                <Button Content="Login" Margin="3,6,3,3"/>
+                <Button Content=" Register " Margin="3 6 3 3" Command="{Binding EditLoader}"/>
+                <Button Content=" Help " Margin="3 6,3,3" Command="{Binding EditMap}"/>
+            </StackPanel>
 
-        <Button
-             Margin="4"
-            Grid.Row="1"
-             Grid.Column="1"
-            Content="Help"
-            Command="{Binding EditMap}"
-            />
-        <Button
-             Margin="4,3,4,5"
-            Grid.Row="2"
-             Grid.Column="1"
-            Content="Login"
-            />
-        <Button
-            Margin="4"
-            Grid.Row="3"
-            FontSize="20"          
-            Content="Epidemiology" 
-            Grid.ColumnSpan="2"
+
+
+            <!--" IsEnabled="{Binding isRegistered}"-->
+
+
+            <StackPanel 
+                Orientation="Horizontal"
+                   Height="25"
+                    DockPanel.Dock="Bottom"
+         Margin="0,5,0,5">
+                <Button
+            Margin="10,0,10,0"
+            Content="Epidemiology"            
             Command="{Binding EditEpidemiology}"
             IsEnabled="{Binding isRegistered}"
             />
-        <Button
-             Margin="4,1,4,7"
-            Grid.Row="4"
-            FontSize="20"
-            Content="e-Health" 
-            Grid.ColumnSpan="2"
+                <Button
+           Content="e-Health"           
             Command="{Binding EditEhealth}" 
             />
-        <!--
-         IsEnabled="{Binding isRegistered}"
-        
-        TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" /-->
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Grid></Grid>
+                <!--Holds the Map-->
+                <TextBlock Height="100"/>
+                <!--Contains the epidemiology info-->
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>
