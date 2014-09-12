@@ -1,21 +1,21 @@
-# Global Health Grid - Storage and Processing #
+# Global Health Grid (GHG) - Storage and Processing #
 
-The  purpose of this application is to store Healthcare data for Epidemiology and EHealth. It uses *Microsoft Azure Cloud Storage and Microsoft Bing Maps* for storing and retrieving health data using a *GIS grid that represents regions of approximately 80 X 80 Km at the equator*.
+The  purpose of this application is to store Healthcare data for Epidemiology and EHealth. It uses *Cloud Storage and GIS Maps* for storing and retrieving health data using a *Grid system* that uses regions approximately 80 X 80 Km at the equator.
 
 GHG has two important applications: *Epidemiology* (e-epidemiology) and *Patient clinical records* (e-health).
 
 ### e-Epidemiology and e-Health ###
  
-For both applications healthcare providers use the system to record healthcare data.
+For both applications, healthcare providers use the system to record healthcare data.
 
 E-Health is clinical information. It contains details for treatment, prescriptions and referrals. It belongs to the patient and is stored directly in the patient's private e-health record.
 
-E-Epidemiology contains information about the disease: the ICD10 diagnostic codes and other data and it excludes person identifiable information. It is sorted and filed in shared storage and used for epidemiology statistics and surveillance.
+E-Epidemiology is information about the disease: the ICD10 diagnostic codes and other data - it excludes person identifiable information. It is kept in shared storage and used for epidemiology statistics and surveillance.
 
    
 ### GHG - Azure Cloud Blob Storage Containers###
 
-Microsoft Azure blob storage uses containers which then contain the blobs. For this application there a separate **container** for each GIS region in turn contains three page blobs. Each region is set up the same way: a unique container name containing with three page blobs named 'P','L' and 'E'
+Microsoft Azure blob storage is used. This is set up with a separate **container for each GIS region** that in turn **contains three page blobs**. Each region is set up the same way: a unique container name containing with three page blobs named 'P','L' and 'E'
 
 Name|Purpose|Data Structure
 :--:|:------------------------------|:------------------------|
