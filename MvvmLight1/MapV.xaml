@@ -4,22 +4,25 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Title="MapV" Height="300" Width="300"
+        Title="MapV" Height="400" Width="300"
          DataContext="{Binding Map, Source={StaticResource Locator}}">      
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
+       
         <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
-               ZoomLevel="16" 
+               ZoomLevel="10" 
+               Height="200"
                Margin="0,0,0,0"/>
+       
         <StackPanel Grid.Row="1" 
                     Orientation="Horizontal" 
                     FlowDirection="LeftToRight" 
                     >
-         <TextBox Width = "240" Text="sandton south africa"/>
+         <TextBox Width = "240" Height ="30" Text="sandton south africa"/>
         <Button Width="50" Content="Search" Command="{Binding Search}"/>
        </StackPanel>
 

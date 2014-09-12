@@ -9,7 +9,7 @@
         Title="Global Health Grid"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Height="400"
+        Height="420"
         Width="270"
         
         DataContext="{Binding Main, Source={StaticResource Locator}}">
@@ -26,17 +26,17 @@
         <DockPanel LastChildFill="True">
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="30" Margin="3,3,3,3">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Login Code" FontSize="6"/>
+                    <TextBlock Text="Login Code" FontSize="8"/>
                 <TextBox Width="70"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Margin="3 0 0 0" Text="PIN" FontSize="6"/>
+                    <TextBlock Margin="3 0 0 0" Text="PIN" FontSize="8"/>
                     <TextBox Margin ="3 0 3 0" 
                 Width="40"/>
                 </StackPanel>
-                <Button Content="Login" Margin="3,6,3,3"/>
-                <Button Content=" Register " Margin="3 6 3 3" Command="{Binding EditLoader}"/>
-                <Button Content=" Help " Margin="3 6,3,3" Command="{Binding EditMap}"/>
+                <Button Content="Login" Margin="3,9,3,0"/>
+                <Button Content=" Register " Margin="3 9 3 0" Command="{Binding EditLoader}"/>
+                <Button Content=" Help " Margin="3 9,3,0" Command="{Binding EditMap}"/>
             </StackPanel>
 
 
@@ -63,16 +63,15 @@
             />
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Grid Height="200">
+                <Grid Height="240">
                     <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
-               ZoomLevel="16" 
-               Margin="0,0,0,0"/>
+               ZoomLevel="4"/>
                 </Grid>
                 <!--Holds the Map-->
-                <TextBlock Height="100"
+                <TextBlock Height="80"
                            TextWrapping="Wrap"
-                           Text="testing This will be where the Epidemiology statistics goes"/>
+                           Text="{Binding Centre}"/>
                 <!--Contains the epidemiology info-->
             </StackPanel>
         </DockPanel>

@@ -96,7 +96,9 @@ namespace MvvmLight1.ViewModel
         {
             SetupRelayCommands();
             IsRegistered = true;
-            Centre = "37.806029,-122.407007";
+            
+            Centre = "-26.076,27.972";
+            //Centre = "37.806029,-122.407007";
         }
 
 

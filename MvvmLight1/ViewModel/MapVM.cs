@@ -16,7 +16,9 @@ namespace MvvmLight1.ViewModel
 public class MapVM : ViewModelBase
     {
     //private string _centre; 
-    public string Centre { get; set; } 
+    public string Centre { get; set; }
+
+   // public string height { get; set; }
  
     private void ShowMsg()
         {
@@ -40,9 +42,15 @@ Search = new RelayCommand(ShowMsg);
         /// </summary>
         public MapVM()
         {
-            Centre = "37.806029,-122.407007";
+           // height = "250";
+            Centre = "26.076,-27.972";
             SetupRelayCommands();
         }
 
+       // public MapVM(string s) 
+       // {
+        //    Centre = s;
+        //    SetupRelayCommands();
+       // }
     }
 }

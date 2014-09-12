@@ -16,12 +16,11 @@ namespace MvvmLight1.Model
        {
            Model.settings.registered = true;
            CloudStorageAccount account = Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount;
-           IEnumerable<CloudBlobContainer> en =   account.CreateCloudBlobClient().ListContainers();
+           IEnumerable<CloudBlobContainer> en = account.CreateCloudBlobClient().ListContainers();
            CloudBlobContainer container = en.ElementAt<CloudBlobContainer>(0);
-          // CloudBlobContainer container = account.CreateCloudBlobClient().GetContainerReference("2aabb");//"2aabb"  == initial test container
            CloudPageBlob loader = container.GetPageBlobReference("l");
            string s = container.Name;
-           loader.Create(1024);
+           loader.Create(8192);
            string s1 = "Tony Manicom/n173 blandford road/n north riding, Randburg/n";
            byte[] sb = Encoding.UTF8.GetBytes(s1);
 
@@ -51,8 +50,7 @@ namespace MvvmLight1.Model
            //ToArray<
            //CloudBlobContainer container = blobClient.GetContainerReference("2aabb");
           // IEnumerable<CloudBlobContainer> cbc = blobClient.ListContainers();
-           //string s = container.Name;
-          
+           //string s = container.Name;        
           //return s; 
        }
 
