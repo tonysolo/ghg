@@ -10,19 +10,21 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
        
         <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
                ZoomLevel="10" 
-               Height="200"
+               
                Margin="0,0,0,0"/>
        
-        <StackPanel Grid.Row="1" 
+        <StackPanel Grid.Row="2" 
                     Orientation="Horizontal" 
                     FlowDirection="LeftToRight" 
                     >
-         <TextBox Width = "240" Height ="30" Text="sandton south africa"/>
+            <TextBlock Grid.Row="1"/>
+            <TextBox Width = "240" Height ="30" Text="sandton south africa"/>
         <Button Width="50" Content="Search" Command="{Binding Search}"/>
        </StackPanel>
 
