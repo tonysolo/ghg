@@ -15,7 +15,7 @@
        
         <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
-               ZoomLevel="10" 
+               ZoomLevel="7" 
                
                Margin="0,0,0,0"/>
        

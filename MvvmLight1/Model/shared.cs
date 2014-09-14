@@ -17,11 +17,12 @@ namespace MvvmLight1.Model
     enum funder { Public, Private }
     enum treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }
     enum qualification { Coder, ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
+    enum countries { SouthAfrica, UnitedKingdom }
+
 
     public static class userdata
     {
-       
-        static bool invalid;
+           static bool invalid;
         static Dictionary<string, string> coords;
         // string cloudid;
         // public userdata() { invalid = false; }
@@ -245,5 +246,7 @@ namespace MvvmLight1.Model
 
         }
     
+
+
 
 
