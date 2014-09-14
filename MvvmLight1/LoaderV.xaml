@@ -9,24 +9,35 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         Width="250"  
-        Height="420"
+        Height="450"
         DataContext="{Binding Loader, Source={StaticResource Locator}}">
     <Grid>
+       
+        
         <StackPanel Margin="10,10,5,0">
-            <TextBlock Text="Region" />
+            <TextBlock><Run Text="Country            "/><Run Language="en-gb" Text="     "/><Run Text=" Region"/></TextBlock>
             <DockPanel LastChildFill="True">
-                <Button 
+                <Button DockPanel.Dock="Right"
                     FontFamily = "Segoe UI Symbol"
+                        Width="25"
                         FontSize="12"
                         Content="&#x2638;" 
                     Command="{Binding EditMap}"
-                    Width="25" DockPanel.Dock="Left"/>
-                <ComboBox/>
-            </DockPanel>
+                    />
+                <ComboBox Width="100"
+                          DockPanel.Dock="Left"
+                          ItemsSource="{Binding Countries}"
+                          />
+                <TextBox IsReadOnly="True" Text="{Binding Region}"/>
+           </DockPanel>
+           
             <TextBlock Text="First Name"/>
             <TextBox Text="{Binding fname}"/>
             <TextBlock Text="Surname" />
             <TextBox Text="{Binding sname}"/>
+            <TextBlock Text="Cell Phone" />
+            <TextBox Text="{}"/>
+            
             <TextBlock Text="eMail Address"/>
             <TextBox Text="{Binding email}"/>
             <TextBlock Text="Designation" />
@@ -38,8 +49,9 @@
             <TextBox/>
             <TextBlock ><Run Language="en-gb" Text="Registration Number"/></TextBlock>
             <TextBox/>
-            <TextBlock Text="Security Question" />
+            <TextBlock Grid.ColumnSpan="2" Text="Security Question" />
             <ComboBox
+                Grid.ColumnSpan="2"
                 ItemsSource = "{Binding SecurityQuestions}"
                 SelectedIndex="{Binding securitychoiceindex}"
                 />
@@ -47,7 +59,7 @@
             <TextBox Text="{Binding SecurityAnswer}" />          
             <Button
                 Content="Submit"
-                Margin ="40,20,40,0"
+                Margin ="50,20,50,0"
                 Command="{Binding Submit}"
                 />
         </StackPanel>

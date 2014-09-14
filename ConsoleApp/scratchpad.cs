@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
+    /// <summary>
+    /// qnnee to lat,lon
+    /// </summary>
     public static class tester
     {
 

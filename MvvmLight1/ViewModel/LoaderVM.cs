@@ -20,14 +20,16 @@ namespace MvvmLight1.ViewModel
         /// Initializes a new instance of the MvvmViewModel1 class.
         /// </summary>
         /// 
-
-
-
-
         public LoaderVM()
         {
-           // Model.AzureStorage.SetupAzureAccount();          
+            // Model.AzureStorage.SetupAzureAccount();          
         }
+
+        public string[] Regions { get; set; }
+
+        public string Region { get; set; }
+
+        public string Countries { get; set; }
 
         public string[] Qualifications { get { return Enum.GetNames(typeof(Model.qualification)); } }
 

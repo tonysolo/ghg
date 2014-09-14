@@ -165,6 +165,7 @@
     <Compile Include="ViewModel\LoaderVM.cs" />
     <Compile Include="ViewModel\MapVM.cs" />
     <Compile Include="ViewModel\CoordVM.cs" />
+    <Compile Include="ViewModel\SettingsVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="CoordV.xaml.cs">
       <DependentUpon>CoordV.xaml</DependentUpon>
