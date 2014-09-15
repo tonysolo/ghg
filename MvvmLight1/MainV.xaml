@@ -50,8 +50,7 @@
                     DockPanel.Dock="Bottom"
          Margin="0,5,0,5">
                 <Button
-            Width="80"        
-            Margin="10,0,10,0"
+            Width="80"                 
             Content="Epidemiology"            
             Command="{Binding EditEpidemiology}"
             IsEnabled="{Binding isRegistered}"
@@ -61,18 +60,32 @@
            Content="e-Health"           
             Command="{Binding EditEhealth}" 
             />
+                <Button
+            Width="80"         
+           Content="Search"           
+            Command="{Binding EditEhealth}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
+                
                 <Grid Height="240">
                     <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
-               ZoomLevel="4"/>
+               ZoomLevel="7">
+                        <m:MapPolygon
+                           Fill="Blue" Stroke="Green" StrokeThickness="5" 
+                          Locations="47.6424,-122.3219 47.8424,-122.1747 47.5814,-122.1747" 
+                          Opacity="0.7" 
+                            />
+                    </m:Map>
                 </Grid>
                 <!--Holds the Map-->
-                <TextBlock Height="80"
+                <ScrollViewer>
+                <TextBlock
+                    Height="80"
                            TextWrapping="Wrap"
                            Text="{Binding Centre}"/>
-                <!--Contains the epidemiology info-->
+                </ScrollViewer>
+                <!--TextBlock contains any user request the epidemiology info list and lists patient search; will try to use formating-->
             </StackPanel>
         </DockPanel>
     </Grid>
