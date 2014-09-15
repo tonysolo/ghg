@@ -149,12 +149,12 @@ namespace MvvmLight1.Model
             }
 
             bool digt5 = (qnnee.Length == 5);
-            
-       
-           float  latf = (digt5) ? 128 : 2048;
-           float  lonf (digt5) ? ;
-           float  latf1 (digt5) ? 2048 : 4096; 
-           float  lonf1 (digt5) ? 
+
+
+            float latf = (digt5) ? 128 : 2048;
+            float lonf = (digt5) ? 521 : 4096;
+            float latf1 = (digt5) ? 128 : 2048;
+            float lonf1 = (digt5) ? 521 : 4096;
 
 
 
