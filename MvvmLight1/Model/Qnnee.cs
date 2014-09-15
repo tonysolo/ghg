@@ -91,7 +91,6 @@ namespace MvvmLight1.Model
                 lat1 = ((double)(_lat + 1) / 256 * 180);
                 lon = ((double)_lon / 256 * 180);
                 lon1 = ((double)(_lon + 1) / 256 * 180);
-
             }
             else if (qnnee.Length == 7)
             {
@@ -110,21 +109,63 @@ namespace MvvmLight1.Model
         }
 
         /// <summary>
-        /// constructs a 3 point boundary from 5 or 7 digit qnnee index point for bing map polygon
+        /// constructs a 4 point boundary from 5 or 7 digit qnnee index point and 
+        /// incrementing away fron the equator and the prime meridian
+        /// for bing map polygon. Handles quadrant swapping for longitude crossing 
+        /// 180 degrees. Handle poles by ignoring increments beyond the second last
+        /// longitude point.
         /// </summary>
         /// <param name="qnnee"></param>
-        /// <returns>3 latlon csv coordinates space separates</returns>
-        public string Boundary(string qnnee)
+        /// <returns>4 latlon csv coordinates space separates</returns>
+
+        public static string Boundary(string qnnee)
+        {
+            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
+
+            string[] saa = new string[4];
+            Int16 _lat0, _lon0, _lat1, _lon1;
+            Int16 q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
+            saa[0] = IndexPoint(qnnee);
+
+            if (qnnee.Length == 5)
+            {
+                _lat0 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                _lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                if (_lat0 < 255) _lat1 = (Int16)(_lat0 + 1);
+                else { _lat1 = _lat0; q = (Int16)(3-q); }
+                if (_lon0 < 127) _lon1 = (Int16)(_lon0 + 1); else _lon1 = _lon0;
+
+                saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon0));
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon0));
+            }
+            else
+            {
+                _lat0 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                _lon0 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                if (_lat0 < 4095) _lat1 = (Int16)(_lat0 + 1);
+                else { _lat1 = _lat0; q = (Int16)(3 - q); }
+                if (_lon0 < 127) _lon1 = (Int16)(_lon0 + 1);else _lon1 = _lon0;
+
+                saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon0));
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon0));
+            }
+
+            return String.Join(" ", saa);
+            // might need to use a different separator or make sure that the decimal point is never a comma
+            // coordinate format points
+
+        } 
+       /* public static string Boundary(string qnnee)
         {
             int len = qnnee.Length;
             if (!((len == 5) || (len == 7))) return "error";
-
-            UInt16 lat, lat1, lon, lon1, q, q1;
-
-            lat = lat1 = lon = lon1 = q = q1 = 0;
-
+            UInt16 lat, lat1, lon, lon1, q;
+            lat = lat1 = lon = lon1 = q = 0;
             q = Convert.ToUInt16(qnnee.Substring(0, 1), 16);
-
             if (len == 5)
             {
                 lat = Convert.ToUInt16(qnnee.Substring(1, 2), 16);
@@ -147,21 +188,23 @@ namespace MvvmLight1.Model
                     else q = (UInt16)(3 - q);
                 }
             }
-
-            bool digt5 = (qnnee.Length == 5);
-
-
-            float latf = (digt5) ? 128 : 2048;
-            float lonf = (digt5) ? 521 : 4096;
-            float latf1 = (digt5) ? 128 : 2048;
-            float lonf1 = (digt5) ? 521 : 4096;
-
-
-
-
-            return String.Format(@"{0:F4},{1:F4}", lat, lon);
+            //now convert to decimals
+            float grid5 = 180 / 256;
+            float grid7 = 180 / 4096;
+            float latf, lonf;
+            if (len == 5)
+            {
+                latf = lat * grid5;
+                lonf = lon * grid5;
+            }
+            else
+            {
+                latf = lat * grid7;
+                lonf = lon * grid7;
+            }
+            return String.Format(@"{0:F4},{1:F4} {0:F4},{2:f4} {3:F4},{2:F4} {3:F4},{0:F4}", lat, lon, lon1, lat1);
+            //lat,lon|lat,lon1|lat1,lon1|lat1,lon0
         }
+        * */
     }
-
-
 }
