@@ -10,10 +10,12 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            string s = tester.to_qnnee("-35.56,170.79");
+            string s2= "-26.076,27.972";
+            string s = tester.to_qnnee("-26.076,27.972");
             string s1 = tester.IndexPoint(s);
             string b = tester.Boundary(s);
             string c = tester.CentrePoint(s);
+
             string s4 = "";
 
         }
