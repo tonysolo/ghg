@@ -73,7 +73,7 @@
                ZoomLevel="7">
                         <m:MapPolygon
                            Fill="Blue" Stroke="Green" StrokeThickness="5" 
-                          Locations="47.6424,-122.3219 47.8424,-122.1747 47.5814,-122.1747" 
+                          Locations="{Binding Boundary}" 
                           Opacity="0.7" 
                             />
                     </m:Map>

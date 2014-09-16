@@ -147,7 +147,7 @@
     <Compile Include="Model\AzureStore.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Qnnee.cs" />
+    <Compile Include="Model\QNEUtil.cs" />
     <Compile Include="Model\DataItem.cs">
       <SubType>Code</SubType>
     </Compile>

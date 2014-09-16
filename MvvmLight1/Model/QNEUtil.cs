@@ -5,9 +5,14 @@ using System.Text;
 
 namespace MvvmLight1.Model
 {
-    static class qnnneee
+    static class QNE_Utils
     {
-       static string to_qnnneee(string deccoords) //input -23.56,23.79
+        /// <summary>
+        /// Converts decimal degrees string to district level (7) qnnneee
+        /// </summary>
+        /// <param name="deccoords">string</param>
+        /// <returns>string qnnneee</returns>
+      public static string to_qnnneee(string deccoords) //input -23.56,23.79
         {
             char[] delim = { ',' };
             string[] sarr = deccoords.Split(delim);
@@ -30,7 +35,7 @@ namespace MvvmLight1.Model
         /// </summary>
         /// <param name="deccoords">csv latlon string eg-23.56,23.79 </param>
         /// <returns>qnnee format latlon string</returns>
-        static string to_qnnee(string deccoords)
+       public static string to_qnnee(string deccoords)
         {
             char[] delim = { ',' };
             string[] sarr = deccoords.Split(delim);
@@ -40,8 +45,8 @@ namespace MvvmLight1.Model
                      ((lat >= 0) && (lon < 0)) ? 1 :
                      ((lat < 0) && (lon >= 0)) ? 2 : 3;
 
-            int latint = (int)Math.Abs(lat / 180 * 256);
-            int lonint = (int)Math.Abs(lon / 180 * 256);
+            UInt16 latint = (UInt16)(Math.Abs(lat / 180 * 256));
+            UInt16 lonint = (UInt16)(Math.Abs(lon / 180 * 256));
             return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
         }
 
@@ -58,8 +63,8 @@ namespace MvvmLight1.Model
 
             if (qnnee.Length == 5)
             {
-                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 2));
-                Int16 _lon = Convert.ToInt16(qnnee.Substring(3, 2));
+                Double _lat = Convert.ToInt16(qnnee.Substring(1, 2));
+                Double _lon = Convert.ToInt16(qnnee.Substring(3, 2));
                 lat = _lat / 256 * 180;
                 lon = _lon / 256 * 180;
             }
@@ -67,8 +72,8 @@ namespace MvvmLight1.Model
             {
                 Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3));
                 Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3));
-                lat = _lat / 4096 * 180;
-                lon = _lon / 4096 * 180;
+                lat = (double)(_lat / 4096) * 180;
+                lon = (double)(_lon / 4096) * 180;
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
@@ -77,7 +82,7 @@ namespace MvvmLight1.Model
         /// <summary>
         /// calculateds the centre point of a qnnee region
         /// </summary>
-        /// <param name="qnnee">qnnee</param>
+        /// <param name="qnnee">qnnee as string</param>
         /// <returns>decimal string latlon formar</returns>
         public static string CentrePoint(string qnnee)
         {
@@ -87,19 +92,19 @@ namespace MvvmLight1.Model
             {
                 Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                 Int16 _lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                lat = ((double)_lat / 256 * 180);
-                lat1 = ((double)(_lat + 1) / 256 * 180);
-                lon = ((double)_lon / 256 * 180);
-                lon1 = ((double)(_lon + 1) / 256 * 180);
+                lat = (double)(_lat)/ 256 * 180;
+                lat1 = (double)(_lat+ 1) / 256 * 180;
+                lon =  (double)(_lon) / 256 * 180;
+                lon1 = (double)(_lon + 1) / 256 * 180;
             }
             else if (qnnee.Length == 7)
             {
                 Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
                 Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                lat = (_lat / 4096 * 180);
-                lat1 = ((double)(_lat + 1) / 256 * 180);
-                lon = (_lon / 4096 * 180);
-                lon1 = ((double)(_lon + 1) / 256 * 180);
+                lat = (double)(_lat) / 4096 * 180;
+                lat1 =(double)(_lat + 1) / 256 * 180;
+                lon = (double)(_lon) / 4096 * 180;
+                lon1 = (double)(_lon + 1) / 256 * 180;
             }
             lon = (lon + lon1) / 2;
             lat = (lat + lat1) / 2;
@@ -127,25 +132,39 @@ namespace MvvmLight1.Model
             Int16 q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
             saa[0] = IndexPoint(qnnee);
 
-            if (qnnee.Length == 5)
+            if (qnnee.Length == 5) //a region
             {
-                _lat0 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                _lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                if (_lat0 < 255) _lat1 = (Int16)(_lat0 + 1);
-                else { _lat1 = _lat0; q = (Int16)(3 - q); }
-                if (_lon0 < 127) _lon1 = (Int16)(_lon0 + 1); else _lon1 = _lon0;
+                _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 2),16);
+                _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(3, 2),16);
+
+                if (_lat0 < 255)
+                    _lat1 = (Int16)(_lat0 + 1);
+                else 
+                { 
+                    _lat1 = _lat0; 
+                    q = (Int16)(3 - q); 
+                }
+                if (_lon0 < 127)
+                    _lon1 = (Int16)(_lon0 + 1);
+
+                else  _lon1 = _lon0;
+                   
 
                 saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon0));
                 saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon1));
                 saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon1));
                 saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon0));
             }
-            else
+            else  //qnnee is 7 charaters (A District)
             {
-                _lat0 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                _lon0 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                if (_lat0 < 4095) _lat1 = (Int16)(_lat0 + 1);
-                else { _lat1 = _lat0; q = (Int16)(3 - q); }
+                _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(4, 3), 16);
+
+                if (_lat0 < 4095) 
+                    _lat1 = (Int16)(_lat0 + 1);
+                else 
+                { _lat1 = _lat0;
+                    q = (Int16)(3 - q); }
                 if (_lon0 < 127) _lon1 = (Int16)(_lon0 + 1); else _lon1 = _lon0;
 
                 saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon0));

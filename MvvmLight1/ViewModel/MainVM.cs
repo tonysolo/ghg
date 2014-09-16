@@ -40,13 +40,19 @@ namespace MvvmLight1.ViewModel
         /// </summary>
         // public const string WelcomeTitlePropertyName = "WelcomeTitle";
 
-        public string Centre { get; set; }
+        public string Centre { get; private set; }
+        public string Boundary { get; private set; }
+        public string qnnee { get; private set; }
+        public string qnnneee { get; private set; }
+
 
         public bool IsRegistered
         {
             get { return Model.settings.registered; }
             set { Model.settings.registered = value; }
         }
+
+       
 
         private void ShowMesg()
         {
@@ -96,14 +102,14 @@ namespace MvvmLight1.ViewModel
         {
             SetupRelayCommands();
             IsRegistered = true;
-            
-            Centre = "-26.076,27.972";
-            //Centre = "37.806029,-122.407007";
+            qnnee = Model.QNE_Utils.to_qnnee("-26.20,28.04");
+            Centre = Model.QNE_Utils.CentrePoint(qnnee);
+            Boundary = Model.QNE_Utils.Boundary(qnnee);          
         }
 
 
       //  public bool isRegistered
-      //  {
+      //  {.
       //      get { return Model.settings.registered; }
        //     set { Model.settings.registered = value; }
             //take out set - must be readonly except for loader registration to set it once on login
