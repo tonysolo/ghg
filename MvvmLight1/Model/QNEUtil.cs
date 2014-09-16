@@ -7,6 +7,8 @@ namespace MvvmLight1.Model
 {
     static class QNE_Utils
     {
+        const float conv8 = 256 / 180;
+        const float conv12 = 4096 / 180;
         /// <summary>
         /// Converts decimal degrees string to district level (7) qnnneee
         /// </summary>
@@ -23,8 +25,8 @@ namespace MvvmLight1.Model
                      ((lat >= 0) && (lon < 0)) ? 1 :
                      ((lat < 0) && (lon >= 0)) ? 2 : 3;
 
-            int latint = (int)Math.Abs(lat / 180 * 4096);
-            int lonint = (int)Math.Abs(lon / 180 * 4096);
+            int latint = (int)Math.Abs(lat * conv12);
+            int lonint = (int)Math.Abs(lon * conv12);
 
             return String.Format("{0:x1}{1:x3}{2:x3}", q, latint, lonint);
         }
@@ -45,8 +47,8 @@ namespace MvvmLight1.Model
                      ((lat >= 0) && (lon < 0)) ? 1 :
                      ((lat < 0) && (lon >= 0)) ? 2 : 3;
 
-            UInt16 latint = (UInt16)(Math.Abs(lat / 180 * 256));
-            UInt16 lonint = (UInt16)(Math.Abs(lon / 180 * 256));
+            int latint = (int)(lat * conv8);
+            int lonint = (int)(lon * conv8);
             return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
         }
 
@@ -63,17 +65,17 @@ namespace MvvmLight1.Model
 
             if (qnnee.Length == 5)
             {
-                Double _lat = Convert.ToInt16(qnnee.Substring(1, 2));
-                Double _lon = Convert.ToInt16(qnnee.Substring(3, 2));
-                lat = _lat / 256 * 180;
-                lon = _lon / 256 * 180;
+                byte _lat = Convert.ToByte(qnnee.Substring(1, 2),16);
+                byte _lon = Convert.ToByte(qnnee.Substring(3, 2),16);
+                lat = (double)(_lat / conv8);
+                lon = (double)(_lon / conv8);
             }
             else if (qnnee.Length == 7)
             {
                 Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3));
                 Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3));
-                lat = (double)(_lat / 4096) * 180;
-                lon = (double)(_lon / 4096) * 180;
+                lat = (double)(_lat / conv12);
+                lon = (double)(_lon / conv12);
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
@@ -92,19 +94,19 @@ namespace MvvmLight1.Model
             {
                 Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                 Int16 _lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                lat = (double)(_lat)/ 256 * 180;
-                lat1 = (double)(_lat+ 1) / 256 * 180;
-                lon =  (double)(_lon) / 256 * 180;
-                lon1 = (double)(_lon + 1) / 256 * 180;
+                lat = (double)(_lat / conv8);
+                lat1 = (double)(_lat+ 1) / conv8;
+                lon =  (double)(_lon) / conv8;
+                lon1 = (double)(_lon + 1) / conv8;
             }
             else if (qnnee.Length == 7)
             {
                 Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
                 Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                lat = (double)(_lat) / 4096 * 180;
-                lat1 =(double)(_lat + 1) / 256 * 180;
-                lon = (double)(_lon) / 4096 * 180;
-                lon1 = (double)(_lon + 1) / 256 * 180;
+                lat = (double)(_lat) / conv12;
+                lat1 =(double)(_lat + 1) / conv12;
+                lon = (double)(_lon) / conv12;
+                lon1 = (double)(_lon + 1) / conv12;
             }
             lon = (lon + lon1) / 2;
             lat = (lat + lat1) / 2;
@@ -160,7 +162,7 @@ namespace MvvmLight1.Model
                 _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 3), 16);
                 _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(4, 3), 16);
 
-                if (_lat0 < 4095) 
+                if (_lat0 < 409) 
                     _lat1 = (Int16)(_lat0 + 1);
                 else 
                 { _lat1 = _lat0;
