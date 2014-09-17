@@ -10,16 +10,28 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            string s2= "-26.076,27.972";
-            string s = tester.to_qnnee("-26.076,27.972");
-            string s1 = tester.IndexPoint(s);
+            string s = "";
+            string s1 = "-26.076,27.972"; 
+          
+            s = QNE_Utils.to_qnnneee(s1);
+            Console.WriteLine(s);
+            Console.WriteLine(QNE_Utils.IndexPoint(s));
+            Console.WriteLine(QNE_Utils.CentrePoint(s));
+ Console.WriteLine();
+            Console.WriteLine(QNE_Utils.Boundary(s));
+
+ Console.WriteLine();
 
 
-            string b = tester.Boundary(s);
-            string c = tester.CentrePoint(s);
+            s = QNE_Utils.to_qnnee(s1);
+            Console.WriteLine(s);
+            Console.WriteLine(QNE_Utils.IndexPoint(s));
+            Console.WriteLine(QNE_Utils.CentrePoint(s));
+            Console.WriteLine();
+            Console.WriteLine(QNE_Utils.Boundary(s));   
 
-            string s4 = "";
 
+            Console.ReadLine();
         }
     }
 }

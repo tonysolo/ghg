@@ -7,8 +7,8 @@ namespace MvvmLight1.Model
 {
     static class QNE_Utils
     {
-        const float conv8 = 256 / 180;
-        const float conv12 = 4096 / 180;
+        //const float conv8 = 256 / 180;
+        //const float conv12 = 4096 / 180;
         /// <summary>
         /// Converts decimal degrees string to district level (7) qnnneee
         /// </summary>
@@ -47,8 +47,8 @@ namespace MvvmLight1.Model
                      ((lat >= 0) && (lon < 0)) ? 1 :
                      ((lat < 0) && (lon >= 0)) ? 2 : 3;
 
-            int latint = (int)(lat * conv8);
-            int lonint = (int)(lon * conv8);
+            int latint = (int)(lat / 256 * 180);
+            int lonint = (int)(lon / 256 * 180);
             return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
         }
 
@@ -59,7 +59,7 @@ namespace MvvmLight1.Model
         /// </summary>
         /// <param name="qnnee">5 or 7 character hex </param>
         /// <returns>latlon string  as csv</returns>
-        static string IndexPoint(string qnnee)
+       public static string IndexPoint(string qnnee)
         {
             double lat = 0, lon = 0;
 
