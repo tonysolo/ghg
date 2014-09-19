@@ -180,21 +180,19 @@ namespace ConsoleApp
                             saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon0));
                         }
                         return String.Join(" ", saa);
-                        // might need to use a different separator or make sure that the decimal point is never a comma
-                        // coordinate format points
+                    
                     }
-/*
+
                     /// <summary>
                     /// public method to use a decimal degree point to a
                     /// get the region (40 arc minutes 80 x80 km) boundary points. 
                     /// </summary>
                     /// <param name="decdeg">Decimal Degrees</param>
                     /// <returns>A string containing four decimal degree points</returns>
-                    public static string LatLonToRegionBoundary(string decdeg)
+                    public static string LatLon_to_qnnee_boundary(string decdeg)
                     {
                         string qne = to_qnnee(decdeg);
-                        return Boundary(qne);
-                        //  return decdeg;
+                        return Boundary(qne);                    
                     }
 
                     /// <summary>
@@ -203,60 +201,13 @@ namespace ConsoleApp
                     /// </summary>
                     /// <param name="decdeg">Decimal Degrees</param>
                     /// <returns>A string containing four decimal degree points</returns>
-                    public static string LatLonToDistrictBoundary(string decdeg)
+                    public static string LatLon_to_qnnneee_boundary(string decdeg)
                     {
                         string qne = to_qnnneee(decdeg);
                         return Boundary(qne);
-                        //return decdeg;
                     }
 
 
-                    /* public static string Boundary(string qnnee)
-                     {
-                         int len = qnnee.Length;
-                         if (!((len == 5) || (len == 7))) return "error";
-                         UInt16 lat, lat1, lon, lon1, q;
-                         lat = lat1 = lon = lon1 = q = 0;
-                         q = Convert.ToUInt16(qnnee.Substring(0, 1), 16);
-                         if (len == 5)
-                         {
-                             lat = Convert.ToUInt16(qnnee.Substring(1, 2), 16);
-                             lon = Convert.ToUInt16(qnnee.Substring(3, 2), 16);
-                             if (lat < 127)
-                             {
-                                 lat1 = (UInt16)(lat + 1);
-                                 if (lon < 255) lon1 = (UInt16)(lon + 1);
-                                 else q = (UInt16)(3 - q);  //swap East West
-                             }
-                         }
-                         else //len==7
-                         {
-                             lat = Convert.ToUInt16(qnnee.Substring(1, 3), 16);
-                             lon = Convert.ToUInt16(qnnee.Substring(4, 3), 16);
-                             if (lat < 2047)
-                             {
-                                 lat1 = (UInt16)(lat + 1);
-                                 if (lon < 4095) lon1 = (UInt16)(lon + 1);
-                                 else q = (UInt16)(3 - q);
-                             }
-                         }
-                         //now convert to decimals
-                         float grid5 = 180 / 256;
-                         float grid7 = 180 / 4096;
-                         float latf, lonf;
-                         if (len == 5)
-                         {
-                             latf = lat * grid5;
-                             lonf = lon * grid5;
-                         }
-                         else
-                         {
-                             latf = lat * grid7;
-                             lonf = lon * grid7;
-                         }
-                         return String.Format(@"{0:F4},{1:F4} {0:F4},{2:f4} {3:F4},{2:F4} {3:F4},{0:F4}", lat, lon, lon1, lat1);
-                         //lat,lon|lat,lon1|lat1,lon1|lat1,lon0
-                     }
-                     */
+        
         }
     }

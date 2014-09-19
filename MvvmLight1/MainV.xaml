@@ -70,11 +70,14 @@
                 <Grid Height="240">
                     <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
-               ZoomLevel="7">
+               ZoomLevel="9" Cursor="Cross">
+                        <m:Map.ContextMenu>
+                            <ContextMenu/>
+                        </m:Map.ContextMenu>
                         <m:MapPolygon
-                           Fill="Blue" Stroke="Green" StrokeThickness="5" 
+                           Fill="Blue" Stroke="Black"  StrokeThickness="1" 
                           Locations="{Binding Boundary}" 
-                          Opacity="0.7" 
+                          Opacity="0.2" 
                             />
                     </m:Map>
                 </Grid>
