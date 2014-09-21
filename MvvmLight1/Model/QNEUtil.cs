@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MvvmLight1.Model
 {
- static class QNE_Utils
+    static class QNE_Utils
     {
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace MvvmLight1.Model
             return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
         }
 
- 
+
         /// <summary>
         /// private method used by the library
         /// latlon string point closest to meridian and equator 
@@ -71,145 +71,167 @@ namespace MvvmLight1.Model
             }
             else if (qnnee.Length == 7)
             {
-                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3),16);
-                Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3),16);
+                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
                 lat = (double)(_lat) / 4096 * 180;
                 lon = (double)(_lon) / 4096 * 180;
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
             return String.Format("{0:F2},{1:F2}", lat, lon);
-           
-                    }
-        
-                    /// <summary>
-                    /// calculateds the centre point of a qnnee region
-                    /// </summary>
-                    /// <param name="qnnee">qnnee as string</param>
-                    /// <returns>decimal string latlon formar</returns>
-                    public static string CentrePoint(string qnnee)
-                    {
-                        double lat = 0, lon = 0, lat1 = 0, lon1 = 0;
 
-                        if (qnnee.Length == 5)
-                        {
-                            Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                            Int16 _lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                            lat = (double)(_lat) / 256 * 180;
-                            lat1 = (double)(_lat + 1) / 256 * 180;
-                            lon = (double)(_lon) / 256 * 180;
-                            lon1 = (double)(_lon + 1) / 256 * 180;
-                        }
-                        else if (qnnee.Length == 7)
-                        {
-                            Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                            Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                            lat = (double)(_lat)      / 4096 * 180;
-                            lat1 = (double)(_lat + 1) / 4096 * 180;
-                            lon = (double)(_lon)      / 4096 * 180;
-                            lon1 = (double)(_lon + 1) / 4096 * 180;
-                        }
-                        lon = (lon + lon1) / 2;
-                        lat = (lat + lat1) / 2;
-
-                        if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
-                        if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-                        return String.Format(@"{0:F4},{1:F4}", lat, lon); //comma separated
-                    }
-
-                    /// <summary>
-                    /// constructs a 4 point boundary from 5 or 7 digit qnnee index point and 
-                    /// incrementing away fron the equator and the prime meridian
-                    /// for bing map polygon. Handles quadrant swapping for longitude crossing 
-                    /// 180 degrees. Handle poles by ignoring increments beyond the second last
-                    /// longitude point.
-                    /// </summary>
-                    /// <param name="qnnee"></param>
-                    /// <returns>4 latlon csv coordinates space separates</returns>
-                    public static string Boundary(string qnnee)
-                    {
-                        if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
-
-                        string[] saa = new string[4];
-                        Int16 _lat0, _lon0, _lat1, _lon1;
-                        Int16 q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
-                        saa[0] = IndexPoint(qnnee);
-
-                        if (qnnee.Length == 5) //a region
-                        {
-                            _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                            _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(3, 2), 16);
-
-                            if (_lat0 < 255)
-                                _lat1 = (Int16)(_lat0 + 1);
-                            else
-                            {
-                                _lat1 = _lat0;
-                                q = (Int16)(3 - q);
-                            }
-                            if (_lon0 < 126)
-                                _lon1 = (Int16)(_lon0 + 1);
-
-                            else _lon1 = _lon0;
-
-
-                            saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon0));
-                            saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon1));
-                            saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon1));
-                            saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon0));
-                        }
-                        else  //qnnee is 7 charaters (A District)
-                        {
-                            _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                            _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(4, 3), 16);
-
-                            if (_lat0 < 4095)
-                                _lat1 = (Int16)(_lat0 + 1);
-                            else
-                            {
-                                _lat1 = _lat0;
-                                q = (Int16)(3 - q);
-                            }
-                            if (_lon0 < 2046) 
-                                _lon1 = (Int16)(_lon0 + 1); 
-                            else _lon1 = _lon0;
-
-                            saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon0));
-                            saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon1));
-                            saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon1));
-                            saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon0));
-                        }
-                        return String.Join(" ", saa);
-                    
-                    }
-
-                    /// <summary>
-                    /// public method to use a decimal degree point to a
-                    /// get the region (40 arc minutes 80 x80 km) boundary points. 
-                    /// </summary>
-                    /// <param name="decdeg">Decimal Degrees</param>
-                    /// <returns>A string containing four decimal degree points</returns>
-                    public static string LatLon_to_qnnee_boundary(string decdeg)
-                    {
-                        string qne = to_qnnee(decdeg);
-                        return Boundary(qne);                    
-                    }
-
-                    /// <summary>
-                    /// public method to use a decimal degree point to a
-                    /// get the region (2.6 arc minutes 5x5 km) boundary points. 
-                    /// </summary>
-                    /// <param name="decdeg">Decimal Degrees</param>
-                    /// <returns>A string containing four decimal degree points</returns>
-                    public static string LatLon_to_qnnneee_boundary(string decdeg)
-                    {
-                        string qne = to_qnnneee(decdeg);
-                        return Boundary(qne);
-                    }
-
-
-        
         }
+
+        /// <summary>
+        /// calculateds the centre point of a qnnee region
+        /// </summary>
+        /// <param name="qnnee">qnnee as string</param>
+        /// <returns>decimal string latlon formar</returns>
+        public static string CentrePoint(string qnnee)
+        {
+            double lat = 0, lon = 0, lat1 = 0, lon1 = 0;
+
+            if (qnnee.Length == 5)
+            {
+                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                Int16 _lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                lat = (double)(_lat) / 256 * 180;
+                lat1 = (double)(_lat + 1) / 256 * 180;
+                lon = (double)(_lon) / 256 * 180;
+                lon1 = (double)(_lon + 1) / 256 * 180;
+            }
+            else if (qnnee.Length == 7)
+            {
+                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                lat = (double)(_lat) / 4096 * 180;
+                lat1 = (double)(_lat + 1) / 4096 * 180;
+                lon = (double)(_lon) / 4096 * 180;
+                lon1 = (double)(_lon + 1) / 4096 * 180;
+            }
+            lon = (lon + lon1) / 2;
+            lat = (lat + lat1) / 2;
+
+            if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
+            if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
+            return String.Format(@"{0:F4},{1:F4}", lat, lon); //comma separated
+        }
+
+        /// <summary>
+        /// constructs a 4 point boundary from 5 or 7 digit qnnee index point and 
+        /// incrementing away fron the equator and the prime meridian
+        /// for bing map polygon. Handles quadrant swapping for longitude crossing 
+        /// 180 degrees. Handles poles by ignoring increments beyond the second last
+        /// longitude point.
+        /// </summary>
+        /// <param name="qnnee"></param>
+        /// <returns>4 latlon csv coordinates space separates</returns>
+        public static string Boundary(string qnnee)
+        {
+            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
+
+            string[] saa = new string[4];
+            Int16 _lat0, _lon0, _lat1, _lon1;
+            Int16 q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
+            saa[0] = IndexPoint(qnnee);
+
+            if (qnnee.Length == 5) //a region
+            {
+                _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(3, 2), 16);
+
+                if (_lat0 < 255)
+                    _lat1 = (Int16)(_lat0 + 1);
+                else
+                {
+                    _lat1 = _lat0;
+                    q = (Int16)(3 - q);
+                }
+                if (_lon0 < 126)
+                    _lon1 = (Int16)(_lon0 + 1);
+
+                else _lon1 = _lon0;
+
+
+                saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon0));
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon0));
+            }
+            else  //qnnee is 7 charaters (A District)
+            {
+                _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(4, 3), 16);
+
+                if (_lat0 < 4095)
+                    _lat1 = (Int16)(_lat0 + 1);
+                else
+                {
+                    _lat1 = _lat0;
+                    q = (Int16)(3 - q);
+                }
+                if (_lon0 < 2046)
+                    _lon1 = (Int16)(_lon0 + 1);
+                else _lon1 = _lon0;
+
+                saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon0));
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon0));
+            }
+            return String.Join(" ", saa);
+
+        }
+
+        /// <summary>
+        /// public method to use a decimal degree point to a
+        /// get the region (40 arc minutes 80 x80 km) boundary points. 
+        /// </summary>
+        /// <param name="decdeg">Decimal Degrees</param>
+        /// <returns>A string containing four decimal degree points</returns>
+        public static string LatLon_to_qnnee_boundary(string decdeg)
+        {
+            string qne = to_qnnee(decdeg);
+            return Boundary(qne);
+        }
+
+        /// <summary>
+        /// public method to use a decimal degree point to a
+        /// get the region (2.6 arc minutes 5x5 km) boundary points. 
+        /// </summary>
+        /// <param name="decdeg">Decimal Degrees</param>
+        /// <returns>A string containing four decimal degree points</returns>
+        public static string LatLon_to_qnnneee_boundary(string decdeg)
+        {
+            string qne = to_qnnneee(decdeg);
+            return Boundary(qne);
+        }
+
+        public static string MoveNSEW(string qnnee, char nsew)
+        {
+            //nn and ee are hex values 0 to 7f lat and 0 to ff lon\
+            int quad,lat,lon;
+
+            if (qnnee.Length == 5)
+            {
+                quad = Convert.ToInt16(qnnee.Substring(0,1),16);
+                lat = Convert.ToInt16(qnnee.Substring(1, 2),16);
+                lon = Convert.ToInt16(qnnee.Substring(3, 2),16);
+                if (quad == 1) lat *= -1;
+                if (quad == 2) lon *= -1;
+                if (quad == 3) { lat *= -1; lon *= -1; }
+                switch (char.ToLower(nsew)) {
+                    case 'n': lat += 1; break;
+                    case 's': lat -= 1; break;
+                    case 'e' : lon += 1;break;
+                    case 'w' : lon -= 1;break;              
+                }
+            }
+            return "";
+        }
+    }
+
+
     /*
     static class QNE_Utils
     {
@@ -459,4 +481,4 @@ namespace MvvmLight1.Model
              //lat,lon|lat,lon1|lat1,lon1|lat1,lon0
          }
          * */
-    }
+}

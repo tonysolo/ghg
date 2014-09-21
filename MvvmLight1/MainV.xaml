@@ -48,7 +48,7 @@
                 Orientation="Horizontal"
                    Height="25"
                     DockPanel.Dock="Bottom"
-         Margin="0,5,0,5">
+         Margin="0,5,0,0">
                 <Button
             Width="80"                 
             Content="Epidemiology"            
@@ -82,6 +82,14 @@
                     </m:Map>
                 </Grid>
                 <!--Holds the Map-->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Width="80"/>
+                    <TextBlock Width="80" Margin="5 0 5 0" />
+                    <Button Width="20" Content="up"/>
+                    <Button Width="20"  Content="dn"/>
+                    <Button Width="20" Content="lt"/>
+                    <Button Width="20" Content="rt"/>                        
+                </StackPanel>
                 <ScrollViewer>
                 <TextBlock
                     Height="80"
