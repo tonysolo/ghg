@@ -21,15 +21,20 @@ namespace ConsoleApp
         {
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "error";
             int lat, lon;
-            char quad = qnnee[0];
+            byte quad;//0==ne,1==nw,2==se,3==sw
             if (qnnee.Length == 5)
-            {           
+            {  
+                quad = Convert.ToByte(qnnee[0]);
                 lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                 lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+
+
+                lat *= (quad & 0x01)==1 ? -1 : 1;
+
                 switch (char.ToLower(nsew))
                 {
-                    case 'n': if (lat < 128) lat++; break;//check quadrant for direction
-                    case 's': if (lat >= 0) lat--; break; //check quadrant for direction
+                    case 'n': if ((quad < 2)&&(lat < 128)) lat++; break;//north hemisphere move north but stop before pole pole
+                    case 's': if (lat >= 0) lat--; else  break; //check quadrant for direction
                     case 'e': if (lon < 256) lon++; break;
                     case 'w': if (lon >= 0) lon--; break;
                 }
@@ -98,15 +103,19 @@ namespace ConsoleApp
         //--------------------------------------------------------------------------
         static void Main(string[] args)
         {
-            string qne = "21234";
-           // Console.WriteLine(qne);
-            for (int i = 0; i < 10;i++ )
-            { 
-                qne = MoveNSEW(qne, 'e');
+            string qne = "20204";
+           Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
+           char k = 'x';
+           Console.WriteLine();
+
+            while (k != 'q')
+            {
+                k = Console.ReadKey().KeyChar;         
+                qne = MoveNSEW(qne,k);
                 Console.WriteLine(qne);            
            }
- Console.ReadLine();
 
+            return;
         }
     }
 }
