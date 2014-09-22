@@ -21,24 +21,28 @@ namespace ConsoleApp
         {
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "error";
             int lat, lon;
-            byte quad;//0==ne,1==nw,2==se,3==sw
+            byte quad;// = Convert.ToByte(qnnee[0]); ;//0==ne,1==nw,2==se,3==sw
             if (qnnee.Length == 5)
             {  
                 quad = Convert.ToByte(qnnee[0]);
                 lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                 lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                lat *= (quad & 0x02) > 0 ? -1 : 1;
+                lon *= (quad & 0x01) > 0 ? -1 : 1;
 
+                switch (char.ToLower(nsew)) 
+                {             
+                    case 'n': if ((quad < 2)&&(lat < 128)) {lat++; break; }//north move north but stop before N pole                 
+                    else if ((quad>1)&&(lat>0)) //if south hemispere move north to equator
+                    {lat--;  if (lat==0) {quad &= 0x01; break;}}//then set quadrant to north
+                        
+                    case 's': if ((quad>1)&&(lat < 128)) {lat++;break;}//south move south but stop before S pole
+                    else if ((quad<2)&&(lat > 0)) //if north move south to equator
+                    {lat--; if (lat==0) {quad |= 0x10; break;}} //set quadrant to south
 
-                lat *= (quad & 0x01)==1 ? -1 : 1;
-
-                switch (char.ToLower(nsew))
-                {
-                    case 'n': if ((quad < 2)&&(lat < 128)) lat++; break;//north hemisphere move north but stop before pole pole
-                    case 's': if (lat >= 0) lat--; else  break; //check quadrant for direction
-                    case 'e': if (lon < 256) lon++; break;
-                    case 'w': if (lon >= 0) lon--; break;
+                    case 'e': if ((quad & 0x01)==0) if (lon < 256) lon++; break;
+                    case 'w': if ((quad & 0x01)==1) if (lon > 0) lon--; break;
                 }
-
                 return String.Format("{0:x1}{1:x2}{2:x2}", quad, lat, lon);
             }
 
@@ -51,7 +55,8 @@ namespace ConsoleApp
                 lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
                 switch (char.ToLower(nsew))
                 {
-                    case 'n': if (lat < 2048) lat++; break;//check quadrant for direction
+                    case 'n': if (lat < 2048) { lat++; break; }//check quadrant for direction
+                              else if 
                     case 's': if (lat >= 0) lat--; break;//check quadrant for direction
                     case 'e': if (lon < 4096) lon++; break;
                     case 'w': if (lon >= 0) lon--; break;
@@ -104,16 +109,16 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             string qne = "20204";
-           Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
-           char k = 'x';
-           Console.WriteLine();
+            Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
+            char k = 'x';
+            Console.WriteLine();
 
             while (k != 'q')
             {
-                k = Console.ReadKey().KeyChar;         
-                qne = MoveNSEW(qne,k);
-                Console.WriteLine(qne);            
-           }
+                k = Console.ReadKey().KeyChar;
+                qne = MoveNSEW(qne, k);
+                Console.WriteLine(qne);
+            }
 
             return;
         }
