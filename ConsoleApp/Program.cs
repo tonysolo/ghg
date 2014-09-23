@@ -89,21 +89,27 @@ namespace ConsoleApp
                         } break;
 
                     case 's': if ((isSouth(qnnee)) && (lat < 128)) lat++;//south move south but stop before S pole
-                        else if ((isNorth(qnnee) && (lat > 0))) lat--; //if north move south to equator                                 
-                        if (lat == 0)
+                        else if ((isNorth(qnnee)) && (lat > 0)) //if north move south to equator                                 
                         {
-                            quad += 2;
-                            qnnee = setQuadrant(qnnee, quad);
-                        }//set quadrant to south
+                            lat--;
+                            if (lat == 0)
+                            {
+                                quad += 2;
+                                qnnee = setQuadrant(qnnee, quad);
+                            }//set quadrant to south
+                        }
                         break;
 
                     case 'e': if ((quad & 0x01) == 0)
                             if (lon < 256) lon++; 
-                            else { quad += 1; qnnee = setQuadrant(qnnee, quad); }//change quadrant from west to east
+                            else { quad += 1; 
+                           qnnee = setQuadrant(qnnee, quad); }//change quadrant from west to east
                         break;
+
                     case 'w': if ((quad & 0x01) == 1) 
                         if (lon > 0) lon--; 
-                        else { quad -= 1; qnnee = setQuadrant(qnnee, quad); } //if lon will be < 0 change quadrant
+                        else { quad -= 1; 
+                        qnnee = setQuadrant(qnnee, quad); } //if lon will be < 0 change quadrant
                         break;
                 }
                 return String.Format("{0:x1}{1:x2}{2:x2}", quad, lat, lon);
@@ -125,10 +131,7 @@ namespace ConsoleApp
                                else if (isSouth(qnnee) && (lat < 2048))  lat--; //if south hemispere move north to equator
                              //if get to equator then change quadrant
                             if (lat == 0)//then set quadrant to north  
-                            { quad += 2;  qnnee = setQuadrant(qnnee, quad); }  break;
-                               
-                           
-                                                                                                   
+                            { quad += 2;  qnnee = setQuadrant(qnnee, quad); }  break;                                                                                          
 
                     case 's': if ((isSouth(qnnee)) && (lat < 2048)) lat++;                        
                         else if ((isNorth(qnnee)) && (lat < 2048)) lat--;                      
@@ -186,7 +189,7 @@ namespace ConsoleApp
         //--------------------------------------------------------------------------
         static void Main(string[] args)
         {
-            string qne = "20000";
+            string qne = "22222";
             Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
             char k = 'x';
             Console.WriteLine(k);
