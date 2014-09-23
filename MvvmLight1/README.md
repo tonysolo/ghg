@@ -1,12 +1,12 @@
 # Global Health Grid (GHG) - Storage and Processing #
 
-The  purpose of this application is to store Healthcare data for Epidemiology and EHealth. It uses *Cloud Storage and GIS Maps* for storing and retrieving health data using a *Grid system* that uses regions approximately 80 X 80 Km at the equator.
+The  purpose of this application is to store Healthcare data for Epidemiology and E-Health. It uses *Cloud Storage and GIS Maps* for storing and retrieving health data using a *Grid system* to define regions that are approximately 80 X 80 Km at the equator.
 
 GHG has two important applications: *Epidemiology* (e-epidemiology) and *Patient clinical records* (e-health).
 
 ### e-Epidemiology and e-Health ###
  
-For both applications, healthcare providers use the system to record healthcare data.
+Both applications have features in common so they are contained in a single program for healthcare providers to use for record patient clinical records and epidemiology statistics.
 
 E-Health is clinical information. It contains details for treatment, prescriptions and referrals. It belongs to the patient and is stored directly in the patient's private e-health record.
 
