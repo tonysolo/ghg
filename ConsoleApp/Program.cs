@@ -76,22 +76,23 @@ namespace ConsoleApp
 
                 switch (char.ToLower(nsew))
                 {
-                    case 'n': if ((isNorth(qnnee)) && (lat < 128)) lat++;
+                    case 'n': if ((isNorth(qnnee)) && (lat < 127)) lat++;
                         //north move north but stop before N pole                 
                         else if ((isSouth(qnnee)) && (lat > 0))
                         {
                             lat--;//if south hemispere move north to equator
-                            if (lat == 0)
+                            if (lat == 0)//if equator crossed
                             {
                                 quad -= 2;
                                 qnnee = setQuadrant(qnnee, quad);
                             }//then set quadrant to north                     
                         } break;
 
-                    case 's': if ((isSouth(qnnee)) && (lat < 128)) lat++;//south move south but stop before S pole
-                        else if ((isNorth(qnnee)) && (lat > 0)) //if north move south to equator                                 
+                    case 's': if ((isSouth(qnnee)) && (lat < 127)) lat++;
+                        //south move south but stop before S pole
+                        else if ((isNorth(qnnee)) && (lat > 0))                                 
                         {
-                            lat--;
+                            lat--;//if north move south to equator 
                             if (lat == 0)
                             {
                                 quad += 2;
@@ -100,16 +101,22 @@ namespace ConsoleApp
                         }
                         break;
 
-                    case 'e': if ((quad & 0x01) == 0)
-                            if (lon < 256) lon++; 
-                            else { quad += 1; 
-                           qnnee = setQuadrant(qnnee, quad); }//change quadrant from west to east
+                    case 'e': if ((quad & 0x01) == 0) //if east
+                        if (lon < 255) lon++;
+                        else
+                        {
+                            quad += 1;
+                            qnnee = setQuadrant(qnnee, quad);
+                        }//change quadrant from west to east
                         break;
 
-                    case 'w': if ((quad & 0x01) == 1) 
-                        if (lon > 0) lon--; 
-                        else { quad -= 1; 
-                        qnnee = setQuadrant(qnnee, quad); } //if lon will be < 0 change quadrant
+                    case 'w': if ((quad & 0x01) == 1)  //if west
+                        if (lon > 1) lon--;
+                        else
+                        {
+                            quad -= 1;
+                            qnnee = setQuadrant(qnnee, quad);
+                        } //if lon will be < 0 change quadrant
                         break;
                 }
                 return String.Format("{0:x1}{1:x2}{2:x2}", quad, lat, lon);
@@ -118,7 +125,7 @@ namespace ConsoleApp
 //try to make seemless movement accross equator and meridians by changing directions
             //of inc and decrement depending on current position rather than default quadrant handling
 
-            else // qnnneee == 7 characters
+            else // qnnneee == 7 characters NEEDS TESTING
             {
                 lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
                 lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
