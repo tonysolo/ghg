@@ -8,6 +8,7 @@ namespace ConsoleApp
 {
     class Program
     {
+        static bool eastwest = true;
 
         public static bool isNorth(string qnnee)
         {
@@ -62,67 +63,78 @@ namespace ConsoleApp
         /// <returns>region coordinates</returns>
         public static string MoveNSEW(string qnnee, char nsew)
         {
+            
+
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "error";
-            int lat, lon;
-            byte quad = Convert.ToByte(qnnee.Substring(0, 1), 16);
-            //0==ne,1==nw,2==se,3==sw
 
-            if (qnnee.Length == 5)
-            {
-                lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                //lat *= (isSouth(qnnee)) ? -1 : 1;
-                //lon *= (isWest(qnnee)) ? -1 : 1;
+          
 
-                switch (char.ToLower(nsew))
+                char q = char.ToLower(qnnee[0]);
+                if (qnnee.Length == 5)
                 {
-                    case 'n': if ((isNorth(qnnee)) && (lat < 127)) lat++;
-                        //north move north but stop before N pole                 
-                        else if ((isSouth(qnnee)) && (lat > 0))
-                        {
-                            lat--;//if south hemispere move north to equator
-                            if (lat == 0)//if equator crossed
-                            {
-                                quad -= 2;
-                                qnnee = setQuadrant(qnnee, quad);
-                            }//then set quadrant to north                     
-                        } break;
-
-                    case 's': if ((isSouth(qnnee)) && (lat < 127)) lat++;
-                        //south move south but stop before S pole
-                        else if ((isNorth(qnnee)) && (lat > 0))                                 
-                        {
-                            lat--;//if north move south to equator 
-                            if (lat == 0)
-                            {
-                                quad += 2;
-                                qnnee = setQuadrant(qnnee, quad);
-                            }//set quadrant to south
-                        }
-                        break;
-
-                    case 'e': if ((quad & 0x01) == 0) //if east
-                        if (lon < 255) lon++;
-                        else
-                        {
-                            quad += 1;
-                            qnnee = setQuadrant(qnnee, quad);
-                        }//change quadrant from west to east
-                        break;
-
-                    case 'w': if ((quad & 0x01) == 1)  //if west
-                        if (lon > 1) lon--;
-                        else
-                        {
-                            quad -= 1;
-                            qnnee = setQuadrant(qnnee, quad);
-                        } //if lon will be < 0 change quadrant
-                        break;
+                    int nn, ee;
+                    nn = Convert.ToInt16(qnnee.Substring(1, 2),16);
+                    ee = Convert.ToInt16(qnnee.Substring(3, 2),16);
+                     int z;
+                    if (nn > 127) nn = 127;
+                    if (q == 1) ee *= -1; //01 == north west
+                    else if (q == 2) nn *= -1;//10 == south east
+                    else if (q == 3) { ee *= -1; nn *= -1; }//south west
+                    switch (char.ToLower(nsew))
+                    {
+                        case 'n': nn += 1; break;
+                        case 's': nn -= 1; break;
+                        case 'e':
+                            {  if (eastwest==true) ee += 1;  else  ee -= 1;
+                                 if (ee == 0xff)  
+                                     eastwest = false;                                 
+                                break;
+                            }                                     
+                                                                                                                                                       
+                        case 'w': 
+                            {  if (eastwest==true) ee -= 1;  else  ee += 1;
+                                 if (ee == 0xff)  
+                                     eastwest = true;                                 
+                                break;
+                            }   
+                            
+                            
+                            
+                            break;
+                    }
+                    int x = ((nn >= 0) && (ee >= 0)) ? 0 :
+                             ((nn >= 0) && (ee < 0)) ? 1 :
+                             ((nn < 0) && (ee >= 0)) ? 2 : 3;   //0==ne,1==nw,2==se,3==sw
+                    return String.Format("{0:x1}{1:x2}{2:x2}", q, nn, ee);
                 }
-                return String.Format("{0:x1}{1:x2}{2:x2}", quad, lat, lon);
-            }
 
-//try to make seemless movement accross equator and meridians by changing directions
+                else if (qnnee.Length == 7)
+                {
+                    int nnn, eee;
+                    nnn = Convert.ToInt16(qnnee.Substring(1, 3),16);
+                    eee = Convert.ToInt16(qnnee.Substring(4, 3),16);
+                    if (q == 1) eee *= -1; //01 == north west
+                    else if (q == 2) nnn *= -1;//10 == south east
+                    else if (q == 3) { eee *= -1; nnn *= -1; }//south west
+                    switch (char.ToLower(nsew))
+                    {
+                        case 'n': nnn += 1; break;
+                        case 's': nnn -= 1; break;
+                        case 'e': eee += 1; break;
+                        case 'w': eee -= 1; break;
+                    }
+                    int x = ((nnn >= 0) && (eee >= 0)) ? 0 :
+                             ((nnn >= 0) && (eee < 0)) ? 1 :
+                             ((nnn < 0) && (eee >= 0)) ? 2 : 3;   //0==ne,1==nw,2==se,3==sw
+                    return String.Format("{0:x1}{1:x3}{2:x3}", q, nnn, eee);
+                }
+                else return "";
+            }
+        
+
+   
+
+/*/try to make seemless movement accross equator and meridians by changing directions
             //of inc and decrement depending on current position rather than default quadrant handling
 
             else // qnnneee == 7 characters NEEDS TESTING
@@ -190,7 +202,7 @@ namespace ConsoleApp
             }
         }
 
-
+*/
 
 
         //--------------------------------------------------------------------------
@@ -207,7 +219,7 @@ namespace ConsoleApp
                 k = Console.ReadKey().KeyChar;
                 //Console.WriteLine();
                 qne = MoveNSEW(qne, k);
-                Console.WriteLine(qne);
+                Console.WriteLine(' '+qne);
             }
             return;
         }
