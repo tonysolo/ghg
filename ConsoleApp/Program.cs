@@ -8,7 +8,7 @@ namespace ConsoleApp
 {
     class Program
     {
-        static bool eastwest = true;
+        static bool go_east = true; 
 
         public static bool isNorth(string qnnee)
         {
@@ -75,37 +75,29 @@ namespace ConsoleApp
                     int nn, ee;
                     nn = Convert.ToInt16(qnnee.Substring(1, 2),16);
                     ee = Convert.ToInt16(qnnee.Substring(3, 2),16);
-                     int z;
+                     //int z;
                     if (nn > 127) nn = 127;
                     if (q == 1) ee *= -1; //01 == north west
                     else if (q == 2) nn *= -1;//10 == south east
                     else if (q == 3) { ee *= -1; nn *= -1; }//south west
+
                     switch (char.ToLower(nsew))
                     {
-                        case 'n': nn += 1; break;
-                        case 's': nn -= 1; break;
-                        case 'e':
-                            {  if (eastwest==true) ee += 1;  else  ee -= 1;
-                                 if (ee == 0xff)  
-                                     eastwest = false;                                 
-                                break;
-                            }                                     
+                        case 'n': nn += 1; if (nn > 127) nn = 127; break;
+                        case 's': nn -= 1; if (nn < -127) nn = -127; break;
+
+                        case 'e': if (go_east==true) ee += 1;  else  ee -= 1;
+                                 if (ee == 255)   go_east = false;  break;                                           
                                                                                                                                                        
-                        case 'w': 
-                            {  if (eastwest==true) ee -= 1;  else  ee += 1;
-                                 if (ee == 0xff)  
-                                     eastwest = true;                                 
-                                break;
-                            }   
-                            
-                            
-                            
-                            break;
+                        case 'w': if (go_east==false) ee += 1;  else  ee -= 1;
+                                 if (ee == 255)   go_east = true;                                                                    
+                                break;                         
+                         
                     }
                     int x = ((nn >= 0) && (ee >= 0)) ? 0 :
                              ((nn >= 0) && (ee < 0)) ? 1 :
                              ((nn < 0) && (ee >= 0)) ? 2 : 3;   //0==ne,1==nw,2==se,3==sw
-                    return String.Format("{0:x1}{1:x2}{2:x2}", q, nn, ee);
+                    return String.Format("{0:x1}{1:x2}{2:x2}", x, nn, ee);
                 }
 
                 else if (qnnee.Length == 7)
@@ -208,7 +200,7 @@ namespace ConsoleApp
         //--------------------------------------------------------------------------
         static void Main(string[] args)
         {
-            string qne = "22222";
+            string qne = "10000";
             Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
             char k = 'x';
             Console.WriteLine(k);
