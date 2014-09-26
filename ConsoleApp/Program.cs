@@ -8,7 +8,11 @@ namespace ConsoleApp
 {
     class Program
     {
-        static bool go_east = true; 
+        //static string _qnnee = "00000";
+        //static bool go_east = true;
+        //static int _nn = 0;
+        //static int _ee = 0;
+        //static int _q = 0;
 
         public static bool isNorth(string qnnee)
         {
@@ -62,49 +66,46 @@ namespace ConsoleApp
         /// <param name="nsew">direction 'n','s','e','w'</param>
         /// <returns>region coordinates</returns>
         public static string MoveNSEW(string qnnee, char nsew)
-        {
-            
+        {          
+            string _qnnee = qnnee.ToLower(); //copy
 
-            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "error";
+          if ((_qnnee.Length != 5) && (_qnnee.Length != 7)) return "error";
 
-          
-
-                char q = char.ToLower(qnnee[0]);
-                if (qnnee.Length == 5)
+                char q = (_qnnee[0]);
+                if (_qnnee.Length == 5)
                 {
-                    int nn, ee;
-                    nn = Convert.ToInt16(qnnee.Substring(1, 2),16);
-                    ee = Convert.ToInt16(qnnee.Substring(3, 2),16);
-                     //int z;
-                    if (nn > 127) nn = 127;
-                    if (q == 1) ee *= -1; //01 == north west
-                    else if (q == 2) nn *= -1;//10 == south east
-                    else if (q == 3) { ee *= -1; nn *= -1; }//south west
+                     Int16 _nn, _ee;
+                    _nn = Convert.ToInt16(_qnnee.Substring(1, 2),16);
+                    _ee = Convert.ToInt16(_qnnee.Substring(3, 2),16);
+
+                   if (_nn > 127) _nn = 127;                     //keep in range
+                                                                 //00 == north east == default 
+                    if (q == '1')      _ee *= -1;                //01 == north west
+                    else if (q == '2') _nn *= -1;                //10 == south east
+                    else if (q == '3') { _ee *= -1; _nn *= -1; } //11 == south west
 
                     switch (char.ToLower(nsew))
                     {
-                        case 'n': nn += 1; if (nn > 127) nn = 127; break;
-                        case 's': nn -= 1; if (nn < -127) nn = -127; break;
-
-                        case 'e': if (go_east==true) ee += 1;  else  ee -= 1;
-                                 if (ee == 255)   go_east = false;  break;                                           
-                                                                                                                                                       
-                        case 'w': if (go_east==false) ee += 1;  else  ee -= 1;
-                                 if (ee == 255)   go_east = true;                                                                    
-                                break;                         
-                         
+                        case 'n': _nn += 1; if (_nn > 127) _nn = 127; break;                          //inc N latitude
+                        case 's': _nn -= 1; if (_nn < -127) _nn = -127 ; break;                       //inc S latitude - equator = 127
+                        case 'e': _ee += 1; if (_ee > 255) _ee = 255; q = (char)(5 - q); break;      //inc logitude and handle EW change
+                        case 'w': _ee -= 1; if (_ee < -255) _ee = -255 ; break;                      // dec latitude @@@@@@ need to handle WE change                                                                                                                                                        
                     }
-                    int x = ((nn >= 0) && (ee >= 0)) ? 0 :
-                             ((nn >= 0) && (ee < 0)) ? 1 :
-                             ((nn < 0) && (ee >= 0)) ? 2 : 3;   //0==ne,1==nw,2==se,3==sw
-                    return String.Format("{0:x1}{1:x2}{2:x2}", x, nn, ee);
+                                                               // reform the qnnee string
+                    int x = ((_nn >= 0) && (_ee >= 0)) ? 0 :   //  north east  0,0 (0)
+                            ((_nn >= 0) && (_ee < 0)) ? 1 :    //  north west  0,1 (1)
+                            ((_nn < 0) && (_ee >= 0)) ? 2 : 3; //  southeast   1,0 (2) southwest 1,1  (3)
+                 
+                    return String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs(x), Math.Abs(_nn), Math.Abs(_ee));
                 }
+
+
 
                 else if (qnnee.Length == 7)
                 {
                     int nnn, eee;
-                    nnn = Convert.ToInt16(qnnee.Substring(1, 3),16);
-                    eee = Convert.ToInt16(qnnee.Substring(4, 3),16);
+                    nnn = Convert.ToInt16(_qnnee.Substring(1, 3),16);
+                    eee = Convert.ToInt16(_qnnee.Substring(4, 3),16);
                     if (q == 1) eee *= -1; //01 == north west
                     else if (q == 2) nnn *= -1;//10 == south east
                     else if (q == 3) { eee *= -1; nnn *= -1; }//south west
@@ -118,13 +119,35 @@ namespace ConsoleApp
                     int x = ((nnn >= 0) && (eee >= 0)) ? 0 :
                              ((nnn >= 0) && (eee < 0)) ? 1 :
                              ((nnn < 0) && (eee >= 0)) ? 2 : 3;   //0==ne,1==nw,2==se,3==sw
+
                     return String.Format("{0:x1}{1:x3}{2:x3}", q, nnn, eee);
                 }
                 else return "";
             }
-        
+
+        //--------------------------------------------------------------------------
+        static void Main(string[] args)
+        {
+            string _qnnee = "22222";
+            Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
+            char k = 'x';
+            Console.WriteLine(k);
+
+            while (k != 'q')
+            {
+                k = Console.ReadKey().KeyChar;
+                //Console.WriteLine();
+                _qnnee = MoveNSEW(_qnnee, k);
+                Console.WriteLine(' ' + _qnnee);
+            }
+            return;
+        }
+    }
+}
 
    
+
+
 
 /*/try to make seemless movement accross equator and meridians by changing directions
             //of inc and decrement depending on current position rather than default quadrant handling
@@ -197,27 +220,7 @@ namespace ConsoleApp
 */
 
 
-        //--------------------------------------------------------------------------
-        static void Main(string[] args)
-        {
-            string qne = "10000";
-            Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
-            char k = 'x';
-            Console.WriteLine(k);
-
-
-            while (k != 'q')
-            {
-                k = Console.ReadKey().KeyChar;
-                //Console.WriteLine();
-                qne = MoveNSEW(qne, k);
-                Console.WriteLine(' '+qne);
-            }
-            return;
-        }
-    }
-}
-
+ 
 /*
  static void Main(string[] args)
         {
