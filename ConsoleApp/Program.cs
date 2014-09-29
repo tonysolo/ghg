@@ -62,27 +62,31 @@ namespace ConsoleApp
         /// <returns>region coordinates</returns>
         public static string MoveNSEW(string qnnee, char nsew)
         { 
+
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
             if (qnnee.Length == 5) // 5 character qnnee
             {
                
                 char q = qnnee[0];
-                int ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                int ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                if (q == '1') ns *= -1;
-                if (q == '2') ew *= -1;
+                int ns = Convert.ToUInt16(qnnee.Substring(1, 2), 16);
+                int ew = Convert.ToUInt16(qnnee.Substring(3, 2), 16);
+                if (q == '1') ew *= -1;
+                if (q == '2') ns *= -1;
                 if (q == '3') { ns *= -1; ew *= -1; }
+
                 switch (nsew)
                 {
-                    case 'n': { if (ns < 128) ns++; break; };
-                    case 's': { if (ns < -128) ns--; break; };
-                    case 'e': { ew++; break; };
-                    case 'w': { ew--; break; };
+                    case 'n': {if (ns < 127) ns++; break; }
+                    case 's': {if (ns > -127) ns--; break; }
+                    case 'e': { ew++; break; }
+                    case 'w': { ew--; break; }                                             
                 }
-                q = (char)(((ns > -1) && (ew > -1)) ? 0 :  
-                          ((ns > -1) && (ew < 1)) ? 1 :     
-                          ((ns < 0) && (ew > -1)) ? 2 : 3);
+                 
+                q = (char) (((ns > -1) && ((ew & 0xff) <  0)) ? 0 :                       //ne  q0 = ne+ n 0..128    ew  0 ..255
+                            ((ns > -1) && ((ew & 0xff) >  0)) ? 1:                        //nw  q1 = nw+ n 0..128    ew  256 ..511
+                            ((ns <  0) && ((ew & 0xff) == 0)) ? 2 : 3);                                           //se  q2 = se- en 0..-128  ew  0..-255
+                                                                                                                  //sw  q3 = sw- en 0..-128  ew -256..-511
 
                 return String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs(q), Math.Abs(ns),Math.Abs(ew));
             }
