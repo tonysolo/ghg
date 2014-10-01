@@ -207,28 +207,79 @@ namespace MvvmLight1.Model
             return Boundary(qne);
         }
 
+       
+
+
+
+        /// Moves coordinate position North South East or West. Takes care of 
+        ///moving across equator and meridians.
+        /// Handles 40 arcmin regions and 2.6 arc min districts.
+        /// </summary>
+        /// <param name="qnnee"></param>
+        /// <param name="nsew">direction 'n','s','e','w'</param>
+        /// <returns>string qnnee</returns>
         public static string MoveNSEW(string qnnee, char nsew)
         {
-            //nn and ee are hex values 0 to 7f lat and 0 to ff lon\
-            int quad,lat,lon;
 
-            if (qnnee.Length == 5)
+            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
+
+            if (qnnee.Length == 5) // 5 character qnnee
             {
-                quad = Convert.ToInt16(qnnee.Substring(0,1),16);
-                lat = Convert.ToInt16(qnnee.Substring(1, 2),16);
-                lon = Convert.ToInt16(qnnee.Substring(3, 2),16);
-                if (quad == 1) lat *= -1;
-                if (quad == 2) lon *= -1;
-                if (quad == 3) { lat *= -1; lon *= -1; }
-                switch (char.ToLower(nsew)) {
-                    case 'n': lat += 1; break;
-                    case 's': lat -= 1; break;
-                    case 'e' : lon += 1;break;
-                    case 'w' : lon -= 1;break;              
+                int q = Convert.ToInt16(qnnee.Substring(0, 1));
+                Int32 ns = Convert.ToInt32(qnnee.Substring(1, 2), 16);
+                Int32 ew = Convert.ToInt32(qnnee.Substring(3, 2), 16);
+
+                if (q == 1) ew *= -1;
+                if (q == 2) ns *= -1;
+                if (q == 3) { ns *= -1; ew *= -1; }
+
+                switch (nsew)
+                {
+                    case 'n': if (ns < 127) ns = ns + 1; break;
+                    case 's': if (ns > -127) ns = ns - 1; break;
+                    case 'e': ew = (ew + 1) % 255; break;
+                    case 'w': ew = (ew - 1) % 255; break;
                 }
+
+                q = ((ns >= 0) && (ew >= 0)) ? 0 :
+                    ((ns >= 0) && (ew < 0)) ? 1 :
+                    ((ns < 0) && (ew > -1)) ? 2 : 3;
+
+                return String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
             }
+
+            else
+
+                if (qnnee.Length == 7) // 5 character qnnee
+                {
+                    int q = Convert.ToInt16(qnnee.Substring(0, 1));
+                    Int32 ns = Convert.ToInt32(qnnee.Substring(1, 3), 16);
+                    Int32 ew = Convert.ToInt32(qnnee.Substring(3, 3), 16);
+
+                    if (q == 1) ew *= -1;
+                    if (q == 2) ns *= -1;
+                    if (q == 3) { ns *= -1; ew *= -1; }
+
+                    switch (nsew)
+                    {
+                        case 'n': if (ns < 2047) ns = ns + 1; break;
+                        case 's': if (ns > -2047) ns = ns - 1; break;
+                        case 'e': ew = (ew + 1) % 4095; break;
+                        case 'w': ew = (ew - 1) % 4095; break;
+                    }
+
+                    q = ((ns >= 0) && (ew >= 0)) ? 0 :
+                         ((ns >= 0) && (ew < 0)) ? 1 :
+                         ((ns < 0) && (ew > -1)) ? 2 : 3;
+
+                    return String.Format("{0:x1}{1:x3}{2:x3}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
+                }
             return "";
         }
+
+
+
+
     }
 
 

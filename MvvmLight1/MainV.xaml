@@ -83,12 +83,12 @@
                 </Grid>
                 <!--Holds the Map-->
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="80"/>
-                    <TextBlock Width="80" Margin="5 0 5 0" />
-                    <Button Width="20" Content="up"/>
-                    <Button Width="20"  Content="dn"/>
-                    <Button Width="20" Content="lt"/>
-                    <Button Width="20" Content="rt"/>                        
+                    <TextBlock Width="60"/>
+                    <TextBlock Width="60" Margin="5 0 5 0" />
+                    <Button Width="25" Content="N" Command="{Binding MoveRegionNorth}"/>
+                    <Button Width="35"  Content="S" Command="{Binding MoveRegionSouth}"/>
+                    <Button Width="30" Content="E" Command="{Binding MoveRegionEast}"/>
+                    <Button Width="35" Content="W" Command="{Binding MoveRegionWest}"/>                        
                 </StackPanel>
                 <ScrollViewer>
                 <TextBlock

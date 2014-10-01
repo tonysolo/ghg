@@ -52,7 +52,7 @@ namespace MvvmLight1.ViewModel
             set { Model.settings.registered = value; }
         }
 
-       
+
 
         private void ShowMesg()
         {
@@ -63,6 +63,7 @@ namespace MvvmLight1.ViewModel
         {
             MapV v = new MapV();
             v.ShowDialog();
+            
         }
 
         private void ShowEpidemiologyDlg()
@@ -83,11 +84,56 @@ namespace MvvmLight1.ViewModel
             v.ShowDialog();
         }
 
+        private void RegionNorth()
+        { 
+            qnnee = QNE_Utils.MoveNSEW(qnnee, 'n');
+            Centre = Model.QNE_Utils.CentrePoint(qnnee);
+            Boundary = Model.QNE_Utils.Boundary(qnnee);
+           
+            RaisePropertyChanged("Boundary");
+             RaisePropertyChanged("Centre");
+            
+  
+        }
+
+        private void RegionSouth()
+        { 
+            qnnee = QNE_Utils.MoveNSEW(qnnee, 's');
+            Centre = Model.QNE_Utils.CentrePoint(qnnee);
+            Boundary = Model.QNE_Utils.Boundary(qnnee);
+             RaisePropertyChanged("Boundary");
+           RaisePropertyChanged("Centre");
+        }
+
+        private void RegionEast() 
+        {
+            qnnee = QNE_Utils.MoveNSEW(qnnee, 'e');
+            Centre = Model.QNE_Utils.CentrePoint(qnnee);
+            Boundary = Model.QNE_Utils.Boundary(qnnee);       
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            
+        }
+
+        private void RegionWest() 
+        {
+            qnnee = QNE_Utils.MoveNSEW(qnnee, 'w');
+            Centre = Model.QNE_Utils.CentrePoint(qnnee);                    
+            Boundary = Model.QNE_Utils.Boundary(qnnee); 
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+ }
 
         public RelayCommand EditMap { get; private set; }
         public RelayCommand EditEpidemiology { get; private set; }
         public RelayCommand EditLoader { get; private set; }
- public RelayCommand EditEhealth { get; private set; }
+        public RelayCommand EditEhealth { get; private set; }
+        public RelayCommand MoveRegionNorth { get; private set; }
+        public RelayCommand MoveRegionEast { get; private set; }
+        public RelayCommand MoveRegionWest { get; private set; }
+        public RelayCommand MoveRegionSouth { get; private set; }
+
+
 
 
         private void SetupRelayCommands()
@@ -96,6 +142,10 @@ namespace MvvmLight1.ViewModel
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             EditLoader = new RelayCommand(ShowLoaderDlg);
             EditEhealth = new RelayCommand(ShowEhealthDlg);
+            MoveRegionNorth = new RelayCommand(RegionNorth);
+            MoveRegionEast = new RelayCommand(RegionEast);
+            MoveRegionWest = new RelayCommand(RegionWest);
+            MoveRegionSouth = new RelayCommand(RegionSouth);
         }
 
         public MainVM()
@@ -104,17 +154,17 @@ namespace MvvmLight1.ViewModel
             IsRegistered = true;
             qnnee = Model.QNE_Utils.to_qnnee("-26.20,28.04");
             Centre = Model.QNE_Utils.CentrePoint(qnnee);
-            Boundary = Model.QNE_Utils.Boundary(qnnee);          
+            Boundary = Model.QNE_Utils.Boundary(qnnee);
         }
 
 
-      //  public bool isRegistered
-      //  {.
-      //      get { return Model.settings.registered; }
-       //     set { Model.settings.registered = value; }
-            //take out set - must be readonly except for loader registration to set it once on login
+        //  public bool isRegistered
+        //  {.
+        //      get { return Model.settings.registered; }
+        //     set { Model.settings.registered = value; }
+        //take out set - must be readonly except for loader registration to set it once on login
 
-       // }
+        // }
     }
 }
 // isRegistered = true;  //needs to be replaced with loader registration
