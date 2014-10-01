@@ -67,95 +67,62 @@ namespace ConsoleApp
 
             if (qnnee.Length == 5) // 5 character qnnee
             {
-
                 int q = Convert.ToInt16(qnnee.Substring(0, 1));
                 Int32 ns = Convert.ToInt32(qnnee.Substring(1, 2), 16);
                 Int32 ew = Convert.ToInt32(qnnee.Substring(3, 2), 16);
-                if (q == '1') ew *= -1;
-                if (q == '2') ns *= -1;
-                if (q == '3') { ns *= -1; ew *= -1; } 
-                //if (ew < 0) ew += 512;
+
+                if (q == 1) ew *= -1;
+                if (q == 2) ns *= -1;
+                if (q == 3) { ns *= -1; ew *= -1; } 
+              
+                switch (nsew)
+                {
+                   case 'n':   if (ns <  127)    ns = ns + 1; break;                                                      
+                   case 's':   if (ns > - 127 )  ns = ns - 1; break;                                                               
+                   case 'e':   ew = (ew + 1) % 255; break;                                                                                                    
+                   case 'w':  ew =  (ew - 1) % 255; break;
+                 } 
+
+                        q = ((ns >= 0) && (ew >= 0)) ? 0 :             
+                            ((ns >= 0) && (ew <  0)) ? 1 :               
+                            ((ns < 0) && (ew  > -1)) ? 2 : 3;                    
+
+                return String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
+            }
+
+          else 
+
+            if (qnnee.Length == 7) // 5 character qnnee
+            {
+                int q = Convert.ToInt16(qnnee.Substring(0, 1));
+                Int32 ns = Convert.ToInt32(qnnee.Substring(1, 3), 16);
+                Int32 ew = Convert.ToInt32(qnnee.Substring(3, 3), 16);
+
+                if (q == 1) ew *= -1;
+                if (q == 2) ns *= -1;
+                if (q == 3) { ns *= -1; ew *= -1; }
 
                 switch (nsew)
                 {
-                    case 'n': { if (ns <  127)  ns = ns + 1; break; }
-                    case 's': { if (ns > 0 )  ns = ns - 1; break; }
-                    case 'e': { ew = (ew + 1) % 0xff; break; }
-                    case 'w': { ew = (ew - 1) % 0xff; break; }
+                    case 'n': if (ns < 2047) ns = ns + 1; break;
+                    case 's': if (ns > -2047) ns = ns - 1; break;
+                    case 'e': ew = (ew + 1) % 4095; break;
+                    case 'w': ew = (ew - 1) % 4095; break;
                 }
-                // ew = ew % 512;
-                //if (ew > 256) ew = ew - 512;
 
+                q =  ((ns >= 0) && (ew >= 0)) ? 0 :
+                     ((ns >= 0) && (ew  < 0)) ? 1 :
+                     ((ns < 0) && (ew  > -1)) ? 2 : 3;
 
-                q = (((ns == 0) && (ew == 0)) ? 0 :                //ne  q0 = ne++  n 0..128    ew  0   ..255
-                             ((ns >= 0) && (ew < 0)) ? 1 :                 //nw  q1 = nw+-  n 0..128    ew  0   ..-255
-                             ((ns < 0) && (ew > -1)) ? 2 : 3);            //se  q2 = se-+  s -1..-128  ew  0   .. 255
-                //sw  q3 = sw-0..s -1..-128  ew  0 .. -256
-
-                return String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
+                return String.Format("{0:x1}{1:x3}{2:x3}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
             }
             return "";
         }
 
-        // int _nn, _ee;
-        // _nn = Convert.ToInt16(_qnnee.Substring(1, 2), 16); //convert to integers
-        // _ee = Convert.ToInt16(_qnnee.Substring(3, 2), 16);//and keep in range
-        // if (_nn > 127) _nn = 127; 
-        //00 == north east == default 
-        // if (q == '1') _ee *= -1;                      //01 == north west                            
-        // else if (q == '2') _nn *= -1;                 //10 == south east
-        // else if (q == '3') { _ee *= -1; _nn *= -1; } //11 == south west            
-
-
-        //  switch (char.ToLower(nsew))
-        // {
-        //      case 'n': _nn += 1; if (_nn > 127) _nn = 127; break;     //inc N latitude and longitude truncatw at poles           
-        //     case 's': _nn -= 1; if (_nn < -127) _nn = -127; break;   //inc S latitude - equator = 127
-        //   case 'e': if (_ee < 255) _ee += 1; else _ee -= 1; break;
-        //  case 'w': if (_ee > -255) _ee -= 1; else _ee += 1; break;  // dec latitude  change 
-        //       case 'e': _ee += 1; _ee = (_ee % 256); if (_ee == 0) { _ee = 255; } break;  //toggle ew and reverse   
-        //        case 'w': _ee -= 1; _ee = (_ee % 256); break;                                                                                                                         
-        //     }
-        // reform the qnnee string
-        //    int x = ((_nn >= 0) && (_ee >= 0)) ? 0 :   //  north east  0,0 (0)
-        //            ((_nn >= 0) && (_ee < 0)) ? 1 :    //  north west  0,1 (1)
-        //            ((_nn < 0) && (_ee >= 0)) ? 2 : 3; //  southeast   1,0 (2) southwest 1,1  (3)
-        //
-        //    string s = String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs((int)x), Math.Abs(_nn), Math.Abs(_ee));
-        //    return s;
-        /*   }
-
-
-
-           else if (qnnee.Length == 7)  //7 character qnnneee
-           {
-
-               int nnn, eee;
-               nnn = Convert.ToInt16(_qnnee.Substring(1, 3), 16);
-               eee = Convert.ToInt16(_qnnee.Substring(4, 3), 16);
-               if (q == 1) eee *= -1; //01 == north west
-               else if (q == 2) nnn *= -1;//10 == south east
-               else if (q == 3) { eee *= -1; nnn *= -1; }//south west
-               switch (char.ToLower(nsew))
-               {
-                   case 'n': nnn += 1; break;
-                   case 's': nnn -= 1; break;
-                   case 'e': eee += 1; break;
-                   case 'w': eee -= 1; break;
-               }
-               int x = ((nnn >= 0) && (eee >= 0)) ? 0 :
-                        ((nnn >= 0) && (eee < 0)) ? 1 :
-                        ((nnn < 0) && (eee >= 0)) ? 2 : 3;   //0==ne,1==nw,2==se,3==sw
-               if (eee == 255) ; //dir = !dir; ;
-               return String.Format("{0:x1}{1:x3}{2:x3}", q, nnn, eee);
-           }
-           else return "";
-       }
-*/
         //--------------------------------------------------------------------------
         static void Main(string[] args)
         {
-            string _qnnee = "22222";
+            string _qnnee = "0222222";
             Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
             char k = 'x';
             Console.WriteLine(k);
