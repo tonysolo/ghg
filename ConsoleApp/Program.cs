@@ -15,21 +15,21 @@ namespace ConsoleApp
             return ((c == '0') || (c == '1'));
         }
 
-        public static bool isSouth(string qnnee)
+        public static bool isSouth(string qnee)
         {
-            char c = qnnee[0];
+            char c = qnee[0];
             return ((c == '2') || (c == '3'));
         }
 
-        public static bool isEast(string qnnee)
+        public static bool isEast(string qnee)
         {
-            char c = qnnee[0];
+            char c = qnee[0];
             return ((c == '0') || (c == '2'));
         }
 
-        public static bool isWest(string qnnee)
+        public static bool isWest(string qnee)
         {
-            char c = qnnee[0];
+            char c = qnee[0];
             return ((c == '1') || (c == '3'));
         }
 
@@ -40,9 +40,9 @@ namespace ConsoleApp
             return sb.ToString();
         }
 
-        public static string setQuadrant(string qnnee, byte quad) // ne=0 nw=1 se=2 sw=3
+        public static string setQuadrant(string qnee, byte quad) // ne=0 nw=1 se=2 sw=3
         {
-            StringBuilder sb = new StringBuilder(qnnee);
+            StringBuilder sb = new StringBuilder(qnee);
             sb[0] = (char)quad;
             return sb.ToString();
         }
@@ -67,57 +67,57 @@ namespace ConsoleApp
 
             if (qnnee.Length == 5) // 5 character qnnee
             {
-                int q = Convert.ToInt16(qnnee.Substring(0, 1));
-                Int32 ns = Convert.ToInt32(qnnee.Substring(1, 2), 16);
-                Int32 ew = Convert.ToInt32(qnnee.Substring(3, 2), 16);
-
-                if (q == 1) ew *= -1;
-                if (q == 2) ns *= -1;
-                if (q == 3) { ns *= -1; ew *= -1; }
+                int q = Convert.ToInt16(qnnee[0]);
+                int ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                int ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                if (q == '1') ew *= -1;
+                if (q == '2') ns *= -1;
+                if (q == '3') { ns *= -1; ew *= -1; }
                 bool dir = true;
                 switch (nsew)
                 {
-                   case 'n':   if (ns <  127)    ns = ns + 1; break;                                                      
-                   case 's':   if (ns > - 127 )  ns = ns - 1; break;
-                   case 'e': if (dir == true) { ew = ew + 1; if (ew <= 255) dir = false; }
-                                else { ew = ew - 1; if (ew == 0)   dir = true; } break; 
-                   //else ew = ew - 1; ew = (ew % 256); if (ew == 255) dir = false; break;                                                                                                    
-                   case 'w':  ew =  (ew - 1) % 256; break;
-                 } 
+                    case 'n': if (ns < 127) ns = ns + 1; break;
+                    case 's': if (ns > -127) ns = ns - 1; break;
+                    case 'e': if (dir == true) { ew = ew + 1; if (ew <= 255) dir = false; }
+                        else { ew = ew - 1; if (ew == 0)   dir = true; } break;
+                    //else ew = ew - 1; ew = (ew % 256); if (ew == 255) dir = false; break;                                                                                                    
+                    case 'w': ew = (ew - 1) % 256; break;
+                }
 
-                        q = ((ns >= 0) && (ew >= 0)) ? 0 :             
-                            ((ns >= 0) && (ew <  0)) ? 1 :               
-                            ((ns < 0) && (ew  > -1)) ? 2 : 3;                    
+                q = ((ns >= 0) & (ew >= 0)) ? 0 :
+                             ((ns >= 0) & (ew < 0)) ? 1 :
+                             ((ns < 0) & (ew < 0)) ? 2 : 3;
 
                 return String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
             }
 
-          else 
+            else
 
-            if (qnnee.Length == 7) // 5 character qnnee
-            {
-                int q = Convert.ToInt16(qnnee.Substring(0, 1));
-                Int32 ns = Convert.ToInt32(qnnee.Substring(1, 3), 16);
-                Int32 ew = Convert.ToInt32(qnnee.Substring(3, 3), 16);
-
-                if (q == 1) ew *= -1;
-                if (q == 2) ns *= -1;
-                if (q == 3) { ns *= -1; ew *= -1; }
-
-                switch (nsew)
+                if (qnnee.Length == 7) // 6 character qnnee
                 {
-                    case 'n': if (ns < 2047) ns = ns + 1; break;
-                    case 's': if (ns > -2047) ns = ns - 1; break;
-                    case 'e': ew = (ew + 1) % 4095; break;
-                    case 'w': ew = (ew - 1) % 4095; break;
+
+                    int q = Convert.ToInt16(qnnee.Substring(0, 1));
+                    Int32 ns = Convert.ToInt32(qnnee.Substring(1, 3), 16);
+                    Int32 ew = Convert.ToInt32(qnnee.Substring(3, 3), 16);
+
+                    if (q == 1) ew *= -1;
+                    if (q == 2) ns *= -1;
+                    if (q == 3) { ns *= -1; ew *= -1; }
+
+                    switch (nsew)
+                    {
+                        case 'n': if (ns < 2047) ns = ns + 1; break;
+                        case 's': if (ns > -2047) ns = ns - 1; break;
+                        case 'e': ew = (ew + 1) % 4095; break;
+                        case 'w': ew = (ew - 1) % 4095; break;
+                    }
+
+                    q = ((ns >= 0) && (ew >= 0)) ? 0 :
+                         ((ns >= 0) && (ew < 0)) ? 1 :
+                         ((ns < 0) && (ew > -1)) ? 2 : 3;
+
+                    return String.Format("{0:x1}{1:x3}{2:x3}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
                 }
-
-                q =  ((ns >= 0) && (ew >= 0)) ? 0 :
-                     ((ns >= 0) && (ew  < 0)) ? 1 :
-                     ((ns < 0) && (ew  > -1)) ? 2 : 3;
-
-                return String.Format("{0:x1}{1:x3}{2:x3}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
-            }
             return "";
         }
 
