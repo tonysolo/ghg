@@ -121,7 +121,7 @@ namespace MvvmLight1.ViewModel
             Centre = Model.QNE_Utils.CentrePoint(qnnee);                    
             Boundary = Model.QNE_Utils.Boundary(qnnee); 
             RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Centre");         
  }
 
         public RelayCommand EditMap { get; private set; }

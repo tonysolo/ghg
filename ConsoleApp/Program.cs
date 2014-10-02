@@ -73,14 +73,16 @@ namespace ConsoleApp
 
                 if (q == 1) ew *= -1;
                 if (q == 2) ns *= -1;
-                if (q == 3) { ns *= -1; ew *= -1; } 
-              
+                if (q == 3) { ns *= -1; ew *= -1; }
+                bool dir = true;
                 switch (nsew)
                 {
                    case 'n':   if (ns <  127)    ns = ns + 1; break;                                                      
-                   case 's':   if (ns > - 127 )  ns = ns - 1; break;                                                               
-                   case 'e':   ew = (ew + 1) % 255; break;                                                                                                    
-                   case 'w':  ew =  (ew - 1) % 255; break;
+                   case 's':   if (ns > - 127 )  ns = ns - 1; break;
+                   case 'e': if (dir == true) { ew = ew + 1; if (ew <= 255) dir = false; }
+                                else { ew = ew - 1; if (ew == 0)   dir = true; } break; 
+                   //else ew = ew - 1; ew = (ew % 256); if (ew == 255) dir = false; break;                                                                                                    
+                   case 'w':  ew =  (ew - 1) % 256; break;
                  } 
 
                         q = ((ns >= 0) && (ew >= 0)) ? 0 :             
@@ -122,7 +124,7 @@ namespace ConsoleApp
         //--------------------------------------------------------------------------
         static void Main(string[] args)
         {
-            string _qnnee = "0222222";
+            string _qnnee = "022f0";
             Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
             char k = 'x';
             Console.WriteLine(k);

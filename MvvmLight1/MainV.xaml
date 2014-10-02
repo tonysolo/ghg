@@ -70,31 +70,36 @@
                 <Grid Height="240">
                     <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
-               ZoomLevel="9" Cursor="Cross">
+              
+               ZoomLevel="7" Cursor="Cross">
                         <m:Map.ContextMenu>
                             <ContextMenu/>
                         </m:Map.ContextMenu>
                         <m:MapPolygon
                            Fill="Blue" Stroke="Black"  StrokeThickness="1" 
                           Locations="{Binding Boundary}" 
-                          Opacity="0.2" 
-                            />
+                     
+                          Opacity="0.2"                        
+                            /> 
+                             <m:Pushpin 
+                                Background="Blue"                              
+                                 Location="{Binding Centre}"/>
                     </m:Map>
                 </Grid>
                 <!--Holds the Map-->
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="60"/>
-                    <TextBlock Width="60" Margin="5 0 5 0" />
-                    <Button Width="25" Content="N" Command="{Binding MoveRegionNorth}"/>
-                    <Button Width="35"  Content="S" Command="{Binding MoveRegionSouth}"/>
-                    <Button Width="30" Content="E" Command="{Binding MoveRegionEast}"/>
-                    <Button Width="35" Content="W" Command="{Binding MoveRegionWest}"/>                        
+                    <TextBlock Width="95" Text="{Binding Centre}" />
+                    <TextBlock Width="75" Margin="5 0 5 0" />
+                    <Button Width="20" Content="N" Command="{Binding MoveRegionNorth}"/>
+                    <Button Width="20"  Content="S" Command="{Binding MoveRegionSouth}"/>                 
+                    <Button Width="20" Content="W" Command="{Binding MoveRegionWest}"/>
+                    <Button Width="20" Content="E" Command="{Binding MoveRegionEast}"/>
                 </StackPanel>
                 <ScrollViewer>
                 <TextBlock
                     Height="80"
                            TextWrapping="Wrap"
-                           Text="{Binding Centre}"/>
+                           />
                 </ScrollViewer>
                 <!--TextBlock contains any user request the epidemiology info list and lists patient search; will try to use formating-->
             </StackPanel>
