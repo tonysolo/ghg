@@ -12,25 +12,40 @@ namespace ConsoleApp
         public static bool isNorth(string qnnee)
         {
             char c = qnnee[0];
-            return ((c == '0') || (c == '1'));
+            return ((c == '0') | (c == '1'));
         }
 
-        public static bool isSouth(string qnee)
+        public static bool isSouth(string qnnee)
         {
-            char c = qnee[0];
-            return ((c == '2') || (c == '3'));
+            char c = qnnee[0];
+            return ((c == '2') | (c == '3'));
         }
 
-        public static bool isEast(string qnee)
+        public static bool isEast(string qnnee)
         {
-            char c = qnee[0];
-            return ((c == '0') || (c == '2'));
+            char c = qnnee[0];
+            return ((c == '0') | (c == '2'));
         }
 
-        public static bool isWest(string qnee)
+        public static bool isEastEnd(string qnnee)
         {
-            char c = qnee[0];
-            return ((c == '1') || (c == '3'));
+            return qnnee.ToLower().Substring(3, 2) == "ff";
+        }
+
+        public static bool isWest(string qnnee)
+        {
+            char c = qnnee[0];
+            return ((c == '1') | (c == '3'));
+        }
+
+        public static string setWest(string qnnee)
+        {
+            StringBuilder qne = new StringBuilder(qnnee);
+            char c = qne[0];
+            if (c == '0') c = '1';
+            if (c == '2') c = '3';
+            qne[0] = c;
+            return qne.ToString();
         }
 
         public static string setQuadrant(string qnnee, char quad) // ne=0 nw=1 se=2 sw=3
@@ -40,14 +55,14 @@ namespace ConsoleApp
             return sb.ToString();
         }
 
-        public static string setQuadrant(string qnee, byte quad) // ne=0 nw=1 se=2 sw=3
+        public static string setQuadrant(string qnnee, byte quad) // ne=0 nw=1 se=2 sw=3
         {
-            StringBuilder sb = new StringBuilder(qnee);
+            StringBuilder sb = new StringBuilder(qnnee);
             sb[0] = (char)quad;
             return sb.ToString();
         }
 
-
+    
         //char SetQuadrant(char quad,char nsew)
 
 
@@ -67,28 +82,84 @@ namespace ConsoleApp
 
             if (qnnee.Length == 5) // 5 character qnnee
             {
-                int q = Convert.ToInt16(qnnee[0]);
+                int q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
                 int ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                 int ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                if (q == '1') ew *= -1;
-                if (q == '2') ns *= -1;
-                if (q == '3') { ns *= -1; ew *= -1; }
-                bool dir = true;
+                if (q == 1) ew *= -1;
+                if (q == 2) ns *= -1;
+                if (q == 3) { ns *= -1; ew *= -1; }
+                //bool dir = true;
+                int test = 0x1ff;
+                int i = 0;
                 switch (nsew)
                 {
+
                     case 'n': if (ns < 127) ns = ns + 1; break;
                     case 's': if (ns > -127) ns = ns - 1; break;
-                    case 'e': if (dir == true) { ew = ew + 1; if (ew <= 255) dir = false; }
-                        else { ew = ew - 1; if (ew == 0)   dir = true; } break;
-                    //else ew = ew - 1; ew = (ew % 256); if (ew == 255) dir = false; break;                                                                                                    
-                    case 'w': ew = (ew - 1) % 256; break;
+
+                   
                 }
 
-                q = ((ns >= 0) & (ew >= 0)) ? 0 :
-                             ((ns >= 0) & (ew < 0)) ? 1 :
-                             ((ns < 0) & (ew < 0)) ? 2 : 3;
 
-                return String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
+                }
+            
+                        /*
+                                            case 'e': 
+                                                if (isEast(qnnee))
+                                                { 
+                                                ew = ew + 1;
+                                                if (ew == 256)
+                                                {
+                                                    ew = 255; // keep ff
+                                                    q = q + 1; // change to west
+                                                    //if (q == 0) q = 1; 
+                                                   // if (q == 2) q = 3;//change quadrant to west
+                                                } 
+                                            }
+                                            else if (isWest(qnnee))
+                                                {
+                                                    ew = ew  + 1;
+                                                    if (ew == 256)
+                                                {
+                                                ew = 255; //keep 00
+                                                q = q - 1;
+                                                //if (q==1)  q = 0;//change quadrant to east
+                                                //if (q == 3) q = 2;
+                                                } 
+                                            }
+                                                break;
+
+                                            case 'w':        
+                                                if (isWest(qnnee))
+                                                {
+                                                ew = ew - 1;
+                                                if (ew <0)
+                                                {
+                                                    ew = 0; // keep ff
+                                                    q = q - 1; // change quadrant to east
+                                                }
+                         }
+                                            else if (isEast(qnnee))
+                                                { 
+                                                    ew = ew - 1;
+                                                    if (ew == -1)
+                                                {
+                                                ew = 0; //keep 00
+                                                q = (byte)(q + 1);//change quadrant to west
+                                                }   
+                                            }                
+                                                break;
+                    
+                        
+
+                                        }
+                                             //  q = ((ns >= 0) & (ew >= 0)) ? 0 :
+                                              //              ((ns >= 0) & (ew < 0)) ? 1 :
+                                               //             ((ns < 0) & (ew < 0)) ? 2 : 3;
+                         */
+
+                        return String.Format("{0:x1}{1:x2}{2:x2}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
+                }
             }
 
             else
@@ -119,23 +190,38 @@ namespace ConsoleApp
                     return String.Format("{0:x1}{1:x3}{2:x3}", Math.Abs(q), Math.Abs(ns), Math.Abs(ew));
                 }
             return "";
-        }
+        
 
         //--------------------------------------------------------------------------
-        static void Main(string[] args)
-        {
-            string _qnnee = "022f0";
-            Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
+static void Main(string[] args)
+ {
+ string _qnnee = "1f5";
+string s;
+switch (k){
+case n: test++; 
+break;
+case s: testc--;
+break;
+   
+}
+String.Format()
+Console.WriteLine(s);
+}
+}
+
+/*            Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
             char k = 'x';
             Console.WriteLine(k);
-
+int test = 0x1f5;
             while (k != 'q')
-            {
+            {    
                 k = Console.ReadKey().KeyChar;
-                _qnnee = MoveNSEW(_qnnee, k);
-                Console.WriteLine(' ' + _qnnee);
-            }
-            return;
-        }
-    }
+
 }
+  //              _qnnee = MoveNSEW(_qnnee, k);
+ //               Console.WriteLine(' ' + _qnnee);
+ //           }
+ //           return;
+//        }
+//    }
+//}
