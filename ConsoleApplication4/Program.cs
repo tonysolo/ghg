@@ -28,12 +28,9 @@ namespace ConsoleApplication4
                        // case 'e': if ((dat < max)&&(goup)) dat = dat + 1; else () dat = dat - 1; break;
                         case 'w': dat = dat - 1; break;
                     }
-
                 }
                 Console.WriteLine(String.Format("  {0:x3}", dat));
             }
-
         }
-
     }
 }
