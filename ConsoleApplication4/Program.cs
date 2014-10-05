@@ -16,7 +16,7 @@ namespace ConsoleApplication4
             int dat = 0;
             char c;
             bool goup = true;
-             max = (0xff | 0x01);
+            // max = (0xff | 0x01);
             int min = 0;
 
             while (true)
@@ -25,7 +25,7 @@ namespace ConsoleApplication4
                 {
                     switch (c)
                     {
-                        case 'e': if ((dat < max)&&(goup)) dat = dat + 1; else () dat = dat - 1; break;
+                       // case 'e': if ((dat < max)&&(goup)) dat = dat + 1; else () dat = dat - 1; break;
                         case 'w': dat = dat - 1; break;
                     }
 
