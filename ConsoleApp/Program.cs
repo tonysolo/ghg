@@ -113,7 +113,7 @@ namespace ConsoleApp
             {
 
                 {
-                    string _qnnee = "22222fe";
+                    string _qnnee = "222fc";
                     char k = Console.ReadKey().KeyChar;
                     while (k != 'q')
                     {

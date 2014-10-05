@@ -42,8 +42,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ghg.wiki", "http://localhos
 		SlnRelativePath = "ghg.wiki\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication4", "ConsoleApplication4\ConsoleApplication4.csproj", "{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,16 +83,6 @@ Global
 		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{C3F25D00-F282-4073-B51F-F92887CD52C2}.Release|x64.ActiveCfg = Debug|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2D3F04DA-15D4-4C4C-90A5-9360FA5D059F}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
