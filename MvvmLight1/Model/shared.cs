@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
+//using System.Linq;
+//using System.Text;
+//using System.Xml.Linq;
 //using System.IO;
 //using System.Net;
 //using System.Web;
@@ -10,14 +10,14 @@ using System.Xml.Linq;
 
 namespace MvvmLight1.Model
 {
-    enum gender { female, male }
-    enum agegroup { Neonate, FirstYear, TwoToSixYears, SevenToTwelve, TeenAge, TwentyToForty, FortyToSixty, SixtyAndOlder }
-    enum facilty { ConsultingRoom, Clinic, Level1Hosp, Level2Hosp, Level3Hosp }
-    enum stay { Outpatient, Inpatient }
-    enum funder { Public, Private }
-    enum treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }
-    enum qualification { Coder, ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
-    enum countries { SouthAfrica, UnitedKingdom }
+    enum Gender { female, male }
+    enum Agegroup { Neonate, FirstYear, TwoToSixYears, SevenToTwelve, TeenAge, TwentyToForty, FortyToSixty, SixtyAndOlder }
+    enum Facilty { ConsultingRoom, Clinic, Level1Hosp, Level2Hosp, Level3Hosp }
+    enum Stay { Outpatient, Inpatient }
+    enum Funder { Public, Private }
+    enum Treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }
+    enum Qualification { Coder, ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
+    enum Countries { SouthAfrica, UnitedKingdom }
 
 
     public static class userdata
@@ -122,7 +122,7 @@ namespace MvvmLight1.Model
             /// <param name="n"></param>
             /// <param name="e"></param>
             /// <returns>csv string latid,longit</returns>
-            static string point(Byte q, Byte n, Byte e)
+            static string Point(Byte q, Byte n, Byte e)
             {
                 float fn = n / 128 * 90;
                 float fe = e / 256 * 180;
@@ -139,7 +139,7 @@ namespace MvvmLight1.Model
             /// <param name="n"></param>
             /// <param name="e"></param>
             /// <returns></returns>
-            static string point(UInt16 q, UInt16 n, UInt16 e)
+            static string Point(UInt16 q, UInt16 n, UInt16 e)
             {
                 float fn = n / 2048 * 90;
                 float fe = e / 4096 * 180;
@@ -150,12 +150,13 @@ namespace MvvmLight1.Model
             }
 
 
+/*
             /// <summary>
             /// 
             /// </summary>
             /// <param name="qnnee"></param>
             /// <returns>lower left point of district or region</returns>
-            static string point(string qnnee) 
+            static string Point(string qnnee) 
             {
 
                 if ((qnnee.Length != 5) || (qnnee.Length != 7)) return "";
@@ -175,6 +176,7 @@ namespace MvvmLight1.Model
                 if (q == 3) { fe *= -1; fn *= -1; }
                 return String.Format("{0},{1}", fn, fe);              
             }
+*/
            
             
             /// <summary>
@@ -210,8 +212,8 @@ namespace MvvmLight1.Model
                     }
                 }
                 char[] s = { ',' };
-                string[] coord1 = point(q0, n0, e0).Split(s);
-                string[] coord2 = point(q, n, e).Split(s);
+                string[] coord1 = Point(q0, n0, e0).Split(s);
+                string[] coord2 = Point(q, n, e).Split(s);
 
                 return String.Format("\"{0},{1}\"{2},{3}\"{4}{5}\"{6}{7}",
                  coord1[0], coord1[1], coord2[0], coord1[0], coord2[1], coord1[1], coord1[1], coord2[1]);

@@ -167,7 +167,7 @@
 
                 <TextBlock
                     FontSize="8"                   
-                    Text= "{Binding staymessage}" 
+                    Text= "{Binding Staymessage}" 
                     />
 
                 <TextBox/>

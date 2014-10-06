@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using MvvmLight1.Model;
 using GalaSoft.MvvmLight.Command;
 using System.Windows;
 

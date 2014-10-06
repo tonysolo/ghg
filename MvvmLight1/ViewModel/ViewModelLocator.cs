@@ -11,13 +11,12 @@
   You can also use Blend to do all this with the tool's support.
   See http://www.galasoft.ch/mvvm
 */
-
-using GalaSoft.MvvmLight;
+//using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Helpers;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
+//using GalaSoft.MvvmLight.Helpers;
+//using GalaSoft.MvvmLight.Command;
+//using GalaSoft.MvvmLight.Messaging;
+//using GalaSoft.MvvmLight.Threading;
 using Microsoft.Practices.ServiceLocation;
 
 namespace MvvmLight1.ViewModel
@@ -50,14 +49,14 @@ namespace MvvmLight1.ViewModel
             SimpleIoc.Default.Register<LoaderVM>();
             SimpleIoc.Default.Register<MapVM>();
             SimpleIoc.Default.Register<EHealthVm>();
-            SimpleIoc.Default.Register<EpidemVM>();
+            SimpleIoc.Default.Register<EpidemVm>();
         }
 
         public MainVM Main { get { return ServiceLocator.Current.GetInstance<MainVM>(); } }
         public LoaderVM Loader { get { return ServiceLocator.Current.GetInstance<LoaderVM>(); } }
         public MapVM Map { get { return ServiceLocator.Current.GetInstance<MapVM>(); } }
         public EHealthVm EHealth { get { return ServiceLocator.Current.GetInstance<EHealthVm>(); } }
-        public EpidemVM Epidem { get { return ServiceLocator.Current.GetInstance<EpidemVM>(); } }
+        public EpidemVm Epidem { get { return ServiceLocator.Current.GetInstance<EpidemVm>(); } }
         public static void Cleanup()
         {
             //Main.Cleanup();

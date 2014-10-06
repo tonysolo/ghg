@@ -31,7 +31,7 @@ namespace MvvmLight1.ViewModel
 
         public string Countries { get; set; }
 
-        public string[] Qualifications { get { return Enum.GetNames(typeof(Model.qualification)); } }
+        public string[] Qualifications { get { return Enum.GetNames(typeof(Model.Qualification)); } }
 
         public int SecurityChoice { get; set; }
 
