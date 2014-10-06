@@ -78,7 +78,7 @@ namespace MvvmLight1.ViewModel
 
         private void ShowEhealthDlg()
         {
-            eHealthV v = new eHealthV();
+            EHealthV v = new EHealthV();
             v.ShowDialog();
         }
 

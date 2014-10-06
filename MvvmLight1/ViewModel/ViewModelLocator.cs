@@ -49,14 +49,14 @@ namespace MvvmLight1.ViewModel
             SimpleIoc.Default.Register<MainVM>();//<MainViewModel>()
             SimpleIoc.Default.Register<LoaderVM>();
             SimpleIoc.Default.Register<MapVM>();
-            SimpleIoc.Default.Register<eHealthVM>();
+            SimpleIoc.Default.Register<EHealthVm>();
             SimpleIoc.Default.Register<EpidemVM>();
         }
 
         public MainVM Main { get { return ServiceLocator.Current.GetInstance<MainVM>(); } }
         public LoaderVM Loader { get { return ServiceLocator.Current.GetInstance<LoaderVM>(); } }
         public MapVM Map { get { return ServiceLocator.Current.GetInstance<MapVM>(); } }
-        public eHealthVM eHealth { get { return ServiceLocator.Current.GetInstance<eHealthVM>(); } }
+        public EHealthVm EHealth { get { return ServiceLocator.Current.GetInstance<EHealthVm>(); } }
         public EpidemVM Epidem { get { return ServiceLocator.Current.GetInstance<EpidemVM>(); } }
         public static void Cleanup()
         {

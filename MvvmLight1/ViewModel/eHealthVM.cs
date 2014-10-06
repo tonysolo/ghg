@@ -8,15 +8,7 @@ namespace MvvmLight1.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class eHealthVM : ViewModelBase
+    public class EHealthVm : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the eHealthVM class.
-        /// </summary>
-        public eHealthVM()
-        {
-        }
-
-
     }
 }

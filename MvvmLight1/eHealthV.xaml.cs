@@ -5,12 +5,12 @@ namespace MvvmLight1
     /// <summary>
     /// Description for MvvmView1.
     /// </summary>
-    public partial class eHealthV : Window
+    public partial class EHealthV
     {
         /// <summary>
         /// Initializes a new instance of the MvvmView1 class.
         /// </summary>
-        public eHealthV()
+        public EHealthV()
         {
             InitializeComponent();
         }
@@ -20,5 +20,9 @@ namespace MvvmLight1
 
         }
    
+    }
+
+    class EHealthVImpl : EHealthV
+    {
     }
 }
