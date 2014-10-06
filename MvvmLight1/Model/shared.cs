@@ -22,12 +22,12 @@ namespace MvvmLight1.Model
 
     public static class userdata
     {
-           static bool invalid;
+        static bool _invalid;
         static Dictionary<string, string> coords;
         // string cloudid;
         // public userdata() { invalid = false; }
 
-        static public void loaddata(string location_pin)
+        static public void Loaddata(string locationPin)
         {
             //bool invalid = false;
             //cloudid = location_pin;
@@ -37,7 +37,7 @@ namespace MvvmLight1.Model
         static void AddCoords(string district, string qnnneee)
         {
             coords.Add(district, qnnneee);
-            invalid = true;
+            _invalid = true;
 
         }
 

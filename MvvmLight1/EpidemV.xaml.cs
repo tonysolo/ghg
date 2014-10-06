@@ -15,9 +15,9 @@ namespace MvvmLight1
             InitializeComponent();
         }
 
-        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
+       // private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+       // {
 
-        }
+       // }
     }
 }

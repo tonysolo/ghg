@@ -16,7 +16,7 @@
     <Grid>
         <DockPanel  LastChildFill="True" Margin="0,0,0,-9">
             <Button DockPanel.Dock="Bottom" Height="20" Margin="40,20,40,20" Content="Save"/>
-            <TabControl SelectionChanged="TabControl_SelectionChanged">
+            <TabControl> <!--SelectionChanged="TabControl_SelectionChanged"-->
                 <TabItem Header = "Details" TabIndex="0">
                     <StackPanel Orientation="Vertical">
                         <TextBlock FontSize="8" Text="Name"/>

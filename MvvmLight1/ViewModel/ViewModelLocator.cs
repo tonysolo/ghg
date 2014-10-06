@@ -60,6 +60,7 @@ namespace MvvmLight1.ViewModel
         public EpidemVM Epidem { get { return ServiceLocator.Current.GetInstance<EpidemVM>(); } }
         public static void Cleanup()
         {
+            //Main.Cleanup();
             // TODO Clear the ViewModels
         }
     }
