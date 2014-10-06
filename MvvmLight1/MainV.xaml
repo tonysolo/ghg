@@ -9,6 +9,7 @@
         Title="Global Health Grid"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
+       
         Height="420"
         Width="270"
         
@@ -24,15 +25,15 @@
 
     <Grid x:Name="LayoutRoot">
         <DockPanel LastChildFill="True">
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="30" Margin="3,3,3,3">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="30" Margin="3,1,3,4">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Login Code" FontSize="8"/>
-                <TextBox Width="70"/>
+                    <TextBlock Text="Login Code" FontSize="10" />
+                    <TextBox Width="70" Margin = "0 0 0 0" Background="Beige" />
                 </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Margin="3 0 0 0" Text="PIN" FontSize="8"/>
-                    <TextBox Margin ="3 0 3 0" 
-                Width="40"/>
+                <StackPanel Orientation="Vertical" Margin="0 0 0 2">
+                    <TextBlock Margin="3 0 0 0" Text="PIN" FontSize="10"/>
+                    <TextBox Margin ="2 0 0 0"  Width="40" Background="Beige"/>
+               
                 </StackPanel>
                 <Button Content="Login" Margin="3,9,3,0"/>
                 <Button Content=" Register " Margin="3 9 3 0" Command="{Binding EditLoader}"/>
@@ -46,9 +47,16 @@
 
             <StackPanel 
                 Orientation="Horizontal"
+                FlowDirection="RightToLeft"
                    Height="25"
                     DockPanel.Dock="Bottom"
          Margin="0,5,0,0">
+                <Button
+            Width="60"         
+           Content="Search"           
+            Command="{Binding EditEhealth}"/>
+
+
                 <Button
             Width="80"                 
             Content="Epidemiology"            
@@ -60,18 +68,20 @@
            Content="e-Health"           
             Command="{Binding EditEhealth}" 
             />
-                <Button
-            Width="80"         
-           Content="Search"           
-            Command="{Binding EditEhealth}"/>
+               
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                
+
                 <Grid Height="240">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="156*"/>
+                        <ColumnDefinition Width="71*"/>
+                    </Grid.ColumnDefinitions>
                     <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
               
-               ZoomLevel="7" Cursor="Cross">
+               ZoomLevel="7" Cursor="Cross" Grid.ColumnSpan="3">
                         <m:Map.ContextMenu>
                             <ContextMenu/>
                         </m:Map.ContextMenu>
@@ -80,23 +90,30 @@
                           Locations="{Binding Boundary}" 
                      
                           Opacity="0.2"                        
-                            /> 
-                             <m:Pushpin 
+                            />
+                        <m:Pushpin 
                                 Background="Blue"                              
                                  Location="{Binding Centre}"/>
                     </m:Map>
                 </Grid>
                 <!--Holds the Map-->
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="95" Text="{Binding Centre}" />
-                    <TextBlock Width="75" Margin="5 0 5 0" />
-                    <Button Width="20" Content="N" Command="{Binding MoveRegionNorth}"/>
-                    <Button Width="20"  Content="S" Command="{Binding MoveRegionSouth}"/>                 
-                    <Button Width="20" Content="W" Command="{Binding MoveRegionWest}"/>
+                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button Width="20" Content="E" Command="{Binding MoveRegionEast}"/>
+                    <Button Width="20" Content="W" Command="{Binding MoveRegionWest}"/>
+                    <Button Width="20"  Content="S" Command="{Binding MoveRegionSouth}"/>
+                    <Button Width="20" Content="N" Command="{Binding MoveRegionNorth}"/>
+                    <TextBlock Width="95" Text="{Binding Centre}" Background="Beige"/>
+
+
+
+                    <TextBlock Width="75" Margin="5 0 5 0" />
+
+
+
+
                 </StackPanel>
                 <ScrollViewer>
-                <TextBlock
+                    <TextBlock
                     Height="80"
                            TextWrapping="Wrap"
                            />

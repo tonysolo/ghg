@@ -45,13 +45,11 @@ namespace MvvmLight1.ViewModel
         public string qnnee { get; private set; }
         public string qnnneee { get; private set; }
 
-
         public bool IsRegistered
         {
             get { return Model.settings.registered; }
             set { Model.settings.registered = value; }
         }
-
 
 
         private void ShowMesg()
@@ -88,8 +86,7 @@ namespace MvvmLight1.ViewModel
         { 
             qnnee = QNE_Utils.MoveNSEW(qnnee, 'n');
             Centre = Model.QNE_Utils.CentrePoint(qnnee);
-            Boundary = Model.QNE_Utils.Boundary(qnnee);
-           
+            Boundary = Model.QNE_Utils.Boundary(qnnee);           
             RaisePropertyChanged("Boundary");
              RaisePropertyChanged("Centre");
             
