@@ -1,8 +1,22 @@
-﻿# Global Health Grid - what it does #
+# Global Health Grid - what it does: #
 
-In general this application simplifies recording healthcare data as well as organising it in a form that can be used for e-health and for epidemiology and population health management.
+This a simple e-health, epidemiology and population health management solution.
 
-The application could help manage healthcare in any country problems including poor countries. The method uses a geographic information system (GIS) to divide the country into manageable size regions to keep track of epidemiology and healthcare and plan providers and facilities. 
+It is a geographic information system (GIS) designed to process healthcare information according to GIS region.
+ 
+The design uses digital GIS coordinates of 5 hexadecimal characters 'QNNEE':
+
+where 'Q' is the quadrant where '0'is northeast,'1':northwest, '2':southeast and '3' is southwest.
+'NN' is latitude ('00' to '7F') and 'EE' is longitude '00' to 'FF'
+
+ are converted to 8 bit digital values and represented as a byte array with three dimensions: Quadrant, Latitude and Longitude. 
+
+Byte[Q][N][E] - there are 4 quadrants(Q) with 128 latitude (N) and 256 longitude divisions (E). 
+
+
+
+ 
+epidemiology and healthcare and plan providers and facilities. 
 
 My system, for example, would divide South Africa into 200 GIS regions of 80 X 80 km each. This is still a large area but limits to number of people from millions to thousands and simplifies allocating unique patient IDs, planning and using IT more efficiently with distributed data.
 
