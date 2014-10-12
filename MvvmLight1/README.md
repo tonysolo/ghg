@@ -1,28 +1,27 @@
 # Global Health Grid (GHG) - Storage and Processing #
 
-The  purpose of this application is to store Healthcare data for Epidemiology and E-Health. It uses *Cloud Storage and GIS Maps* for storing and retrieving health data using a *Grid system* to define regions that are approximately 80 X 80 Km at the equator.
+The  purpose of this application is to store Healthcare information for Epidemiology and E-Health. It uses *Cloud Storage and GIS Maps* for storing and retrieving health data using a *Grid system* that defines regions of approximately 80 X 80 Km at the equator.
 
-GHG has two important applications: *Epidemiology* (e-epidemiology) and *Patient clinical records* (e-health).
+GHG has two applications: *Epidemiology* (e-epidemiology) and *Patient clinical records* (e-health).
 
 ### e-Epidemiology and e-Health ###
  
-Both applications have features in common so they are contained in a single program for healthcare providers to use for record patient clinical records and epidemiology statistics.
+Both applications share features so they have been combined in a single program for recording patient clinical records and epidemiology statistics.
 
-E-Health is clinical information. It contains details for treatment, prescriptions and referrals. It belongs to the patient and is stored directly in the patient's private e-health record.
+E-Health is clinical information. It contains details for treatment, prescriptions and referrals. It belongs to the patient and is stored privately in the patient's private e-health record.
 
-E-Epidemiology is information about the disease: the ICD10 diagnostic codes and other data - it excludes person identifiable information. It is kept in shared storage and used for epidemiology statistics and surveillance.
+E-Epidemiology is information about the disease: the ICD10 diagnostic codes and other data - it uses no person identifiable information and it is kept in shared storage and used for epidemiology statistics and surveillance.
 
    
 ### GHG - Azure Cloud Blob Storage Containers###
 
-Microsoft Azure blob storage is used. This is set up with a separate **container for each GIS region** that in turn **contains three page blobs**. Each region is set up the same way: a unique container name containing with three page blobs named 'P','L' and 'E'
+Microsoft Azure blob storage is used to store data. There is a separate **storage container for each GIS region** that in turn **contains three page blobs**. Each region is set up the same way: a unique container name containing with three page blobs **named 'P','L' and 'E'**
 
 Name|Purpose|Data Structure
 :--:|:------------------------------|:------------------------|
-P | Patient e-Health|64 Kilobytes (128 pages) for each patient
-L | Loaders (providers)| 1 Kilobyte (2 pages) for each provider
-E | Epidemiology|All patients for the region (variable length allocated for each day using index table)
-
+**P** | Patient e-Health|64 Kilobytes (128 pages) for each patient
+**L** | Loaders (providers)| 1 Kilobyte (2 pages) for each provider
+**E** | Epidemiology|All patients for the region (variable length allocated for each day using index table)
 
 ### Container Names ('qnnee') ### 
 
@@ -66,20 +65,20 @@ Azure storage queues could be used for scheduling tasks such as sending appointm
 ## Epidemiology ## 
 Epidemiology is possibly the most important feature of this software. Before cloud storage and computing and GIS was impossible to collect, process and map complete geographic healthcare data in real time.
 This application gives healthcare providers a simple way to upload a short record of the conditions they treat every day. A cloud process continually sorts and files the information according to region and time.
-The table shows how it works. Data is queued across 8 storage queues and setting the visibility to hide the data until the owner region reaches midnight. At that time the data for the region becomes visible for processing.  
+The table shows how it works. Data is spread across 8 storage queues and setting the visibility to hide the data until the owner region reaches midnight. At that time the data for the region becomes visible for processing. This arrangement extends the processing time to 6 hours for each region. 
 
 ### Processing using Azure Queue Storage and Epidemiology data##
 
 |queue |
 |--|--|--|--|--|
-|0|0|8|16|24|
-|1|1|9|17|25|
-|2|2|10|18|26|
-|3|3|11|19|27|
-|4|4|12|20|27|
-|5|5|13|21|29|
-|6|6|14|22|30|
-|7|7|15|23|31|
+|**0**|0|8|16|24|
+|**1**|1|9|17|25|
+|**2**|2|10|18|26|
+|**3**|3|11|19|27|
+|**4**|4|12|20|27|
+|**5**|5|13|21|29|
+|**6**|6|14|22|30|
+|**7**|7|15|23|31|
 
 ## Images ##
 

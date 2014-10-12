@@ -267,6 +267,7 @@
   <ItemGroup>
     <Content Include="bin\Debug\MvvmLight1.exe" />
     <Content Include="bin\Debug\MvvmLight1.pdb" />
+    <None Include="Article.md" />
     <None Include="Info.md" />
     <Resource Include="Todo.txt" />
   </ItemGroup>
