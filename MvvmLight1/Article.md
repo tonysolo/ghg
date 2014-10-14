@@ -1,8 +1,27 @@
-A practical e-Health implementation
+# A practical e-Health implementation #
 
-Cloud computing and cloud storage continually improve and become cheaper. Similarly mobile devices with Internet access have become affordable to use in poor countries. It should be possible to use these technologies to help improve healthcare and raise living standards in these countries.
+There is worldwide interest in e-health, encouraged by the World Health Organisation. Many counties have already implemented it or are in the process of doing so. 
 
-In this article I describe two related Cloud applications - e-health and e-epidemiology. More information is available at my code repository at tonysolo@github.com.
+ A greatest promise of e-health is the potential for population health management (PHM). For example to solve maternal and child mortality in developing countries. (A simple e-health record could be designed to include actionable data to ensure that mothers receive antenatal care and babies are fed and vaccinated.)
+
+I have designed a cloud based e-health system that implements health information exchanges (HIEs) using a geographic information system (GIS) design. These HIEs store the e-health data for all patients belonging to a GIS region. The system has many advantages including allocation of unique ID's for patients, having geographic and economic data to combine with healthcare data, a full e-health patient controlled record, and actionable data to prevent disasters. 
+
+Cloud computing and cloud storage continually improve and become cheaper. Similarly mobile devices with Internet access have become affordable for widespread use. Internet access provides communication and GIS and makes it possible to use these technologies to improve healthcare and raise living standards in these countries. Cloud storage and Internet access are incredibly low cost.
+
+I have two related Cloud applications - e-health and e-epidemiology. The e-epidemiology application provides a simple way to record and process epidemiology on a large scale without any specific patient details.
+
+The e-health application deals with individual patients. It stores their preferences, history, medications etc. It handles prescriptions, referrals and SMS appointment reminders to patients. It flags missed appointments or special risks such as disabilities, can refer patients for telemedicine or community worker help using SMS or email.
+
+The e-epidemiolgy application provides epidemiolgy statistics such as road accidents for a region and date range. Any disease, trauma, health facility type, provider type, geographic region for a date range will be available. The application can poll opinions from contributing providers to assist healthcare planning. 
+
+ More information is available [here](http://tonysolo@github.com).
+
+Tony Manicom
+
+
+
+
+
 
 Both applications store patients data in geographic regions. This allows the healthcare data to include information such as population and economic data for the region.
 
