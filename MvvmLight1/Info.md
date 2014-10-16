@@ -1,8 +1,12 @@
 # Global Health Grid - what it does: #
 
-This a simple e-health, epidemiology and population health management solution.
+This is a geographic information system (GIS) for healthcare that provides three solutions: 
+e-health
+epidemiology
+population health management solution.
 
-It is a geographic information system (GIS) designed to process healthcare information according to GIS region.
+
+ 
  
 The design uses digital GIS coordinates of 5 hexadecimal characters 'QNNEE':
 

@@ -156,9 +156,11 @@
     <Compile Include="EpidemV.xaml.cs">
       <DependentUpon>EpidemV.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\shared.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\Userdata.cs" />
     <Compile Include="ViewModel\eHealthVM.cs" />
     <Compile Include="ViewModel\EpidemVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />

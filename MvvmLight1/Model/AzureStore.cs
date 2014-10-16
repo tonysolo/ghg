@@ -14,7 +14,7 @@ namespace MvvmLight1.Model
     {
        public static void SetupAzureAccount()
        {
-           Model.settings.registered = true;
+           Model.Settings.Registered = true;
            CloudStorageAccount account = Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount;
            IEnumerable<CloudBlobContainer> en = account.CreateCloudBlobClient().ListContainers();
            CloudBlobContainer container = en.ElementAt<CloudBlobContainer>(0);

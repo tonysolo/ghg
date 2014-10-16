@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+
 //using System.Linq;
 //using System.Text;
 //using System.Xml.Linq;
@@ -10,108 +10,109 @@ using System.Collections.Generic;
 
 namespace MvvmLight1.Model
 {
-    enum Gender { female, male }
-    enum Agegroup { Neonate, FirstYear, TwoToSixYears, SevenToTwelve, TeenAge, TwentyToForty, FortyToSixty, SixtyAndOlder }
-    enum Facilty { ConsultingRoom, Clinic, Level1Hosp, Level2Hosp, Level3Hosp }
-    enum Stay { Outpatient, Inpatient }
-    enum Funder { Public, Private }
-    enum Treater { Generalist, ObstetsGynae, Paediatrics, PaediatricSurgery, Anaesthetics, Surgery, ENT, Orthopaedics, Opthalmology, Emergency, Plastics, Dermatology, Neurology, Neurosurgery, Pathology, Forensics }
-    enum Qualification { Coder, ParaMedic, Nurse, Therapist, GeneralPractitioner, Specialist }
-    enum Countries { SouthAfrica, UnitedKingdom }
-
-
-    public static class userdata
+    internal enum Gender
     {
-        static bool _invalid;
-        static Dictionary<string, string> coords;
-        // string cloudid;
-        // public userdata() { invalid = false; }
-
-        static public void Loaddata(string locationPin)
-        {
-            //bool invalid = false;
-            //cloudid = location_pin;
-            //validate and read prefs and GIS from cloud        
-        }
-
-        static void AddCoords(string district, string qnnneee)
-        {
-            coords.Add(district, qnnneee);
-            _invalid = true;
-
-        }
-
-        // void Save()
-        // {
-        //     if (invalid == true)
-        //    {
-        //use cloudid to locate storage
-        //locate offset
-        //overwrite coords location
-        //    }
-        //}
+        Female,
+        Male
     }
 
-    static class settings
+    internal enum Agegroup
     {
-        public static bool registered { get; set; }
-        public static string[] securityquestions
-        {
-            get
-            {
-                string[] s = {
-"Your oldest siblings's middle name ?",
-"Your oldest friends's middle name ?",
-"Your childhood nickname ?",
-"Your maternal grandmother's maiden name ?",
-"Where were you when you heard about 9/11 ?" };
-                return s;
-            }
-        }
-    } 
-    
-        /// <summary>
+        Neonate,
+        FirstYear,
+        TwoToSixYears,
+        SevenToTwelve,
+        TeenAge,
+        TwentyToForty,
+        FortyToSixty,
+        SixtyAndOlder
+    }
+
+    internal enum Facilty
+    {
+        ConsultingRoom,
+        Clinic,
+        Level1Hosp,
+        Level2Hosp,
+        Level3Hosp
+    }
+
+    internal enum Stay
+    {
+        Outpatient,
+        Inpatient
+    }
+
+    internal enum Funder
+    {
+        Public,
+        Private
+    }
+
+    internal enum Treater
+    {
+        Generalist,
+        ObstetsGynae,
+        Paediatrics,
+        PaediatricSurgery,
+        Anaesthetics,
+        Surgery,
+        Ent,
+        Orthopaedics,
+        Opthalmology,
+        Emergency,
+        Plastics,
+        Dermatology,
+        Neurology,
+        Neurosurgery,
+        Pathology,
+        Forensics
+    }
+
+    internal enum Qualification
+    {
+        Coder,
+        ParaMedic,
+        Nurse,
+        Therapist,
+        GeneralPractitioner,
+        Specialist
+    }
+
+    internal enum Countries
+    {
+        SouthAfrica,
+        UnitedKingdom
+    }
+
+ 
+
+
+
+
+
+/// <summary>
         /// collection of static methods for gis reqions and filenames
         /// </summary>
-        static class qnnee
+        static class Qnnee
         {
-            /// <summary>
-            ///
-            /// </summary>
-            /// <param name="coords"></param>
-            /// <returns> decimal string to 2.5 arc min distict name </returns>
-            static string coordsToQNNNEEE(string coords)
-            {
-                char[] ca = { ',' };
-                string[] sarr = coords.Split(ca);
-                double lat = Convert.ToDouble(sarr[0]);
-                double lon = Convert.ToDouble(sarr[1]);
-                bool neglat = (lat < 0);
-                bool neglon = (lon < 0);
-                int q = 0; 
-                q = (neglat && neglon) ? 3 : (neglat) ? 2 : (neglon) ? 1 : 0;
-                int ilat = (int)Math.Round(lat / 180 * 4096);
-                int ilon = (int)Math.Round(lon / 180 * 4096);
-                return string.Format("{0:X1}{1:X3}{2:X3}", q, ilat, ilon);
-            }
-
-            /// <summary>
+        /// <summary>
             ///
             /// </summary>
             /// <param name="coords"></param>
             /// <returns> decimal string to 40 arc min distict name</returns>
-            static string coordsToQNNEE(string coords)
+            static string CoordsToQnnee(string coords)
             {
                 char[] ca = { ',' };
-                string[] sarr = coords.Split(ca);
-                double lat = Convert.ToDouble(sarr[0]);
-                double lon = Convert.ToDouble(sarr[1]);
-                bool neglat = (lat < 0);
-                bool neglon = (lon < 0);
-                int q = 0; 
+                var sarr = coords.Split(ca);
+                var lat = Convert.ToDouble(sarr[0]);
+                var lon = Convert.ToDouble(sarr[1]);
+                var neglat = (lat < 0);
+                var neglon = (lon < 0);
+                var q = 0; 
                 q = (neglat && neglon) ? 3 : (neglat) ? 2 : 1;
-                int ilat = (int)Math.Round(lat / 180 * 256);
-                int ilon = (int)Math.Round(lon / 180 * 256);
+                var ilat = (int)Math.Round(lat / 180 * 256);
+                var ilon = (int)Math.Round(lon / 180 * 256);
                 return string.Format("{0:X1}{1:X2}{2:X2}", q, ilat, ilon);
             }
 
@@ -128,7 +129,8 @@ namespace MvvmLight1.Model
                 float fe = e / 256 * 180;
                 if (q == 1) fe *= -1;
                 if (q == 2) fn *= -1;
-                if (q == 3) { fe *= -1; fn *= -1; }
+                if (q != 3) return String.Format("{0:0,0},{1:0,0}", fn, fe);
+                fe *= -1; fn *= -1;
                 return String.Format("{0:0,0},{1:0,0}", fn, fe);
             }
 
@@ -145,7 +147,8 @@ namespace MvvmLight1.Model
                 float fe = e / 4096 * 180;
                 if (q == 1) fe *= -1;
                 if (q == 2) fn *= -1;
-                if (q == 3) { fe *= -1; fn *= -1; }
+                if (q != 3) return String.Format("{0:0,0},{1:0,0}", fn, fe);
+                fe *= -1; fn *= -1;
                 return String.Format("{0:0,0},{1:0,0}", fn, fe);
             }
 
@@ -187,7 +190,8 @@ namespace MvvmLight1.Model
 
             static string Boundary(string qne) //qnnneee or qnnee
             {
-                string[] coords = new string[4];
+                //string[] southAfrica = {"2202", "2203", "2204"};
+                var coords = new string[4];
                 if (qne.Length == 7)
                 {
                     coords[0] = qne;
@@ -212,8 +216,8 @@ namespace MvvmLight1.Model
                     }
                 }
                 char[] s = { ',' };
-                string[] coord1 = Point(q0, n0, e0).Split(s);
-                string[] coord2 = Point(q, n, e).Split(s);
+                var coord1 = Point(q0, n0, e0).Split(s);
+                var coord2 = Point(q, n, e).Split(s);
 
                 return String.Format("\"{0},{1}\"{2},{3}\"{4}{5}\"{6}{7}",
                  coord1[0], coord1[1], coord2[0], coord1[0], coord2[1], coord1[1], coord1[1], coord2[1]);
@@ -221,28 +225,21 @@ namespace MvvmLight1.Model
 
             static int SecsToMidnight(string qe)
             {
-                byte q = Convert.ToByte(qe[0]);
-                byte e = Convert.ToByte(qe[1].ToString(),16);
-                int min = e*45;
-               
-                if (q==1 || q==3) min *= -1;
-                int y = 0; // = longit 0 SecsToMidnight
+                var q = Convert.ToByte(qe[0]);
+                var e = Convert.ToByte(qe[1].ToString(),16);
+
+                if (q==1 || q==3) ;
+                const int y = 0; // = longit 0 SecsToMidnight
                 //uint x = y + 
                // XDocument xd = XDocument.Load("http://www.earthtools.org/timezone/0/0/");
                // var s = xd.Document.Descendants("utctime");
                 return y;
             }
 
-            static string toCSV(string[] sarr)
+            static string ToCsv(string[] sarr)
             {
-                foreach (string s in sarr) s.Replace(',', ';');
+                foreach (var s in sarr) return s.Replace(',', ';');
                 return String.Join(",", sarr);
-            }
-
-            static string[] toSARR(string csv)
-            {
-                char[] c = {','};
-                return csv.Split(c);
             }
         }
 

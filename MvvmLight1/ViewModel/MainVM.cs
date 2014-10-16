@@ -31,24 +31,18 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     /// 
 
-    public class MainVM : ViewModelBase
+    public class MainVm : ViewModelBase
     {
-        // private readonly IDataService _dataService;
-
-        /// <summary>
-        /// The <see cref="WelcomeTitle" /> property's name.
-        /// </summary>
-        // public const string WelcomeTitlePropertyName = "WelcomeTitle";
-
+        
         public string Centre { get; private set; }
         public string Boundary { get; private set; }
-        public string qnnee { get; private set; }
-        public string qnnneee { get; private set; }
+        public string Qnnee { get; private set; }
+        public string Qnnneee { get; private set; }
 
         public bool IsRegistered
         {
-            get { return Model.settings.registered; }
-            set { Model.settings.registered = value; }
+            get { return Model.Settings.Registered; }
+            set { Model.Settings.Registered = value; }
         }
 
 
@@ -59,34 +53,35 @@ namespace MvvmLight1.ViewModel
 
         private void ShowMapDlg()
         {
-            MapV v = new MapV();
+            var v = new MapV();
             v.ShowDialog();
             
         }
 
         private void ShowEpidemiologyDlg()
         {
-            EpidemV v = new EpidemV();
+            var v = new EpidemV();
             v.ShowDialog();
         }
 
         private void ShowLoaderDlg()
         {
-            LoaderV v = new LoaderV();
+            var v = new LoaderV();
             v.ShowDialog();
         }
 
         private void ShowEhealthDlg()
         {
-            EHealthV v = new EHealthV();
+            var v = new EHealthV();
             v.ShowDialog();
         }
 
         private void RegionNorth()
         { 
-            qnnee = QNE_Utils.MoveNSEW(qnnee, 'n');
-            Centre = Model.QNE_Utils.CentrePoint(qnnee);
-            Boundary = Model.QNE_Utils.Boundary(qnnee);           
+            Qnnee = QNE_Utils.MoveNSEW(Qnnee, 'n');
+            Centre = Model.QNE_Utils.CentrePoint(Qnnee);
+            Boundary = Model.QNE_Utils.Boundary(Qnnee); 
+          RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
              RaisePropertyChanged("Centre");
             
@@ -95,18 +90,20 @@ namespace MvvmLight1.ViewModel
 
         private void RegionSouth()
         { 
-            qnnee = QNE_Utils.MoveNSEW(qnnee, 's');
-            Centre = Model.QNE_Utils.CentrePoint(qnnee);
-            Boundary = Model.QNE_Utils.Boundary(qnnee);
+            Qnnee = QNE_Utils.MoveNSEW(Qnnee, 's');
+            Centre = Model.QNE_Utils.CentrePoint(Qnnee);
+            Boundary = Model.QNE_Utils.Boundary(Qnnee);
+            RaisePropertyChanged("Qnnee");
              RaisePropertyChanged("Boundary");
            RaisePropertyChanged("Centre");
         }
 
         private void RegionEast() 
         {
-            qnnee = QNE_Utils.MoveNSEW(qnnee, 'e');
-            Centre = Model.QNE_Utils.CentrePoint(qnnee);
-            Boundary = Model.QNE_Utils.Boundary(qnnee);       
+            Qnnee = QNE_Utils.MoveNSEW(Qnnee, 'e');
+            Centre = Model.QNE_Utils.CentrePoint(Qnnee);
+            Boundary = Model.QNE_Utils.Boundary(Qnnee);
+            RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Centre");
             
@@ -114,9 +111,10 @@ namespace MvvmLight1.ViewModel
 
         private void RegionWest() 
         {
-            qnnee = QNE_Utils.MoveNSEW(qnnee, 'w');
-            Centre = Model.QNE_Utils.CentrePoint(qnnee);                    
-            Boundary = Model.QNE_Utils.Boundary(qnnee); 
+            Qnnee = QNE_Utils.MoveNSEW(Qnnee, 'w');
+            Centre = Model.QNE_Utils.CentrePoint(Qnnee);                    
+            Boundary = Model.QNE_Utils.Boundary(Qnnee);
+            RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Centre");         
  }
@@ -145,13 +143,13 @@ namespace MvvmLight1.ViewModel
             MoveRegionSouth = new RelayCommand(RegionSouth);
         }
 
-        public MainVM()
+        public MainVm()
         {
             SetupRelayCommands();
             IsRegistered = true;
-            qnnee = Model.QNE_Utils.to_qnnee("-26.20,28.04");
-            Centre = Model.QNE_Utils.CentrePoint(qnnee);
-            Boundary = Model.QNE_Utils.Boundary(qnnee);
+            Qnnee = Model.QNE_Utils.to_qnnee("-26.20,28.04");
+            Centre = Model.QNE_Utils.CentrePoint(Qnnee);
+            Boundary = Model.QNE_Utils.Boundary(Qnnee);
         }
 
 
