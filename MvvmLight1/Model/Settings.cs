@@ -1,12 +1,19 @@
+using System.Linq;
+
 namespace MvvmLight1.Model
 {
     static class Settings
     {
         public static bool Registered { get; set; }
+
+        public const string Za = "2202,2203,2204,jjkjk,jhjkkik,jhjkj,ghjghjj,";
+        
+
         public static string[] Securityquestions
         {
             get
             {
+                
                 string[] s = {
                     "Your oldest siblings's middle name ?",
                     "Your oldest friends's middle name ?",

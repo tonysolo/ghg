@@ -85,7 +85,7 @@ namespace MvvmLight1.Model
         UnitedKingdom
     }
 
- 
+
 
 
 
@@ -190,7 +190,7 @@ namespace MvvmLight1.Model
 
             static string Boundary(string qne) //qnnneee or qnnee
             {
-                //string[] southAfrica = {"2202", "2203", "2204"};
+                
                 var coords = new string[4];
                 if (qne.Length == 7)
                 {
