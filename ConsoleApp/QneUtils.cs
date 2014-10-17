@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
-    static class QNE_Utils
+    static class QneUtils
     {
 
         /// <summary>
@@ -18,16 +18,16 @@ namespace ConsoleApp
         {
 
             char[] delim = { ',' };
-            string[] sarr = deccoords.Split(delim);
-            double lat = System.Convert.ToDouble(sarr[0]);
-            double lon = System.Convert.ToDouble(sarr[1]);
+            var sarr = deccoords.Split(delim);
+            var lat = System.Convert.ToDouble(sarr[0]);
+            var lon = System.Convert.ToDouble(sarr[1]);
 
-            int q = ((lat >= 0) && (lon >= 0)) ? 0 :
+            var q = ((lat >= 0) && (lon >= 0)) ? 0 :
                      ((lat >= 0) && (lon < 0)) ? 1 :
                      ((lat < 0) && (lon >= 0)) ? 2 : 3;
 
-            int latint = (int)(Math.Abs(lat / 180) * 4096);
-            int lonint = (int)(Math.Abs(lon / 180) * 4096);
+            var latint = (int)(Math.Abs(lat / 180) * 4096);
+            var lonint = (int)(Math.Abs(lon / 180) * 4096);
             return String.Format("{0:x1}{1:x3}{2:x3}", q, latint, lonint);
         }
 
@@ -40,15 +40,15 @@ namespace ConsoleApp
         public static string to_qnnee(string deccoords)
         {
             char[] delim = { ',' };
-            string[] sarr = deccoords.Split(delim);
-            double lat = System.Convert.ToDouble(sarr[0]);
-            double lon = System.Convert.ToDouble(sarr[1]);
-            int q = ((lat >= 0) && (lon >= 0)) ? 0 :
+            var sarr = deccoords.Split(delim);
+            var lat = Convert.ToDouble(sarr[0]);
+            var lon = Convert.ToDouble(sarr[1]);
+            var q = ((lat >= 0) && (lon >= 0)) ? 0 :
                      ((lat >= 0) && (lon < 0)) ? 1 :
                      ((lat < 0) && (lon >= 0)) ? 2 : 3;
 
-            int latint = (int)(Math.Abs(lat / 180) * 256);
-            int lonint = (int)(Math.Abs(lon / 180) * 256);
+            var latint = (int)(Math.Abs(lat / 180) * 256);
+            var lonint = (int)(Math.Abs(lon / 180) * 256);
             return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
         }
 
@@ -65,17 +65,17 @@ namespace ConsoleApp
 
             if (qnnee.Length == 5)
             {
-                byte _lat = Convert.ToByte(qnnee.Substring(1, 2), 16);
-                byte _lon = Convert.ToByte(qnnee.Substring(3, 2), 16);
-                lat = (double)(_lat) / 256 * 180;
-                lon = (double)(_lon) / 256 * 180;
+                var llat = Convert.ToByte(qnnee.Substring(1, 2), 16);
+                var llon = Convert.ToByte(qnnee.Substring(3, 2), 16);
+                lat = (double)(llat) / 256 * 180;
+                lon = (double)(llon) / 256 * 180;
             }
             else if (qnnee.Length == 7)
             {
-                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3),16);
-                Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3),16);
-                lat = (double)(_lat) / 4096 * 180;
-                lon = (double)(_lon) / 4096 * 180;
+                var llat = Convert.ToInt16(qnnee.Substring(1, 3),16);
+                var llon = Convert.ToInt16(qnnee.Substring(4, 3),16);
+                lat = (double)(llat) / 4096 * 180;
+                lon = (double)(llon) / 4096 * 180;
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
@@ -94,21 +94,21 @@ namespace ConsoleApp
 
                         if (qnnee.Length == 5)
                         {
-                            Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                            Int16 _lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                            lat = (double)(_lat / 256 * 180);
-                            lat1 = (double)(_lat + 1) / 256 * 180;
-                            lon = (double)(_lon) / 256 * 180;
-                            lon1 = (double)(_lon + 1) / 256 * 180;
+                            var llat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                            var llon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                            lat = llat / 256 * 180;
+                            lat1 = (double)(llat + 1) / 256 * 180;
+                            lon = (double)(llon) / 256 * 180;
+                            lon1 = (double)(llon + 1) / 256 * 180;
                         }
                         else if (qnnee.Length == 7)
                         {
-                            Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                            Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                            lat = (double)(_lat) / 4096 * 180;
-                            lat1 = (double)(_lat + 1) / 4096 * 180;
-                            lon = (double)(_lon) / 4096 * 180;
-                            lon1 = (double)(_lon + 1) / 4096 * 180;
+                            var llat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                            var llon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                            lat = (double)(llat) / 4096 * 180;
+                            lat1 = (double)(llat + 1) / 4096 * 180;
+                            lon = (double)(llon) / 4096 * 180;
+                            lon1 = (double)(llon + 1) / 4096 * 180;
                         }
                         lon = (lon + lon1) / 2;
                         lat = (lat + lat1) / 2;
@@ -130,54 +130,54 @@ namespace ConsoleApp
                     {
                         if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
-                        string[] saa = new string[4];
-                        Int16 _lat0, _lon0, _lat1, _lon1;
-                        Int16 q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
+                        var saa = new string[4];
+                        Int16 lat0, lon0, lat1, lon1;
+                        var q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
                         saa[0] = IndexPoint(qnnee);
 
                         if (qnnee.Length == 5) //a region
                         {
-                            _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                            _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                            lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                            lon0 = (Int16)Convert.ToInt16(qnnee.Substring(3, 2), 16);
 
-                            if (_lat0 < 255)
-                                _lat1 = (Int16)(_lat0 + 1);
+                            if (lat0 < 255)
+                                lat1 = (Int16)(lat0 + 1);
                             else
                             {
-                                _lat1 = _lat0;
+                                lat1 = lat0;
                                 q = (Int16)(3 - q);
                             }
-                            if (_lon0 < 126)
-                                _lon1 = (Int16)(_lon0 + 1);
+                            if (lon0 < 126)
+                                lon1 = (Int16)(lon0 + 1);
 
-                            else _lon1 = _lon0;
+                            else lon1 = lon0;
 
 
-                            saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon0));
-                            saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon1));
-                            saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon1));
-                            saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon0));
+                            saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
+                            saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
+                            saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat1, lon1));
+                            saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat1, lon0));
                         }
                         else  //qnnee is 7 charaters (A District)
                         {
-                            _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                            _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                            lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                            lon0 = (Int16)Convert.ToInt16(qnnee.Substring(4, 3), 16);
 
-                            if (_lat0 < 4095)
-                                _lat1 = (Int16)(_lat0 + 1);
+                            if (lat0 < 4095)
+                                lat1 = (Int16)(lat0 + 1);
                             else
                             {
-                                _lat1 = _lat0;
+                                lat1 = lat0;
                                 q = (Int16)(3 - q);
                             }
-                            if (_lon0 < 2046) 
-                                _lon1 = (Int16)(_lon0 + 1); 
-                            else _lon1 = _lon0;
+                            if (lon0 < 2046) 
+                                lon1 = (Int16)(lon0 + 1); 
+                            else lon1 = lon0;
 
-                            saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon0));
-                            saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon1));
-                            saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon1));
-                            saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon0));
+                            saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon0));
+                            saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon1));
+                            saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat1, lon1));
+                            saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat1, lon0));
                         }
                         return String.Join(" ", saa);
                     
@@ -191,7 +191,7 @@ namespace ConsoleApp
                     /// <returns>A string containing four decimal degree points</returns>
                     public static string LatLon_to_qnnee_boundary(string decdeg)
                     {
-                        string qne = to_qnnee(decdeg);
+                        var qne = to_qnnee(decdeg);
                         return Boundary(qne);                    
                     }
 
@@ -203,7 +203,7 @@ namespace ConsoleApp
                     /// <returns>A string containing four decimal degree points</returns>
                     public static string LatLon_to_qnnneee_boundary(string decdeg)
                     {
-                        string qne = to_qnnneee(decdeg);
+                        var qne = to_qnnneee(decdeg);
                         return Boundary(qne);
                     }
 

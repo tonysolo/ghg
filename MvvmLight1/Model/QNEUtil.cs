@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MvvmLight1.Model
 {
-    static class QNE_Utils
+    static class QneUtils
     {
 
         /// <summary>
@@ -17,16 +14,16 @@ namespace MvvmLight1.Model
         {
 
             char[] delim = { ',' };
-            string[] sarr = deccoords.Split(delim);
-            double lat = System.Convert.ToDouble(sarr[0]);
-            double lon = System.Convert.ToDouble(sarr[1]);
+            var sarr = deccoords.Split(delim);
+            var lat = Convert.ToDouble(sarr[0]);
+            var lon = Convert.ToDouble(sarr[1]);
 
-            int q = ((lat >= 0) && (lon >= 0)) ? 0 :
+            var q = ((lat >= 0) && (lon >= 0)) ? 0 :
                      ((lat >= 0) && (lon < 0)) ? 1 :
                      ((lat < 0) && (lon >= 0)) ? 2 : 3;
 
-            int latint = (int)(Math.Abs(lat / 180) * 4096);
-            int lonint = (int)(Math.Abs(lon / 180) * 4096);
+            var latint = (int)(Math.Abs(lat / 180) * 4096);
+            var lonint = (int)(Math.Abs(lon / 180) * 4096);
             return String.Format("{0:x1}{1:x3}{2:x3}", q, latint, lonint);
         }
 
@@ -39,15 +36,15 @@ namespace MvvmLight1.Model
         public static string to_qnnee(string deccoords)
         {
             char[] delim = { ',' };
-            string[] sarr = deccoords.Split(delim);
-            double lat = System.Convert.ToDouble(sarr[0]);
-            double lon = System.Convert.ToDouble(sarr[1]);
-            int q = ((lat >= 0) && (lon >= 0)) ? 0 :
-                     ((lat >= 0) && (lon < 0)) ? 1 :
-                     ((lat < 0) && (lon >= 0)) ? 2 : 3;
+            var sarr = deccoords.Split(delim);
+            var lat = Convert.ToDouble(sarr[0]);
+            var lon = Convert.ToDouble(sarr[1]);
+            var q = lat >= 0 && lon >= 0 ? 0 :
+                     lat >= 0 && lon < 0 ? 1 :
+                     lat < 0 && lon >= 0 ? 2 : 3;
 
-            int latint = (int)(Math.Abs(lat / 180) * 256);
-            int lonint = (int)(Math.Abs(lon / 180) * 256);
+            var latint = (int)(Math.Abs(lat / 180) * 256);
+            var lonint = (int)(Math.Abs(lon / 180) * 256);
             return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
         }
 
@@ -62,19 +59,20 @@ namespace MvvmLight1.Model
         {
             double lat = 0, lon = 0;
 
-            if (qnnee.Length == 5)
+            switch (qnnee.Length)
             {
-                byte _lat = Convert.ToByte(qnnee.Substring(1, 2), 16);
-                byte _lon = Convert.ToByte(qnnee.Substring(3, 2), 16);
-                lat = (double)(_lat) / 256 * 180;
-                lon = (double)(_lon) / 256 * 180;
-            }
-            else if (qnnee.Length == 7)
-            {
-                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                lat = (double)(_lat) / 4096 * 180;
-                lon = (double)(_lon) / 4096 * 180;
+                case 5:
+                    var lat5 = Convert.ToByte(qnnee.Substring(1, 2), 16);
+                    var lon5 = Convert.ToByte(qnnee.Substring(3, 2), 16);
+                    lat = (double) lat5/256*180;
+                    lon = (double) lon5/256*180;
+                    break;
+                case 7:
+                    var lat7 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                    var lon7 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                    lat = (double) lat7/4096*180;
+                    lon = (double) lon7/4096*180;
+                    break;
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
@@ -91,23 +89,28 @@ namespace MvvmLight1.Model
         {
             double lat = 0, lon = 0, lat1 = 0, lon1 = 0;
 
-            if (qnnee.Length == 5)
+            switch (qnnee.Length)
             {
-                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                Int16 _lon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                lat = (double)(_lat) / 256 * 180;
-                lat1 = (double)(_lat + 1) / 256 * 180;
-                lon = (double)(_lon) / 256 * 180;
-                lon1 = (double)(_lon + 1) / 256 * 180;
-            }
-            else if (qnnee.Length == 7)
-            {
-                Int16 _lat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                Int16 _lon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                lat = (double)(_lat) / 4096 * 180;
-                lat1 = (double)(_lat + 1) / 4096 * 180;
-                lon = (double)(_lon) / 4096 * 180;
-                lon1 = (double)(_lon + 1) / 4096 * 180;
+                case 5:
+                {
+                    var lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                    var lon5 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                    lat = (double)lat5 / 256 * 180;
+                    lat1 = (double)(lat5 + 1) / 256 * 180;
+                    lon = (double)lon5 / 256 * 180;
+                    lon1 = (double)(lon5 + 1) / 256 * 180;
+                }
+                    break;
+                case 7:
+                {
+                    var lat7 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                    var lon7 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                    lat = (double)lat7 / 4096 * 180;
+                    lat1 = (double)(lat7 + 1) / 4096 * 180;
+                    lon = (double)lon7 / 4096 * 180;
+                    lon1 = (double)(lon7 + 1) / 4096 * 180;
+                }
+                    break;
             }
             lon = (lon + lon1) / 2;
             lat = (lat + lat1) / 2;
@@ -131,54 +134,55 @@ namespace MvvmLight1.Model
         {
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
-            string[] saa = new string[4];
-            Int16 _lat0, _lon0, _lat1, _lon1;
-            Int16 q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
+            var saa = new string[4];
+            Int16 lat1;
+            Int16 lon1;
+            var q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
             saa[0] = IndexPoint(qnnee);
 
             if (qnnee.Length == 5) //a region
             {
-                _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                var lat0 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                var lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
 
-                if (_lat0 < 255)
-                    _lat1 = (Int16)(_lat0 + 1);
+                if (lat0 < 255)
+                    lat1 = (Int16)(lat0 + 1);
                 else
                 {
-                    _lat1 = _lat0;
+                    lat1 = lat0;
                     q = (Int16)(3 - q);
                 }
-                if (_lon0 < 126)
-                    _lon1 = (Int16)(_lon0 + 1);
+                if (lon0 < 126)
+                    lon1 = (Int16)(lon0 + 1);
 
-                else _lon1 = _lon0;
+                else lon1 = lon0;
 
 
-                saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon0));
-                saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat0, _lon1));
-                saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon1));
-                saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, _lat1, _lon0));
+                saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat1, lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat1, lon0));
             }
             else  //qnnee is 7 charaters (A District)
             {
-                _lat0 = (Int16)Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                _lon0 = (Int16)Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                 var lat0 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                 var lon0 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
 
-                if (_lat0 < 4095)
-                    _lat1 = (Int16)(_lat0 + 1);
+                if (lat0 < 4095)
+                    lat1 = (Int16)(lat0 + 1);
                 else
                 {
-                    _lat1 = _lat0;
+                    lat1 = lat0;
                     q = (Int16)(3 - q);
                 }
-                if (_lon0 < 2046)
-                    _lon1 = (Int16)(_lon0 + 1);
-                else _lon1 = _lon0;
+                if (lon0 < 2046)
+                    lon1 = (Int16)(lon0 + 1);
+                else lon1 = lon0;
 
-                saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon0));
-                saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat0, _lon1));
-                saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon1));
-                saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, _lat1, _lon0));
+                saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon0));
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat1, lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat1, lon0));
             }
             return String.Join(" ", saa);
         }
@@ -208,7 +212,7 @@ namespace MvvmLight1.Model
             return Boundary(qne);
         }
 
-
+        ///<Summary>
         /// Moves coordinate position North South East or West. Takes care of 
         /// hemisphere - moving north in southern hemisphere requires moving towards 
         /// equator while northern hemisphere north moves towards pole.
@@ -217,38 +221,38 @@ namespace MvvmLight1.Model
         /// <param name="qnnee"></param>
         /// <param name="nsew">direction 'n','s','e','w'</param>
         /// <returns>region coordinates</returns>
-        public static string MoveNSEW(string qnnee, char nsew)
+        public static string MoveNsew(string qnnee, char nsew)
         {
             // string s = "";
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
             if (qnnee.Length == 5) // 5 character qnnee
             {
-                byte q = (byte)qnnee[0];
+                var q = (byte)qnnee[0];
                 int ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                 int ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
                 if (q == '1') ew *= -1;
                 if (q == '2') ns *= -1;
                 if (q == '3') { ns *= -1; ew *= -1; }
 
-                bool isneg = false;
+                bool isneg;
                 switch (nsew)
                 {
                     case 'n': if (ns < 127) ns++; break;
                     case 's': if (ns > -127) ns--; break;
                     case 'e': isneg = (ew < 0);
-                        ew = ((ew += 1) % 256);
-                        if (isneg == true) ew = (Math.Abs(ew)) * -1;
+                        ew = ((ew + 1) % 256);
+                        if (isneg) ew = Math.Abs(ew) * -1;
                         break;
                     case 'w': isneg = (ew < 0);
-                        ew = ((ew -= 1) % 256);
-                        if (isneg == true) ew = (Math.Abs(ew)) * -1;
+                        ew = (ew - 1) % 256;
+                        if (isneg) ew = Math.Abs(ew) * -1;
                         break;
                 }
 
-                q = (byte)(((ns >= 0) & (ew >= 0)) ? 0 :  //00 ne
-                             ((ns >= 0) & (ew < 0)) ? 1 :   //01 nw
-                             ((ns < 0) & (ew < 0)) ? 3 : 2);   //10 se / sw
+                q = (byte)(ns >= 0 & ew >= 0 ? 0 :  //00 ne
+                             ns >= 0 & ew < 0 ? 1 :   //01 nw
+                             ns < 0 & ew < 0 ? 3 : 2);   //10 se / sw
                 // ((ns < 0) & (ew < 0)) ? 3 :
 
                 if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
@@ -259,43 +263,42 @@ namespace MvvmLight1.Model
                 return qnnee;
             }
 
-            else
-                if (qnnee.Length == 7) // 6 character qnnee
+            if (qnnee.Length == 7) // 6 character qnnee
+            {
+                var q = (byte)qnnee[0];
+                int ns = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                int ew = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                if (q == '1') ew *= -1;
+                if (q == '2') ns *= -1;
+                if (q == '3') { ns *= -1; ew *= -1; }
+
+                bool isneg;
+                switch (nsew)
                 {
-                    byte q = (byte)qnnee[0];
-                    int ns = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                    int ew = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                    if (q == '1') ew *= -1;
-                    if (q == '2') ns *= -1;
-                    if (q == '3') { ns *= -1; ew *= -1; }
-
-                    bool isneg = false;
-                    switch (nsew)
-                    {
-                        case 'n': if (ns < 2047) ns++; break;
-                        case 's': if (ns > -2047) ns--; break;
-                        case 'e': isneg = (ew < 0);
-                            ew = ((ew += 1) % 4096);
-                            if (isneg == true) ew = (Math.Abs(ew)) * -1;
-                            break;
-                        case 'w': isneg = (ew < 0);
-                            ew = ((ew -= 1) % 4096);
-                            if (isneg == true) ew = (Math.Abs(ew)) * -1;
-                            break;
-                    }
-
-                    q = (byte)(((ns >= 0) & (ew >= 0)) ? 0 :  //00 ne
-                                 ((ns >= 0) & (ew < 0)) ? 1 :   //01 nw
-                                 ((ns < 0) & (ew < 0)) ? 3 : 2);   //10 se / sw
-                    // ((ns < 0) & (ew < 0)) ? 3 :
-
-                    if (ew == 0xfff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
-                    if (ew == 0x000) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
-
-                    qnnee = String.Format("{0:x1}{1:x3}{2:x3}", q, Math.Abs(ns), Math.Abs(ew));
-
-                    return qnnee;
+                    case 'n': if (ns < 2047) ns++; break;
+                    case 's': if (ns > -2047) ns--; break;
+                    case 'e': isneg = (ew < 0);
+                        ew = ((ew + 1) % 4096);
+                        if (isneg) ew = (Math.Abs(ew)) * -1;
+                        break;
+                    case 'w': isneg = (ew < 0);
+                        ew = ((ew - 1) % 4096);
+                        if (isneg) ew = (Math.Abs(ew)) * -1;
+                        break;
                 }
+
+                q = (byte)(ns >= 0 & ew >= 0 ? 0 :  //00 ne
+                    ns >= 0 & ew < 0 ? 1 :   //01 nw
+                        ns < 0 & ew < 0 ? 3 : 2);   //10 se / sw
+                // ((ns < 0) & (ew < 0)) ? 3 :
+
+                if (ew == 0xfff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
+                if (ew == 0x000) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
+
+                qnnee = String.Format("{0:x1}{1:x3}{2:x3}", q, Math.Abs(ns), Math.Abs(ew));
+
+                return qnnee;
+            }
             return "";
         }
 
