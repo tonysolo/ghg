@@ -2,7 +2,7 @@
 
 namespace MvvmLight1.Model
 {
-    static class QneUtils
+    public static class QneUtils
     {
 
         /// <summary>

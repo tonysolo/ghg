@@ -94,19 +94,38 @@ namespace ConsoleApp
         }
 
         //--------------------------------------------------------------------------
-     
+
+
+        static int SecsToMidnight(string qe)
+        {
+            var q = qe[0];
+            var e = Convert.ToByte(qe.Substring(1, 1), 16) * 45 * 60;
+            var dt = DateTime.UtcNow;
+            var secs = dt.Hour * 60 * 60 + dt.Minute * 60 + dt.Second;
+            secs +=  (q == '1' )||(q == '3')  ?  -e : e ;   //west                    
+            return secs % 0x15180;
+        }
+
+
 
 
 
         static void Main()
         {
+            int i;
+            string[] s = {"20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "2a", "sb", "2c", "2d", "2e", "2f", "3f", "3e", "3d", "3c", "3b", "3a", "39", "38", "37", "36", "35", "34", "33", "32", "31", "30"};
 
-
-
-            Console.WriteLine("press 'n', 's', 'e', 'w', or (q to quit)");
+            for (i = 0; i < 32;i++)
             {
-
-                {
+ Console.Write(SecsToMidnight(s[i]));
+Console.Write(" Timezone ");
+Console.WriteLine(s[i]);
+            }
+           
+            Console.ReadLine();
+            /*{
+            .
+               / {
                     string qnnee = "222fc";
                     char k = Console.ReadKey().KeyChar;
                     while (k != 'q')
@@ -116,7 +135,7 @@ namespace ConsoleApp
                         k = Console.ReadKey().KeyChar;
                     }
                 }
-            }
+            }*/
         }
     }
 }

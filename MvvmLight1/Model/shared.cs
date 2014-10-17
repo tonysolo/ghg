@@ -229,7 +229,7 @@ namespace MvvmLight1.Model
                 var e = Convert.ToByte(qe.Substring(1,1),16) * 45 * 60;
                 var dt = DateTime.UtcNow;
                 var secs = dt.Hour*60*60 + dt.Minute*60 + dt.Second;
-                secs = (q==1 || q==3) ? secs + e:secs - e ;
+                secs = (q==1 || q==3) ? secs + e : secs - e ;
                 //const int y = 0; // = longit 0 SecsToMidnight              
                 return 86400 - secs % 86400;
             }
