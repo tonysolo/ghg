@@ -303,7 +303,20 @@ namespace MvvmLight1.Model
         }
 
         //--------------------------------------------------------------------------
-
+        /// <summary>
+        /// Calculates Seconds to midnight for timezones
+        /// </summary>
+        /// <param name="qe">2 hexadecimal charaster string quadrant and longitide</param>
+        /// <returns>secs</returns>
+        static int SecsToMidnight(string qe)
+        {
+            var q = qe[0];
+            var e = Convert.ToByte(qe.Substring(1, 1), 16) * 45 * 60;
+            var dt = DateTime.UtcNow;
+            var secs = dt.Hour * 60 * 60 + dt.Minute * 60 + dt.Second;
+            secs += (q == '1') || (q == '3') ? -e : e;   //west                    
+            return secs % 0x15180;
+        }
 
 
 
