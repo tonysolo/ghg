@@ -61,7 +61,7 @@
             Width="80"                 
             Content="Epidemiology"            
             Command="{Binding EditEpidemiology}"
-            IsEnabled="{Binding isRegistered}"
+            IsEnabled="{Binding IsRegistered}"
             />
                 <Button
             Width="80"         
@@ -83,6 +83,7 @@
               
                ZoomLevel="7" Cursor="Cross" Grid.ColumnSpan="3">
                         <m:Map.ContextMenu>
+                            
                             <ContextMenu/>
                         </m:Map.ContextMenu>
                         <m:MapPolygon
