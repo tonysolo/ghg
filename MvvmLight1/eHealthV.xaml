@@ -15,6 +15,10 @@
         DataContext="{Binding eHealth, Source={StaticResource Locator}}">
     <Grid>
         <DockPanel  LastChildFill="True" Margin="0,0,0,-9">
+            <StackPanel DockPanel.Dock=" Top" Orientation="Horizontal">
+                <Label/>
+                <TextBox/>
+            </StackPanel>
             <Button DockPanel.Dock="Bottom" Height="20" Margin="40,20,40,20" Content="Save"/>
             <TabControl> <!--SelectionChanged="TabControl_SelectionChanged"-->
                 <TabItem Header = "Details" TabIndex="0">
