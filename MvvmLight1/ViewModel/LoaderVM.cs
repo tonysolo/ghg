@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Text;
+using GalaSoft.MvvmLight.Command;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -14,16 +15,26 @@ namespace MvvmLight1.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class LoaderVM : ViewModelBase
+    public class LoaderVm : ViewModelBase
     {
         /// <summary>
         /// Initializes a new instance of the MvvmViewModel1 class.
         /// </summary>
         /// 
-        public LoaderVM()
+        public LoaderVm()
         {
-            // Model.AzureStorage.SetupAzureAccount();          
+            SetupRelayCommands();
+            // Model.AzureStorage.SetupAzureAccount();
+
         }
+
+        private static void ShowMapDlg()
+        {
+            var v = new MapV();
+            v.ShowDialog();
+        }
+
+
 
         public string[] Regions { get; set; }
 
@@ -31,11 +42,17 @@ namespace MvvmLight1.ViewModel
 
         public string Countries { get; set; }
 
-        public string[] Qualifications { get { return Enum.GetNames(typeof(Model.Qualification)); } }
+        public string[] Qualifications
+        {
+            get { return Enum.GetNames(typeof (Model.Qualification)); }
+        }
 
         public int SecurityChoice { get; set; }
 
-        public string[] SecurityQuestions { get { return Model.Settings.Securityquestions; } }
+        public string[] SecurityQuestions
+        {
+            get { return Model.Settings.Securityquestions; }
+        }
 
         public string SecurityAnswer { get; set; }
 
@@ -43,6 +60,16 @@ namespace MvvmLight1.ViewModel
         {
             get { return Model.Settings.Registered; }
             set { Model.Settings.Registered = value; }
+        }
+
+
+    public RelayCommand EditMap { get; private set; }
+
+
+
+        private void SetupRelayCommands()
+        {
+            EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);   
         }
     }
 }

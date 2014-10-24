@@ -24,11 +24,11 @@
                         Content="&#x2638;" 
                     Command="{Binding EditMap}"
                     />
-                <ComboBox Width="100"
+                <ComboBox Width="80"
                           DockPanel.Dock="Left"
                           ItemsSource="{Binding Countries}"
                           />
-                <TextBox IsReadOnly="True" Text="{Binding Region}"/>
+                <ComboBox IsReadOnly="True" Text="{Binding Region}"/>
            </DockPanel>
            
             <TextBlock Text="First Name"/>

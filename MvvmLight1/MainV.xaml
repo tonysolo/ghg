@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
        
-        Height="420"
+        Height="423"
         Width="270"
         
         DataContext="{Binding Main, Source={StaticResource Locator}}">
@@ -24,61 +24,46 @@
     </Window.Resources-->
 
     <Grid x:Name="LayoutRoot">
-        <DockPanel LastChildFill="True">
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="33" Margin="3,1,3,4">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Login Code" FontSize="10" />
-                    <TextBox Width="70" Margin = "0 0 0 0" Background="Beige" />
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0 0 0 2">
-                    <TextBlock Margin="3 0 0 0" Text="PIN" FontSize="10"/>
-                    <TextBox Margin ="2 0 0 0"  Width="40" Background="Beige"/>
-               
-                </StackPanel>
-                <Button Content="Login" Margin="3,9,3,0"/>
-                <Button Content=" Register " Margin="3 9 3 0" Command="{Binding EditLoader}"/>
-                <Button Content=" Help " Margin="3 9,3,0" Command="{Binding EditMap}"/>
+        <!--Grid.ColumnDefinitions>
+            <ColumnDefinition Width="179*"/>
+            <ColumnDefinition Width="83*"/>
+        </-->
+
+
+        <StackPanel Orientation="Vertical"  Margin="3,10,3,178">
+            <StackPanel Height ="30" VerticalAlignment="Top" Orientation="Horizontal">
+                <Button Content=" Register " Margin = "3 3 3 3" Command="{Binding EditLoader}"/>
+                <Button Content=" Help " Margin = "3 3 3 3" Command="{Binding EditMap}"/>
             </StackPanel>
-
-
-
+            <StackPanel Orientation ="Horizontal" Height= "Auto">
+                <Label Content = "Login Code" FontSize="8" Foreground="Black" Margin = "3 0 0 0"/>
+                <Label Margin="10 0 0 0" Content="PIN" FontSize="8" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="3,0,0,0">
+                <TextBox Height =" 20" Width="70" Margin = "0 0 0 0" Background="Beige" />
+                <TextBox Margin = "0 0 0 0" Height =" 20"  Width="40" Background="Beige"/>
+                <Button Content="Login" Margin="3 3 3 3" Height="24"/>
+            </StackPanel>
             <!--" IsEnabled="{Binding isRegistered}"-->
+            <Button  HorizontalAlignment="Left" Width="60" Margin="3 3 3 3" Content="Search"  Command="{Binding EditEhealth}"/>
+            <Button  HorizontalAlignment="Left" Width="80" Margin="3 3 3 3" Content="Epidemiology"  Command="{Binding EditEpidemiology}"  IsEnabled="{Binding IsRegistered}" />
+            <Button  HorizontalAlignment="Left" Width="80"  Margin="3 3 3 3" Content="e-Health"   Command="{Binding EditEhealth}"  />
+
+        </StackPanel>
 
 
-            <StackPanel 
-                Orientation="Horizontal"
-                FlowDirection="RightToLeft"
-                   Height="25"
-                    DockPanel.Dock="Bottom"
-         Margin="0,5,0,0">
-                <Button
-            Width="60"         
-           Content="Search"           
-            Command="{Binding EditEhealth}"/>
 
 
-                <Button
-            Width="80"                 
-            Content="Epidemiology"            
-            Command="{Binding EditEpidemiology}"
-            IsEnabled="{Binding IsRegistered}"
-            />
-                <Button
-            Width="80"         
-           Content="e-Health"           
-            Command="{Binding EditEhealth}" 
-            />
-               
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
 
-                <Grid Height="240">
+
+        <!--Grid Height="240">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="35"/>
                         <ColumnDefinition Width="156*"/>
                         <ColumnDefinition Width="71*"/>
-                    </Grid.ColumnDefinitions>
-                    <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
+                    </Grid.ColumnDefinitions-->
+
+        <!--m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Center="{Binding Centre}" 
               
                ZoomLevel="7" Cursor="Cross" Grid.ColumnSpan="3">
@@ -95,30 +80,10 @@
                         <m:Pushpin 
                                 Background="Blue"                              
                                  Location="{Binding Centre}"/>
-                    </m:Map>
-                </Grid>
-                <!--Holds the Map-->
-                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                    <Button Width="20" Content="E" Command="{Binding MoveRegionEast}"/>
-                    <Button Width="20" Content="W" Command="{Binding MoveRegionWest}"/>
-                    <Button Width="20"  Content="S" Command="{Binding MoveRegionSouth}"/>
-                    <Button Width="20" Content="N" Command="{Binding MoveRegionNorth}"/>                
-                    <TextBlock Width="95" Text="{Binding Centre}" Background="Beige"/>
-                    <TextBlock Width="75" Margin="0 0 10 0" Text="{Binding Qnnee}" Background="Beige"/>
-                    <!-- TextBlock Width="75" Margin="5 0 5 0" /-->
+                    </>
+                </Grid-->
+        <!--Holds the Map-->
 
 
-
-
-                </StackPanel>
-                <ScrollViewer>
-                    <TextBlock
-                    Height="80"
-                           TextWrapping="Wrap"
-                           />
-                </ScrollViewer>
-                <!--TextBlock contains any user request the epidemiology info list and lists patient search; will try to use formating-->
-            </StackPanel>
-        </DockPanel>
     </Grid>
 </Window>

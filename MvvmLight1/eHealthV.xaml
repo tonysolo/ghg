@@ -9,10 +9,10 @@
        
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Height="423"
+        Height="450"
         Width="250"
         IsEnabled="True"
-        DataContext="{Binding eHealth, Source={StaticResource Locator}}">
+        DataContext="{Binding EHealth, Source={StaticResource Locator}}">
     <Grid>
         <DockPanel  LastChildFill="True" Margin="0,0,0,-9">
             <StackPanel DockPanel.Dock=" Top" Orientation="Horizontal">
@@ -20,7 +20,7 @@
                 <TextBox/>
             </StackPanel>
             <Button DockPanel.Dock="Bottom" Height="20" Margin="40,20,40,20" Content="Save"/>
-            <TabControl> <!--SelectionChanged="TabControl_SelectionChanged"-->
+            <TabControl SelectionChanged="TabControl_SelectionChanged"> <!--SelectionChanged="TabControl_SelectionChanged"-->
                 <TabItem Header = "Details" TabIndex="0">
                     <StackPanel Orientation="Vertical">
                         <TextBlock FontSize="8" Text="Name"/>
@@ -34,7 +34,19 @@
                             <RadioButton Margin="0 5,0,0" />
                         </StackPanel>
                         <TextBlock FontSize="8" Text="Region of Birth"/>
-                        <TextBox/>
+
+                        <DockPanel  HorizontalAlignment ="Stretch" FlowDirection="RightToLeft">
+                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸" Command="{Binding EditMap}"/>
+                            <TextBox Width="auto"/>
+                        </DockPanel>
+
+                        <TextBlock FontSize="8"><Run Text="Current"/><Run Language="en-gb" Text=" Home "/><Run Text=" Region /"/><Run Language="en-gb" Text=" District"/></TextBlock>
+                        <DockPanel  HorizontalAlignment ="Stretch" FlowDirection="RightToLeft">
+                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸" Command="{Binding EditMap}"/>
+                            <TextBox Width="auto"/>
+                        </DockPanel>
+
+
                         <TextBlock FontSize="8"><Run Language="en-gb" Text="Patient "/><Run Text="Cell"/><Run Language="en-gb" Text=" "/><Run Text="phone"/><Run Language="en-gb" Text=" Number"/></TextBlock>
                         <TextBox/>
                         <TextBlock FontSize="8" Text="Partner Name and Cell phone Number"/>
@@ -73,20 +85,27 @@
                 <TabItem Height="22" Header="New Visit" VerticalAlignment="Bottom">
                     <StackPanel>
                         <TextBlock FontSize="8" Text="Reason for Visit"/>
-                        <TextBox MinLines="2" AcceptsReturn="True"/>
+                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"  
+                         VerticalScrollBarVisibility="Visible"/>
                         <TextBlock FontSize="8" Text="ICD10 Code(s)"/>
                         <TextBox></TextBox>
                         <TextBlock FontSize="8" Text="Examination General Condition"/>
-                        <TextBox MinLines="2" AcceptsReturn="True"/>
+                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"  
+                         VerticalScrollBarVisibility="Visible"/>
+
                         <TextBlock FontSize="8" Text="Specific Examination"/>
-                    <TextBox MinLines="2" AcceptsReturn="True"/>
+                        <TextBox MinLines="2" AcceptsReturn="True"  TextWrapping="Wrap"  
+                         VerticalScrollBarVisibility="Visible"/>
                     <TextBlock FontSize="8" Text="Special Investigations"/>
-                        <TextBox MinLines="2"></TextBox>
+                        <TextBox MinLines="2" AcceptsReturn="True"  TextWrapping="Wrap"  
+                         VerticalScrollBarVisibility="Visible"/>
                         <TextBlock FontSize="8" Text="Comments and Plan"/>
-                        <TextBox MinLines="2"/>
+                        <TextBox MinLines="2" AcceptsReturn="True"  TextWrapping="Wrap"  
+                         VerticalScrollBarVisibility="Visible"/>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="8" Margin="0 10 5 5" Text="Next Visit"/>
-                            <DatePicker Margin="20 3 0 0" Width="110"/>
+                            <TextBlock FontSize="8" Margin="2 5 5 5" Text="Next Visit"/>
+                            <DatePicker Margin="5 3 0 0" Width="110"/>
+                            <RadioButton Margin ="5" Content ="Reminder"/>
                         </StackPanel>
                     
                 </StackPanel>

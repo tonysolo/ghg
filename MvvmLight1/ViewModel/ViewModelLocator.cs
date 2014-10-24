@@ -46,15 +46,15 @@ namespace MvvmLight1.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainVm>();//<MainViewModel>()
-            SimpleIoc.Default.Register<LoaderVM>();
-            SimpleIoc.Default.Register<MapVM>();
+            SimpleIoc.Default.Register<LoaderVm>();
+            SimpleIoc.Default.Register<MapVm>();
             SimpleIoc.Default.Register<EHealthVm>();
             SimpleIoc.Default.Register<EpidemVm>();
         }
 
         public MainVm Main { get { return ServiceLocator.Current.GetInstance<MainVm>(); } }
-        public LoaderVM Loader { get { return ServiceLocator.Current.GetInstance<LoaderVM>(); } }
-        public MapVM Map { get { return ServiceLocator.Current.GetInstance<MapVM>(); } }
+        public LoaderVm Loader { get { return ServiceLocator.Current.GetInstance<LoaderVm>(); } }
+        public MapVm Map { get { return ServiceLocator.Current.GetInstance<MapVm>(); } }
         public EHealthVm EHealth { get { return ServiceLocator.Current.GetInstance<EHealthVm>(); } }
         public EpidemVm Epidem { get { return ServiceLocator.Current.GetInstance<EpidemVm>(); } }
         public static void Cleanup()

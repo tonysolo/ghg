@@ -1,5 +1,6 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace MvvmLight1.ViewModel
 {
@@ -13,7 +14,7 @@ namespace MvvmLight1.ViewModel
     {
         public string[] Genders { get { return Enum.GetNames(typeof(Model.Gender)); } }
         // public string[] AgeGroups { get {return AzureAccess.Qnames;} }
-        public string[] AgeGroups{ get { return Enum.GetNames(typeof(Model.Agegroup)); } }
+        public string[] AgeGroups { get { return Enum.GetNames(typeof(Model.Agegroup)); } }
         public string[] Facilities { get { return Enum.GetNames(typeof(Model.Facilty)); } }
         public string[] Stays { get { return Enum.GetNames(typeof(Model.Stay)); } }
         public string[] Funders { get { return Enum.GetNames(typeof(Model.Funder)); } }
@@ -41,9 +42,38 @@ namespace MvvmLight1.ViewModel
         public string Staymessage
         { get { return (Stay == 1) ? "Number of Days Admitted" : "Number of Similar Outpatients"; } }
 
-       // public object EditMap
-       // {
-      //      get { throw new NotImplementedException(); }
-       // }
+
+        private static void ShowMapDlg()
+        {
+            var v = new MapV();
+            v.ShowDialog();
+        }
+
+
+        public RelayCommand EditMap { get; private set; }
+
+
+        private void SetupRelayCommands()
+        {
+            EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);  
+        }
+
+
+        public EpidemVm()
+        {
+            SetupRelayCommands();
+
+        }
+
     }
 }
+
+
+// IsRegistered = true;
+
+
+// Qnnee = Model.QneUtils.to_qnnee("-26.20,28.04");
+
+//    Centre = Model.QneUtils.CentrePoint(Qnnee);
+//   Boundary = Model.QneUtils.Boundary(Qnnee);
+

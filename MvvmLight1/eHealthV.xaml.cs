@@ -15,6 +15,11 @@ namespace MvvmLight1
             InitializeComponent();
         }
 
+        private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
        // private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
        // {
 
