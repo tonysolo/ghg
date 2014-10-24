@@ -25,7 +25,7 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock FontSize="8" Text="Name"/>
                         <TextBox/>
-                        <TextBlock FontSize="8"><Run Text="Date of Birth "/><Run Language="en-gb" Text="                                     "/><Run Text="Gender"/></TextBlock>
+                        <TextBlock FontSize="8"><Run Text="Date of Birth "/><Run Language="en-gb" Text="                                   "/><Run Text="Gender"/></TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <DatePicker Width="120"/> 
                             <TextBlock Margin ="10 5 0 0" FontSize="10" Text ="M"/>
