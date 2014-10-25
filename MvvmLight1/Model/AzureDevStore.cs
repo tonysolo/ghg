@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -12,14 +9,14 @@ namespace MvvmLight1.Model
 {
     public static class AzureUtil
     {
-        public static int secstomidnight(string qe)
+        public static int Secstomidnight(string queue)
         {
-            DateTime utc = DateTime.UtcNow;
-            int x = (utc.Second) + (utc.Minute * 60) + (utc.Hour * 60 * 60);
-            int utcsecstomidnight = (86400 - x);
-            byte _qe = Convert.ToByte(qe, 16);
-            byte longit = (byte)(_qe & 0x1f);
-            int timezonesecs = longit * 45 * 60;
+            var utc = DateTime.UtcNow;
+            var x = (utc.Second) + (utc.Minute * 60) + (utc.Hour * 60 * 60);
+            var utcsecstomidnight = (86400 - x);
+            var qe = Convert.ToByte(queue, 16);
+            var longit = (byte)(qe & 0x1f);
+            var timezonesecs = longit * 45 * 60;
             return (timezonesecs - utcsecstomidnight + 86400) % 86400;
         }
 
@@ -28,8 +25,7 @@ namespace MvvmLight1.Model
         public static bool PageBlobExists(CloudBlobClient client, string container, string key)
         {
             return client.GetContainerReference(container).
-                GetPageBlobReference(key). Exists();
-               
+                GetPageBlobReference(key). Exists();             
         }
 
 
@@ -50,12 +46,11 @@ namespace MvvmLight1.Model
         {
             get
             {
-                IEnumerable<CloudQueue> cql =
-                    Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount.
+             var cql = CloudStorageAccount.DevelopmentStorageAccount.
                     CreateCloudQueueClient().ListQueues();
-                CloudQueue[] cqarr = cql.ToArray<CloudQueue>();
-                string[] sarr = new string[cqarr.Length];
-                for (int i = 0; i < sarr.Length; i++) sarr[i] = cqarr[i].Name;
+                var cqarr = cql.ToArray();
+                var sarr = new string[cqarr.Length];
+                for (var i = 0; i < sarr.Length; i++) sarr[i] = cqarr[i].Name;
                 return sarr;
             }
         }
@@ -64,22 +59,20 @@ namespace MvvmLight1.Model
         {
             get
             {
-                IEnumerable<CloudBlobContainer> cbc =
-                    Microsoft.WindowsAzure.Storage.CloudStorageAccount.DevelopmentStorageAccount.
+                var cbc = CloudStorageAccount.DevelopmentStorageAccount.
                     CreateCloudBlobClient().ListContainers();
-                CloudBlobContainer[] ccarr = cbc.ToArray<CloudBlobContainer>();
-                string[] sarr = new string[ccarr.Length];
-                for (int i = 0; i < sarr.Length; i++) sarr[i] = ccarr[i].Name;
+                var ccarr = cbc.ToArray();
+                var sarr = new string[ccarr.Length];
+                for (var i = 0; i < sarr.Length; i++) sarr[i] = ccarr[i].Name;
                 return sarr;
             }
         }
 
         public static void LoadtoQueue(CloudQueueMessage msg, int queue, int waitsecs)
         {
-            string qname = "t-" + queue.ToString();
-            TimeSpan ts = new TimeSpan();
-            ts = TimeSpan.FromSeconds(waitsecs);
-            CloudQueueClient cqc = Microsoft.WindowsAzure.Storage.CloudStorageAccount.
+            var qname = "t-" + queue;
+            var ts = TimeSpan.FromSeconds(waitsecs);
+            var cqc = CloudStorageAccount.
                 DevelopmentStorageAccount.CreateCloudQueueClient();
             cqc.GetQueueReference(qname).AddMessage(msg, null, ts, null, null);
         }

@@ -11,6 +11,7 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     public class EHealthVm : ViewModelBase
     {
+        public string[] Regions { get; set; }
 
         private static void ShowMapDlg()
         {
@@ -32,6 +33,7 @@ namespace MvvmLight1.ViewModel
         public EHealthVm()
         {
             SetupRelayCommands();
+            Regions = new[] {"Sandton", "Fourways", "Pretoria"};
 
         }
     }

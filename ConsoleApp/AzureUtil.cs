@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
 using Microsoft.WindowsAzure;
@@ -20,8 +21,25 @@ namespace ConsoleApp
 
     public static class AzureUtil
     {
+
         /// <summary>
-        /// Downloads Regions
+        /// Gets all the country names for the GHG management account
+        /// </summary>
+        /// <returns></returns>
+        public static string DownloadCountryNames()
+        {
+            var storageAccount = CloudStorageAccount.Parse(
+                           CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("countries");
+           var bloblist = container.ListBlobs().AsEnumerable();
+         
+        }
+
+
+
+        /// <summary>
+        /// Downloads Regions from the GHG management account
         /// </summary>
         /// <param name="country">eg "za.txt"</param>,
         /// <returns>CSV string</returns>
@@ -45,9 +63,9 @@ namespace ConsoleApp
 
         private static void Main()
         {
-            var s = AzureUtil.DownloadRegions("ZA");
-            var sw = AzureUtil.DownloadRegions("SZ");
-            var ls = AzureUtil.DownloadRegions("LS");
+            DownloadRegions("ZA");
+            DownloadRegions("SZ");
+            DownloadRegions("LS");
         }
 
     }

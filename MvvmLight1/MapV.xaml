@@ -1,33 +1,52 @@
 ﻿<Window x:Class="MvvmLight1.MapV"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-        
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"      
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         Title="MapV" Height="400" Width="300"
-         DataContext="{Binding Map, Source={StaticResource Locator}}">      
+        DataContext="{Binding Map, Source={StaticResource Locator}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-       
-        <m:Map CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
-               Center="{Binding Centre}" 
-               ZoomLevel="7" 
-               
-               Margin="0,0,0,0"/>
-       
-        <StackPanel Grid.Row="2" 
+        <m:Map x:Name="MyMap"
+            CredentialsProvider= "Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-" 
+             Mode="Road"
+              Center = "{Binding Centre}"
+              ZoomLevel="4" Margin="0,-5,0,5">
+            <m:Pushpin Location ="{Binding Centre}" Background="Blue"/>
+            <m:MapPolygon Fill="RoyalBlue" 
+                          Locations="{Binding Boundary}"
+                          Opacity="0.7"/>
+        </m:Map>
+
+
+        <StackPanel Grid.Row="1" Height="20" 
                     Orientation="Horizontal" 
-                    FlowDirection="LeftToRight" 
+                    FlowDirection="RightToLeft" 
                     >
-            <TextBlock Grid.Row="1"/>
-            <TextBox Width = "240" Height ="30" Text="sandton south africa"/>
-        <Button Width="50" Content="Search" Command="{Binding Search}"/>
-       </StackPanel>
+            <!--TextBlock/-->
+            <!--TextBox Width = "150" Height ="30" Text= "{Binding Centre}"/-->
+            <!--Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00E;" Command="{Binding Search}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE010;" Command="{Binding Search}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE011;" Command="{Binding Search}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00f;" Command="{Binding Search}"/-->
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE09F;" Command="{Binding MoveRegionEast}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE0A1;" Command="{Binding MoveRegionSouth}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE0A0;" Command="{Binding MoveRegionNorth}"/>
+            <!--Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00E;" Command="{Binding Search}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE010;" Command="{Binding Search}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE011;" Command="{Binding Search}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00f;" Command="{Binding Search}"/-->
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE09E;" Command="{Binding MoveRegionWest}"/>
+            <Button Width="20" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE005;"/>
+            <TextBox Width="150"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE004;"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE002;"/>
+
+        </StackPanel>
 
 
     </Grid>

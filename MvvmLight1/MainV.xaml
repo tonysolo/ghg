@@ -45,7 +45,7 @@
                 <Button Content="Login" Margin="3 3 3 3" Height="24"/>
             </StackPanel>
             <!--" IsEnabled="{Binding isRegistered}"-->
-            <Button  HorizontalAlignment="Left" Width="60" Margin="3 3 3 3" Content="Search"  Command="{Binding EditEhealth}"/>
+            <Button  HorizontalAlignment="Left" Width="60" Margin="3 3 3 3" Content="Search"  Command="{Binding EditMap}"/>
             <Button  HorizontalAlignment="Left" Width="80" Margin="3 3 3 3" Content="Epidemiology"  Command="{Binding EditEpidemiology}"  IsEnabled="{Binding IsRegistered}" />
             <Button  HorizontalAlignment="Left" Width="80"  Margin="3 3 3 3" Content="e-Health"   Command="{Binding EditEhealth}"  />
 

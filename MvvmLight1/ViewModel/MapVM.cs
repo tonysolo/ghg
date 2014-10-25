@@ -80,7 +80,7 @@ public RelayCommand Search {get; private set;}
             RaisePropertyChanged("Centre");         
  }
 
- public RelayCommand MoveRegionNorth { get; private set; }
+        public RelayCommand MoveRegionNorth { get; private set; }
         public RelayCommand MoveRegionEast { get; private set; }
         public RelayCommand MoveRegionWest { get; private set; }
         public RelayCommand MoveRegionSouth { get; private set; }
@@ -111,8 +111,11 @@ public RelayCommand Search {get; private set;}
         {
            SetupRelayCommands();
            // height = "250";
-            Centre = "26.076,-27.972";
-            SetupRelayCommands();
+            //var str = "26.076,-27.972";          
+            //RaisePropertyChanged("Centre");
+            Qnnee = QneUtils.to_qnnee("-30.806029,20.407007");
+            Centre = "-30.806029,20.407007";
+            //SetupRelayCommands();
         }
 
       
