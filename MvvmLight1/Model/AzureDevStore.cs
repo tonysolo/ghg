@@ -55,8 +55,7 @@ namespace MvvmLight1.Model
                 blockBlob.DownloadToStream(memoryStream);
                 text = Encoding.UTF8.GetString(memoryStream.ToArray());
             }
-
-            text = text.Trim(new char[] { '\"' });
+           
             return text;
         }
 
