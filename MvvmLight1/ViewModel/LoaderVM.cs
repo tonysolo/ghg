@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
+using MvvmLight1.Model;
 
 namespace MvvmLight1.ViewModel
 {
@@ -24,8 +25,8 @@ namespace MvvmLight1.ViewModel
         public LoaderVm()
         {
             SetupRelayCommands();
-            // Model.AzureStorage.SetupAzureAccount();
-
+          //   Model.AzureStorage.SetupAzureAccount();
+           Countries = AzureUtil.CountryNames();
         }
 
         private static void ShowMapDlg()
@@ -34,13 +35,13 @@ namespace MvvmLight1.ViewModel
             v.ShowDialog();
         }
 
-
-
         public string[] Regions { get; set; }
 
         public string Region { get; set; }
 
-        public string Countries { get; set; }
+        public string[] Countries { get; set; }
+
+        public string Country { get; set; }
 
         public string[] Qualifications
         {

@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows;
+using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -9,7 +14,66 @@ namespace MvvmLight1.Model
 {
     public static class AzureUtil
     {
-        public static int Secstomidnight(string queue)
+        /// <summary>
+        /// Gets all the name names for the GHG management account
+        /// </summary>
+        /// <returns></returns>
+        public static string[] CountryNames()
+        {
+            var storageAccount = CloudStorageAccount.Parse(
+            CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("countries");
+            var blockBlob = container.GetBlockBlobReference("countries.txt");
+            string text;
+            using (var memoryStream = new MemoryStream())
+            {
+                blockBlob.DownloadToStream(memoryStream);
+                text = Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+            return text.Split(',');
+        }
+
+
+        /// <summary>
+        /// Downloads csv strings containing names of regions
+        /// from blob storage  
+        /// </summary>
+        /// <param name="country">string</param>
+        /// <returns>CSV string</returns>
+        public static string DownloadRegions(string country)
+        {
+            var lower = country.ToLower();
+            var storageAccount = CloudStorageAccount.Parse(
+                CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("countries");
+            var blockBlob = container.GetBlockBlobReference(lower);
+            string text;
+            using (var memoryStream = new MemoryStream())            
+            {
+                blockBlob.DownloadToStream(memoryStream);
+                text = Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+
+            text = text.Trim(new char[] { '\"' });
+            return text;
+        }
+
+   
+        public static string[] CurrentCountry; //placeholder for all current qnnee regions
+
+
+        public static bool InRange(string region)
+        {
+            return CurrentCountry.Contains(region);
+        }
+
+        public static string Centreregion = ""; //centre of Region placeholder qnnee
+
+
+
+        public static int Secstomidnight(string queue) //needs checking
         {
             var utc = DateTime.UtcNow;
             var x = (utc.Second) + (utc.Minute * 60) + (utc.Hour * 60 * 60);

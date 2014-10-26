@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -7,8 +8,10 @@ using System.Security.Policy;
 using System.Text;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 //http://gauravmantri.com/
+
 
 namespace ConsoleApp
 {
@@ -23,34 +26,39 @@ namespace ConsoleApp
     {
 
         /// <summary>
-        /// Gets all the country names for the GHG management account
+        /// Gets all the name names for the GHG management account
         /// </summary>
         /// <returns></returns>
-        public static string DownloadCountryNames()
+        public static IEnumerable<IListBlobItem> DownloadCountryNames()
         {
             var storageAccount = CloudStorageAccount.Parse(
                            CloudConfigurationManager.GetSetting("GHGConnectionString"));
             var blobClient = storageAccount.CreateCloudBlobClient();
             var container = blobClient.GetContainerReference("countries");
-           var bloblist = container.ListBlobs().AsEnumerable();
+            return container.ListBlobs().AsEnumerable();
          
         }
+
+
+
+
+
 
 
 
         /// <summary>
         /// Downloads Regions from the GHG management account
         /// </summary>
-        /// <param name="country">eg "za.txt"</param>,
+        /// <param name="name">eg "za.txt"</param>,
         /// <returns>CSV string</returns>
-        public static string DownloadRegions(string country)
+        public static string DownloadNames(string name)
         {
-            country = country.ToLower() + ".txt";
+            name = name.ToLower() + ".txt";
             var storageAccount = CloudStorageAccount.Parse(
                 CloudConfigurationManager.GetSetting("GHGConnectionString"));
             var blobClient = storageAccount.CreateCloudBlobClient();
             var container = blobClient.GetContainerReference("countries");
-            var blockBlob = container.GetBlockBlobReference(country);
+            var blockBlob = container.GetBlockBlobReference(name);
             string text;
             using (var memoryStream = new MemoryStream())            
             {
@@ -60,12 +68,23 @@ namespace ConsoleApp
             return text;
         }
 
+        public static string[] CountryNames()
+        {
+            var storageAccount = CloudStorageAccount.Parse(
+            CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("countries");
+            return container.GetBlockBlobReference("countries.txt").DownloadText().ToUpper().Split(',');
+        }
+
+
 
         private static void Main()
         {
-            DownloadRegions("ZA");
-            DownloadRegions("SZ");
-            DownloadRegions("LS");
+
+            string[] str = CountryNames();
+            Console.WriteLine(str);
+            Console.ReadLine();
         }
 
     }
