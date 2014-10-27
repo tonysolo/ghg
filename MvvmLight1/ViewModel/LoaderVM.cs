@@ -12,36 +12,39 @@ namespace MvvmLight1.ViewModel
 {
     /// <summary>
     /// This class contains properties that a View can data bind to.
+    /// Manages things preferences and details for individual loaders / providers that will be stoed in the loader blob
     /// <para>
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
     public class LoaderVm : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the MvvmViewModel1 class.
-        /// </summary>
-        /// 
-        public LoaderVm()
-        {
-            SetupRelayCommands();
-          //   Model.AzureStorage.SetupAzureAccount();
-           Countries = AzureUtil.CountryNames();
-        }
+       
+        public string[] Regions { get; set; } //local file / dictionary of regions -- coordinates
 
-        private static void ShowMapDlg()
-        {
-            var v = new MapV();
-            v.ShowDialog();
-        }
+        public string RegionName { get; set; } 
 
-        public string[] Regions { get; set; }
+        public int   CountryIndex { get; set; }
 
-        public string Region { get; set; }
+        public string[] CountryShortNames  { get; set; }
 
-        public string[] Countries { get; set; }
+        public string SelectedCountry { get; set; }
 
-        public string Country { get; set; }
+        // public int CountryIndex
+        //{     
+        // get {return _cdx;}
+        //  set
+        //     {
+        //         _cdx = value;
+        //         Userdata.SelectedCountryShortName = CountryShortNames[_cdx];
+        //          RaisePropertyChanged("SelectedCountryShortName");
+        //          Regions = Userdata.GetRegions(SelectedCountryShortName);//.Split(',');
+        //           RaisePropertyChanged("Region");
+        //     }
+        //}      
+
+
+        public string Country{get; set;}
 
         public string[] Qualifications
         {
@@ -55,6 +58,7 @@ namespace MvvmLight1.ViewModel
             get { return Model.Settings.Securityquestions; }
         }
 
+
         public string SecurityAnswer { get; set; }
 
         public bool Registered
@@ -63,14 +67,41 @@ namespace MvvmLight1.ViewModel
             set { Model.Settings.Registered = value; }
         }
 
+  private void SetupRelayCommands()
+        {
+            EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);
+           // Submit = new RelayCommand(SaveSettings);
+        }
+
 
     public RelayCommand EditMap { get; private set; }
+    public RelayCommand Submit { get; private set; }
 
 
+ // private static void SaveSettings();
+ //   {
+        //save to azure of locally
+ //   }
 
-        private void SetupRelayCommands()
+        private static void ShowMapDlg()
         {
-            EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);   
+            var v = new MapV();
+            v.ShowDialog();
         }
+
+
+        /// <summary>
+        /// Initializes a new instance of the MvvmViewModel1 class.
+        /// </summary>
+     
+        public LoaderVm()
+        {
+            SetupRelayCommands();
+            //Model.AzureStorage.SetupAzureAccount();
+            //CountryShortNames = AzureUtil.CountryNames();
+            CountryShortNames = Userdata.GetCountryShortNames();
+        }
+
+
     }
 }
