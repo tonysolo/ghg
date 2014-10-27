@@ -15,12 +15,12 @@ namespace MvvmLight1.Model
                 return reader.ReadToEnd().Split(',');
         }
 
-        public static string[] GetRegions(string countrycode)
-        {
-            var s = (@"c:\azure\" + countrycode + ".txt").ToLower();
-            using (var reader = File.OpenText(s))
-                return reader.ReadToEnd().Split(',');
-        }
+       // public static string[] GetRegions(string countrycode)
+       // {
+       //     var s = (@"c:\azure\" + countrycode + ".txt").ToLower();
+       //     using (var reader = File.OpenText(s))
+       //         return reader.ReadToEnd().Split(',');
+       // }
 
         public static string[] GetRegions() //selected countrycode
         {
@@ -30,6 +30,7 @@ namespace MvvmLight1.Model
                 return reader.ReadToEnd().Split(',');
         }
 
+        public static string[] Regions;
 
         static public void Loaddata(string locationPin)
         {

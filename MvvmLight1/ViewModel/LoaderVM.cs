@@ -69,16 +69,17 @@ namespace MvvmLight1.ViewModel
 
   private void SetupRelayCommands()
         {
-            EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);
-           // Submit = new RelayCommand(SaveSettings);
+            EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);        
+            LoadRegions = new RelayCommand(GetRegions);
         }
 
 
     public RelayCommand EditMap { get; private set; }
     public RelayCommand Submit { get; private set; }
+    public RelayCommand LoadRegions { get; private set; }
 
 
- // private static void SaveSettings();
+        // private static void SaveSettings();
  //   {
         //save to azure of locally
  //   }
@@ -87,6 +88,11 @@ namespace MvvmLight1.ViewModel
         {
             var v = new MapV();
             v.ShowDialog();
+        }
+
+        private static void GetRegions()
+        {
+            Userdata.Regions = Userdata.GetRegions();//(Userdata.SelectedCountryShortName);
         }
 
 
