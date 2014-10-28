@@ -28,21 +28,7 @@ namespace MvvmLight1.ViewModel
 
         public string[] CountryShortNames  { get; set; }
 
-        public string SelectedCountry { get; set; }
-
-        // public int CountryIndex
-        //{     
-        // get {return _cdx;}
-        //  set
-        //     {
-        //         _cdx = value;
-        //         Userdata.SelectedCountryShortName = CountryShortNames[_cdx];
-        //          RaisePropertyChanged("SelectedCountryShortName");
-        //          Regions = Userdata.GetRegions(SelectedCountryShortName);//.Split(',');
-        //           RaisePropertyChanged("Region");
-        //     }
-        //}      
-
+        public string SelectedCountryShortName { get; set; }
 
         public string Country{get; set;}
 
@@ -102,10 +88,9 @@ namespace MvvmLight1.ViewModel
      
         public LoaderVm()
         {
-            SetupRelayCommands();
-            //Model.AzureStorage.SetupAzureAccount();
-            //CountryShortNames = AzureUtil.CountryNames();
+            SetupRelayCommands();          
             CountryShortNames = Userdata.GetCountryShortNames();
+
         }
 
 
