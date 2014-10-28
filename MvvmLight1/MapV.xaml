@@ -16,8 +16,8 @@
              Mode="Road"
               Center = "{Binding Centre}"
               ZoomLevel="4" Margin="0,-5,0,5">
-            <m:Pushpin Location ="{Binding Centre}" Background="Blue"/>
-            <m:MapPolygon Fill="RoyalBlue" 
+            <m:Pushpin Location ="{Binding Centre}" Background="{Binding Fill}"/>
+            <m:MapPolygon Fill = "RoyalBlue"
                           Locations="{Binding Boundary}"
                           Opacity="0.7"/>
         </m:Map>
