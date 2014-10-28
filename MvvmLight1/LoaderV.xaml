@@ -32,7 +32,11 @@
                           />
                 <StackPanel Orientation="Horizontal">
                     <Button Margin ="3 0 2 0" Width="25" Command="{Binding LoadRegions}" Content= "&#xE005;"/> 
-                <ComboBox Width="110" Margin =" 2 0 4 0" IsReadOnly="True" Text="{Binding RegionName}" />
+                <ComboBox Width="110" Margin =" 2 0 4 0" IsReadOnly="True" 
+                          SelectedIndex="{Binding RegionIndex}"
+                          ItemsSource="{Binding RegionNames}"
+                          />
+                          
                  </StackPanel>         
                          
            </DockPanel>

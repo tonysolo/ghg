@@ -55,7 +55,7 @@ public RelayCommand Search {get; private set;}
             Centre = Model.QneUtils.CentrePoint(Qnnee);
             Boundary = Model.QneUtils.Boundary(Qnnee);
             RaisePropertyChanged("Qnnee");
-             RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Boundary");
            RaisePropertyChanged("Centre");
         }
 

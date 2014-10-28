@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Windows;
 using System.Text;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.WindowsAzure;
@@ -7,6 +8,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using MvvmLight1.Model;
+
 
 namespace MvvmLight1.ViewModel
 {
@@ -20,15 +22,17 @@ namespace MvvmLight1.ViewModel
     public class LoaderVm : ViewModelBase
     {
        
-        public string[] Regions { get; set; } //local file / dictionary of regions -- coordinates
+        //public string[] Regions { get; set; } //local file / dictionary of regions -- coordinates
 
-        public string RegionName { get; set; } 
+        public string[] RegionNames { get; set; }
 
-        public int   CountryIndex { get; set; }
+        public int RegionIndex { get; set; }
 
-        public string[] CountryShortNames  { get; set; }
+        public static int   CountryIndex { get; set; }
 
-        public string SelectedCountryShortName { get; set; }
+        public static string[] CountryShortNames  { get; set; }
+
+        public static string SelectedCountryShortName { get; set; }
 
         public string Country{get; set;}
 
@@ -53,6 +57,24 @@ namespace MvvmLight1.ViewModel
             set { Model.Settings.Registered = value; }
         }
 
+        private static void ShowMapDlg()
+        {
+            var v = new MapV();
+            v.ShowDialog();
+        }
+
+        private void GetRegions()
+        {
+            Userdata.DownloadRegions(CountryShortNames[CountryIndex]);//(Userdata.SelectedCountryShortName);
+            RegionNames = Userdata.Regions;
+            RegionIndex = 0;
+            RaisePropertyChanged("RegionNames");
+            RaisePropertyChanged("RegionIndex");
+         
+            //return Userdata.;
+        }
+
+
   private void SetupRelayCommands()
         {
             EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);        
@@ -70,17 +92,7 @@ namespace MvvmLight1.ViewModel
         //save to azure of locally
  //   }
 
-        private static void ShowMapDlg()
-        {
-            var v = new MapV();
-            v.ShowDialog();
-        }
-
-        private static void GetRegions()
-        {
-            Userdata.Regions = Userdata.GetRegions();//(Userdata.SelectedCountryShortName);
-        }
-
+       
 
         /// <summary>
         /// Initializes a new instance of the MvvmViewModel1 class.
@@ -88,11 +100,12 @@ namespace MvvmLight1.ViewModel
      
         public LoaderVm()
         {
-            SetupRelayCommands();          
             CountryShortNames = Userdata.GetCountryShortNames();
-
+            SetupRelayCommands();                   
         }
 
+
+ 
 
     }
 }
