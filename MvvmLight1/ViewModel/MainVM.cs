@@ -1,9 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
-using MvvmLight1.Model;
 using GalaSoft.MvvmLight.Command;
-using System;
 using System.Windows;
-using MvvmLight1.ViewModel;
+
 //using System.Configuration;
 //using Microsoft.WindowsAzure.Storage;
 //using Microsoft.WindowsAzure.Storage.Table;
@@ -150,6 +148,7 @@ namespace MvvmLight1.ViewModel
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             EditLoader = new RelayCommand(ShowLoaderDlg);
             EditEhealth = new RelayCommand(ShowEhealthDlg);
+            
             
 
        //     MoveRegionNorth = new RelayCommand(RegionNorth);

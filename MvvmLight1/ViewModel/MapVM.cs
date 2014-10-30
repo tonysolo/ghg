@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
-using System.Windows;
 
 namespace MvvmLight1.ViewModel
 {
@@ -15,18 +14,7 @@ namespace MvvmLight1.ViewModel
 
     public class MapVm : ViewModelBase
     {
-        //private string _centre; 
-        // public string Centre { get; set; }
-
-        // public string height { get; set; }
-
-
-     //   private void ShowMsg()
-     //   {
-            //Centre = "37.000,-122.000";
-
-   //         MessageBox.Show("This is a test");
-   //     }
+  
 
         public string Centre { get; private set; }
         public string Boundary { get; private set; }
@@ -85,6 +73,7 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("Fill");
         }
 
+       
         public RelayCommand MoveRegionNorth { get; private set; }
         public RelayCommand MoveRegionEast { get; private set; }
         public RelayCommand MoveRegionWest { get; private set; }
@@ -96,34 +85,27 @@ namespace MvvmLight1.ViewModel
             // EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             //EditLoader = new RelayCommand(ShowLoaderDlg);
             // EditEhealth = new RelayCommand(ShowEhealthDlg);
-
-
+            Qnnee = Userdata.SelectedQnnee;
+            Centre = QneUtils.IndexPoint(Qnnee);
             MoveRegionNorth = new RelayCommand(RegionNorth);
             MoveRegionEast = new RelayCommand(RegionEast);
             MoveRegionWest = new RelayCommand(RegionWest);
             MoveRegionSouth = new RelayCommand(RegionSouth);
+            RegionSouth();
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Fill");
         }
 
         /// <summary>
         /// Initializes a new instance of the MapVM class.
         /// </summary>
+        /// 
+        /// 
         public MapVm()
-        {
+        {           
             SetupRelayCommands();
-            // height = "250";
-            //var str = "26.076,-27.972";          
-            //RaisePropertyChanged("Centre");
-            Qnnee = Userdata.CentreRegion();
-            Centre = QneUtils.CentrePoint(Qnnee);
-            //  Qnnee = QneUtils.to_qnnee("-30.806029,20.407007");
-            // Centre = "-30.806029,20.407007";
-            // SetupRelayCommands();
         }
-
-
-
-
-
-
     }
 }

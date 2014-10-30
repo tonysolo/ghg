@@ -4,7 +4,7 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"      
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Title="MapV" Height="400" Width="300"
+        Title="Global Health Grid" Height="400" Width="300"
         DataContext="{Binding Map, Source={StaticResource Locator}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -42,7 +42,7 @@
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00f;" Command="{Binding Search}"/-->
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE09E;" Command="{Binding MoveRegionWest}"/>
             <Button Width="20" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE005;"/>
-            <TextBox Width="150"/>
+            <TextBox Width="150" ToolTip = "{Binding Qnnee}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE004;"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE002;"/>
 

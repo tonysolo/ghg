@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
 
@@ -8,6 +8,10 @@ namespace MvvmLight1.Model
     {
 
         public static string SelectedCountryShortName { get; set; } //countrycode eg ZA
+        public static string CentreRegion { get; private set; }
+        public static string[] Regions { get; private set; }
+        public static string SelectedQnnee { get; set; }
+
 
 
         public static string[] GetCountryShortNames()
@@ -24,37 +28,25 @@ namespace MvvmLight1.Model
             s = @"c:\azure\" + s;
             using (var reader = File.OpenText(s))
                 Regions = reader.ReadToEnd().Split(',');
+
+            Int16 nn = 0;
+            Int16 ee = 0;
+            var q = 0;
+            foreach (var qne in Regions)
+            {
+                q = Convert.ToInt16(qne.Substring(0, 1), 16);
+                nn += Convert.ToInt16(qne.Substring(1, 2), 16);
+                ee += Convert.ToInt16(qne.Substring(3, 2), 16);
+            }
+            nn /= (Int16)Regions.Length;
+            ee /= (Int16)Regions.Length;
+            CentreRegion = String.Format("{0:x1}{1:x2}{2:x2}", q, nn, ee);
         }
 
-        public static string[] Regions { get; set; }
-
-        public static string CentreRegion()
-        {
-            return Regions[Regions.Length/2];
-        }
 
         public static bool Isvalid(string qnnee)
         {
             return Regions.Contains(qnnee);
         }
-
-        //  static public void Loaddata(string locationPin)
-      //  {
-            //bool invalid = false;
-            //cloudid = location_pin;
-            //validate and read prefs and GIS from cloud        
-     //   }
-
-
-        //static Dictionary<string, string> coords;
-       // static bool _invalid;
-       // static void AddCoords(string district, string qnnneee)
-       // {
-      //      coords.Add(district, qnnneee);
-       //     _invalid = true;
-
-      //  }
-
-
     }
 }

@@ -14,8 +14,8 @@
         
         DataContext="{Binding Loader, Source={StaticResource Locator}}">
     <Grid>
-       
-        
+
+
         <StackPanel Margin="10,10,5,0">
             <TextBlock><Run Text="Country            "/><Run Language="en-gb" Text="     "/><Run Text=" Region"/></TextBlock>
             <DockPanel LastChildFill="True">
@@ -31,23 +31,23 @@
                           ItemsSource="{Binding CountryShortNames}"                        
                           />
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin ="3 0 2 0" Width="25" Command="{Binding LoadRegions}" Content= "&#xE005;"/> 
-                <ComboBox Width="110" Margin =" 2 0 4 0" IsReadOnly="True" 
+                    <Button Margin ="3 0 2 0" Width="25" Command="{Binding LoadRegions}" Content= "&#xE005;"/>
+                    <ComboBox Width="110" Margin =" 2 0 4 0" IsReadOnly="True" 
                           SelectedIndex="{Binding RegionIndex}"
                           ItemsSource="{Binding RegionNames}"
                           />
-                          
-                 </StackPanel>         
-                         
-           </DockPanel>
-           
+
+                </StackPanel>
+
+            </DockPanel>
+
             <TextBlock Text="First Name"/>
             <TextBox Text="{Binding fname}"/>
             <TextBlock Text="Surname" />
             <TextBox Text="{Binding sname}"/>
             <TextBlock Text="Cell Phone" />
             <TextBox Text="{}"/>
-            
+
             <TextBlock Text="eMail Address"/>
             <TextBox Text="{Binding email}"/>
             <TextBlock Text="Designation" />
@@ -66,7 +66,7 @@
                 SelectedIndex="{Binding SecurityChoice}"
                 />
             <TextBlock Text="Answer" />
-            <TextBox Text="{Binding SecurityAnswer}" />          
+            <TextBox Text="{Binding SecurityAnswer}" />
             <Button
                 Content="Submit"
                 Margin ="50,20,50,0"
