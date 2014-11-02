@@ -17,7 +17,6 @@ namespace MvvmLight1.Model
             var sarr = deccoords.Split(delim);
             var lat = Convert.ToDouble(sarr[0]);
             var lon = Convert.ToDouble(sarr[1]);
-
             var q = ((lat >= 0) && (lon >= 0)) ? 0 :
                      ((lat >= 0) && (lon < 0)) ? 1 :
                      ((lat < 0) && (lon >= 0)) ? 2 : 3;
@@ -153,13 +152,13 @@ namespace MvvmLight1.Model
                     lat1 = lat0;
                     q = (Int16)(3 - q);
                 }
-                if (lon0 < 256)
+                if (lon0 <= 255)
                     lon1 = (Int16)(lon0 + 1);
 
-                else lon1 = lon0;
+               else lon1 = lon0;
 
-                if (lon0 == 0) lon0 = 1;
-                if (lon1 == 0) lon1 = 1;
+                //if (lon0 == 0) lon0 = 1;
+               // if (lon1 == 0) lon1 = 1;
 
                 saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
                 saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
@@ -229,7 +228,8 @@ namespace MvvmLight1.Model
         /// <returns>region coordinates</returns>
         public static string MoveNsew(string qnnee, char nsew)
         {
-            bool isEast, isWest;
+            bool  isWest;
+            var isEast = isWest = false;
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
             if (qnnee.Length == 5) // 5 character qnnee
@@ -259,15 +259,16 @@ namespace MvvmLight1.Model
                         
                 }
 
-                q = (byte)(ns >= 0 & ew >  0  ? 0 :  //00 ne
-                           ns >= 0 & ew <  0  ? 1 :   //01 nw
-                           ns < 0  & ew <  0  ? 3 :      //2);   //10 se / sw
-                           ns >= 0 & ew == 0 & isWest ? 1:)
+                q = (byte)(ns >= 0 & (ew > 0) |((ew==0)&(isEast))  ? 0 :  //00 ne
+                           ns >= 0 & (ew < 0) |((ew==0)&(isWest)) ?  1 :   //01 nw
+                           ns <  0 & (ew < 0) |((ew==0)&(isWest)) ? 3 : 2) ;  //03 sw or SE
+                          // ns > 0  & (ew >0 ) |((ew==0)&(isWest))  2); //10 se / sw
+                          
 
                             
 
-                if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
-                if (ew == 0x00) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
+               // if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
+               // if (ew == 0x00) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
 
                 qnnee = String.Format("{0:x1}{1:x2}{2:x2}", q, Math.Abs(ns), Math.Abs(ew));
 
