@@ -73,7 +73,7 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("Fill");
         }
 
-       
+
         public RelayCommand MoveRegionNorth { get; private set; }
         public RelayCommand MoveRegionEast { get; private set; }
         public RelayCommand MoveRegionWest { get; private set; }
@@ -96,6 +96,7 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("Centre");
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Fill");
+           
         }
 
         /// <summary>

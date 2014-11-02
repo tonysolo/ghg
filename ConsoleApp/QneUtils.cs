@@ -172,6 +172,7 @@ namespace ConsoleApp
                             }
                             if (lon0 < 2046) 
                                 lon1 = (Int16)(lon0 + 1); 
+
                             else lon1 = lon0;
 
                             saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon0));

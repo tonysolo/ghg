@@ -58,6 +58,7 @@ namespace MvvmLight1.Model
         public static string IndexPoint(string qnnee)
         {
             double lat = 0, lon = 0;
+            var east = (qnnee[0] == '0');
 
             switch (qnnee.Length)
             {
@@ -145,18 +146,20 @@ namespace MvvmLight1.Model
                 var lat0 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                 var lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
 
-                if (lat0 < 255)
+                if (lat0 < 128)
                     lat1 = (Int16)(lat0 + 1);
                 else
                 {
                     lat1 = lat0;
                     q = (Int16)(3 - q);
                 }
-                if (lon0 < 126)
+                if (lon0 < 256)
                     lon1 = (Int16)(lon0 + 1);
 
                 else lon1 = lon0;
 
+                if (lon0 == 0) lon0 = 1;
+                if (lon1 == 0) lon1 = 1;
 
                 saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
                 saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
@@ -168,16 +171,19 @@ namespace MvvmLight1.Model
                  var lat0 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
                  var lon0 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
 
-                if (lat0 < 4095)
+                if (lat0 < 2047)
                     lat1 = (Int16)(lat0 + 1);
                 else
                 {
                     lat1 = lat0;
                     q = (Int16)(3 - q);
                 }
-                if (lon0 < 2046)
+                if (lon0 < 4096)
                     lon1 = (Int16)(lon0 + 1);
                 else lon1 = lon0;
+
+                if (lon0 == 0) lon0 = 1;
+                if (lon1 == 0) lon1 = 1;
 
                 saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon0));
                 saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon1));
@@ -223,7 +229,7 @@ namespace MvvmLight1.Model
         /// <returns>region coordinates</returns>
         public static string MoveNsew(string qnnee, char nsew)
         {
-            // string s = "";
+            bool isEast, isWest;
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
             if (qnnee.Length == 5) // 5 character qnnee
@@ -235,25 +241,30 @@ namespace MvvmLight1.Model
                 if (q == '2') ns *= -1;
                 if (q == '3') { ns *= -1; ew *= -1; }
 
-                bool isneg;
+               //ew = 512 + ew;
+               //BUG moving accross the prime meridian skips a cell
+               // bool isneg;
                 switch (nsew)
                 {
                     case 'n': if (ns < 127) ns++; break;
                     case 's': if (ns > -127) ns--; break;
-                    case 'e': isneg = (ew < 0);
-                        ew = ((ew + 1) % 256);
-                        if (isneg) ew = Math.Abs(ew) * -1;
+                    case 'e':                    
+                        ew++;
+                        isWest = (ew == 0);
                         break;
-                    case 'w': isneg = (ew < 0);
-                        ew = (ew - 1) % 256;
-                        if (isneg) ew = Math.Abs(ew) * -1;
+                    case 'w': //isneg = (ew < 0);
+                        ew--;
+                        isEast = (ew == 0);
                         break;
+                        
                 }
 
-                q = (byte)(ns >= 0 & ew >= 0 ? 0 :  //00 ne
-                             ns >= 0 & ew < 0 ? 1 :   //01 nw
-                             ns < 0 & ew < 0 ? 3 : 2);   //10 se / sw
-                // ((ns < 0) & (ew < 0)) ? 3 :
+                q = (byte)(ns >= 0 & ew >  0  ? 0 :  //00 ne
+                           ns >= 0 & ew <  0  ? 1 :   //01 nw
+                           ns < 0  & ew <  0  ? 3 :      //2);   //10 se / sw
+                           ns >= 0 & ew == 0 & isWest ? 1:)
+
+                            
 
                 if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
                 if (ew == 0x00) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
@@ -263,7 +274,7 @@ namespace MvvmLight1.Model
                 return qnnee;
             }
 
-            if (qnnee.Length == 7) // 6 character qnnee
+            if (qnnee.Length == 7) // 6 character qnnee NEEDS SIMPLIFYING
             {
                 var q = (byte)qnnee[0];
                 int ns = Convert.ToInt16(qnnee.Substring(1, 3), 16);
