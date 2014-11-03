@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
 using System.Text;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
@@ -12,9 +9,70 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 //http://gauravmantri.com/
 
-
 namespace ConsoleApp
 {
+
+    public static class AzureStorage
+    {
+        public static void SetupAzureAccount()
+        {
+            //Settings.Registered = true;
+            var account = CloudStorageAccount.DevelopmentStorageAccount;
+           // var en = account.CreateCloudBlobClient().ListContainers();
+            
+            account.CreateCloudBlobClient().GetContainerReference("xyz").CreateIfNotExists();
+
+            var container = account.CreateCloudBlobClient().GetContainerReference("xyz");
+           // var container = en.ElementAt(0);
+            string blobname = "tony/manicom";
+            var loader = container.GetPageBlobReference("/l");
+           // var s = container.Name;
+            loader.Create(8192);
+            const string s1 = "Tony Manicom/n173 blandford road/n north riding, Randburg/n";
+            var sb = Encoding.UTF8.GetBytes(s1);
+
+            // byte[] ba = new byte[512];
+            var grow = 512 - ((sb.Length) % 512);
+            Array.Resize(ref sb, sb.Length + grow);
+            //  for (int i = 0; i < sb.Length; i++) ba[i] = sb[i];      
+            //ba.
+            // byte[] x = new byte[512];
+            // for (int i = 0; i < 512; i++) x[i] = (byte)i;
+            loader.UploadFromByteArray(sb, 0, 512);
+
+            var readerblob = container.GetPageBlobReference("/l");
+            var stream = readerblob.OpenRead();
+            var buffer = new byte[512];
+            stream.Seek(0, System.IO.SeekOrigin.Begin);
+            stream.Read(buffer,0,512);
+             
+           
+            var text = Encoding.UTF8.GetString(buffer);
+            //Model.AzureStorage.devListContainers();     
+        }
+
+
+        public static IEnumerable<CloudBlobContainer> DevelopmentContainers()
+        {
+            var dev = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            var blobClient = dev.CreateCloudBlobClient();
+            return blobClient.ListContainers();
+            //ToArray<
+            //CloudBlobContainer container = blobClient.GetContainerReference("2aabb");
+            // IEnumerable<CloudBlobContainer> cbc = blobClient.ListContainers();
+            //string s = container.Name;        
+            //return s; 
+        }
+
+
+        //   static UInt32 LoaderCount(string qnnee) //devstor for dev
+        //   { 
+        // CloudStorageAccount.
+        //  }
+    
+
+
+
     //CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(accountName, accountKey), true);
     //    CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient(); 
     //    CloudBlobContainer container = cloudBlobClient.GetContainerReference(containerName); 
@@ -22,8 +80,7 @@ namespace ConsoleApp
     //    string blobName = "<Blob Name e.g. myblob.txt>"; 
     //   CloudBlockBlob blob = container.GetBlockBlobReference(blobName); 
 
-    public static class AzureUtil
-    {
+    
 
         /// <summary>
         /// Gets all the name names for the GHG management account
@@ -32,18 +89,12 @@ namespace ConsoleApp
         public static IEnumerable<IListBlobItem> DownloadCountryNames()
         {
             var storageAccount = CloudStorageAccount.Parse(
-                           CloudConfigurationManager.GetSetting("GHGConnectionString"));
+                CloudConfigurationManager.GetSetting("GHGConnectionString"));
             var blobClient = storageAccount.CreateCloudBlobClient();
             var container = blobClient.GetContainerReference("countries");
             return container.ListBlobs().AsEnumerable();
-         
+
         }
-
-
-
-
-
-
 
 
         /// <summary>
@@ -60,7 +111,7 @@ namespace ConsoleApp
             var container = blobClient.GetContainerReference("countries");
             var blockBlob = container.GetBlockBlobReference(name);
             string text;
-            using (var memoryStream = new MemoryStream())            
+            using (var memoryStream = new MemoryStream())
             {
                 blockBlob.DownloadToStream(memoryStream);
                 text = Encoding.UTF8.GetString(memoryStream.ToArray());
@@ -71,20 +122,18 @@ namespace ConsoleApp
         public static string[] CountryNames()
         {
             var storageAccount = CloudStorageAccount.Parse(
-            CloudConfigurationManager.GetSetting("GHGConnectionString"));
+                CloudConfigurationManager.GetSetting("GHGConnectionString"));
             var blobClient = storageAccount.CreateCloudBlobClient();
             var container = blobClient.GetContainerReference("countries");
             return container.GetBlockBlobReference("countries.txt").DownloadText().ToUpper().Split(',');
         }
 
+    
 
-
-        private static void Main()
+    private static void Main()
         {
 
-            string[] str = CountryNames();
-            Console.WriteLine(str);
-            Console.ReadLine();
+            AzureStorage.SetupAzureAccount();
         }
 
     }

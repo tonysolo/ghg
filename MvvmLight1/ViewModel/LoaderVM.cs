@@ -15,33 +15,28 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     public class LoaderVm : ViewModelBase
     {
-
         public string[] RegionNames { get; set; }
 
-        public int RegionIndex { get; set; }
+
+        public static int RegionIndex { get; set; }
 
         public static int CountryIndex { get; set; }
 
-        public static string[] CountryShortNames { get; set; }
-
-        public static string SelectedCountryShortName { get; set; }
+        public static string[] CountryShortNames
+        {
+            get { return Userdata.GetCountryShortNames(); }
+        }
 
         public string Country { get; set; }
 
-        public string[] Qualifications
+        public static string[] Qualifications
         {
             get { return Enum.GetNames(typeof(Model.Qualification)); }
         }
-
-        public int SecurityChoice { get; set; }
-
-        public string[] SecurityQuestions
+        public static string[] SecurityQuestions
         {
             get { return Model.Settings.Securityquestions; }
         }
-
-
-        public string SecurityAnswer { get; set; }
 
         public bool Registered
         {
@@ -49,14 +44,27 @@ namespace MvvmLight1.ViewModel
             set { Model.Settings.Registered = value; }
         }
 
-        private void ShowMapDlg()
+        //stored in loader pageblob
+        public int SecurityChoice { get; set; }
+        public string SecurityAnswer { get; set; }
+        public int DesignationChoice { get; set; }
+        //pinoffset       
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string Cellphone { get; set; }
+        public string Email { get; set; }
+        public string RegAurthority { get; set; }
+        public string RegNumber { get; set; }
+
+
+        public void ShowMapDlg()
         {
             Userdata.SelectedQnnee = RegionNames[RegionIndex];
             var v = new MapV();
             v.ShowDialog();
         }
 
-        private void GetRegions()
+        public void GetRegions()
         {
             Userdata.DownloadRegions(CountryShortNames[CountryIndex]);//(Userdata.SelectedCountryShortName);
             RegionNames = Userdata.Regions;
@@ -67,6 +75,10 @@ namespace MvvmLight1.ViewModel
             //return Userdata.;
         }
 
+        public RelayCommand EditMap { get; set; }
+        private RelayCommand Submit { get; set; }
+        public RelayCommand LoadRegions { get; set; }
+
 
         private void SetupRelayCommands()
         {
@@ -74,19 +86,12 @@ namespace MvvmLight1.ViewModel
             LoadRegions = new RelayCommand(GetRegions);
         }
 
-
-        public RelayCommand EditMap { get; private set; }
-        public RelayCommand Submit { get; private set; }
-        public RelayCommand LoadRegions { get; private set; }
-
-
         /// <summary>
         /// Initializes a new instance of the MvvmViewModel1 class.
         /// </summary>
 
         public LoaderVm()
-        {
-            CountryShortNames = Userdata.GetCountryShortNames();
+        {          
             SetupRelayCommands();
         }
     }
