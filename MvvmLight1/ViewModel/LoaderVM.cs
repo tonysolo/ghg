@@ -17,7 +17,6 @@ namespace MvvmLight1.ViewModel
     {
         public string[] RegionNames { get; set; }
 
-
         public static int RegionIndex { get; set; }
 
         public static int CountryIndex { get; set; }
@@ -29,10 +28,11 @@ namespace MvvmLight1.ViewModel
 
         public string Country { get; set; }
 
-        public static string[] Qualifications
+        public static string[] Providers
         {
-            get { return Enum.GetNames(typeof(Model.Qualification)); }
+            get { return Enum.GetNames(typeof(Model.Providers)); }
         }
+
         public static string[] SecurityQuestions
         {
             get { return Model.Settings.Securityquestions; }
@@ -43,12 +43,10 @@ namespace MvvmLight1.ViewModel
             get { return Model.Settings.Registered; }
             set { Model.Settings.Registered = value; }
         }
-
-        //stored in loader pageblob
+        //stored in loader pageblob // pinoffset set in pageblob and recorded by user
         public int SecurityChoice { get; set; }
         public string SecurityAnswer { get; set; }
-        public int DesignationChoice { get; set; }
-        //pinoffset       
+        public int ProviderChoice { get; set; }             
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Cellphone { get; set; }
@@ -56,6 +54,17 @@ namespace MvvmLight1.ViewModel
         public string RegAurthority { get; set; }
         public string RegNumber { get; set; }
 
+        public void SubmitData()
+        {
+            string[] str =
+            {
+                String.Format("{0:x1}", SecurityChoice),
+                SecurityAnswer,
+                String.Format("{0:x1}", ProviderChoice),
+                FirstName, Surname, Cellphone, Email, RegAurthority, RegNumber
+            };
+
+        }
 
         public void ShowMapDlg()
         {
@@ -71,7 +80,6 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("RegionNames");
             RegionIndex = 0;
             RaisePropertyChanged("RegionIndex");
-
             //return Userdata.;
         }
 
@@ -84,6 +92,7 @@ namespace MvvmLight1.ViewModel
         {
             EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);        
             LoadRegions = new RelayCommand(GetRegions);
+            Submit = new RelayCommand(SubmitData);
         }
 
         /// <summary>
@@ -91,7 +100,7 @@ namespace MvvmLight1.ViewModel
         /// </summary>
 
         public LoaderVm()
-        {          
+        {
             SetupRelayCommands();
         }
     }

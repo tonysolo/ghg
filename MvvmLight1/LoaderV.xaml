@@ -42,23 +42,23 @@
             </DockPanel>
 
             <TextBlock Text="First Name"/>
-            <TextBox Text="{Binding fname}"/>
+            <TextBox Text="{Binding FirstName}"/>
             <TextBlock Text="Surname" />
-            <TextBox Text="{Binding sname}"/>
+            <TextBox Text="{Binding Surname}"/>
             <TextBlock Text="Cell Phone" />
-            <TextBox Text="{}"/>
+            <TextBox Text="{Binding Cellphone}"/>
 
             <TextBlock Text="eMail Address"/>
-            <TextBox Text="{Binding email}"/>
-            <TextBlock Text="Designation" />
+            <TextBox Text="{Binding Email}"/>
+            <TextBlock Text="Provider" />
             <ComboBox
-                ItemsSource = "{Binding Qualifications}"
-                SelectedIndex="{Binding qualifindex}"
+                ItemsSource = "{Binding Providers}"
+                SelectedIndex="{Binding ProviderChoice}"
                 />
             <TextBlock Text="Registration Authority"/>
-            <TextBox/>
+            <TextBox Text="{Binding RegAurthority}"/>
             <TextBlock ><Run Language="en-gb" Text="Registration Number"/></TextBlock>
-            <TextBox/>
+            <TextBox Text="{Binding RegNumber}"/>
             <TextBlock Grid.ColumnSpan="2" Text="Security Question" />
             <ComboBox
                 Grid.ColumnSpan="2"
@@ -67,11 +67,14 @@
                 />
             <TextBlock Text="Answer" />
             <TextBox Text="{Binding SecurityAnswer}" />
-            <Button
-                Content="Submit"
-                Margin ="50,20,50,0"
-                Command="{Binding Submit}"
-                />
+            <StackPanel Margin ="3 10" Orientation="Horizontal">
+            <Button Content="Conditions"/>   
+            <Button Content="Submit" Margin ="50,0,50,0" Command="{Binding Submit}"/>
+                
+                
+               
+            </StackPanel>
+                
         </StackPanel>
     </Grid>
 </Window>

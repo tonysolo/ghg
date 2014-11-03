@@ -19,7 +19,7 @@ namespace MvvmLight1.ViewModel
         public string[] Stays { get { return Enum.GetNames(typeof(Model.Stay)); } }
         public string[] Funders { get { return Enum.GetNames(typeof(Model.Funder)); } }
         public string[] Treaters { get { return Enum.GetNames(typeof(Model.Treater)); } }
-        public string[] Qualifications { get { return Enum.GetNames(typeof(Model.Qualification)); } }
+        public string[] Qualifications { get { return Enum.GetNames(typeof(Model.Providers)); } }
         public string[] Regions { get; set; } //will have to be set from map info
 
         public byte AgeGroup { get; set; }

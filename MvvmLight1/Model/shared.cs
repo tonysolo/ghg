@@ -69,7 +69,7 @@ namespace MvvmLight1.Model
         Forensics
     }
 
-    internal enum Qualification
+    internal enum Providers
     {
         Coder,
         ParaMedic,
