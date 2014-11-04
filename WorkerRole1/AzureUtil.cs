@@ -21,9 +21,9 @@ namespace ConsoleApp
            // var en = account.CreateCloudBlobClient().ListContainers();
             var container = account.CreateCloudBlobClient().GetContainerReference("2aabb");
             var loader = container.GetPageBlobReference("l");
-            loader.Create(8192);
+            //loader.
            // var s = container.Name;
-          
+            loader.Create(8192);
             const string s1 = "Tony Manicom/n173 blandford road/n north riding, Randburg/n";
             var sb = Encoding.UTF8.GetBytes(s1);
 
@@ -127,9 +127,8 @@ namespace ConsoleApp
 
     private static void Main()
         {
-        
+
             AzureStorage.SetupAzureAccount();
-            
         }
 
     }

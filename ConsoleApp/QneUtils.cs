@@ -8,7 +8,7 @@ namespace ConsoleApp
 {
     static class QneUtils
     {
-
+        
         /// <summary>
         /// Converts decimal degrees string to district level (7) qnnneee
         /// </summary>
