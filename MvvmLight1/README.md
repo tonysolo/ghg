@@ -52,7 +52,7 @@ The purpose of the software is to maximise the value of the data. To provide way
 ## e-Health Processing ## 
  
 ### e-Health Records ##
-There is much confusion about e-health, dissatisfaction and failures in some countries including the UK. This implementation is a simple clinical record of the patients alerts and chronic medication, risks and preferences and short clinical notes for each visit. It doesn't directly set aside space for huge image data or continuing monitoring in operating theatres. Unlike other implementations, it is a complete health information registry for patients to share with any healthcare provider. It is designed for population health management using actionable data for individual patients and for recording and mapping epidemiology in near real time.
+There is much confusion about e-health, dissatisfaction and failures in some countries including the UK. This implementation is a simple clinical record of the patients alerts and chronic medication, risks and preferences and short clinical notes for each visit. Unlike other implementations, it is a complete health information registry for patients to share with any healthcare provider. It is designed for population health management using actionable data for individual patients and for recording and mapping epidemiology in near real time. The data storage is primarily based on using structured data with page blob storage.
 
 ### Actionable Data ##
 This Cloud Storage design is well suited for 'actionable data'. The patient e-health record could, for example use a location flag events for risky behaviour such as missed appointments or vaccination. An Azure worker role could periodically check all the records in a region and act by sending an SMS to the patient of healthcare visitor to follow up.
@@ -65,7 +65,7 @@ Azure storage queues could be used for scheduling tasks such as sending appointm
 ## Epidemiology ## 
 Epidemiology is possibly the most important feature of this software. Before cloud storage and computing and GIS was impossible to collect, process and map complete geographic healthcare data in real time.
 This application gives healthcare providers a simple way to upload a short record of the conditions they treat every day. A cloud process continually sorts and files the information according to region and time.
-The table shows how it works. Data is spread across 8 storage queues and setting the visibility to hide the data until the owner region reaches midnight. At that time the data for the region becomes visible for processing. This arrangement extends the processing time to 6 hours for each region. 
+The table shows how it works. Data is spread across 8 storage queues and setting the visibility to hide the data until the owner region reaches midnight (solar time). At that time the data for the region becomes visible for processing. This arrangement extends the processing time to 6 hours a day for each region. 
 
 ### Processing using Azure Queue Storage and Epidemiology data##
 
@@ -82,4 +82,4 @@ The table shows how it works. Data is spread across 8 storage queues and setting
 
 ## Images ##
 
-There are mobile device scanner applications that could be used for recording hand-written notes and copying documents. These and other images will be compressed and stored as block blobs in the region container they will be automatically named and referenced in the patient's data.
+There are mobile device scanner applications that could be used for recording hand-written notes and copying documents. These and other images will be compressed and stored as unstructured data in block blobs in the region container they will be automatically named and referenced in the patient's data.
