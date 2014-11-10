@@ -33,13 +33,13 @@ namespace MvvmLight1.Model
            //ba.
            // byte[] x = new byte[512];
            // for (int i = 0; i < 512; i++) x[i] = (byte)i;
-           loader.UploadFromByteArray(sb, 0, 512);
+          // loader.UploadFromByteArray(sb, 0, 512);
 
-           var readerblob = container.GetPageBlobReference("l");
-           var stream = readerblob.OpenRead();
+         //  var readerblob = container.GetPageBlobReference("l");
+         //  var stream = readerblob.OpenRead();
            var buffer = new byte[512];
-           stream.Seek(0, System.IO.SeekOrigin.Begin);
-           stream.Read(buffer, 0, 512);
+         //  stream.Seek(0, System.IO.SeekOrigin.Begin);
+         //  stream.Read(buffer, 0, 512);
            //Model.AzureStorage.devListContainers();     
        }
 
