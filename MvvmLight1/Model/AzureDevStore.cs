@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
-using System.Text;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
 
 
@@ -147,19 +141,24 @@ namespace MvvmLight1.Model
             cqc.GetQueueReference(qname).AddMessage(msg, null, ts, null, null);
         }
 
-        public static void RegisterLoader(string[] ldr, Encoding enc)
+        public static void RegisterLoader(string[] ldr)//, Encoding enc)
         {
             var json = JsonConvert.SerializeObject(ldr);
             var account = csa; //CloudStorageAccount.DevelopmentStorageAccount;          
             var cont = account.CreateCloudBlobClient().GetContainerReference(ldr[0]); //"2aabb"
             cont.CreateIfNotExists();
             var loader = cont.GetPageBlobReference("l");
-            var bytes = enc.GetBytes(json);
+            //var bytes = enc.GetBytes(json);
+            byte[] bytes = Encoding.UTF8.GetBytes(json);
             var grow = (512 - bytes.Length % 512);
             Array.Resize(ref bytes, bytes.Length + grow);
             loader.UploadFromByteArray(bytes, 0, bytes.Length);
         }
 
+      //  public static int GetNextLoaderPos()
+       // {
+        //    var account = csa;
+       // }
 
     }
 }

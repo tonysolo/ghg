@@ -1,6 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using Microsoft.WindowsAzure.Storage.Blob.Protocol;
+using Microsoft.WindowsAzure.Storage.Blob;
+using MvvmLight1.Model;
 
 namespace MvvmLight1.Model
 {
@@ -16,6 +21,15 @@ namespace MvvmLight1.Model
 
         public static string[] GetCountryShortNames()
         {
+            //AzureStorage.DevelopmentContainers();
+          var cdc = AzureStorage.
+              DevelopmentContainers().
+              GetEnumerator().
+              Current.
+              GetPageBlobReference("l");
+           
+          
+            
             using (var reader = File.OpenText(@"c:\azure\countries.txt"))
                 return reader.ReadToEnd().Split(',');
         }

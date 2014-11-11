@@ -8,8 +8,8 @@
         Title="Provider Registration"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Width="250"  
-        Height="450"
+        Width="200"  
+        Height="430"
         FontFamily = "Segoe UI Symbol"
         
         DataContext="{Binding Loader, Source={StaticResource Locator}}">
@@ -40,10 +40,18 @@
                 </StackPanel>
 
             </DockPanel>
+            <DockPanel LastChildFill="True">
+                <TextBlock DockPanel.Dock="Right" Margin ="50,0,0,0" Text="Initials"/>
+                <TextBlock Text="First Name"/>
 
-            <TextBlock Text="First Name"/>
-            <TextBox Text="{Binding FirstName}"/>
+            </DockPanel>
+            <DockPanel LastChildFill="True">
+                <TextBox Width ="40" Text ="{Binding Initials}" DockPanel.Dock ="Right"/>
+                <TextBox  Text="{Binding FirstName}"/>
+            </DockPanel>
             <TextBlock Text="Surname" />
+
+
             <TextBox Text="{Binding Surname}"/>
             <TextBlock Text="Cell Phone" />
             <TextBox Text="{Binding Cellphone}"/>
@@ -59,22 +67,21 @@
             <TextBox Text="{Binding RegAurthority}"/>
             <TextBlock ><Run Language="en-gb" Text="Registration Number"/></TextBlock>
             <TextBox Text="{Binding RegNumber}"/>
-            <TextBlock Grid.ColumnSpan="2" Text="Security Question" />
+            <TextBlock Text="Security Question" />
             <ComboBox
-                Grid.ColumnSpan="2"
                 ItemsSource = "{Binding SecurityQuestions}"
                 SelectedIndex="{Binding SecurityChoice}"
                 />
             <TextBlock Text="Answer" />
             <TextBox Text="{Binding SecurityAnswer}" />
             <StackPanel Margin ="3 10" Orientation="Horizontal">
-            <Button Content="Conditions"/>   
-            <Button Content="Submit" Margin ="50,0,50,0" Command ="{Binding Submit}"/>
-                
-                
-               
+                <Button Content="Conditions"/>
+                <Button Content="Submit" Margin ="50,0,50,0" Command ="{Binding Submit}"/>
+
+
+
             </StackPanel>
-                
+
         </StackPanel>
     </Grid>
 </Window>

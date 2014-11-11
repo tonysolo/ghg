@@ -18,28 +18,21 @@ namespace MvvmLight1.ViewModel
     public class LoaderVm : ViewModelBase
     {
         public string[] RegionNames { get; set; }
-
         public static int RegionIndex { get; set; }
-
         public static int CountryIndex { get; set; }
-
         public static string[] CountryShortNames
         {
             get { return Userdata.GetCountryShortNames(); }
         }
-
         public string Country { get; set; }
-
         public static string[] Providers
         {
             get { return Enum.GetNames(typeof(Model.Providers)); }
         }
-
         public static string[] SecurityQuestions
         {
             get { return Model.Settings.Securityquestions; }
         }
-
         public bool Registered
         {
             get { return Model.Settings.Registered; }
@@ -48,9 +41,10 @@ namespace MvvmLight1.ViewModel
         //stored in loader pageblob // pinoffset set in pageblob and recorded by user
         public int SecurityChoice { get; set; }
         public string SecurityAnswer { get; set; }
-        public int ProviderChoice { get; set; }             
-        public string FirstName { get; set; }
+        public int ProviderChoice { get; set; }
         public string Surname { get; set; }
+        public string Initials { get; set; }
+        public string FirstName { get; set; }
         public string Cellphone { get; set; }
         public string Email { get; set; }
         public string RegAurthority { get; set; }
@@ -63,10 +57,10 @@ namespace MvvmLight1.ViewModel
                 String.Format("{0:x1}", SecurityChoice),
                 SecurityAnswer,
                 String.Format("{0:x1}", ProviderChoice),
-                FirstName, Surname, Cellphone, Email, RegAurthority, RegNumber
+                FirstName, Initials, Surname, Cellphone, Email, RegAurthority, RegNumber
             };
 
-           AzureUtil.RegisterLoader(str, Encoding.Default);
+            AzureUtil.RegisterLoader(str);
         }
 
         public void ShowMapDlg()
@@ -86,12 +80,10 @@ namespace MvvmLight1.ViewModel
             //return Userdata.;
         }
 
-        public void RegisterLoader(string[] sarr)
-        {
-
-            AzureUtil.RegisterLoader(sarr, enc: null);
-
-        }
+       // public void RegisterLoader(string[] sarr)
+      //  {
+           // AzureUtil.RegisterLoader(sarr, enc: null);
+       // }
 
         public RelayCommand EditMap { get; set; }
         public RelayCommand Submit { get; set; }
@@ -108,7 +100,6 @@ namespace MvvmLight1.ViewModel
         /// <summary>
         /// Initializes a new instance of the MvvmViewModel1 class.
         /// </summary>
-
         public LoaderVm()
         {
             SetupRelayCommands();
