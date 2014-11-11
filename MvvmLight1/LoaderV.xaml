@@ -69,7 +69,7 @@
             <TextBox Text="{Binding SecurityAnswer}" />
             <StackPanel Margin ="3 10" Orientation="Horizontal">
             <Button Content="Conditions"/>   
-            <Button Content="Submit" Margin ="50,0,50,0" Command="{Binding Submit}"/>
+            <Button Content="Submit" Margin ="50,0,50,0" Command ="{Binding Submit}"/>
                 
                 
                

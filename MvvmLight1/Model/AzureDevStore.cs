@@ -8,12 +8,19 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
+using System.Text;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Newtonsoft.Json;
 
 
 namespace MvvmLight1.Model
 {
     public static class AzureUtil
     {
+
+        private static CloudStorageAccount csa = CloudStorageAccount.DevelopmentStorageAccount;
         /// <summary>
         /// Gets all the name names for the GHG management account
         /// </summary>
@@ -139,6 +146,20 @@ namespace MvvmLight1.Model
                 DevelopmentStorageAccount.CreateCloudQueueClient();
             cqc.GetQueueReference(qname).AddMessage(msg, null, ts, null, null);
         }
+
+        public static void RegisterLoader(string[] ldr, Encoding enc)
+        {
+            var json = JsonConvert.SerializeObject(ldr);
+            var account = csa; //CloudStorageAccount.DevelopmentStorageAccount;          
+            var cont = account.CreateCloudBlobClient().GetContainerReference(ldr[0]); //"2aabb"
+            cont.CreateIfNotExists();
+            var loader = cont.GetPageBlobReference("l");
+            var bytes = enc.GetBytes(json);
+            var grow = (512 - bytes.Length % 512);
+            Array.Resize(ref bytes, bytes.Length + grow);
+            loader.UploadFromByteArray(bytes, 0, bytes.Length);
+        }
+
 
     }
 }

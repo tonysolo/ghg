@@ -1,7 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Text;
+using GalaSoft.MvvmLight;
 using System;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
+using Newtonsoft.Json;
 
 
 namespace MvvmLight1.ViewModel
@@ -57,13 +59,14 @@ namespace MvvmLight1.ViewModel
         public void SubmitData()
         {
             string[] str =
-            {
+            {   RegionNames[RegionIndex],
                 String.Format("{0:x1}", SecurityChoice),
                 SecurityAnswer,
                 String.Format("{0:x1}", ProviderChoice),
                 FirstName, Surname, Cellphone, Email, RegAurthority, RegNumber
             };
 
+           AzureUtil.RegisterLoader(str, Encoding.Default);
         }
 
         public void ShowMapDlg()
@@ -83,8 +86,15 @@ namespace MvvmLight1.ViewModel
             //return Userdata.;
         }
 
+        public void RegisterLoader(string[] sarr)
+        {
+
+            AzureUtil.RegisterLoader(sarr, enc: null);
+
+        }
+
         public RelayCommand EditMap { get; set; }
-        private RelayCommand Submit { get; set; }
+        public RelayCommand Submit { get; set; }
         public RelayCommand LoadRegions { get; set; }
 
 
