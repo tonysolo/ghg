@@ -22,7 +22,7 @@ namespace MvvmLight1.Model
         public static string[] GetCountryShortNames()
         {
             //AzureStorage.DevelopmentContainers();
-          var cdc = AzureStorage.
+          var cdc = AzureUtil.
               DevelopmentContainers().
               GetEnumerator().
               Current.

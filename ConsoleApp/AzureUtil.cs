@@ -22,7 +22,6 @@ namespace ConsoleApp
         private static CloudStorageAccount csa = CloudStorageAccount.DevelopmentStorageAccount;
         //private static CloudStorageAccount csa = CloudStorageAccount.Parse("GHGConnectionString");
 
-
         private static int startoffset = 5120;
 
         //public static string Container { get; set; }
