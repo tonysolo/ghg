@@ -14,7 +14,7 @@ namespace MvvmLight1.Model
     public static class AzureUtil
     {
 
-        private static CloudStorageAccount csa = CloudStorageAccount.DevelopmentStorageAccount;
+        private static readonly CloudStorageAccount CldStoreAcc = CloudStorageAccount.DevelopmentStorageAccount;
         /// <summary>
         /// Gets all the name names for the GHG management account
         /// </summary>
@@ -37,8 +37,7 @@ namespace MvvmLight1.Model
 
 
         /// <summary>
-        /// Downloads csv strings containing names of regions
-        /// from blob storage  
+        /// Downloads csv strings containing names of regions from blob storage  
         /// </summary>
         /// <param name="country">string</param>
         /// <returns>CSV string</returns>
@@ -96,8 +95,7 @@ namespace MvvmLight1.Model
         public static bool BlockBlobExists(CloudBlobClient client, string container, string key)
         {
             return client.GetContainerReference(container).
-                GetBlockBlobReference(key).Exists();
-                
+                GetBlockBlobReference(key).Exists();               
         }
 
         public static bool ContainerExists(CloudBlobClient client, string container)
@@ -141,23 +139,31 @@ namespace MvvmLight1.Model
             cqc.GetQueueReference(qname).AddMessage(msg, null, ts, null, null);
         }
 
-        public static void RegisterLoader(string[] ldr)//, Encoding enc)
-        {
-            var json = JsonConvert.SerializeObject(ldr);
-            var account = csa; //CloudStorageAccount.DevelopmentStorageAccount;          
-            var cont = account.CreateCloudBlobClient().GetContainerReference(ldr[0]); //"2aabb"
+        public static void RegisterLoader(string[] loaderArray)
+        {         
+            var account = CldStoreAcc; //CloudStorageAccount.DevelopmentStorageAccount;          
+            var cont = account.CreateCloudBlobClient().GetContainerReference(loaderArray[0]); //"2aabb"
             cont.CreateIfNotExists();
             var loader = cont.GetPageBlobReference("l");
-            //var bytes = enc.GetBytes(json);
-            byte[] bytes = Encoding.UTF8.GetBytes(json);
+            loader.FetchAttributes();
+
+            if (! loader.Metadata.ContainsKey("NextLoader")) loader.Metadata.Add("NextLoader","0");
+           
+            loaderArray[1] = loader.Metadata["NextLoader"];//hexadecimal next in sequence id for each loader/provider
+            var ndx = Convert.ToInt16(loaderArray[1],16);
+            loader.Metadata["NextLoader"] = String.Format("{0:x}",ndx + 1);
+
+            var json = JsonConvert.SerializeObject(loaderArray.Skip(1));         
+            var bytes = Encoding.UTF8.GetBytes(json);
             var grow = (512 - bytes.Length % 512);
             Array.Resize(ref bytes, bytes.Length + grow);
-            loader.UploadFromByteArray(bytes, 0, bytes.Length);
+            
+            loader.UploadFromByteArray(bytes,0,bytes.Length);
         }
 
       //  public static int GetNextLoaderPos()
        // {
-        //    var account = csa;
+        //    var account = cldStoreAcc;
        // }
 
     }
