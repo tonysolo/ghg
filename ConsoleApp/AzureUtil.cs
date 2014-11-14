@@ -32,7 +32,7 @@ namespace ConsoleApp
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             var loader = cont.GetPageBlobReference("l");
-            if (loader == null) loader.Create(0x40000000); //for development but need to increase in production
+            if (loader == null) loader.Create(0x40000000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
             loader.FetchAttributes();
             loader.Metadata.Add("nextindex", "0x00");
             loader.Metadata["nextpage"] = "0x00";
@@ -53,7 +53,8 @@ namespace ConsoleApp
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             var patient = cont.GetPageBlobReference("p");
-            if (patient == null) patient.Create(0x40000000); //for development need to increase this to fill whole blob
+            if (patient == null) patient.Create(0x40000000); //for development need to increase this to fill whole blob 2^40
+            //0 to 2^32-1 for PHM at base and the rest 2^32 to 2^40-1 to patient records
             //patient.Metadata.Add("nextindex", "0");
             patient.Metadata["nextindex"] = "0x00";
             patient.Metadata["nextpage"] = "0x00";
@@ -73,11 +74,11 @@ namespace ConsoleApp
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             var image = cont.GetPageBlobReference("i");
-            if (image == null) image.Create(0x40000000); //for development need to increase this to fill whole blob
+            if (image == null) image.Create(0x40000000); //for development need to increase this to fill whole blob 2^40
             //image.Metadata.Add("nextindex", "0");
             image.Metadata["nextindex"] = "0x00";
             image.Metadata["nextpage"] = "0x00";
-            image.Metadata.Add("startoffset", "0x800000"); //constant
+            image.Metadata.Add("startoffset", "0x800000"); //constant 0x4000000 for azure
             image.Properties.ContentEncoding = "application/octet-stream";
             image.SetMetadata();
             image.SetProperties();
@@ -101,7 +102,7 @@ namespace ConsoleApp
             //epidem.Metadata.Add("nextindex", "0");
             epidem.Metadata["nextindex"] = "0x00";
             epidem.Metadata["nextpage"] = "0x120";
-            epidem.Metadata["startoffset"] = "0x24000"; //constant
+            epidem.Metadata["startoffset"] = "0x24000"; //constant 100 years =36500 days = 0x120 pages 128 per page.
             epidem.Properties.ContentEncoding = "application/octet-stream";
            // epidem.SetMetadata();
            // epidem.SetProperties();
@@ -118,7 +119,9 @@ namespace ConsoleApp
             var bytes = enc.GetBytes(json);
             var grow = (bytes.Length % 512);
             Array.Resize(ref bytes,512-grow);
-            loader.UploadFromByteArray(bytes,0,bytes.Length);         
+            //get lease
+            loader.UploadFromByteArray(bytes,0,bytes.Length); 
+            //relese lease
         }
 
     }
