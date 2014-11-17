@@ -76,6 +76,7 @@ namespace ConsoleApp
             var image = cont.GetPageBlobReference("i");
             if (image == null) image.Create(0x40000000); //for development need to increase this to fill whole blob 2^40
             //image.Metadata.Add("nextindex", "0");
+            //"blobindex" = "0;
             image.Metadata["nextindex"] = "0x00";
             image.Metadata["nextpage"] = "0x00";
             image.Metadata.Add("startoffset", "0x800000"); //constant 0x4000000 for azure
