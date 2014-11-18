@@ -27,16 +27,16 @@ namespace ConsoleApp
         //public static string Container { get; set; }
 
         public static void SetupLoaderBlob(string qnnee) // fixed length records
-        {          
+        {
             var account = csa; //CloudStorageAccount.DevelopmentStorageAccount;
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             var loader = cont.GetPageBlobReference("l");
             if (loader == null) loader.Create(0x40000000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
             loader.FetchAttributes();
-            loader.Metadata.Add("nextindex", "0x00");
-            loader.Metadata["nextpage"] = "0x00";
-            // loader.Metadata.Add("dataoffset", "5120"); //no index - fixed length record +-2 kilobytes for prefs
+            loader.Metadata.Add("nextindex", "0x00000");
+            //loader.Metadata["nextpage"] = "0x00";
+            // loader.Metadata.Add("dataoffset", "5120"); /\no index - fixed length record +-2 kilobytes for prefs
             loader.Properties.ContentEncoding = "application/octet-stream";
             loader.SetMetadata();
             loader.SetProperties();
@@ -45,7 +45,7 @@ namespace ConsoleApp
 
 
         public static void SetupPatientBlob(string qnnee)
-            //variable length records - index/size = 8 bytes in index table
+        //variable length records - index/size = 8 bytes in index table
         {
             //CloudStorageAccount.Parse();
             //Settings.Registered = true;
@@ -66,7 +66,7 @@ namespace ConsoleApp
 
 
         public static void SetupImageBlob(string qnnee)
-            //variable length records - index/size = 8 bytes in index table
+        //variable length records - index/size = 8 bytes in index table
         {
             //CloudStorageAccount.Parse();
             //Settings.Registered = true;
@@ -87,7 +87,7 @@ namespace ConsoleApp
 
 
         public static void SetupEpidemiologyBlob(string qnnee)
-            //variable length records - index/size = 8 bytes in index table
+        //variable length records - index/size = 8 bytes in index table
         {
             //CloudStorageAccount.Parse();
             //Settings.Registered = true;
@@ -95,43 +95,96 @@ namespace ConsoleApp
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             cont.CreateIfNotExists();
-            
+
             var epidem = cont.GetPageBlobReference("e");
-            epidem.Create(0x40000000);        
-           // epidem.Create(0xffff); //for development need to increase this to fill whole blob
-           // epidem.FetchAttributes();
+            epidem.Create(0x40000000);
+            // epidem.Create(0xffff); //for development need to increase this to fill whole blob
+            // epidem.FetchAttributes();
             //epidem.Metadata.Add("nextindex", "0");
             epidem.Metadata["nextindex"] = "0x00";
             epidem.Metadata["nextpage"] = "0x120";
             epidem.Metadata["startoffset"] = "0x24000"; //constant 100 years =36500 days = 0x120 pages 128 per page.
             epidem.Properties.ContentEncoding = "application/octet-stream";
-           // epidem.SetMetadata();
-           // epidem.SetProperties();
+            // epidem.SetMetadata();
+            // epidem.SetProperties();
         }
 
 
 
-        public static void RegisterLoader(string[] ldr, Encoding enc)
+        public static string RegisterNewLoader(string[] ldr) //registers a loader and returns the new loader id
         {
-            var json = JsonConvert.SerializeObject(ldr);          
+            if (ldr == null) throw new ArgumentNullException("ldr");
+            //todo first check that ldr is not already registered
+            var json = JsonConvert.SerializeObject(ldr);
             var account = csa; //CloudStorageAccount.DevelopmentStorageAccount;          
             var cont = account.CreateCloudBlobClient().GetContainerReference(ldr[0]); //"2aabb"
             var loader = cont.GetPageBlobReference("l");
-            var bytes = enc.GetBytes(json);
+            var bytes = Encoding.UTF8.GetBytes(json);
+            var x = bytes.Length;
             var grow = (bytes.Length % 512);
-            Array.Resize(ref bytes,512-grow);
-            //get lease
-            loader.UploadFromByteArray(bytes,0,bytes.Length); 
-            //relese lease
+            Array.Resize(ref bytes, (bytes.Length + 512 - grow));
+            loader.UploadFromByteArray(bytes, 0, bytes.Length);
+            loader.FetchAttributes();
+            //   int x = Convert.ToInt16(loader.Metadata["NextIndex"], 16);
+            //   loader.Metadata["NextIndex"] = String.Format("{0:x4}", ++x);
+            return "";//loader.Metadata["NextIndex"];
+        }
+
+        public static string Loader(string region, string index) //retieves readonly loader details from region and loader id
+        {
+            if (region == null) throw new ArgumentNullException("region");
+            if (index == null) throw new ArgumentNullException("index");
+            var account = csa;
+            var ndx = Convert.ToInt64(index);
+            ndx = ndx << 10;
+            var cont = account.CreateCloudBlobClient().GetContainerReference(region);
+            var loader = cont.GetPageBlobReference("l");
+            var stm = loader.OpenRead();
+            var buffer = new byte[1024];
+            stm.Seek(ndx, SeekOrigin.Begin);
+            stm.Read(buffer, 0, 1024);
+            return Encoding.UTF8.GetString(buffer).Trim('\0'); //returns json string        
         }
 
     }
 
+
+
+
+
     public class test
     {
-        public static void  Main()
+        public static void Main()
         {
-            AzureStorage.SetupEpidemiologyBlob("2aabb");
+            var str =
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc";
+     
+
+
+
+
+
+
+
+
+
+
+                    
+            var sarr = str.Split(',');
+            AzureStorage.RegisterNewLoader(sarr);
+            var ret = AzureStorage.Loader("21f29", "0");
+            Console.WriteLine(ret);
+            Console.WriteLine(ret.Length.ToString());
+            Console.ReadLine();
+
+            // AzureStorage.SetupEpidemiologyBlob("2aabb");
         }
     }
 }
@@ -141,114 +194,114 @@ namespace ConsoleApp
 //   public staticvoid Main()
 //{
 //}
-    /*
+/*
                 
-                // var s = qnnee.Name;
+            // var s = qnnee.Name;
           
-                const string s1 = "Tony Manicom/n173 blandford road/n north riding, Randburg/n";
-                var sb = Encoding.UTF8.GetBytes(s1);
+            const string s1 = "Tony Manicom\n173 blandford road\n north riding, Randburg\n";
+            var sb = Encoding.UTF8.GetBytes(s1);
 
-                // byte[] ba = new byte[512];
-                var grow = 512 - (sb.Length) % 512;
-                Array.Resize(ref sb, sb.Length + grow);
-                //  for (int i = 0; i < sb.Length; i++) ba[i] = sb[i];      
-                //ba.
-                // byte[] x = new byte[512];
-                // for (int i = 0; i < 512; i++) x[i] = (byte)i;
-             //   loader.UploadFromByteArray(sb, 0, 512);
-            }
-
-           // var readerblob = qnnee.GetPageBlobReference("l");
-          // var stream = readerblob.OpenRead();
-           // var buffer = new byte[512];
-           // stream.Seek(0, System.IO.SeekOrigin.Begin);
-          //  stream.Read(buffer, 0, 512);
-          //  var s = Encoding.UTF8.GetString(buffer).Trim('\0');
-           // var v = "";
-            //Model.AzureStorage.devListContainers();     
+            // byte[] ba = new byte[512];
+            var grow = 512 - (sb.Length) % 512;
+            Array.Resize(ref sb, sb.Length + grow);
+            //  for (int i = 0; i < sb.Length; i++) ba[i] = sb[i];      
+            //ba.
+            // byte[] x = new byte[512];
+            // for (int i = 0; i < 512; i++) x[i] = (byte)i;
+         //   loader.UploadFromByteArray(sb, 0, 512);
         }
 
-
-       // public static IEnumerable<CloudBlobContainer> DevelopmentContainers()
-       // {
-           // var dev = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-           // var blobClient = dev.CreateCloudBlobClient();
-           // return blobClient.ListContainers();
-            //ToArray<
-            //CloudBlobContainer qnnee = blobClient.GetContainerReference("2aabb");
-            // IEnumerable<CloudBlobContainer> cbc = blobClient.ListContainers();
-            //string s = qnnee.Name;        
-            //return s; 
-       // }
+       // var readerblob = qnnee.GetPageBlobReference("l");
+      // var stream = readerblob.OpenRead();
+       // var buffer = new byte[512];
+       // stream.Seek(0, System.IO.SeekOrigin.Begin);
+      //  stream.Read(buffer, 0, 512);
+      //  var s = Encoding.UTF8.GetString(buffer).Trim('\0');
+       // var v = "";
+        //Model.AzureStorage.devListContainers();     
+    }
 
 
-        //   static UInt32 LoaderCount(string qnnee) //devstor for dev
-        //   { 
-        // CloudStorageAccount.
-        //  }
+   // public static IEnumerable<CloudBlobContainer> DevelopmentContainers()
+   // {
+       // var dev = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+       // var blobClient = dev.CreateCloudBlobClient();
+       // return blobClient.ListContainers();
+        //ToArray<
+        //CloudBlobContainer qnnee = blobClient.GetContainerReference("2aabb");
+        // IEnumerable<CloudBlobContainer> cbc = blobClient.ListContainers();
+        //string s = qnnee.Name;        
+        //return s; 
+   // }
+
+
+    //   static UInt32 LoaderCount(string qnnee) //devstor for dev
+    //   { 
+    // CloudStorageAccount.
+    //  }
     
 
 
 
-    //CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(accountName, accountKey), true);
-    //    CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient(); 
-    //    CloudBlobContainer qnnee = cloudBlobClient.GetContainerReference(containerName); 
-    //    string filePath = "<Full File Path e.g. C:\temp\myblob.txt>"; 
-    //    string blobName = "<Blob Name e.g. myblob.txt>"; 
-    //   CloudBlockBlob blob = qnnee.GetBlockBlobReference(blobName); 
+//CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(accountName, accountKey), true);
+//    CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient(); 
+//    CloudBlobContainer qnnee = cloudBlobClient.GetContainerReference(containerName); 
+//    string filePath = "<Full File Path e.g. C:\temp\myblob.txt>"; 
+//    string blobName = "<Blob Name e.g. myblob.txt>"; 
+//   CloudBlockBlob blob = qnnee.GetBlockBlobReference(blobName); 
 
     
 
-        /// <summary>
-        /// Gets all the name names for the GHG management account
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<IListBlobItem> DownloadCountryNames()
+    /// <summary>
+    /// Gets all the name names for the GHG management account
+    /// </summary>
+    /// <returns></returns>
+    public static IEnumerable<IListBlobItem> DownloadCountryNames()
+    {
+        var storageAccount = CloudStorageAccount.Parse(
+            CloudConfigurationManager.GetSetting("GHGConnectionString"));
+        var blobClient = storageAccount.CreateCloudBlobClient();
+        var qnnee = blobClient.GetContainerReference("countries");
+        return qnnee.ListBlobs().AsEnumerable();
+
+    }
+
+
+    /// <summary>
+    /// Downloads Regions from the GHG management account
+    /// </summary>
+    /// <param name="name">eg "za.txt"</param>,
+    /// <returns>CSV string</returns>
+  //  public static string DownloadNames(string name)
+   // {
+        name = name.ToLower() + ".txt";
+        var storageAccount = CloudStorageAccount.Parse(
+            CloudConfigurationManager.GetSetting("GHGConnectionString"));
+        var blobClient = storageAccount.CreateCloudBlobClient();
+        var qnnee = blobClient.GetContainerReference("countries");
+        var blockBlob = qnnee.GetBlockBlobReference(name);
+        string text;
+        using (var memoryStream = new MemoryStream())
         {
-            var storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("GHGConnectionString"));
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var qnnee = blobClient.GetContainerReference("countries");
-            return qnnee.ListBlobs().AsEnumerable();
-
+            blockBlob.DownloadToStream(memoryStream);
+            text = Encoding.UTF8.GetString(memoryStream.ToArray());
         }
+        return text;
+    }
 
-
-        /// <summary>
-        /// Downloads Regions from the GHG management account
-        /// </summary>
-        /// <param name="name">eg "za.txt"</param>,
-        /// <returns>CSV string</returns>
-      //  public static string DownloadNames(string name)
-       // {
-            name = name.ToLower() + ".txt";
-            var storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("GHGConnectionString"));
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var qnnee = blobClient.GetContainerReference("countries");
-            var blockBlob = qnnee.GetBlockBlobReference(name);
-            string text;
-            using (var memoryStream = new MemoryStream())
-            {
-                blockBlob.DownloadToStream(memoryStream);
-                text = Encoding.UTF8.GetString(memoryStream.ToArray());
-            }
-            return text;
-        }
-
-        public static string[] CountryNames()
-        {
-            var storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("GHGConnectionString"));
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var qnnee = blobClient.GetContainerReference("countries");
-            return qnnee.GetBlockBlobReference("countries.txt").DownloadText().ToUpper().Split(',');
-        }
+    public static string[] CountryNames()
+    {
+        var storageAccount = CloudStorageAccount.Parse(
+            CloudConfigurationManager.GetSetting("GHGConnectionString"));
+        var blobClient = storageAccount.CreateCloudBlobClient();
+        var qnnee = blobClient.GetContainerReference("countries");
+        return qnnee.GetBlockBlobReference("countries.txt").DownloadText().ToUpper().Split(',');
+    }
 
     
 
    
-     */
+ */
 //}
 
 
