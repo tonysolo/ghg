@@ -32,7 +32,7 @@ namespace ConsoleApp
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             var loader = cont.GetPageBlobReference("l");
-            if (loader == null) loader.Create(0x40000000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
+            loader.Create(0x40000000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
             loader.FetchAttributes();
             loader.Metadata.Add("nextindex", "0x00000");
             //loader.Metadata["nextpage"] = "0x00";
@@ -53,7 +53,7 @@ namespace ConsoleApp
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             var patient = cont.GetPageBlobReference("p");
-            if (patient == null) patient.Create(0x40000000); //for development need to increase this to fill whole blob 2^40
+            patient.Create(0x40000000); //for development need to increase this to fill whole blob 2^40
             //0 to 2^32-1 for PHM at base and the rest 2^32 to 2^40-1 to patient records
             //patient.Metadata.Add("nextindex", "0");
             patient.Metadata["nextindex"] = "0x00";
@@ -74,7 +74,7 @@ namespace ConsoleApp
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             var image = cont.GetPageBlobReference("i");
-            if (image == null) image.Create(0x40000000); //for development need to increase this to fill whole blob 2^40
+            image.Create(0x40000000); //for development need to increase this to fill whole blob 2^40
             //image.Metadata.Add("nextindex", "0");
             //"blobindex" = "0;
             image.Metadata["nextindex"] = "0x00";
@@ -113,17 +113,19 @@ namespace ConsoleApp
 
         public static string RegisterNewLoader(string[] ldr) //registers a loader and returns the new loader id
         {
-            if (ldr == null) throw new ArgumentNullException("ldr");
             //todo first check that ldr is not already registered
+
+            if (ldr == null) throw new ArgumentNullException("ldr");          
             var json = JsonConvert.SerializeObject(ldr);
             var account = csa; //CloudStorageAccount.DevelopmentStorageAccount;          
             var cont = account.CreateCloudBlobClient().GetContainerReference(ldr[0]); //"2aabb"
             var loader = cont.GetPageBlobReference("l");
             var bytes = Encoding.UTF8.GetBytes(json);
-            var x = bytes.Length;
-            var grow = (bytes.Length % 512);
-            Array.Resize(ref bytes, (bytes.Length + 512 - grow));
-            loader.UploadFromByteArray(bytes, 0, bytes.Length);
+            //var x = bytes.Length;
+            var grow = 512 - (bytes.Length % 512);
+            Array.Resize(ref bytes, bytes.Length + grow);
+            var s = new MemoryStream(bytes);
+            loader.WritePages(s,0);
             loader.FetchAttributes();
             //   int x = Convert.ToInt16(loader.Metadata["NextIndex"], 16);
             //   loader.Metadata["NextIndex"] = String.Format("{0:x4}", ++x);
@@ -136,10 +138,23 @@ namespace ConsoleApp
             if (index == null) throw new ArgumentNullException("index");
             var account = csa;
             var ndx = Convert.ToInt64(index);
-            ndx = ndx << 10;
+            ndx = ndx << 11;
             var cont = account.CreateCloudBlobClient().GetContainerReference(region);
             var loader = cont.GetPageBlobReference("l");
             var stm = loader.OpenRead();
+            //if (stm.Length>0x400000)
+            //{ 
+           // var reader = new BinaryReader(stm);
+            //    byte[] range;
+            //    while (reader.BaseStream.Position>0x400000)
+             //   {
+           //         range = reader.ReadBytes(0x400000);
+            //    }
+          // ;
+                
+//}
+          // byte[][] barr = new byte[ x ][];
+            
             var buffer = new byte[1024];
             stm.Seek(ndx, SeekOrigin.Begin);
             stm.Read(buffer, 0, 1024);
@@ -164,19 +179,7 @@ namespace ConsoleApp
                 "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
                 "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
                 "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc";
-     
-
-
-
-
-
-
-
-
-
-
-                    
+                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc";                 
             var sarr = str.Split(',');
             AzureStorage.RegisterNewLoader(sarr);
             var ret = AzureStorage.Loader("21f29", "0");
