@@ -26,13 +26,15 @@ namespace ConsoleApp
 
         //public static string Container { get; set; }
 
-        public static void SetupLoaderBlob(string qnnee) // fixed length records
+        public static void SetupLoaderBlob(string qnnee) 
         {
+            // fixed length records
+            //concurrent write access to blob
             var account = csa; //CloudStorageAccount.DevelopmentStorageAccount;
             // var en = account.CreateCloudBlobClient().ListContainers();
             var cont = account.CreateCloudBlobClient().GetContainerReference(qnnee); //"2aabb"
             var loader = cont.GetPageBlobReference("l");
-            loader.Create(0x40000000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
+            loader.Create(0x400000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
             loader.FetchAttributes();
             loader.Metadata.Add("nextindex", "0x00000");
             //loader.Metadata["nextpage"] = "0x00";
@@ -45,8 +47,9 @@ namespace ConsoleApp
 
 
         public static void SetupPatientBlob(string qnnee)
-        //variable length records - index/size = 8 bytes in index table
-        {
+              { 
+            //fixed length records - index/size = 8 bytes in index table
+            //concurrent write access to blob
             //CloudStorageAccount.Parse();
             //Settings.Registered = true;
             var account = csa;
@@ -65,9 +68,11 @@ namespace ConsoleApp
         }
 
 
-        public static void SetupImageBlob(string qnnee)
-        //variable length records - index/size = 8 bytes in index table
+        public static void SetupImageBlob(string qnnee)     
         {
+            //variable length records - index/size = 8 bytes in index table
+            //concurrent write access to blob - store nextindex matadata
+            //and setup overlapping pages for write access
             //CloudStorageAccount.Parse();
             //Settings.Registered = true;
             var account = csa;
@@ -86,9 +91,10 @@ namespace ConsoleApp
         }
 
 
-        public static void SetupEpidemiologyBlob(string qnnee)
-        //variable length records - index/size = 8 bytes in index table
+        public static void SetupEpidemiologyBlob(string qnnee)       
         {
+            //no write concurrency - only one writer
+            //variable length records - index/size = 8 bytes in index table
             //CloudStorageAccount.Parse();
             //Settings.Registered = true;
             var account = csa;
@@ -111,53 +117,46 @@ namespace ConsoleApp
 
 
 
-        public static string RegisterNewLoader(string[] ldr) //registers a loader and returns the new loader id
-        {
+        public static int RegisterNewLoader(string[] ldr) //registers a loader and returns the loader id
+        { 
+            //fixed length records concurrent write access
+            //store nextindex metadata and overlapping pages for
+            
+            
+            //write access
+            if (ldr == null) throw new ArgumentNullException("ldr"); 
             //todo first check that ldr is not already registered
-
-            if (ldr == null) throw new ArgumentNullException("ldr");          
+            //fetchattributes
+            //set nextindex metadata to allow concurrent access for other users to update their data
+            //then update this users data
+                    
             var json = JsonConvert.SerializeObject(ldr);
             var account = csa; //CloudStorageAccount.DevelopmentStorageAccount;          
             var cont = account.CreateCloudBlobClient().GetContainerReference(ldr[0]); //"2aabb"
             var loader = cont.GetPageBlobReference("l");
             var bytes = Encoding.UTF8.GetBytes(json);
-            //var x = bytes.Length;
             var grow = 512 - (bytes.Length % 512);
             Array.Resize(ref bytes, bytes.Length + grow);
             var s = new MemoryStream(bytes);
             loader.WritePages(s,0);
             loader.FetchAttributes();
-            //   int x = Convert.ToInt16(loader.Metadata["NextIndex"], 16);
-            //   loader.Metadata["NextIndex"] = String.Format("{0:x4}", ++x);
-            return "";//loader.Metadata["NextIndex"];
+            var x = Convert.ToInt16(loader.Metadata["nextindex"], 16);
+            loader.Metadata["nextindex"] = String.Format("{0:x4}", x+1);
+            return x;
         }
 
-        public static string Loader(string region, string index) //retieves readonly loader details from region and loader id
+        public static string Loader(string region, int index) 
         {
-            if (region == null) throw new ArgumentNullException("region");
-            if (index == null) throw new ArgumentNullException("index");
+//retieves readonly loader details from region and loader id
+            if (region == null) throw new ArgumentNullException("region");   
             var account = csa;
-            var ndx = Convert.ToInt64(index);
-            ndx = ndx << 11;
+            index = index << 11; //2048 bytes
             var cont = account.CreateCloudBlobClient().GetContainerReference(region);
             var loader = cont.GetPageBlobReference("l");
             var stm = loader.OpenRead();
-            //if (stm.Length>0x400000)
-            //{ 
-           // var reader = new BinaryReader(stm);
-            //    byte[] range;
-            //    while (reader.BaseStream.Position>0x400000)
-             //   {
-           //         range = reader.ReadBytes(0x400000);
-            //    }
-          // ;
-                
-//}
-          // byte[][] barr = new byte[ x ][];
-            
-            var buffer = new byte[1024];
-            stm.Seek(ndx, SeekOrigin.Begin);
-            stm.Read(buffer, 0, 1024);
+            var buffer = new byte[2048];
+            stm.Seek(index, SeekOrigin.Begin);
+            stm.Read(buffer, 0, 2048);
             return Encoding.UTF8.GetString(buffer).Trim('\0'); //returns json string        
         }
 
@@ -171,20 +170,15 @@ namespace ConsoleApp
     {
         public static void Main()
         {
-            var str =
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc,/n" +
-                "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc";                 
+            var str = "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc"; 
+                                
             var sarr = str.Split(',');
-            AzureStorage.RegisterNewLoader(sarr);
-            var ret = AzureStorage.Loader("21f29", "0");
+            
+            AzureStorage.SetupLoaderBlob("21f29");
+            var s = AzureStorage.RegisterNewLoader(sarr);
+            var ret = AzureStorage.Loader("21f29", s);
             Console.WriteLine(ret);
-            Console.WriteLine(ret.Length.ToString());
+            Console.WriteLine(ret.Length);
             Console.ReadLine();
 
             // AzureStorage.SetupEpidemiologyBlob("2aabb");
