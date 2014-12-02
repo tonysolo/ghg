@@ -36,10 +36,10 @@ namespace ConsoleApp
             Patientblob = container.GetPageBlobReference("p");
             if (!Patientblob.Exists())
             {
-                Patientblob.Create(0x40000000); //for development need to increase for prod        
+                Patientblob.Create(0xa000); //for development need to increase terabyte for prod        
                 Patientblob.Metadata["nextindex"] = "0x00";
-                Patientblob.Metadata["nextpage"] = "0x00";
-                Patientblob.Metadata.Add("startoffset", "0x800000"); //constant
+               // Patientblob.Metadata["nextpage"] = "0x00";
+               // Patientblob.Metadata.Add("startoffset", "0x800000"); //constant
                 Patientblob.Properties.ContentEncoding = "application/octet-stream";
                 Patientblob.SetMetadata();
                 Patientblob.SetProperties();
@@ -47,10 +47,10 @@ namespace ConsoleApp
             PopulationBlob = container.GetPageBlobReference("m");
             if (!PopulationBlob.Exists())
             {
-                PopulationBlob.Create(0x40000000); //for development need to increase
-                PopulationBlob.Metadata["nextindex"] = "0x00";
+                PopulationBlob.Create(0xa000); //for development need to increase
+               // PopulationBlob.Metadata["nextindex"] = "0x00";
                 PopulationBlob.Metadata["nextpage"] = "0x00";
-                PopulationBlob.Metadata.Add("startoffset", "0x800000"); //constant
+               // PopulationBlob.Metadata.Add("startoffset", "0x800000"); //constant
                 PopulationBlob.Properties.ContentEncoding = "application/octet-stream";
                 PopulationBlob.SetMetadata();
                 PopulationBlob.SetProperties();
@@ -58,37 +58,21 @@ namespace ConsoleApp
             Imageblob = container.GetPageBlobReference("i");
             if (!Imageblob.Exists())
             {
-                Imageblob.Create(0x40000000); //for development need to increase
+                Imageblob.Create(0xa000); //for development need to increase
                 Imageblob.Metadata["nextindex"] = "0x00";
                 Imageblob.Properties.ContentEncoding = "application/octet-stream";
                 Imageblob.SetMetadata();
                 Imageblob.SetProperties();
             }
             Loaderblob = container.GetPageBlobReference("l");
-            if (!Loaderblob.Exists())
-            {
-                Loaderblob.Create(0x400000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
-                Loaderblob.FetchAttributes();
-                Loaderblob.Metadata.Add("nextindex", "0x00000");
-                Loaderblob.Properties.ContentEncoding = "application/octet-stream";
-                Loaderblob.SetMetadata();
-                Loaderblob.SetProperties();
-            }
-
+            if (Loaderblob.Exists()) return;
+            Loaderblob.Create(0xa000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
+            Loaderblob.FetchAttributes();
+            Loaderblob.Metadata.Add("nextindex", "0x00000");
+            Loaderblob.Properties.ContentEncoding = "application/octet-stream";
+            Loaderblob.SetMetadata();
+            Loaderblob.SetProperties();
         }
-
-        // var blobname = qnnee.Substring(0, 3).Remove(2, 1);
-
-          //  Epidemblob = container.GetPageBlobReference(blobname); //production epidem will go in ghg/epidem/qne
-         //   if (Epidemblob.Exists()) return;
-          //  Epidemblob.Create(0x40000000); //for development need to increase this to fill whole blob
-          //  Epidemblob.FetchAttributes();
-          //  Epidemblob.Metadata.Add("nextindex", "0x00");
-         //   Epidemblob.Metadata["startoffset"] = "0x24000"; //constant 100 years =36500 days = 0x120 pages 128 per page.
-          //  Epidemblob.Properties.ContentEncoding = "application/octet-stream";
-          //  Epidemblob.SetMetadata();
-         //   Epidemblob.SetProperties();
-        
 
             public static void SetupEpidemStorage (CloudStorageAccount ghgAccount, string qnnee)
             {
@@ -98,10 +82,10 @@ namespace ConsoleApp
                 container.CreateIfNotExists();
                 Epidemblob = container.GetPageBlobReference("e"); //production epidem will go in ghg/epidem/qne
                 if (Epidemblob.Exists()) return;
-                Epidemblob.Create(0x400000); //for development need to increase this to fill whole blob
+                Epidemblob.Create(0xa000); //for development need to increase this to fill whole blob
                 Epidemblob.FetchAttributes();
                 Epidemblob.Metadata.Add("nextindex", "0x00");
-                Epidemblob.Metadata["startoffset"] = "0x24000";
+                //Epidemblob.Metadata["startoffset"] = "0x24000";
                     //constant 100 years =36500 days = 0x120 pages 128 per page.
                 Epidemblob.Properties.ContentEncoding = "application/octet-stream";
                 Epidemblob.SetMetadata();
@@ -110,9 +94,14 @@ namespace ConsoleApp
 
         
 
-        public static int RegisterNewLoader(string[] sarr)
+        public static int RegisterNewLoader(string json)
         {
-            // Loaderblob.
+           
+            var bytes = Encoding.UTF8.GetBytes(json);
+            var grow = (512 - bytes.Length % 512);
+            Array.Resize(ref bytes, bytes.Length + grow);
+            Loaderblob.UploadFromByteArray(bytes, 0, bytes.Length);
+            
             return 0;
         }
 }
@@ -129,16 +118,18 @@ namespace ConsoleApp
 
                 var sarr = str.Split(',');
 
-                var s = AzureStorage.RegisterNewLoader(sarr);
-                // var ret = AzureStorage.GetLoader("21f29", s);
-                //  var x = AzureStorage.LoaderExists("21f29", "Tony Manicom");
-                //  Console.WriteLine(ret);
-                // Console.WriteLine(ret.Length);
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(sarr);
+
+                var s = AzureStorage.RegisterNewLoader(json);
+               
                 Console.ReadLine();
 
 
             
-           }
+           
+          }
+
+          
         }
     }
 

@@ -50,6 +50,8 @@ namespace MvvmLight1.ViewModel
         public string RegAurthority { get; set; }
         public string RegNumber { get; set; }
 
+
+
         public void SubmitData()
         {
             string[] str =
