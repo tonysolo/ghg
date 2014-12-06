@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mime;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Permissions;
@@ -92,17 +93,31 @@ namespace ConsoleApp
                 Epidemblob.SetProperties();
             }
 
-        
 
-        public static int RegisterNewLoader(string json)
+
+        public static bool RegisterNewLoader(string json)
         {
-           
+
             var bytes = Encoding.UTF8.GetBytes(json);
-            var grow = (512 - bytes.Length % 512);
+            var grow = (512 - bytes.Length%512);
             Array.Resize(ref bytes, bytes.Length + grow);
-            Loaderblob.UploadFromByteArray(bytes, 0, bytes.Length);
-            
-            return 0;
+            try
+            {
+              // Loaderblob.AcquireLease(TimeSpan.FromSeconds(30), "load");
+                Loaderblob.FetchAttributes();
+                var p = Convert.ToInt32(Loaderblob.Metadata["nextindex"], 16);
+                var ms = new MemoryStream(bytes);
+                var start = p*1024;
+                Loaderblob.WritePages(ms,start);
+                p += 1;
+                Loaderblob.Metadata["nextindex"] = String.Format("{0:x}", p);
+                Loaderblob.SetMetadata();
+            }
+            finally
+            {
+             // Loaderblob.ReleaseLease(AccessCondition.GenerateLeaseCondition("load"));
+            }
+            return true;
         }
 }
 
@@ -113,7 +128,7 @@ namespace ConsoleApp
             {
 
                 AzureStorage.SetupGhGstorage(CloudStorageAccount.DevelopmentStorageAccount, "21f29");
-                AzureStorage.SetupEpidemStorage(CloudStorageAccount.DevelopmentStorageAccount,"21f29");
+               
                 const string str = "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc";
 
                 var sarr = str.Split(',');
@@ -121,6 +136,7 @@ namespace ConsoleApp
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(sarr);
 
                 var s = AzureStorage.RegisterNewLoader(json);
+                 //var t = AzureStorage.RegisterNewLoader(json);
                
                 Console.ReadLine();
 
