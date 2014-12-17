@@ -76,11 +76,12 @@ namespace ConsoleApp
             Loaderblob.SetProperties();
         }
 /*
- * epidemiology needs users to upload to a storage queue. It is shared data so its value means combining.
+ * epidemiology needs users to upload to a storage queue for processing at midnight for the timezone.
+ * It is shared data so its value depends on combining.
  * I might try to only update those users that provide epidemiology data.
  * a worker role does the processing and the user has readonly access to the data for his region
  * this will be updated daily and displayed when the app starts
- * 
+ 
             public static void SetupEpidemStorage (CloudStorageAccount ghgAccount, string qnnee)
             {
                 //use global ghg account for epidemiology (global)
@@ -100,6 +101,12 @@ namespace ConsoleApp
                 Epidemblob.SetProperties();
             }
  */
+
+        public static void SaveEpidemiology(CloudStorageAccount ghgAccount, string qnnee)
+        {
+            var x = Convert.ToInt32((qnnee.Substring(0,1)+qnnee.Substring(2, 1)),16);
+        }
+
 //its only the writing metadata that needs concurrency protection
 //all other reads and writes involve overlapping pages which allows concurrent read / write
 
@@ -130,7 +137,8 @@ namespace ConsoleApp
 //population management blob and patient blob share the same index but much longer record in patient blob and 
 //this will have higfher traffic, thererfore the smaller population blob is used for metadata and index allocation
 //and patients blob left free for storage 
-//patient is fixed length record 131072 bytes (128K)
+//patient is fixed length record 131072 bytes (128K) (very adequate) but in addition the system provides for storing scans and images
+//for extra storage.
         public static string SetNextPatientIndex()
         {
             var ndx = "";
