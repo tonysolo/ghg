@@ -209,9 +209,16 @@ namespace ConsoleApp
                     }
 
 
-
-
-
-        
+        public static byte Timezone(string qnnee)
+        {
+            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return byte.MaxValue;//error
+            var q = ((qnnee[0] - 0)|0x01)<<3;
+            var e = (qnnee.Length == 5) ? qnnee[3]-0:qnnee[4]-0;          
+            return (byte)(q|e);
         }
+
+
+
+
+    }
     }
