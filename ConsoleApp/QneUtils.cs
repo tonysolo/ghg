@@ -219,7 +219,7 @@ namespace ConsoleApp
             var f = Convert.ToByte(e.ToString(CultureInfo.InvariantCulture), 16);
             return (byte)(q|f);
         }
-
+//check that this return 0 to 31 going east from medirian 0 to meridian 360 degrees
 
 
 
