@@ -215,17 +215,55 @@ namespace ConsoleApp
             public static void Main()
             {
 
-                AzureStorage.SetupGhGstorage(CloudStorageAccount.DevelopmentStorageAccount, "21f29");
+                //AzureStorage.SetupGhGstorage(CloudStorageAccount.DevelopmentStorageAccount, "21f29");
                
-                const string str = "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc";
+                //const string str = "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc";
 
-                var sarr = str.Split(',');
+                //var sarr = str.Split(',');
 
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(sarr);
+                //var json = Newtonsoft.Json.JsonConvert.SerializeObject(sarr);
 
-                var s = AzureStorage.RegisterNewLoader(json);
+                //var s = AzureStorage.RegisterNewLoader(json);
                  //var t = AzureStorage.RegisterNewLoader(json);
-               
+                Console.WriteLine(QneUtils.Timezone("1aa0a"));
+                Console.WriteLine(QneUtils.Timezone("1aa1a"));
+                Console.WriteLine(QneUtils.Timezone("1aa20"));
+                Console.WriteLine(QneUtils.Timezone("1aa31"));
+                Console.WriteLine(QneUtils.Timezone("2aa42"));
+                Console.WriteLine(QneUtils.Timezone("2aa56"));
+                Console.WriteLine(QneUtils.Timezone("0aa66"));
+                Console.WriteLine(QneUtils.Timezone("0aa76"));
+                Console.WriteLine(QneUtils.Timezone("0aa86"));
+                Console.WriteLine(QneUtils.Timezone("0aa96"));
+                Console.WriteLine(QneUtils.Timezone("0aaa6"));
+                Console.WriteLine(QneUtils.Timezone("0aab6"));
+                Console.WriteLine(QneUtils.Timezone("0aac6"));
+                Console.WriteLine(QneUtils.Timezone("0aad6"));
+                Console.WriteLine(QneUtils.Timezone("0aae6"));
+                Console.WriteLine(QneUtils.Timezone("0aaf6"));
+
+                Console.WriteLine();
+                Console.WriteLine(QneUtils.Timezone("0aab0ab"));
+                Console.WriteLine(QneUtils.Timezone("0aab1ab"));
+                Console.WriteLine(QneUtils.Timezone("0aab20b"));
+                Console.WriteLine(QneUtils.Timezone("0aab31b"));
+                Console.WriteLine(QneUtils.Timezone("0aab42b"));
+                Console.WriteLine(QneUtils.Timezone("0aab56b"));
+                Console.WriteLine(QneUtils.Timezone("0aab66b"));
+                Console.WriteLine(QneUtils.Timezone("0aab76b"));
+                Console.WriteLine(QneUtils.Timezone("0aab86b"));
+                Console.WriteLine(QneUtils.Timezone("0aab96b"));
+                Console.WriteLine(QneUtils.Timezone("0aaba6b"));
+                Console.WriteLine(QneUtils.Timezone("0aabb6b"));
+                Console.WriteLine(QneUtils.Timezone("0aabc6b"));
+                Console.WriteLine(QneUtils.Timezone("0aabd6b"));
+                Console.WriteLine(QneUtils.Timezone("0aabe6b"));
+                Console.WriteLine(QneUtils.Timezone("0aabf6b"));
+            
+
+
+
+
                 Console.ReadLine();
 
 

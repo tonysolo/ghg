@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -212,9 +213,11 @@ namespace ConsoleApp
         public static byte Timezone(string qnnee)
         {
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return byte.MaxValue;//error
-            var q = ((qnnee[0] - 0)|0x01)<<3;
-            var e = (qnnee.Length == 5) ? qnnee[3]-0:qnnee[4]-0;          
-            return (byte)(q|e);
+            var q = (qnnee[0] - '0');
+            q = (q & 0x01)<<4 ;//if western quadrant add 16
+            var e = (qnnee.Length == 5) ? qnnee[3]:qnnee[4];
+            var f = Convert.ToByte(e.ToString(CultureInfo.InvariantCulture), 16);
+            return (byte)(q|f);
         }
 
 
