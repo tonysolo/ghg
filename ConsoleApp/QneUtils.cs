@@ -210,18 +210,15 @@ namespace ConsoleApp
                     }
 
 
-        public static byte Timezone(string qnnee)
+        public static sbyte Timezone(string qnnee) //or qnnneee
         {
-            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return byte.MaxValue;//error
+            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return sbyte.MaxValue;//error
             var q = (qnnee[0] - '0');
-            q = (q & 0x01)<<4 ;//if western quadrant add 16
+            q = (q & 0x01)<<4 ;//set quadrant if west add 16
             var e = (qnnee.Length == 5) ? qnnee[3]:qnnee[4];
             var f = Convert.ToByte(e.ToString(CultureInfo.InvariantCulture), 16);
-            return (byte)(q|f);
-        }
-//check that this return 0 to 31 going east from medirian 0 to meridian 360 degrees
-
-
+            return (sbyte)(q|f);         
+        }   // 0 to  +15 is east of meridian. 0 to -15 is west of meridian
 
     }
     }
