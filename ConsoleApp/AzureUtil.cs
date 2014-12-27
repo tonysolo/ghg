@@ -104,7 +104,11 @@ namespace ConsoleApp
 
         public static void SaveEpidemiology(CloudStorageAccount ghgAccount, string qnnee)
         {
-            var x = Convert.ToInt32((qnnee.Substring(0,1)+qnnee.Substring(2, 1)),16);
+            //var x = Convert.ToInt32((qnnee.Substring(0,1)+qnnee.Substring(2, 1)),16);
+            //timezone(qnnee)
+            //loadtoqueuetoqueue(qne)
+            //setsecstomidnight
+            //data offloaded / saved to ghg/qne/e (global biome blobs) 256 x 2 x (45) x 0.25
         }
 
 //its only the writing metadata that needs concurrency protection
@@ -117,21 +121,26 @@ namespace ConsoleApp
         public static string SetNextLoaderIndex()
         {
             var ndx = "";
-            try
-            {
-                Loaderblob.AcquireLease(TimeSpan.FromSeconds(5), "load");
+   // var load = "";
+           
+               // load = Loaderblob.AcquireLease(TimeSpan.FromSeconds(15),null);
                 Loaderblob.FetchAttributes();
+                var etag = Loaderblob.Properties.ETag;
                 var p = Convert.ToInt32(Loaderblob.Metadata["nextindex"], 16);
                 p += 1;
                 ndx = String.Format("{0:x5}", p);
                 Loaderblob.Metadata["nextindex"] = ndx;
-                Loaderblob.SetMetadata();
-            }
-            finally
-            {
-                Loaderblob.ReleaseLease(AccessCondition.GenerateLeaseCondition("load"));
-            }
-            return ndx;
+    try
+    {
+        Loaderblob.SetMetadata(accessCondition: AccessCondition.GenerateIfMatchCondition(etag));
+    }
+    catch(StorageException ex)
+    {
+        if (ex.RequestInformation.HttpStatusCode == (int) HttpStatusCode.PreconditionFailed) ndx = "error";
+    }
+   // finally { Loaderblob.ReleaseLease(AccessCondition.GenerateLeaseCondition(load)); }
+
+    return ndx;
         }
 
 //population management blob and patient blob share the same index but much longer record in patient blob and 
@@ -144,7 +153,7 @@ namespace ConsoleApp
             var ndx = "";
             try
             {
-                Populationblob.AcquireLease(TimeSpan.FromSeconds(5), "load");
+                Populationblob.AcquireLease(TimeSpan.FromSeconds(15), "load");
                 Populationblob.FetchAttributes();
                 var p = Convert.ToInt32(Populationblob.Metadata["nextindex"], 16);
                 p += 1;
@@ -159,13 +168,14 @@ namespace ConsoleApp
             return ndx;
         }
 
-        //set epidemiology
+        //set epidemiology - this will go into ghg account - each qne container keeps a single e blob
+        //metadata could be kept in container - concurrency not an issue because there is only 1 writer and scheduled
         public static string SetNextEpidemPage()
         {
             var pg = "";
             try
             {
-                Epidemblob.AcquireLease(TimeSpan.FromSeconds(5), "load");
+                Epidemblob.AcquireLease(TimeSpan.FromSeconds(15), "load");//?omit
                 Epidemblob.FetchAttributes();
                 var p = Convert.ToInt32(Epidemblob.Metadata["nextpage"], 16);
                 p += 1;
@@ -175,7 +185,7 @@ namespace ConsoleApp
             }
             finally
             {
-                Epidemblob.ReleaseLease(AccessCondition.GenerateLeaseCondition("load"));
+                Epidemblob.ReleaseLease(AccessCondition.GenerateLeaseCondition("load"));//?
             }
             return pg;
         }
