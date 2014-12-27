@@ -20,13 +20,15 @@ namespace MvvmLight1.Model
         {
             var qne = Loaderid.Substring(0, 5);
             var pagenumber = Convert.ToInt16(Loaderid.Substring(5, Loaderid.Length - 5));
-            var startoffset = pagenumber << 9;
-            var endoffset = (pagenumber << 10) - 1;
+            var startoffset =   pagenumber << 9;
+            var endoffset =   ((pagenumber + 1) << 9) - 1;
             return new string[1];
         }
+
+
         public static IEnumerable<CloudBlobContainer> DevelopmentContainers()
         {
-            var dev = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            var dev = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));//"StorageConnectionString"
             var blobClient = dev.CreateCloudBlobClient();
             return blobClient.ListContainers();
             //ToArray<

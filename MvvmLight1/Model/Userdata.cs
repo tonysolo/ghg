@@ -17,21 +17,16 @@ namespace MvvmLight1.Model
         public static string[] Regions { get; private set; }
         public static string SelectedQnnee { get; set; }
 
-
-
         public static string[] GetCountryShortNames()
         {
-            //AzureStorage.DevelopmentContainers();
-          var cdc = AzureUtil.
-              DevelopmentContainers().
-              GetEnumerator().
-              Current.
-              GetPageBlobReference("l");
-           
-          
-            
-            using (var reader = File.OpenText(@"c:\azure\countries.txt"))
+ using (var reader = File.OpenText(@"c:\azure\countries.txt"))
                 return reader.ReadToEnd().Split(',');
+            //AzureStorage.DevelopmentContainers();
+            //var cdc = AzureUtil.CountryNames();
+           //   DevelopmentContainers().
+           //   GetEnumerator().
+           //   Current.
+            //  GetPageBlobReference("l");                    
         }
 
 
