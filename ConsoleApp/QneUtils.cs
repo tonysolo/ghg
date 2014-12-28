@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
@@ -99,16 +95,16 @@ namespace ConsoleApp
                             var llon = Convert.ToInt16(qnnee.Substring(3, 2), 16);
                             lat = llat / 256 * 180;
                             lat1 = (double)(llat + 1) / 256 * 180;
-                            lon = (double)(llon) / 256 * 180;
+                            lon  = (double)(llon) / 256 * 180;
                             lon1 = (double)(llon + 1) / 256 * 180;
                         }
                         else if (qnnee.Length == 7)
                         {
                             var llat = Convert.ToInt16(qnnee.Substring(1, 3), 16);
                             var llon = Convert.ToInt16(qnnee.Substring(4, 3), 16);
-                            lat = (double)(llat) / 4096 * 180;
+                            lat  = (double)(llat) / 4096 * 180;
                             lat1 = (double)(llat + 1) / 4096 * 180;
-                            lon = (double)(llon) / 4096 * 180;
+                            lon  = (double)(llon) / 4096 * 180;
                             lon1 = (double)(llon + 1) / 4096 * 180;
                         }
                         lon = (lon + lon1) / 2;
