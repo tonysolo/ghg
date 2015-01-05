@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mime;
-using System.Runtime.ExceptionServices;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Permissions;
+using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Newtonsoft.Json;
 
 //http://gauravmantri.com/
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 
 namespace ConsoleApp
 {
@@ -125,11 +119,11 @@ namespace ConsoleApp
         {
             var ndx = "";
             Loaderblob.FetchAttributes();
-            var etag = Loaderblob.Properties.ETag;
+            var etag = Loaderblob.Properties.ETag;       
             var p = Convert.ToInt32(Loaderblob.Metadata["nextindex"], 16);
             p += 1;
             ndx = String.Format("{0:x6}", p);
-            Loaderblob.Metadata["nextindex"] = ndx;
+            Loaderblob.Metadata["nextindex"] = ndx;    
             try
             {
                 Loaderblob.SetMetadata(accessCondition: AccessCondition.GenerateIfMatchCondition(etag));
@@ -166,14 +160,33 @@ namespace ConsoleApp
         return ndx;
         }
 
-        //set epidemiology - this will go into ghg account - each qne container keeps a single e blob
-        //metadata could be kept in container - concurrency not an issue because there is only 1 writer and scheduled
-        public static string SetNextEpidemPage()
+        //set epidemiology - index for date offset from 1/1/2015 == 0 spanning 512 pages of 8 bytes per day 
+        //storing 32 bit page offset for start and end page data ie 64 bits for each day (89 years)
+        //? recycle after that as circular buffer modulo 
+        //Epidemilogy is stored per QNE (epidemiolgy) blob in a globally shared storage account, epidem     
+        //container accessed daily by a single writer so there is no concurrency problem
+        public static string StoreEpidemiology(CloudStorageAccount csa, string qne, DateTime dt,string epidjson)
         {
+            CloudBlobClient cbc = csa.CreateCloudBlobClient();
+            cbc.GetContainerReference(qne);
+            CloudPageBlob cloudPageBlob = Epidemblob;
+
+
+            var bb = Encoding.UTF8.GetBytes(epidjson);
+            var grow = (bb.Length % 512);
+            Array.Resize(ref bb,bb.Length+grow);
+
+            var dateoffset = (dt - new DateTime(2015, 1, 1)).Days;
+            var datecol = (int)dateoffset/64;
+            var daterow = (int)dateoffset%64;
+            var ms = new MemoryStream(bb);
+            Epidemblob.WritePages(ms,daterow * 512);
             var ndx = "";
             Epidemblob.FetchAttributes();
             var etag = Epidemblob.Properties.ETag;
             var p = Convert.ToInt32(Epidemblob.Metadata["nextindex"], 16);
+           // data starts at 1<<18  (262144) byte offset
+
             p += 1;
             ndx = String.Format("{0:x6}", p);
             Epidemblob.Metadata["nextindex"] = ndx;
@@ -215,22 +228,51 @@ namespace ConsoleApp
             Loaderblob.WritePages(ms, start);
             return s;
         }
+    
+
+    public static byte[] Testmem(int start, int length)
+    {
+        const string s = "TonyManicom";
+        var b = Encoding.UTF8.GetBytes(s);
+        var page = new byte[200];
+        var ms = new MemoryStream(page);
+        ms.Seek(100,0);
+        ms.Write(b,start,length);
+        //var b1 =  ms.ToArray();
+        return page;
     }
 
+        public static byte[] Testmem1()
+        {
+            const ulong x = 0xfecdfecdfecdfecd;     
+        var b = BitConverter.GetBytes(x);
+       // var c = BitConverter.GetBytes(y);
+        var page = new byte[128];
+        var ms = new MemoryStream(page);
+        ms.Seek(0,SeekOrigin.Begin);
+        ms.Write(b,0,8);
+            foreach (var y in page.Where(y => y!=0))
+            
+                Console.WriteLine(y);
+            
+        //var b1 =  ms.ToArray();
+        return page;
+       // return c[0];
 
+    }
 
-
-
+    }
     public class Test
     {
         public static void Main()
         {
             
+//Console.WriteLine(Encoding.UTF8.GetString(AzureStorage.Testmem(4,7)));
+Console.Write(AzureStorage.Testmem1().ToString());            
+          // AzureStorage.SetupGhGstorage(AzureStorage.Csa, "21f29");
 
-           AzureStorage.SetupGhGstorage(AzureStorage.Csa, "21f29");
-
-            for(int i=0;i<50;i++)
-            Console.WriteLine(AzureStorage.SetNextLoaderIndex());
+          //  for(var i=0;i<50;i++)
+           // Console.WriteLine(AzureStorage.SetNextLoaderIndex());
 
             Console.ReadLine();
 
