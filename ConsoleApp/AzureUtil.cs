@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
@@ -244,17 +245,19 @@ namespace ConsoleApp
 
         public static byte[] Testmem1()
         {
-            const ulong x = 0xfecdfecdfecdfecd;     
+           
+
+           const UInt32 x = 0xfecdfecd;     
         var b = BitConverter.GetBytes(x);
        // var c = BitConverter.GetBytes(y);
-        var page = new byte[128];
+        var page = new byte[512];
         var ms = new MemoryStream(page);
-        ms.Seek(0,SeekOrigin.Begin);
-        ms.Write(b,0,8);
-            foreach (var y in page.Where(y => y!=0))
-            
-                Console.WriteLine(y);
-            
+        ms.Seek(4,SeekOrigin.Begin);
+        ms.Write(b,0,4);
+            foreach (var y in page)//.Where(y => y!=0))          
+                Console.Write(String.Format("{0:x2}",y));
+            Console.WriteLine();
+         Console.WriteLine(page.Length);   
         //var b1 =  ms.ToArray();
         return page;
        // return c[0];
