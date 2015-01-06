@@ -79,7 +79,7 @@ namespace ConsoleApp
          * I might try to only update those users that provide epidemiology data.
          * a worker role does the processing and the user has readonly access to the data for his region
          * this will be updated daily and displayed when the app starts
- 
+ */
                     public static void SetupEpidemStorage (CloudStorageAccount ghgAccount, string qnnee)
                     {
                         //use global ghg account for epidemiology (global)
@@ -90,15 +90,15 @@ namespace ConsoleApp
                         if (Epidemblob.Exists()) return;
                         Epidemblob.Create(0xa000); //for development need to increase this to fill whole blob
                         Epidemblob.FetchAttributes();
-                        Epidemblob.Metadata.Add("nextindex", "0x00");
-                        Epidemblob.Metadata["startoffset"] = "0x120";
+                        Epidemblob.Metadata.Add("nextindex", "0x100");
+                       // Epidemblob.Metadata["startoffset"] = "0x120";
                         //constant 100 years =36500 days = 0x120 pages 128 per page.
                         //make epoch 1/1/2015
                         Epidemblob.Properties.ContentEncoding = "application/octet-stream";
                         Epidemblob.SetMetadata();
                         Epidemblob.SetProperties();
                     }
-         */
+         
 
         public static void SaveEpidemiology(CloudStorageAccount ghgAccount, string qnnee)
         {
@@ -107,6 +107,37 @@ namespace ConsoleApp
             //loadtoqueuetoqueue(qne)
             //setsecstomidnight
             //data offloaded / saved to ghg/qne/e (global biome blobs) 256 x 2 x (45) x 0.25
+
+            //measure the epidemiology data
+            const string txt = "Epidemiology testing 1234456567677 testing 123455, 67889899";
+            var epiData = Encoding.UTF8.GetBytes(txt);
+            var grow = epiData.Length % 512;
+            Array.Resize(ref epiData, epiData.Length + grow);
+            var epipagesCount = epiData.Length / 512;
+
+//get the index and update it for future
+            Epidemblob.FetchAttributes();
+            var pos = Convert.ToInt32(Epidemblob.Metadata["nextindex"], 16);         
+            Epidemblob.Metadata["nextindex"] =  String.Format("{0:x4}", pos + epipagesCount);
+
+//update the epidemiology blob lookup table 
+//lookup table occupies 256 pages = 256*128 days = 89 years
+//epidemiology update is a scheduled task at midnight so doesnt need special processing requred for manual data
+            var days = (DateTime.Now.Subtract(new DateTime(2015,1,1))).Days;
+            var lookupPage = days/128;
+            var lookupPos= days%128;
+            var lookupBuf = new byte[512];
+
+            var epidDataOffset = 256*128*4;//bytes (32768 UInt32's)
+          
+           var lookupStream = Epidemblob.OpenRead();
+            lookupStream.Seek(lookupPage*512,SeekOrigin.Begin);//go to the lookup page start of page boundary
+            lookupStream.Read(lookupBuf,0,512); // get the current lookup page
+            var memoryStream = new MemoryStream(lookupBuf);//use a memorystream for editing
+            memoryStream.Seek(lookupPos,SeekOrigin.Begin);
+            //go to byte offset and replace the 4 byte page address to lookup data
+           // memoryStream.Write(epiData,0,);
+
         }
 
         //its only the writing metadata that needs concurrency protection
