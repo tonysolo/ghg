@@ -36,7 +36,7 @@ namespace ConsoleApp
             {
                 Patientblob.Create(0xa000); //for development need to increase to terabyte for prod        
                 Patientblob.FetchAttributes();
-                Patientblob.Metadata["nextindex"] = "0x00";
+                Patientblob.Metadata.Add("nextindex",String.Format("{0:x4}", -1));
                 Patientblob.Properties.ContentEncoding = "application/octet-stream";
                 Patientblob.SetMetadata();
                 Patientblob.SetProperties();
@@ -47,7 +47,7 @@ namespace ConsoleApp
             {
                 Populationblob.Create(0xa000); //for development need to increase to 0x800000 X number of patient blobs
                 Populationblob.FetchAttributes();
-                Populationblob.Metadata["nextindex"] = "0x00";
+                Populationblob.Metadata.Add("nextindex",String.Format("{0:x4}", -1));
                 Populationblob.Properties.ContentEncoding = "application/octet-stream";
                 Populationblob.SetMetadata();
                 Populationblob.SetProperties();
@@ -58,7 +58,7 @@ namespace ConsoleApp
             {
                 Imageblob.Create(0xa000); //for development need to increase to terabyte
                 Imageblob.FetchAttributes();
-                Imageblob.Metadata["nextindex"] = "0x00"; //data starts at 0
+                Imageblob.Metadata.Add("nextindex",String.Format("{0:x4}", -1));
                 Imageblob.Properties.ContentEncoding = "application/octet-stream";
                 Imageblob.SetMetadata();
                 Imageblob.SetProperties();
@@ -68,7 +68,7 @@ namespace ConsoleApp
             if (Loaderblob.Exists()) return;
             Loaderblob.Create(0xa000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
             Loaderblob.FetchAttributes();
-            Loaderblob.Metadata.Add("nextindex", "0x00000");
+            Loaderblob.Metadata.Add("nextindex", String.Format("{0:x4}", -1));
             Loaderblob.Properties.ContentEncoding = "application/octet-stream";
             Loaderblob.SetMetadata();
             Loaderblob.SetProperties();
@@ -149,12 +149,12 @@ namespace ConsoleApp
         /// <returns>string</returns>
         public static string SetNextLoaderIndex()
         {
-            var ndx = "";
+            //var ndx = "";
             Loaderblob.FetchAttributes();
             var etag = Loaderblob.Properties.ETag;       
             var p = Convert.ToInt32(Loaderblob.Metadata["nextindex"], 16);
-            p += 1;
-            ndx = String.Format("{0:x6}", p);
+           // p += 1;
+            var ndx = String.Format("{0:x6}", p+=1);
             Loaderblob.Metadata["nextindex"] = ndx;    
             try
             {
@@ -174,12 +174,12 @@ namespace ConsoleApp
         //for extra storage.
         public static string SetNextPatientIndex()
         {
-        var ndx = "";
+        //var ndx = "";
         Populationblob.FetchAttributes();
         var etag = Populationblob.Properties.ETag;
         var p = Convert.ToInt32(Populationblob.Metadata["nextindex"], 16);
-        p += 1;
-        ndx = String.Format("{0:x6}", p);
+        //p += 1;
+        var ndx = String.Format("{0:x6}", p+=1);
         Populationblob.Metadata["nextindex"] = ndx;
         try
         {
@@ -296,19 +296,27 @@ namespace ConsoleApp
     }
 
     }
+
     public class Test
     {
         public static void Main()
         {
-            
+            var s = String.Format("{0:x8}", 268435457);
+            Console.WriteLine(s);
+            Console.ReadLine();
+        }
+
+   
+    }
+
 //Console.WriteLine(Encoding.UTF8.GetString(AzureStorage.Testmem(4,7)));
-Console.Write(AzureStorage.Testmem1().ToString());            
+//Console.Write(AzureStorage.Testmem1().ToString());            
           // AzureStorage.SetupGhGstorage(AzureStorage.Csa, "21f29");
 
           //  for(var i=0;i<50;i++)
            // Console.WriteLine(AzureStorage.SetNextLoaderIndex());
 
-            Console.ReadLine();
+          //  Console.ReadLine();
 
             
             //const string str = "21f29,Tony Manicom,173 Blandford Rd, North Riding,etc";
@@ -327,8 +335,8 @@ Console.Write(AzureStorage.Testmem1().ToString());
              */ 
 
         }
-    }
-}
+    
+
 
 
 
