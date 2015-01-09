@@ -172,22 +172,24 @@ namespace ConsoleApp
         //and patients blob left free for storage 
         //patient is fixed length record 131072 bytes (128K) (very adequate) but in addition the system provides for storing scans and images
         //for extra storage.
-        public static string SetNextPatientIndex()
+        /// <summary>
+        /// Return the next index  and updates the counter (-1 indicates failure)
+        /// </summary>
+        /// <returns>int</returns>
+        public static Int32 GetNextPatientIndex()
         {
-        //var ndx = "";
-        Populationblob.FetchAttributes();
+        Populationblob.FetchAttributes();     
+        var ndx = Convert.ToInt32(Populationblob.Metadata["nextindex"], 16);
         var etag = Populationblob.Properties.ETag;
-        var p = Convert.ToInt32(Populationblob.Metadata["nextindex"], 16);
-        //p += 1;
-        var ndx = String.Format("{0:x6}", p+=1);
-        Populationblob.Metadata["nextindex"] = ndx;
+        var next = String.Format("{0:x}", ndx+1);
+        Populationblob.Metadata["nextindex"] = next;
         try
         {
             Populationblob.SetMetadata(accessCondition: AccessCondition.GenerateIfMatchCondition(etag));
         }
         catch (StorageException ex)
         {
-            if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.PreconditionFailed) ndx = "";
+            if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.PreconditionFailed) ndx = -1;
         }
         return ndx;
         }
@@ -199,9 +201,9 @@ namespace ConsoleApp
         //container accessed daily by a single writer so there is no concurrency problem
         public static string StoreEpidemiology(CloudStorageAccount csa, string qne, DateTime dt,string epidjson)
         {
-            CloudBlobClient cbc = csa.CreateCloudBlobClient();
+            var cbc = csa.CreateCloudBlobClient();
             cbc.GetContainerReference(qne);
-            CloudPageBlob cloudPageBlob = Epidemblob;
+            var cloudPageBlob = Epidemblob;
 
 
             var bb = Encoding.UTF8.GetBytes(epidjson);
@@ -211,13 +213,19 @@ namespace ConsoleApp
             var dateoffset = (dt - new DateTime(2015, 1, 1)).Days;
             var datecol = (int)dateoffset/64;
             var daterow = (int)dateoffset%64;
-            var ms = new MemoryStream(bb);
-            Epidemblob.WritePages(ms,daterow * 512);
+            using (var ms = new MemoryStream(bb)) Epidemblob.WritePages(ms,daterow * 512);
+            
+           
+            
             var ndx = "";
             Epidemblob.FetchAttributes();
-            var etag = Epidemblob.Properties.ETag;
             var p = Convert.ToInt32(Epidemblob.Metadata["nextindex"], 16);
+            var pnext = p + (bb.Length / 512) + 1;
+            Epidemblob.Metadata["nextindex"] = String.Format("{0:x}", pnext);
+           // var etag = Epidemblob.Properties.ETag;     
            // data starts at 1<<18  (262144) byte offset
+            using (MemoryStream ms = new MemoryStream(Epidemblob.UploadFromByteArray(bb)));
+            Epidemblob.UploadFromByteArray(bb,0,bb.Length);
 
             p += 1;
             ndx = String.Format("{0:x6}", p);
