@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
@@ -14,91 +10,38 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace ConsoleApp
 {
-
-    public static class AzureStorage
+    public static class AzureEpidemiolgy
     {
+        public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
+        //public static CloudStorageAccount Csa = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+        public static CloudPageBlob Epidemblob;
 
-        // public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
-        public static CloudStorageAccount Csa = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
-
-        public static CloudPageBlob Patientblob, Populationblob, Imageblob, Loaderblob, Epidemblob;
-
-        //public static string Container { get; set; }
-
-
-
-        public static void SetupGhGstorage(CloudStorageAccount account, string qnnee)
-        {
-            var container = account.CreateCloudBlobClient().GetContainerReference(qnnee);
-            container.CreateIfNotExists();
-            Patientblob = container.GetPageBlobReference("p");
-            if (!Patientblob.Exists())
-            {
-                Patientblob.Create(0xa000); //for development need to increase to terabyte for prod        
-                Patientblob.FetchAttributes();
-                Patientblob.Metadata.Add("nextindex",String.Format("{0:x4}", -1));
-                Patientblob.Properties.ContentEncoding = "application/octet-stream";
-                Patientblob.SetMetadata();
-                Patientblob.SetProperties();
-            }
-
-            Populationblob = container.GetPageBlobReference("m");
-            if (!Populationblob.Exists())
-            {
-                Populationblob.Create(0xa000); //for development need to increase to 0x800000 X number of patient blobs
-                Populationblob.FetchAttributes();
-                Populationblob.Metadata.Add("nextindex",String.Format("{0:x4}", -1));
-                Populationblob.Properties.ContentEncoding = "application/octet-stream";
-                Populationblob.SetMetadata();
-                Populationblob.SetProperties();
-            }
-
-            Imageblob = container.GetPageBlobReference("i");
-            if (!Imageblob.Exists())
-            {
-                Imageblob.Create(0xa000); //for development need to increase to terabyte
-                Imageblob.FetchAttributes();
-                Imageblob.Metadata.Add("nextindex",String.Format("{0:x4}", -1));
-                Imageblob.Properties.ContentEncoding = "application/octet-stream";
-                Imageblob.SetMetadata();
-                Imageblob.SetProperties();
-            }
-
-            Loaderblob = container.GetPageBlobReference("l");
-            if (Loaderblob.Exists()) return;
-            Loaderblob.Create(0xa000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
-            Loaderblob.FetchAttributes();
-            Loaderblob.Metadata.Add("nextindex", String.Format("{0:x4}", -1));
-            Loaderblob.Properties.ContentEncoding = "application/octet-stream";
-            Loaderblob.SetMetadata();
-            Loaderblob.SetProperties();
-        }
         /*
-         * epidemiology needs users to upload to a storage queue for processing at midnight for the timezone.
-         * It is shared data so its value depends on combining.
-         * I might try to only update those users that provide epidemiology data.
-         * a worker role does the processing and the user has readonly access to the data for his region
-         * this will be updated daily and displayed when the app starts
- */
-                    public static void SetupEpidemStorage (CloudStorageAccount ghgAccount, string qnnee)
-                    {
-                        //use global ghg account for epidemiology (global)
-                        var cname = qnnee.Substring(0, 4).Remove(2, 1);
-                        var container = ghgAccount.CreateCloudBlobClient().GetContainerReference(cname);
-                        container.CreateIfNotExists();
-                        Epidemblob = container.GetPageBlobReference("e"); //production epidem will go in ghg/epidem/qne
-                        if (Epidemblob.Exists()) return;
-                        Epidemblob.Create(0xa000); //for development need to increase this to fill whole blob
-                        Epidemblob.FetchAttributes();
-                        Epidemblob.Metadata.Add("nextindex", "0x100");
-                       // Epidemblob.Metadata["startoffset"] = "0x120";
-                        //constant 100 years =36500 days = 0x120 pages 128 per page.
-                        //make epoch 1/1/2015
-                        Epidemblob.Properties.ContentEncoding = "application/octet-stream";
-                        Epidemblob.SetMetadata();
-                        Epidemblob.SetProperties();
-                    }
-         
+                 * epidemiology needs users to upload to a storage queue for processing at midnight for the timezone.
+                 * It is shared data so its value depends on combining.
+                 * I might try to only update those users that provide epidemiology data.
+                 * a worker role does the processing and the user has readonly access to the data for his region
+                 * this will be updated daily and displayed when the app starts
+         */
+        public static void SetupEpidemStorage(CloudStorageAccount ghgAccount, string qnnee)
+        {
+            //use global ghg account for epidemiology (global)
+            var cname = qnnee.Substring(0, 4).Remove(2, 1);
+            var container = ghgAccount.CreateCloudBlobClient().GetContainerReference(cname);
+            container.CreateIfNotExists();
+            Epidemblob = container.GetPageBlobReference("e"); //production epidem will go in ghg/epidem/qne
+            if (Epidemblob.Exists()) return;
+            Epidemblob.Create(0x40000); //256 pages for development, later need to increase this to fill whole blob
+            Epidemblob.FetchAttributes();
+            Epidemblob.Metadata.Add("nextindex", "0x20000");//start of epidem
+            // Epidemblob.Metadata["startoffset"] = "0x120";
+            //constant 100 years =36500 days X 4 bytes. 90 years = 256 pages 128 days per page.
+            //make epoch 1/1/2015
+            Epidemblob.Properties.ContentEncoding = "application/octet-stream";
+            Epidemblob.SetMetadata();
+            Epidemblob.SetProperties();
+        }
+
 
         public static void SaveEpidemiology(CloudStorageAccount ghgAccount, string qnnee)
         {
@@ -115,33 +58,157 @@ namespace ConsoleApp
             Array.Resize(ref epiData, epiData.Length + grow);
             var epipagesCount = epiData.Length / 512;
 
-//get the index and update it for future
+            //get the index and update it for future
             Epidemblob.FetchAttributes();
-            var pos = Convert.ToInt32(Epidemblob.Metadata["nextindex"], 16);         
-            Epidemblob.Metadata["nextindex"] =  String.Format("{0:x4}", pos + epipagesCount);
+            var pos = Convert.ToInt32(Epidemblob.Metadata["nextindex"], 16);
+            Epidemblob.Metadata["nextindex"] = String.Format("{0:x4}", pos + epipagesCount);
 
-//update the epidemiology blob lookup table 
-//lookup table occupies 256 pages = 256*128 days = 89 years
-//epidemiology update is a scheduled task at midnight so doesnt need special processing requred for manual data
-            var days = (DateTime.Now.Subtract(new DateTime(2015,1,1))).Days;
-            var lookupPage = days/128;
-            var lookupPos= days%128;
+            //update the epidemiology blob lookup table 
+            //lookup table occupies 256 pages = 256*128 days = 89 years
+            //epidemiology update is a scheduled task at midnight so doesnt need special processing requred for manual data
+            var days = (DateTime.Now.Subtract(new DateTime(2015, 1, 1))).Days;
+            var lookupPage = days / 128;
+            var lookupPos = days % 128;
             var lookupBuf = new byte[512];
 
-            var epidDataOffset = 256*128*4;//bytes (32768 UInt32's)
-          
-           var lookupStream = Epidemblob.OpenRead();
-            lookupStream.Seek(lookupPage*512,SeekOrigin.Begin);//go to the lookup page start of page boundary
-            lookupStream.Read(lookupBuf,0,512); // get the current lookup page
+            var epidDataOffset = 256 * 128 * 4;//bytes (32768 UInt32's)
+
+            var lookupStream = Epidemblob.OpenRead();
+            lookupStream.Seek(lookupPage * 512, SeekOrigin.Begin);//go to the lookup page start of page boundary
+            lookupStream.Read(lookupBuf, 0, 512); // get the current lookup page
             var memoryStream = new MemoryStream(lookupBuf);//use a memorystream for editing
-            memoryStream.Seek(lookupPos,SeekOrigin.Begin);
+            memoryStream.Seek(lookupPos, SeekOrigin.Begin);
             //go to byte offset and replace the 4 byte page address to lookup data
-           // memoryStream.Write(epiData,0,);
+            // memoryStream.Write(epiData,0,);
 
         }
 
-        //its only the writing metadata that needs concurrency protection
-        //all other reads and writes involve overlapping pages which allows concurrent read / write
+        //set epidemiology - index for date offset from 1/1/2015 == 0 spanning 256 pages of 4 bytes per day 
+        //storing 32 bit end page data ie 32 bits for each day (89 years)
+        //? recycle after that as circular buffer modulo 32768
+        //Epidemilogy is stored per QNE (epidemiolgy) blob in a globally shared storage account, epidem     
+        //container accessed daily by a single writer so there is no concurrency problem
+        public static string StoreEpidemiology(CloudStorageAccount csa, string qnnee, DateTime dt, string epidjson)
+        {
+            SetupEpidemStorage(csa, qnnee);
+            const int skiplookup = 10 * 512; //(10 testing)  256*512 = 90 years for real
+            var bytes = Encoding.UTF8.GetBytes(epidjson);
+            var grow = (512 - bytes.Length % 512);
+            Array.Resize(ref bytes, bytes.Length + grow);
+
+            var dateoffset = (dt - new DateTime(2015, 1, 1)).Days;
+
+            var lookupByteoffset = (int)dateoffset % 128;
+            var lookupPage = (int)dateoffset / 128;
+
+
+
+            using (var stream = new MemoryStream(bytes))
+                AzureStorage.Epidemblob.WritePages(stream, lookupPage * 512);
+
+            var ndx = "";
+
+            Epidemblob.FetchAttributes();
+            var p = Convert.ToInt32(Epidemblob.Metadata["nextindex"], 16);
+            var pnext = p + (bytes.Length / 512) + 1;
+            Epidemblob.Metadata["nextindex"] = String.Format("{0:x}", pnext);
+
+            using (var ms = new MemoryStream(bytes))
+            {
+                Epidemblob.WritePages(ms, p * 512 + skiplookup);
+            }
+
+            var day = (DateTime.Today - new DateTime(2015, 1, 1)).Days;
+            var drow = day / 128;
+            var dcol = day % 128;
+            var barr = new byte[512];
+            const uint n = 326;
+
+            using (var stm = Epidemblob.OpenRead())
+            {
+                stm.Seek(drow * 512, SeekOrigin.Begin);
+                stm.Read(barr, 0, 512);
+            }
+
+            using (var ms1 = new MemoryStream(barr))
+            {
+                ms1.Seek(dcol * 4, SeekOrigin.Begin);
+                ms1.Write(BitConverter.GetBytes(n), 0, 4);
+                ms1.Seek(0, SeekOrigin.Begin);
+                Epidemblob.WritePages(ms1, drow * 512);
+            }
+            p += 1;
+            ndx = String.Format("{0:x6}", p);
+            Epidemblob.Metadata["nextindex"] = ndx;
+            Epidemblob.SetMetadata();
+            return ndx;
+        }
+  
+
+    }
+
+    public static class AzureStorage
+    {
+
+         public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
+        //public static CloudStorageAccount Csa = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+
+        public static CloudPageBlob Patientblob, Populationblob, Imageblob, Loaderblob, Epidemblob;
+
+        //public static string Container { get; set; }
+
+
+//one time setup. Must not be changed or data will be lost ("nextindex" must not b reset)
+        public static void AdminSetupGhGstorage(CloudStorageAccount account, string qnnee)
+        {
+            var container = account.CreateCloudBlobClient().GetContainerReference(qnnee);
+            container.CreateIfNotExists();
+            Patientblob = container.GetPageBlobReference("p");
+            if (!Patientblob.Exists())
+            {
+                Patientblob.Create(0xa000); //for development need to increase to terabyte for prod        
+                Patientblob.FetchAttributes();
+                Patientblob.Metadata.Add("nextindex",String.Format("{0:x4}", 0));
+                Patientblob.Properties.ContentEncoding = "application/octet-stream";
+                Patientblob.SetMetadata();
+                Patientblob.SetProperties();
+            }
+
+            Populationblob = container.GetPageBlobReference("m");
+            if (!Populationblob.Exists())
+            {
+                Populationblob.Create(0xa000); //for development need to increase to 0x800000 X number of patient blobs
+                Populationblob.FetchAttributes();
+                Populationblob.Metadata.Add("nextindex",String.Format("{0:x4}", 0));
+                Populationblob.Properties.ContentEncoding = "application/octet-stream";
+                Populationblob.SetMetadata();
+                Populationblob.SetProperties();
+            }
+
+            Imageblob = container.GetPageBlobReference("i");
+            if (!Imageblob.Exists())
+            {
+                Imageblob.Create(0xa000); //for development need to increase to terabyte for release
+                Imageblob.FetchAttributes();
+                Imageblob.Metadata.Add("nextindex",String.Format("{0:x4}", 4095));//need millions for release
+                Imageblob.Properties.ContentEncoding = "application/octet-stream";
+                Imageblob.SetMetadata();
+                Imageblob.SetProperties();
+            }
+
+            Loaderblob = container.GetPageBlobReference("l");
+            if (Loaderblob.Exists()) return;
+            Loaderblob.Create(0xa000); //need to increase in production 2^32 4 gigs = 1 million * 4 pages
+            Loaderblob.FetchAttributes();
+            Loaderblob.Metadata.Add("nextindex", String.Format("{0:x4}", -1));
+            Loaderblob.Properties.ContentEncoding = "application/octet-stream";
+            Loaderblob.SetMetadata();
+            Loaderblob.SetProperties();
+        }
+        
+
+
+
 
         /// <summary>
         /// sets loader index string , loader record is fixed length 2048 bytes
@@ -194,61 +261,13 @@ namespace ConsoleApp
         return ndx;
         }
 
-        //set epidemiology - index for date offset from 1/1/2015 == 0 spanning 512 pages of 8 bytes per day 
-        //storing 32 bit page offset for start and end page data ie 64 bits for each day (89 years)
-        //? recycle after that as circular buffer modulo 
-        //Epidemilogy is stored per QNE (epidemiolgy) blob in a globally shared storage account, epidem     
-        //container accessed daily by a single writer so there is no concurrency problem
-        public static string StoreEpidemiology(CloudStorageAccount csa, string qne, DateTime dt,string epidjson)
-        {
-            var cbc = csa.CreateCloudBlobClient();
-            cbc.GetContainerReference(qne);
-            var cloudPageBlob = Epidemblob;
-
-
-            var bb = Encoding.UTF8.GetBytes(epidjson);
-            var grow = (bb.Length % 512);
-            Array.Resize(ref bb,bb.Length+grow);
-
-            var dateoffset = (dt - new DateTime(2015, 1, 1)).Days;
-            var datecol = (int)dateoffset/64;
-            var daterow = (int)dateoffset%64;
-            using (var ms = new MemoryStream(bb)) Epidemblob.WritePages(ms,daterow * 512);
-            
-           
-            
-            var ndx = "";
-            Epidemblob.FetchAttributes();
-            var p = Convert.ToInt32(Epidemblob.Metadata["nextindex"], 16);
-            var pnext = p + (bb.Length / 512) + 1;
-            Epidemblob.Metadata["nextindex"] = String.Format("{0:x}", pnext);
-           // var etag = Epidemblob.Properties.ETag;     
-           // data starts at 1<<18  (262144) byte offset
-            using (MemoryStream ms = new MemoryStream(Epidemblob.UploadFromByteArray(bb)));
-            Epidemblob.UploadFromByteArray(bb,0,bb.Length);
-
-            p += 1;
-            ndx = String.Format("{0:x6}", p);
-            Epidemblob.Metadata["nextindex"] = ndx;
-            try
-            {
-                Epidemblob.SetMetadata(accessCondition: AccessCondition.GenerateIfMatchCondition(etag));
-            }
-            catch (StorageException ex)
-            {
-                if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.PreconditionFailed) ndx = "";
-            }
-            return ndx;  
-        }
-
+      
         //set population management index / next patient index
         //search / list loaders
         //search / list patients
         //search epidemiolgy date range
         //save image and return the image location to patient blob
         //save epidemiology data and record the location in epidemiology date list.
-
-
 
         /// <summary>
         /// registers a new loader
@@ -303,14 +322,18 @@ namespace ConsoleApp
 
     }
 
+
+       
     }
 
     public class Test
     {
         public static void Main()
-        {
-            var s = String.Format("{0:x8}", 268435457);
-            Console.WriteLine(s);
+        { 
+           // AzureStorage.SetupEpidemStorage(AzureStorage.Csa, "21f29");
+            AzureEpidemiolgy.StoreEpidemiology(AzureStorage.Csa, "21f29", DateTime.Today, "Testing testing testing 123444");
+            //var s = String.Format("{0:x8}", 268435457);
+           
             Console.ReadLine();
         }
 
@@ -319,7 +342,7 @@ namespace ConsoleApp
 
 //Console.WriteLine(Encoding.UTF8.GetString(AzureStorage.Testmem(4,7)));
 //Console.Write(AzureStorage.Testmem1().ToString());            
-          // AzureStorage.SetupGhGstorage(AzureStorage.Csa, "21f29");
+          // AzureStorage.AdminSetupGhGstorage(AzureStorage.Csa, "21f29");
 
           //  for(var i=0;i<50;i++)
            // Console.WriteLine(AzureStorage.SetNextLoaderIndex());
