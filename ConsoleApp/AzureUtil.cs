@@ -104,7 +104,7 @@ namespace ConsoleApp
 
 
             using (var stream = new MemoryStream(bytes))
-                AzureStorage.Epidemblob.WritePages(stream, lookupPage * 512);
+                AzureEpidemiolgy.Epidemblob.WritePages(stream, lookupPage * 512);
 
             var ndx = "";
 
@@ -147,13 +147,15 @@ namespace ConsoleApp
 
     }
 
-    public static class AzureStorage
+    public static class AzureEhealth
     {
 
-         public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
-        //public static CloudStorageAccount Csa = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+        public static string Account { get; set; }
+        
+       // public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
+       public static CloudStorageAccount Csa = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(Account));
 
-        public static CloudPageBlob Patientblob, Populationblob, Imageblob, Loaderblob, Epidemblob;
+        public static CloudPageBlob Patientblob, Populationblob, Imageblob, Loaderblob;
 
         //public static string Container { get; set; }
 
@@ -276,6 +278,7 @@ namespace ConsoleApp
         /// <returns>string index</returns>
         public static string RegisterNewLoader(string json)
         {
+            Account = "GHGConnetionString";
             var bytes = Encoding.UTF8.GetBytes(json);
             var grow = (512 - bytes.Length % 512);
             Array.Resize(ref bytes, bytes.Length + grow);
@@ -330,8 +333,8 @@ namespace ConsoleApp
     {
         public static void Main()
         { 
-           // AzureStorage.SetupEpidemStorage(AzureStorage.Csa, "21f29");
-            AzureEpidemiolgy.StoreEpidemiology(AzureStorage.Csa, "21f29", DateTime.Today, "Testing testing testing 123444");
+           // AzureEhealth.SetupEpidemStorage(AzureEhealth.Csa, "21f29");
+            AzureEpidemiolgy.StoreEpidemiology(AzureEhealth.Csa, "21f29", DateTime.Today, "Testing testing testing 123444");
             //var s = String.Format("{0:x8}", 268435457);
            
             Console.ReadLine();
@@ -340,12 +343,12 @@ namespace ConsoleApp
    
     }
 
-//Console.WriteLine(Encoding.UTF8.GetString(AzureStorage.Testmem(4,7)));
-//Console.Write(AzureStorage.Testmem1().ToString());            
-          // AzureStorage.AdminSetupGhGstorage(AzureStorage.Csa, "21f29");
+//Console.WriteLine(Encoding.UTF8.GetString(AzureEhealth.Testmem(4,7)));
+//Console.Write(AzureEhealth.Testmem1().ToString());            
+          // AzureEhealth.AdminSetupGhGstorage(AzureEhealth.Csa, "21f29");
 
           //  for(var i=0;i<50;i++)
-           // Console.WriteLine(AzureStorage.SetNextLoaderIndex());
+           // Console.WriteLine(AzureEhealth.SetNextLoaderIndex());
 
           //  Console.ReadLine();
 
@@ -356,8 +359,8 @@ namespace ConsoleApp
 
             //var json = Newtonsoft.Json.JsonConvert.SerializeObject(sarr);
 
-            //var s = AzureStorage.RegisterNewLoader(json);
-            //var t = AzureStorage.RegisterNewLoader(json);
+            //var s = AzureEhealth.RegisterNewLoader(json);
+            //var t = AzureEhealth.RegisterNewLoader(json);
             /*
             Console.WriteLine(QneUtils.Timezone("1aa0a"));
             Console.WriteLine(QneUtils.Timezone("1aa1a"));
