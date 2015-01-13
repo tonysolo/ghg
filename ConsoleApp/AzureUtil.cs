@@ -149,7 +149,6 @@ namespace ConsoleApp
 
     public static class AzureEhealth
     {
-
         public static string Account { get; set; }
         
        // public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
@@ -215,15 +214,13 @@ namespace ConsoleApp
         /// <summary>
         /// sets loader index string , loader record is fixed length 2048 bytes
         /// </summary>
-        /// <returns>string</returns>
-        public static string SetNextLoaderIndex()
+        /// <returns>int</returns>//-1 == fail
+        public static int SetNextLoaderIndex()
         {
-            //var ndx = "";
             Loaderblob.FetchAttributes();
             var etag = Loaderblob.Properties.ETag;       
             var p = Convert.ToInt32(Loaderblob.Metadata["nextindex"], 16);
-           // p += 1;
-            var ndx = String.Format("{0:x6}", p+=1);
+            var ndx = String.Format("{0:x6}", p += 1;
             Loaderblob.Metadata["nextindex"] = ndx;    
             try
             {
@@ -231,9 +228,9 @@ namespace ConsoleApp
             }
             catch (StorageException ex)
             {
-                if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.PreconditionFailed) ndx = "";
+                if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.PreconditionFailed) p = -1;
             }
-            return ndx;
+            return p;
         }
 
         //population management blob and patient blob share the same index but much longer record in patient blob and 
@@ -276,17 +273,17 @@ namespace ConsoleApp
         /// </summary>
         /// <param name="json"></param>
         /// <returns>string index</returns>
-        public static string RegisterNewLoader(string json)
+        public static int RegisterNewLoader(string json)
         {
             Account = "GHGConnetionString";
             var bytes = Encoding.UTF8.GetBytes(json);
             var grow = (512 - bytes.Length % 512);
             Array.Resize(ref bytes, bytes.Length + grow);
             var s = SetNextLoaderIndex();
-            if (s == "") return s;
-            var p = Convert.ToInt32(s, 16);
+            if (s == -1) return s;
+           // var p = Convert.ToInt32(s, 16);
             var ms = new MemoryStream(bytes);
-            var start = p << 10;
+            var start = s << 10;
             Loaderblob.WritePages(ms, start);
             return s;
         }
