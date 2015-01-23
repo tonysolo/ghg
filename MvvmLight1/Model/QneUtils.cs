@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace MvvmLight1.Model
 {
@@ -215,6 +216,39 @@ namespace MvvmLight1.Model
         {
             string qne = to_qnnneee(decdeg);
             return Boundary(qne);
+        }
+
+        public static void MoveN(ref string qnnee)
+        {          
+          var ns = Convert.ToByte(qnnee.Substring(1, 2), 16);
+          var q = Convert.ToByte(qnnee.Substring(0, 1), 16);
+          var north = (q & 0x02)==0;
+            if (north)
+            {
+                if (ns < 127) 
+                ns ++;
+            }
+            else
+            {
+                ns --;
+                if (ns < 0)
+                {
+                    ns = 0;
+                    // SetSouth q= q&&xxx
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.Append(q);
+            sb.Append(ns.ToString());
+            sb.Append(qnnee.Substring(3, 2));
+            //qnnee[0] = q;
+        }
+                
+           
+            {  
+            
+                nn += 1;
+            }
         }
 
         ///<Summary>
