@@ -220,7 +220,7 @@ namespace ConsoleApp
             Loaderblob.FetchAttributes();
             var etag = Loaderblob.Properties.ETag;       
             var p = Convert.ToInt32(Loaderblob.Metadata["nextindex"], 16);
-            var ndx = String.Format("{0:x6}", p += 1;
+            var ndx = String.Format("{0:x6}", p += 1);
             Loaderblob.Metadata["nextindex"] = ndx;    
             try
             {
