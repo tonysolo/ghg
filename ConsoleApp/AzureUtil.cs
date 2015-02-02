@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Windows.Markup;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -10,12 +12,28 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace ConsoleApp
 {
-    public static class AzureEpidemiolgy
+    public static class AzureGhgStorage
     {
         public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
         //public static CloudStorageAccount Csa = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
-        public static CloudPageBlob Epidemblob;
 
+        public static string GetCountryList()
+        {
+            var ghgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            var container = ghgAccount.CreateCloudBlobClient().GetContainerReference("countries");
+            var cbc = container.GetBlockBlobReference("countries.txt");
+            return cbc.DownloadText(Encoding.UTF8);           
+        }
+
+        public static string GetCountry(string country)
+        {
+            var ghgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            var container = ghgAccount.CreateCloudBlobClient().GetContainerReference("countries");
+            var cbc = container.GetBlockBlobReference(country+".txt");
+            return cbc.DownloadText(Encoding.UTF8);
+        }
+
+        public static CloudPageBlob Epidemblob;
         /*
                  * epidemiology needs users to upload to a storage queue for processing at midnight for the timezone.
                  * It is shared data so its value depends on combining.
@@ -104,7 +122,7 @@ namespace ConsoleApp
 
 
             using (var stream = new MemoryStream(bytes))
-                AzureEpidemiolgy.Epidemblob.WritePages(stream, lookupPage * 512);
+                AzureGhgStorage.Epidemblob.WritePages(stream, lookupPage * 512);
 
             var ndx = "";
 
@@ -331,10 +349,19 @@ namespace ConsoleApp
         public static void Main()
         { 
            // AzureEhealth.SetupEpidemStorage(AzureEhealth.Csa, "21f29");
-            AzureEpidemiolgy.StoreEpidemiology(AzureEhealth.Csa, "21f29", DateTime.Today, "Testing testing testing 123444");
+           // AzureGhgStorage.StoreEpidemiology(AzureEhealth.Csa, "21f29", DateTime.Today, "Testing testing testing 123444");
             //var s = String.Format("{0:x8}", 268435457);
-           
+           // Console.WriteLine();
+           var s = AzureGhgStorage.GetCountryList().Split(',');
+            Console.WriteLine("Test");
+            foreach (var t in s)
+                Console.WriteLine(t);
             Console.ReadLine();
+            s = AzureGhgStorage.GetCountry("gb").Split(',');
+            Console.WriteLine("Test1");
+ foreach (var t in s)
+                Console.WriteLine(t);
+Console.ReadLine();
         }
 
    

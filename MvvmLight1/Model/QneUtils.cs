@@ -5,7 +5,6 @@ namespace MvvmLight1.Model
 {
     public static class QneUtils
     {
-
         /// <summary>
         /// Converts decimal degrees string to district level (7) qnnneee
         /// </summary>

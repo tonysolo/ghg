@@ -22,7 +22,7 @@ namespace MvvmLight1.ViewModel
         public static int CountryIndex { get; set; }
         public static string[] CountryShortNames
         {
-            get { return Userdata.GetCountryShortNames(); }
+            get { return Userdata.CountryNames; }
         }
         public string Country { get; set; }
         public static string[] Providers
@@ -74,7 +74,7 @@ namespace MvvmLight1.ViewModel
 
         public void GetRegions()
         {
-            Userdata.DownloadRegions(CountryShortNames[CountryIndex]);//(Userdata.SelectedCountryShortName);
+            Userdata.GetRegions(CountryShortNames[CountryIndex]);//(Userdata.SelectedCountryShortName);
             RegionNames = Userdata.Regions;
             RaisePropertyChanged("RegionNames");
             RegionIndex = 0;

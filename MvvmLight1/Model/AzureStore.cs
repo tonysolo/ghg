@@ -1,8 +1,18 @@
-﻿//namespace MvvmLight1.Model
-//{
-  // public static class AzureStorage
-  // {
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+
+namespace MvvmLight1.Model
+{
+   public static class AzureStorage
+   {
       
+ 
        //public static string Loaderid { get; set; }
 
     //   public static void SetupAzureAccount()
@@ -103,5 +113,5 @@
        //   static UInt32 LoaderCount(string qnnee) //devstor for dev
     //   { 
     // CloudStorageAccount.
-     //  }
- //   }
+     }
+  }
