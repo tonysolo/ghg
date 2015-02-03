@@ -20,11 +20,13 @@ namespace MvvmLight1.ViewModel
         public string[] RegionNames { get; set; }
         public static int RegionIndex { get; set; }
         public static int CountryIndex { get; set; }
+
         public static string[] CountryShortNames
         {
             get { return Userdata.CountryNames; }
         }
         public string Country { get; set; }
+
         public static string[] Providers
         {
             get { return Enum.GetNames(typeof(Model.Providers)); }
@@ -67,18 +69,24 @@ namespace MvvmLight1.ViewModel
 
         public void ShowMapDlg()
         {
+            Userdata.Selectedcountryindex = CountryIndex; 
             Userdata.SelectedQnnee = RegionNames[RegionIndex];
+            RaisePropertyChanged("RegionIndex");
+            RaisePropertyChanged("CountryIndex");
             var v = new MapV();
             v.ShowDialog();
         }
 
         public void GetRegions()
         {
-           // Userdata.LoadRegions();Regio(CountryShortNames[CountryIndex]);
+            Userdata.Selectedcountryindex = CountryIndex;
+            Userdata.LoadRegions();//Regio(CountryShortNames[CountryIndex]);
             RegionNames = Userdata.Regions;
-            RaisePropertyChanged("RegionNames");
-            RegionIndex = 0;
+            RegionIndex = 1;
+            RaisePropertyChanged("SelectedIndex");
+            RaisePropertyChanged("RegionNames");      
             RaisePropertyChanged("RegionIndex");
+            RaisePropertyChanged("CountryIndex");
             //return Userdata.;
         }
 
