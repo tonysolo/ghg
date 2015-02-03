@@ -74,7 +74,7 @@ namespace MvvmLight1.ViewModel
 
         public void GetRegions()
         {
-            Userdata.GetRegions(CountryShortNames[CountryIndex]);//(Userdata.SelectedCountryShortName);
+           // Userdata.LoadRegions();Regio(CountryShortNames[CountryIndex]);
             RegionNames = Userdata.Regions;
             RaisePropertyChanged("RegionNames");
             RegionIndex = 0;

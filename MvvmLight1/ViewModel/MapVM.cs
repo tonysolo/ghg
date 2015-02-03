@@ -95,7 +95,7 @@ namespace MvvmLight1.ViewModel
             MoveRegionEast = new RelayCommand(RegionEast);
             MoveRegionWest = new RelayCommand(RegionWest);
             MoveRegionSouth = new RelayCommand(RegionSouth);
-            RegionSouth();
+            //RegionSouth();
             RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Centre");
             RaisePropertyChanged("Boundary");

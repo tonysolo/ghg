@@ -5,6 +5,7 @@ using System.Windows;
 //using System.Configuration;
 //using Microsoft.WindowsAzure.Storage;
 //using Microsoft.WindowsAzure.Storage.Table;
+using MvvmLight1.Model;
 
 
 namespace MvvmLight1.ViewModel
@@ -51,26 +52,27 @@ namespace MvvmLight1.ViewModel
 
 
 
-        private void ShowMapDlg()
+        private static void ShowMapDlg()
         {
             var v = new MapV();
             v.ShowDialog();
             
         }
 
-        private void ShowEpidemiologyDlg()
+        private static void ShowEpidemiologyDlg()
         {
             var v = new EpidemV();
             v.ShowDialog();
         }
 
-        private void ShowLoaderDlg()
+        private static void ShowLoaderDlg()
         {
+            //Userdata.LoadCountryNames();
             var v = new LoaderV();
             v.ShowDialog();
         }
 
-        private void ShowEhealthDlg()
+        private static void ShowEhealthDlg()
         {
             var v = new EHealthV();
             v.ShowDialog();
@@ -162,7 +164,7 @@ namespace MvvmLight1.ViewModel
         {
             SetupRelayCommands();
             IsRegistered = true;
-
+            Userdata.LoadCountryNames();
 
             Qnnee = Model.QneUtils.to_qnnee("-26.20,28.04");
 
@@ -226,9 +228,6 @@ namespace MvvmLight1.ViewModel
       }
   }
   */
-/// <summary>
-/// Initializes a new instance of the MainViewModel class.
-/// </summary>
 /*        public MainVM(IDataService dataService)
         {
             SetupRelayCommands();

@@ -21,87 +21,27 @@ namespace MvvmLight1.Model
         public static string CentreRegion { get; set; }
         public static string[] Regions { get; private set; }
         public static string SelectedQnnee { get; set; }
-        private static int _selectedcountryindex;
+        public static int Selectedcountryindex;
+        public static int Selectedregionindex;
+        private static CloudBlobContainer _container;
 
-        private static void LoadCountryNames(string str)
+        public static void LoadCountryNames()
         {
-            _selectedcountryindex = 0;
-            CountryNames = str.Split(',');
-            Country = CountryNames[_selectedcountryindex];
+            _container = GhgAccount.CreateCloudBlobClient().GetContainerReference("countries");
+            var blob = _container.GetBlockBlobReference("countries.txt");
+            var countries = blob.DownloadText();
+            CountryNames = countries.Split(',');
+            Selectedcountryindex = -1;
+           
         }
 
-        // public static CloudBlobContainer Container { get; set; }
-
-
-        //public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
-
-
-        // public static string[] GetCountryShortNames()
-        // {
-        // var ghgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
-
-        //  }
-
-        public static void GetRegions(string country)
+        public static void LoadRegions()
         {
-
-            // var ghgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
-            var container = GhgAccount.CreateCloudBlobClient().GetContainerReference("countries");
-            var blob = container.GetBlockBlobReference("za.txt");
-            var regions = blob.DownloadText();
-            Regions = regions.Split(',');
-            //var sarr = str.Split(',');
-
-            //        Int16 nn = 0;
-            //        Int16 ee = 0;
-            //         var q = 0;
-            //        foreach (var qne in sarr)
-            //     {
-            //           q = Convert.ToInt16(qne.Substring(0, 1), 16);
-            //           nn += Convert.ToInt16(qne.Substring(1, 2), 16);
-            //          ee += Convert.ToInt16(qne.Substring(3, 2), 16);
-            //     }
-            //    nn /= (Int16)Regions.Length;
-            //    ee /= (Int16)Regions.Length;
-            //   CentreRegion = String.Format("{0:x1}{1:x2}{2:x2}", q, nn, ee);
+            if (Selectedcountryindex <= -1) return;
+            var blob = _container.GetBlockBlobReference(CountryNames[Selectedcountryindex] + ".txt");
+            Regions = blob.DownloadText(Encoding.UTF8).Split(',');
+            Selectedregionindex = -1;
         }
-
-
-        //       public static string[] GetCountryShortNames()
-        //       {
-        //using (var reader = File.OpenText(@"c:\azure\countries.txt"))
-        //               return reader.ReadToEnd().Split(',');
-        //AzureStorage.DevelopmentContainers();
-        //var cdc = AzureUtil.CountryNames();
-        //   DevelopmentContainers().
-        //   GetEnumerator().
-        //   Current.
-        //  GetPageBlobReference("l");                    
-        //        }
-
-
-        // public static void DownloadRegions(string countrycode) //selected countrycode
-        // {
-        //      if (countrycode.Length != 2) return;
-        //       var s = (countrycode + ".txt").ToLower();
-        //       s = @"c:\azure\" + s;
-        //       using (var reader = File.OpenText(s))
-        //           Regions = reader.ReadToEnd().Split(',');
-        //
-        //         Int16 nn = 0;
-        //        Int16 ee = 0;
-        //         var q = 0;
-        //        foreach (var qne in Regions)
-        //      {
-        //           q = Convert.ToInt16(qne.Substring(0, 1), 16);
-        //          nn += Convert.ToInt16(qne.Substring(1, 2), 16);
-        //        ee += Convert.ToInt16(qne.Substring(3, 2), 16);
-        //     }
-        //  nn /= (Int16)Regions.Length;
-        //    ee /= (Int16)Regions.Length;
-        //    CentreRegion = String.Format("{0:x1}{1:x2}{2:x2}", q, nn, ee);
-        // }
-
 
         public static bool Isvalid(string qnnee)
         {
