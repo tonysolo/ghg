@@ -32,8 +32,8 @@ namespace MvvmLight1.ViewModel
 
     public class MainVm : ViewModelBase
     {
-        
-       
+
+
 
         public bool IsRegistered
         {
@@ -41,7 +41,7 @@ namespace MvvmLight1.ViewModel
             set { Model.Settings.Registered = value; }
         }
 
- 
+
 
 
         private void ShowMesg()
@@ -56,7 +56,7 @@ namespace MvvmLight1.ViewModel
         {
             var v = new MapV();
             v.ShowDialog();
-            
+
         }
 
         private static void ShowEpidemiologyDlg()
@@ -79,64 +79,64 @@ namespace MvvmLight1.ViewModel
         }
 
 
-//       public string Centre { get; private set; }
-//       public string Boundary { get; private set; }
+        //       public string Centre { get; private set; }
+        //       public string Boundary { get; private set; }
         public string Qnnee { get; private set; }
         public string Qnnneee { get; private set; }
 
-/*
-        private void RegionNorth()
-        { 
-            Qnnee = QneUtils.MoveNsew(Qnnee, 'n');
-           // Centre = Model.QneUtils.CentrePoint(Qnnee);
-           // Boundary = Model.QneUtils.Boundary(Qnnee); 
-         // RaisePropertyChanged("Qnnee");
-           // RaisePropertyChanged("Boundary");
-           //  RaisePropertyChanged("Centre");
+        /*
+                private void RegionNorth()
+                { 
+                    Qnnee = QneUtils.MoveNsew(Qnnee, 'n');
+                   // Centre = Model.QneUtils.CentrePoint(Qnnee);
+                   // Boundary = Model.QneUtils.Boundary(Qnnee); 
+                 // RaisePropertyChanged("Qnnee");
+                   // RaisePropertyChanged("Boundary");
+                   //  RaisePropertyChanged("Centre");
             
   
-        }
+                }
 
-        private void RegionSouth()
-        { 
-            Qnnee = QneUtils.MoveNsew(Qnnee, 's');
-            Centre = Model.QneUtils.CentrePoint(Qnnee);
-            Boundary = Model.QneUtils.Boundary(Qnnee);
-            RaisePropertyChanged("Qnnee");
-             RaisePropertyChanged("Boundary");
-           RaisePropertyChanged("Centre");
-        }
+                private void RegionSouth()
+                { 
+                    Qnnee = QneUtils.MoveNsew(Qnnee, 's');
+                    Centre = Model.QneUtils.CentrePoint(Qnnee);
+                    Boundary = Model.QneUtils.Boundary(Qnnee);
+                    RaisePropertyChanged("Qnnee");
+                     RaisePropertyChanged("Boundary");
+                   RaisePropertyChanged("Centre");
+                }
 
-        private void RegionEast() 
-        {
-            Qnnee = QneUtils.MoveNsew(Qnnee, 'e');
-            Centre = Model.QneUtils.CentrePoint(Qnnee);
-            Boundary = Model.QneUtils.Boundary(Qnnee);
-            RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
+                private void RegionEast() 
+                {
+                    Qnnee = QneUtils.MoveNsew(Qnnee, 'e');
+                    Centre = Model.QneUtils.CentrePoint(Qnnee);
+                    Boundary = Model.QneUtils.Boundary(Qnnee);
+                    RaisePropertyChanged("Qnnee");
+                    RaisePropertyChanged("Boundary");
+                    RaisePropertyChanged("Centre");
             
-        }
+                }
 
-        private void RegionWest() 
-        {
-            Qnnee = QneUtils.MoveNsew(Qnnee, 'w');
-            Centre = Model.QneUtils.CentrePoint(Qnnee);                    
-            Boundary = Model.QneUtils.Boundary(Qnnee);
-            RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");         
- }
+                private void RegionWest() 
+                {
+                    Qnnee = QneUtils.MoveNsew(Qnnee, 'w');
+                    Centre = Model.QneUtils.CentrePoint(Qnnee);                    
+                    Boundary = Model.QneUtils.Boundary(Qnnee);
+                    RaisePropertyChanged("Qnnee");
+                    RaisePropertyChanged("Boundary");
+                    RaisePropertyChanged("Centre");         
+         }
 
-*/
-
-      
+        */
 
 
-      //  public RelayCommand MoveRegionNorth { get; private set; }
-      //  public RelayCommand MoveRegionEast { get; private set; }
-      //  public RelayCommand MoveRegionWest { get; private set; }
-      //  public RelayCommand MoveRegionSouth { get; private set; }
+
+
+        //  public RelayCommand MoveRegionNorth { get; private set; }
+        //  public RelayCommand MoveRegionEast { get; private set; }
+        //  public RelayCommand MoveRegionWest { get; private set; }
+        //  public RelayCommand MoveRegionSouth { get; private set; }
 
         public RelayCommand EditMap { get; private set; }
         public RelayCommand EditEpidemiology { get; private set; }
@@ -150,13 +150,13 @@ namespace MvvmLight1.ViewModel
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             EditLoader = new RelayCommand(ShowLoaderDlg);
             EditEhealth = new RelayCommand(ShowEhealthDlg);
-            
-            
 
-       //     MoveRegionNorth = new RelayCommand(RegionNorth);
-        //    MoveRegionEast = new RelayCommand(RegionEast);
-      //      MoveRegionWest = new RelayCommand(RegionWest);
-       //     MoveRegionSouth = new RelayCommand(RegionSouth);
+
+
+            //     MoveRegionNorth = new RelayCommand(RegionNorth);
+            //    MoveRegionEast = new RelayCommand(RegionEast);
+            //      MoveRegionWest = new RelayCommand(RegionWest);
+            //     MoveRegionSouth = new RelayCommand(RegionSouth);
         }
 
 
@@ -168,8 +168,8 @@ namespace MvvmLight1.ViewModel
 
             Qnnee = Model.QneUtils.to_qnnee("-26.20,28.04");
 
-        //    Centre = Model.QneUtils.CentrePoint(Qnnee);
-       //   Boundary = Model.QneUtils.Boundary(Qnnee);
+            //    Centre = Model.QneUtils.CentrePoint(Qnnee);
+            //   Boundary = Model.QneUtils.Boundary(Qnnee);
         }
 
 

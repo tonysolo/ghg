@@ -78,8 +78,6 @@
                 <Button Content="Conditions"/>
                 <Button Content="Submit" Margin ="50,0,50,0" Command ="{Binding Submit}"/>
 
-
-
             </StackPanel>
 
         </StackPanel>

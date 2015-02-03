@@ -14,8 +14,6 @@ namespace MvvmLight1.ViewModel
 
     public class MapVm : ViewModelBase
     {
-  
-
         public string Centre { get; private set; }
         public string Boundary { get; private set; }
         public string Qnnee { get; private set; }
@@ -23,6 +21,7 @@ namespace MvvmLight1.ViewModel
         public string Fill { get; private set; }
 
        public RelayCommand Search { get; private set; } //to implement patient search in region
+
 
 
         private void RegionNorth()
@@ -89,17 +88,16 @@ namespace MvvmLight1.ViewModel
             // EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             //EditLoader = new RelayCommand(ShowLoaderDlg);
             // EditEhealth = new RelayCommand(ShowEhealthDlg);
-            Qnnee = Userdata.SelectedQnnee;
-            Centre = QneUtils.IndexPoint(Qnnee);
+            
             MoveRegionNorth = new RelayCommand(RegionNorth);
             MoveRegionEast = new RelayCommand(RegionEast);
             MoveRegionWest = new RelayCommand(RegionWest);
             MoveRegionSouth = new RelayCommand(RegionSouth);
             //RegionSouth();
-            RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Fill");
+           // RaisePropertyChanged("Qnnee");
+           // RaisePropertyChanged("Centre");
+          //  RaisePropertyChanged("Boundary");
+          //  RaisePropertyChanged("Fill");
            
         }
 
@@ -109,7 +107,9 @@ namespace MvvmLight1.ViewModel
         /// 
         /// 
         public MapVm()
-        {           
+        {  
+         Qnnee = Userdata.SelectedQnnee;
+            Centre = QneUtils.IndexPoint(Qnnee);
             SetupRelayCommands();
         }
     }

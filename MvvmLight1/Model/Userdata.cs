@@ -22,13 +22,11 @@ namespace MvvmLight1.Model
 
         public static void LoadCountryNames()
         {
-            Container = GhgAccount.CreateCloudBlobClient().GetContainerReference("countries");
-            
+            Container = GhgAccount.CreateCloudBlobClient().GetContainerReference("countries");          
             var blob = Container.GetBlockBlobReference("countries.txt");
             var countries = blob.DownloadText(Encoding.UTF8);
             CountryNames = countries.Split(',');
-            Selectedcountryindex = -1;
-           
+            Selectedcountryindex = -1;          
         }
 
         public static void LoadRegions()

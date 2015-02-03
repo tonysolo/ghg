@@ -5,7 +5,6 @@ using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
 using Newtonsoft.Json;
 
-
 namespace MvvmLight1.ViewModel
 {
     /// <summary>
@@ -20,26 +19,7 @@ namespace MvvmLight1.ViewModel
         public string[] RegionNames { get; set; }
         public static int RegionIndex { get; set; }
         public static int CountryIndex { get; set; }
-
-        public static string[] CountryShortNames
-        {
-            get { return Userdata.CountryNames; }
-        }
         public string Country { get; set; }
-
-        public static string[] Providers
-        {
-            get { return Enum.GetNames(typeof(Model.Providers)); }
-        }
-        public static string[] SecurityQuestions
-        {
-            get { return Model.Settings.Securityquestions; }
-        }
-        public bool Registered
-        {
-            get { return Model.Settings.Registered; }
-            set { Model.Settings.Registered = value; }
-        }
         //stored in loader pageblob // pinoffset set in pageblob and recorded by user
         public int SecurityChoice { get; set; }
         public string SecurityAnswer { get; set; }
@@ -52,6 +32,27 @@ namespace MvvmLight1.ViewModel
         public string RegAurthority { get; set; }
         public string RegNumber { get; set; }
 
+
+        public static string[] CountryShortNames
+        {
+            get { return Userdata.CountryNames; }
+        }
+
+        public static string[] Providers
+        {
+            get { return Enum.GetNames(typeof(Model.Providers)); }
+        }
+
+        public static string[] SecurityQuestions
+        {
+            get { return Model.Settings.Securityquestions; }
+        }
+
+        public bool Registered
+        {
+            get { return Model.Settings.Registered; }
+            set { Model.Settings.Registered = value; }
+        }
 
 
         public void SubmitData()
@@ -69,7 +70,7 @@ namespace MvvmLight1.ViewModel
 
         public void ShowMapDlg()
         {
-            Userdata.Selectedcountryindex = CountryIndex; 
+            Userdata.Selectedcountryindex = CountryIndex;
             Userdata.SelectedQnnee = RegionNames[RegionIndex];
             RaisePropertyChanged("RegionIndex");
             RaisePropertyChanged("CountryIndex");
@@ -84,16 +85,16 @@ namespace MvvmLight1.ViewModel
             RegionNames = Userdata.Regions;
             RegionIndex = 1;
             RaisePropertyChanged("SelectedIndex");
-            RaisePropertyChanged("RegionNames");      
+            RaisePropertyChanged("RegionNames");
             RaisePropertyChanged("RegionIndex");
             RaisePropertyChanged("CountryIndex");
             //return Userdata.;
         }
 
-       // public void RegisterLoader(string[] sarr)
-      //  {
-           // AzureUtil.RegisterLoader(sarr, enc: null);
-       // }
+        // public void RegisterLoader(string[] sarr)
+        //  {
+        // AzureUtil.RegisterLoader(sarr, enc: null);
+        // }
 
         public RelayCommand EditMap { get; set; }
         public RelayCommand Submit { get; set; }
