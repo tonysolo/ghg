@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.WindowsAzure;
@@ -35,7 +36,11 @@ namespace MvvmLight1.Model
             var countryblobname = String.Format(@"{0}{1}",
                 CountryNames[Selectedcountryindex].ToLower(),".txt");          
             var blob = Container.GetBlockBlobReference(countryblobname);
-            var txt = blob.DownloadText(Encoding.UTF8);
+            var ms = new MemoryStream();
+            blob.DownloadToStream(ms);
+            byte[] ba = ms.GetBuffer();
+            var txt = Encoding.UTF8.GetString(ba, 0, ba.Length).Trim('\0');
+            //var txt = blob.DownloadText(Encoding.UTF8);
             Regions = txt.Split(',');
             Selectedregionindex = 0;
         }

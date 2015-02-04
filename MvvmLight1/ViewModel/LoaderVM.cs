@@ -96,9 +96,9 @@ namespace MvvmLight1.ViewModel
         // AzureUtil.RegisterLoader(sarr, enc: null);
         // }
 
-        public RelayCommand EditMap { get; set; }
-        public RelayCommand Submit { get; set; }
-        public RelayCommand LoadRegions { get; set; }
+        public RelayCommand EditMap { get; private set; }
+        public RelayCommand Submit { get; private set; }
+        public RelayCommand LoadRegions { get; private set; }
 
 
         private void SetupRelayCommands()

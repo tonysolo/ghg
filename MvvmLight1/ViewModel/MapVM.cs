@@ -20,85 +20,55 @@ namespace MvvmLight1.ViewModel
         public string Qnnneee { get; private set; }
         public string Fill { get; private set; }
 
-       public RelayCommand Search { get; private set; } //to implement patient search in region
 
+        private void DrawRegion()
+        {
+            Centre = Model.QneUtils.CentrePoint(Qnnee);
+            Boundary = Model.QneUtils.Boundary(Qnnee);
+            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
 
 
         private void RegionNorth()
         {
-            //Qnnee = QneUtils.MoveNsew(Qnnee, 'n');
             Qnnee =  QneUtils.MoveN(Qnnee);
-            Centre = Model.QneUtils.CentrePoint(Qnnee);
-            Boundary = Model.QneUtils.Boundary(Qnnee);
-            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
-            RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("Fill");
+            DrawRegion();
         }
 
         private void RegionSouth()
         {
-           // Qnnee = QneUtils.MoveNsew(Qnnee, 's');
             Qnnee = QneUtils.MoveS(Qnnee);
-            Centre = Model.QneUtils.CentrePoint(Qnnee);
-            Boundary = Model.QneUtils.Boundary(Qnnee);
-            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
-            RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("Fill");
+            DrawRegion();
         }
 
         private void RegionEast()
         {
-           // Qnnee = QneUtils.MoveNsew(Qnnee, 'e');
             Qnnee = QneUtils.MoveE(Qnnee);
-            Centre = Model.QneUtils.CentrePoint(Qnnee);
-            Boundary = Model.QneUtils.Boundary(Qnnee);
-            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
-            RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("Fill");
+            DrawRegion();
         }
 
         private void RegionWest()
         {
-            //Qnnee = QneUtils.MoveNsew(Qnnee, 'w');
             Qnnee = QneUtils.MoveW(Qnnee);
-            Centre = Model.QneUtils.CentrePoint(Qnnee);
-            Boundary = Model.QneUtils.Boundary(Qnnee);
-            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
-            RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("Fill");
+            DrawRegion();
         }
 
-
+        public RelayCommand Search { get; private set; } //to implement patient search in region
         public RelayCommand MoveRegionNorth { get; private set; }
         public RelayCommand MoveRegionEast { get; private set; }
         public RelayCommand MoveRegionWest { get; private set; }
         public RelayCommand MoveRegionSouth { get; private set; }
 
         private void SetupRelayCommands()
-        {
-            // EditMap = new RelayCommand(ShowMapDlg);  // (ShowMapDlg);
-            // EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
-            //EditLoader = new RelayCommand(ShowLoaderDlg);
-            // EditEhealth = new RelayCommand(ShowEhealthDlg);
-            
+        {            
             MoveRegionNorth = new RelayCommand(RegionNorth);
             MoveRegionEast = new RelayCommand(RegionEast);
             MoveRegionWest = new RelayCommand(RegionWest);
             MoveRegionSouth = new RelayCommand(RegionSouth);
-            //RegionSouth();
-           // RaisePropertyChanged("Qnnee");
-           // RaisePropertyChanged("Centre");
-          //  RaisePropertyChanged("Boundary");
-          //  RaisePropertyChanged("Fill");
-           
         }
 
         /// <summary>
