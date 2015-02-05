@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -25,10 +26,19 @@ namespace MvvmLight1.Model
         {
             Container = GhgAccount.CreateCloudBlobClient().GetContainerReference("countries");          
             var blob = Container.GetBlockBlobReference("countries.txt");
-            var countries = blob.DownloadText(Encoding.UTF8);
-            CountryNames = countries.Split(',');
+            var ms = new MemoryStream();
+           // blob.
+            blob.DownloadToStream(ms);
+            var ba = ms.GetBuffer();
+            var str = Encoding.UTF8.GetString(ba, 0, ba.Length);
+            str = str.Trim('\0');
+            //var s = blob.DownloadText(Encoding.UTF8);
+            CountryNames = str.Split(',');
+           
             Selectedcountryindex = -1;          
         }
+
+       
 
         public static void LoadRegions()
         {
@@ -36,13 +46,13 @@ namespace MvvmLight1.Model
             var countryblobname = String.Format(@"{0}{1}",
                 CountryNames[Selectedcountryindex].ToLower(),".txt");          
             var blob = Container.GetBlockBlobReference(countryblobname);
+
             var ms = new MemoryStream();
-            blob.DownloadToStream(ms);
-            byte[] ba = ms.GetBuffer();
-            var txt = Encoding.UTF8.GetString(ba, 0, ba.Length).Trim('\0');
-            //var txt = blob.DownloadText(Encoding.UTF8);
-            Regions = txt.Split(',');
-            Selectedregionindex = 0;
+            var ba = ms.GetBuffer();
+            var str = Encoding.UTF8.GetString(ba, 0, ba.Length);
+            str = str.Trim('\0');     
+            Regions = str.Split(',');
+
         }
 
         public static bool Isvalid(string qnnee)
