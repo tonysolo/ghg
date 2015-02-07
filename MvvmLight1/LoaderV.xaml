@@ -14,10 +14,10 @@
         
         DataContext="{Binding Loader, Source={StaticResource Locator}}">
     <Grid>
-
-
         <StackPanel Margin="10,10,5,0">
-            <TextBlock><Run Text="Country            "/><Run Language="en-gb" Text="     "/><Run Text=" Region"/></TextBlock>
+            <TextBlock><Run Text="Country"/>
+                <Run Language="en-gb" Text=""/>
+                <Run Text="          Region"/></TextBlock>
             <DockPanel LastChildFill="True">
                 <Button DockPanel.Dock="Right"                  
                         Width="25"
@@ -26,17 +26,18 @@
                     Command="{Binding EditMap}"
                     />
                 <ComboBox Width="50"
-                          DockPanel.Dock="Left"
+                          DockPanel.Dock="Left"                               
+                          ItemsSource="{Binding CountryShortNames}"
                           SelectedIndex="{Binding CountryIndex}"
-                          ItemsSource="{Binding CountryShortNames}"                        
                           />
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin ="3 0 2 0" Width="25" Command="{Binding LoadRegions}" Content= "&#xE005;"/>
-                    <ComboBox Width="110" Margin =" 2 0 4 0" IsReadOnly="True" 
-                          SelectedIndex="{Binding RegionIndex}"
-                          ItemsSource="{Binding RegionNames}"
-                          />
-
+                    <Button Margin ="3 0 2 0" Width="25" 
+                            Command="{Binding LoadRegions}" Content= "&#xE005;"
+                            IsEnabled="{Binding Loaded}"/>
+                    
+                    <ComboBox Width="68" Margin =" 2 0 4 0" 
+                		SelectedIndex ="{Binding RegionIndex}"
+                		ItemsSource="{Binding RegionNames}"/>
                 </StackPanel>
 
             </DockPanel>

@@ -16,11 +16,11 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     public class LoaderVm : ViewModelBase
     {
-        public string[] RegionNames { get; set; }
-        public static int RegionIndex { get; set; }
-        public static int CountryIndex { get; set; }
-        public string Country { get; set; }
+        public string Region { get; set; }      //qnnee region
+        public string Country { get; set; }     //country short code
+        public string ID { get; set; }
         //stored in loader pageblob // pinoffset set in pageblob and recorded by user
+        public int RegionIndex { get; set; }     //index    
         public int SecurityChoice { get; set; }
         public string SecurityAnswer { get; set; }
         public int ProviderChoice { get; set; }
@@ -31,11 +31,17 @@ namespace MvvmLight1.ViewModel
         public string Email { get; set; }
         public string RegAurthority { get; set; }
         public string RegNumber { get; set; }
+        public bool Loaded { get; set; }
 
 
         public static string[] CountryShortNames
         {
             get { return Userdata.CountryNames; }
+        }
+
+        public string[] RegionNames
+        {
+            get { return Userdata.Regions; }
         }
 
         public static string[] Providers
@@ -58,7 +64,7 @@ namespace MvvmLight1.ViewModel
         public void SubmitData()
         {
             string[] str =
-            {   RegionNames[RegionIndex],
+            {   
                 String.Format("{0:x1}", SecurityChoice),
                 SecurityAnswer,
                 String.Format("{0:x1}", ProviderChoice),
@@ -70,8 +76,8 @@ namespace MvvmLight1.ViewModel
 
         public void ShowMapDlg()
         {
-            Userdata.Selectedcountryindex = CountryIndex;
-            Userdata.SelectedQnnee = RegionNames[RegionIndex];
+           // Userdata.Selectedcountryindex = Country;
+            Userdata.SelectedQnnee = Region;
             RaisePropertyChanged("RegionIndex");
             RaisePropertyChanged("CountryIndex");
             var v = new MapV();
@@ -80,10 +86,14 @@ namespace MvvmLight1.ViewModel
 
         public void GetRegions()
         {
-            Userdata.Selectedcountryindex = CountryIndex;
+           // Userdata.Selectedcountryindex = CountryIndex;
+            Loaded = false;          
             Userdata.LoadRegions();//Regio(CountryShortNames[CountryIndex]);
-            RegionNames = Userdata.Regions;
+            Loaded = true;                   
             RegionIndex = 1;
+            Region = RegionNames[RegionIndex];
+
+            RaisePropertyChanged("Loaded");
             RaisePropertyChanged("SelectedIndex");
             RaisePropertyChanged("RegionNames");
             RaisePropertyChanged("RegionIndex");
@@ -106,6 +116,7 @@ namespace MvvmLight1.ViewModel
             EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);        
             LoadRegions = new RelayCommand(GetRegions);
             Submit = new RelayCommand(SubmitData);
+            Loaded = true;
         }
 
         /// <summary>
@@ -114,6 +125,7 @@ namespace MvvmLight1.ViewModel
         public LoaderVm()
         {
             SetupRelayCommands();
+
         }
     }
 }

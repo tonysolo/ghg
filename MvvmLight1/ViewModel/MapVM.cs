@@ -71,11 +71,7 @@ namespace MvvmLight1.ViewModel
             MoveRegionSouth = new RelayCommand(RegionSouth);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the MapVM class.
-        /// </summary>
-        /// 
-        /// 
+    
         public MapVm()
         {  
          Qnnee = Userdata.SelectedQnnee;
