@@ -9,18 +9,11 @@ namespace MvvmLight1.Model
 {
     public static class Userdata
     {
-        public static CloudStorageAccount GhgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
-
-        public static string Country { get; set; }
+        public static CloudStorageAccount GhgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));      
         public static string[] Regions { get; set; }
-        public static string Region { get; set; }
-        public static string CentreRegion { get; set; }
         public static string SelectedQnnee { get; set; }
-        public static int Selectedcountryindex;
-        public static int Selectedregionindex;
+        public static int Selectedcountryindex;   
         public static CloudBlobContainer Container;
-
-
 
         public static string[] CountryNames
         {
@@ -37,8 +30,7 @@ namespace MvvmLight1.Model
         }
 
 
-
-        public static void LoadRegions()
+        public static void GetRegions()
         {
             var cbc = GhgAccount.CreateCloudBlobClient();
             var container = cbc.GetContainerReference("countries");

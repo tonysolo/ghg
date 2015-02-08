@@ -16,6 +16,7 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     public class LoaderVm : ViewModelBase
     {
+        public int CountryIndex { get; set; }
         public string Region { get; set; }      //qnnee region
         public string Country { get; set; }     //country short code
         public string ID { get; set; }
@@ -41,7 +42,12 @@ namespace MvvmLight1.ViewModel
 
         public string[] RegionNames
         {
-            get { return Userdata.Regions; }
+            get
+            {
+                Userdata.Selectedcountryindex = CountryIndex;
+                return Userdata.Regions;              
+            }
+            // RaisePropertyChanged("RegionIndex");
         }
 
         public static string[] Providers
@@ -76,29 +82,26 @@ namespace MvvmLight1.ViewModel
 
         public void ShowMapDlg()
         {
-           // Userdata.Selectedcountryindex = Country;
+            Userdata.Selectedcountryindex = CountryIndex;
+            Region = RegionNames[RegionIndex];
             Userdata.SelectedQnnee = Region;
             RaisePropertyChanged("RegionIndex");
             RaisePropertyChanged("CountryIndex");
+           
             var v = new MapV();
             v.ShowDialog();
         }
 
         public void GetRegions()
         {
-           // Userdata.Selectedcountryindex = CountryIndex;
+            Userdata.Selectedcountryindex = CountryIndex;
             Loaded = false;          
-            Userdata.LoadRegions();//Regio(CountryShortNames[CountryIndex]);
-            Loaded = true;                   
-            RegionIndex = 1;
-            Region = RegionNames[RegionIndex];
-
-            RaisePropertyChanged("Loaded");
-            RaisePropertyChanged("SelectedIndex");
-            RaisePropertyChanged("RegionNames");
+            Userdata.GetRegions();//Regio(CountryShortNames[CountryIndex]);
+            Loaded = true;                  
+           
             RaisePropertyChanged("RegionIndex");
-            RaisePropertyChanged("CountryIndex");
-            //return Userdata.;
+            RaisePropertyChanged("RegionNames");
+            
         }
 
         // public void RegisterLoader(string[] sarr)
