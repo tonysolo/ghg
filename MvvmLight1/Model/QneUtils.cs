@@ -3,6 +3,7 @@ using System.Text;
 
 namespace MvvmLight1.Model
 {
+    
     public static class QneUtils
     {
         /// <summary>
@@ -242,9 +243,11 @@ namespace MvvmLight1.Model
 
         public static string MoveS(string qnnee)
         {
-            var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-            var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-            var q = Convert.ToByte(qnnee.Substring(0, 1), 16);
+            
+            var ns = Convert.ToInt32(qnnee.Substring(1, 2),fromBase:16);
+            var ew = Convert.ToInt32(qnnee.Substring(3, 2),fromBase:16);
+            var q = Convert.ToInt32(qnnee.Substring(0, 1),fromBase:16);
+
             var south = (q & 0x02) == 2;
             if (south)
             {
