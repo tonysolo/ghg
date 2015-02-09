@@ -132,6 +132,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\MapNav.cs" />
     <Compile Include="Model\MapPoint.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="eHealthV.xaml.cs">

@@ -26,7 +26,7 @@ namespace MvvmLight1.ViewModel
 
         private void RegionNorth()
         {
-            Qnnee =  QneUtils.MoveN(Qnnee);
+            Qnnee = MapNav.MoveN(Qnnee);
             Centre = Model.QneUtils.CentrePoint(Qnnee);
             Boundary = Model.QneUtils.Boundary(Qnnee);
             Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
@@ -39,7 +39,7 @@ namespace MvvmLight1.ViewModel
 
         private void RegionSouth()
         {
-            Qnnee = QneUtils.MoveS(Qnnee);
+            Qnnee = MapNav.MoveS(Qnnee);
             Centre = Model.QneUtils.CentrePoint(Qnnee);
             Boundary = Model.QneUtils.Boundary(Qnnee);
             Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
@@ -52,7 +52,7 @@ namespace MvvmLight1.ViewModel
 
         private void RegionEast()
         {
-            Qnnee = QneUtils.MoveE(Qnnee);
+            Qnnee = MapNav.MoveE(Qnnee);
             Centre = Model.QneUtils.CentrePoint(Qnnee);
             Boundary = Model.QneUtils.Boundary(Qnnee);
             Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
@@ -65,7 +65,7 @@ namespace MvvmLight1.ViewModel
 
         private void RegionWest()
         {
-            Qnnee = QneUtils.MoveW(Qnnee);
+            Qnnee = MapNav.MoveW(Qnnee);
             Centre = Model.QneUtils.CentrePoint(Qnnee);
             Boundary = Model.QneUtils.Boundary(Qnnee);
             Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
