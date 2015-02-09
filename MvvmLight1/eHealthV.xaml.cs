@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace MvvmLight1
+﻿namespace MvvmLight1
 {
     /// <summary>
     /// Description for MvvmView1.

@@ -26,9 +26,9 @@ namespace MvvmLight1.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public string Setting {
+        public bool Setting {
             get {
-                return ((string)(this["Setting"]));
+                return ((bool)(this["Setting"]));
             }
             set {
                 this["Setting"] = value;

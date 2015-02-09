@@ -21,8 +21,12 @@ namespace MvvmLight1.ViewModel
         public string Fill { get; private set; }
 
 
-        private void DrawRegion()
+       
+
+
+        private void RegionNorth()
         {
+            Qnnee =  QneUtils.MoveN(Qnnee);
             Centre = Model.QneUtils.CentrePoint(Qnnee);
             Boundary = Model.QneUtils.Boundary(Qnnee);
             Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
@@ -30,31 +34,46 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Centre");
             RaisePropertyChanged("Fill");
-        }
 
-
-        private void RegionNorth()
-        {
-            Qnnee =  QneUtils.MoveN(Qnnee);
-            DrawRegion();
         }
 
         private void RegionSouth()
         {
             Qnnee = QneUtils.MoveS(Qnnee);
-            DrawRegion();
+            Centre = Model.QneUtils.CentrePoint(Qnnee);
+            Boundary = Model.QneUtils.Boundary(Qnnee);
+            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+
         }
 
         private void RegionEast()
         {
             Qnnee = QneUtils.MoveE(Qnnee);
-            DrawRegion();
+            Centre = Model.QneUtils.CentrePoint(Qnnee);
+            Boundary = Model.QneUtils.Boundary(Qnnee);
+            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+
         }
 
         private void RegionWest()
         {
             Qnnee = QneUtils.MoveW(Qnnee);
-            DrawRegion();
+            Centre = Model.QneUtils.CentrePoint(Qnnee);
+            Boundary = Model.QneUtils.Boundary(Qnnee);
+            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+
         }
 
         public RelayCommand Search { get; private set; } //to implement patient search in region

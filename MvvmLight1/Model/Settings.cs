@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace MvvmLight1.Model
 {
     static class Settings
