@@ -13,7 +13,6 @@ namespace MvvmLight1.Model
         /// <returns>string qnnneee</returns>
         public static string to_qnnneee(string deccoords) //input -23.56,23.79
         {
-
             char[] delim = { ',' };
             var sarr = deccoords.Split(delim);
             var lat = Convert.ToDouble(sarr[0]);
@@ -243,10 +242,19 @@ namespace MvvmLight1.Model
 
         public static string MoveS(string qnnee)
         {
+            var n = new char[2];
+            var e = new char[2];
+            var d = new char[1];
+
+
+            qnnee.CopyTo(0,d,0,1);
+            qnnee.CopyTo(1,n,0,2);
+            qnnee.CopyTo(3,e,0,2);
+
             var str = qnnee.Substring(1, 2);
-            var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-            var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-            var q = Convert.ToByte(qnnee.Substring(0, 1), 16);
+            var ns = Convert.ToInt16(qnnee.ToString().Substring(1, 2), 16);
+            var ew = Convert.ToInt16(qnnee.ToString().Substring(3, 2), 16);
+            var q = Convert.ToByte(qnnee.ToString().Substring(0, 1), 16);
             
             var south = (q & 0x02) == 2;
             if (south)

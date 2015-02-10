@@ -45,10 +45,15 @@ namespace MvvmLight1.Model
                 blob.DownloadToStream(ms);
                 ms.Position = 0;
             }
+            byte[] unib;
             var ba = ms.GetBuffer();
-            var str = Encoding.UTF8.GetString(ba, 0, ba.Length);
-            str = str.Trim('\0');
+            byte[] uniBytes = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, ba);
+
+
+            
+            var str = Encoding.Unicode.GetString(uniBytes);
             Regions = str.Split(',');
+            //var str = Encoding.UTF8.GetString(ba, 0, ba.Length);
         }
 
         public static bool Isvalid(string qnnee)
