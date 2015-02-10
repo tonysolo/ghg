@@ -1,7 +1,7 @@
 ﻿namespace MvvmLight1
 {
     /// <summary>
-    /// Interaction logic for MapV.xaml
+    ///     Interaction logic for MapV.xaml
     /// </summary>
     public partial class MapV
     {

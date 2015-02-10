@@ -1,27 +1,33 @@
-﻿using System.Text;
+﻿using System;
 using GalaSoft.MvvmLight;
-using System;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
-using Newtonsoft.Json;
 
 namespace MvvmLight1.ViewModel
 {
     /// <summary>
-    /// This class contains properties that a View can data bind to.
-    /// Manages things preferences and details for individual loaders / providers that will be stoed in the loader blob
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
+    ///     This class contains properties that a View can data bind to.
+    ///     Manages things preferences and details for individual loaders / providers that will be stoed in the loader blob
+    ///     <para>
+    ///         See http://www.galasoft.ch/mvvm
+    ///     </para>
     /// </summary>
     public class LoaderVm : ViewModelBase
     {
+        /// <summary>
+        ///     Initializes a new instance of the MvvmViewModel1 class.
+        /// </summary>
+        public LoaderVm()
+        {
+            SetupRelayCommands();
+        }
+
         public int CountryIndex { get; set; }
-        public string Region { get; set; }      //qnnee region
-        public string Country { get; set; }     //country short code
+        public string Region { get; set; } //qnnee region
+        public string Country { get; set; } //country short code
         public string ID { get; set; }
         //stored in loader pageblob // pinoffset set in pageblob and recorded by user
-        public int RegionIndex { get; set; }     //index    
+        public int RegionIndex { get; set; } //index    
         public int SecurityChoice { get; set; }
         public string SecurityAnswer { get; set; }
         public int ProviderChoice { get; set; }
@@ -45,32 +51,41 @@ namespace MvvmLight1.ViewModel
             get
             {
                 Userdata.Selectedcountryindex = CountryIndex;
-                return Userdata.Regions;              
+                return Userdata.Regions;
             }
             // RaisePropertyChanged("RegionIndex");
         }
 
         public static string[] Providers
         {
-            get { return Enum.GetNames(typeof(Model.Providers)); }
+            get { return Enum.GetNames(typeof (Providers)); }
         }
 
         public static string[] SecurityQuestions
         {
-            get { return Model.Settings.Securityquestions; }
+            get { return Settings.Securityquestions; }
         }
 
         public bool Registered
         {
-            get { return Model.Settings.Registered; }
-            set { Model.Settings.Registered = value; }
+            get { return Settings.Registered; }
+            set { Settings.Registered = value; }
         }
 
+
+        // public void RegisterLoader(string[] sarr)
+        //  {
+        // AzureUtil.RegisterLoader(sarr, enc: null);
+        // }
+
+        public RelayCommand EditMap { get; private set; }
+        public RelayCommand Submit { get; private set; }
+        public RelayCommand LoadRegions { get; private set; }
 
         public void SubmitData()
         {
             string[] str =
-            {   
+            {
                 String.Format("{0:x1}", SecurityChoice),
                 SecurityAnswer,
                 String.Format("{0:x1}", ProviderChoice),
@@ -87,7 +102,7 @@ namespace MvvmLight1.ViewModel
             Userdata.SelectedQnnee = Region;
             RaisePropertyChanged("RegionIndex");
             RaisePropertyChanged("CountryIndex");
-           
+
             var v = new MapV();
             v.ShowDialog();
         }
@@ -95,23 +110,13 @@ namespace MvvmLight1.ViewModel
         public void GetRegions()
         {
             Userdata.Selectedcountryindex = CountryIndex;
-            Loaded = false;          
-            Userdata.GetRegions();//Regio(CountryShortNames[CountryIndex]);
-            Loaded = true;                  
-           
+            Loaded = false;
+            Userdata.GetRegions(); //Regio(CountryShortNames[CountryIndex]);
+            Loaded = true;
+
             RaisePropertyChanged("RegionIndex");
             RaisePropertyChanged("RegionNames");
-            
         }
-
-        // public void RegisterLoader(string[] sarr)
-        //  {
-        // AzureUtil.RegisterLoader(sarr, enc: null);
-        // }
-
-        public RelayCommand EditMap { get; private set; }
-        public RelayCommand Submit { get; private set; }
-        public RelayCommand LoadRegions { get; private set; }
 
 
         private void SetupRelayCommands()
@@ -120,15 +125,6 @@ namespace MvvmLight1.ViewModel
             LoadRegions = new RelayCommand(GetRegions);
             Submit = new RelayCommand(SubmitData);
             Loaded = true;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the MvvmViewModel1 class.
-        /// </summary>
-        public LoaderVm()
-        {
-            SetupRelayCommands();
-
         }
     }
 }

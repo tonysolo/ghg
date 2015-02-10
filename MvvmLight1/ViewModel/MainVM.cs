@@ -1,21 +1,38 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Windows;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System.Windows;
-
+using MvvmLight1.Model;
 
 namespace MvvmLight1.ViewModel
 {
-   
-
     public class MainVm : ViewModelBase
     {
+        public MainVm()
+        {
+            SetupRelayCommands();
+            IsRegistered = true;
+            // Userdata.LoadCountryNames();
+
+            Qnnee = QneUtils.to_qnnee("-26.20,28.04");
+        }
 
         public bool IsRegistered
         {
-            get { return Model.Settings.Registered; }
-            set { Model.Settings.Registered = value; }
+            get { return Settings.Registered; }
+            set { Settings.Registered = value; }
         }
 
+
+        //       public string Centre { get; private set; }
+        //       public string Boundary { get; private set; }
+        public string Qnnee { get; private set; }
+        public string Qnnneee { get; private set; }
+
+
+        public RelayCommand EditMap { get; private set; }
+        public RelayCommand EditEpidemiology { get; private set; }
+        public RelayCommand EditLoader { get; private set; }
+        public RelayCommand EditEhealth { get; private set; }
 
         private void ShowMesg()
         {
@@ -27,7 +44,6 @@ namespace MvvmLight1.ViewModel
         {
             var v = new MapV();
             v.ShowDialog();
-
         }
 
         private static void ShowEpidemiologyDlg()
@@ -49,42 +65,13 @@ namespace MvvmLight1.ViewModel
             v.ShowDialog();
         }
 
-        //       public string Centre { get; private set; }
-        //       public string Boundary { get; private set; }
-        public string Qnnee { get; private set; }
-        public string Qnnneee { get; private set; }
-
-       
-        public RelayCommand EditMap { get; private set; }
-        public RelayCommand EditEpidemiology { get; private set; }
-        public RelayCommand EditLoader { get; private set; }
-        public RelayCommand EditEhealth { get; private set; }
-
 
         private void SetupRelayCommands()
         {
-            EditMap = new RelayCommand(ShowMapDlg);  // (ShowMapDlg);         
+            EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);         
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             EditLoader = new RelayCommand(ShowLoaderDlg);
-            EditEhealth = new RelayCommand(ShowEhealthDlg);          
+            EditEhealth = new RelayCommand(ShowEhealthDlg);
         }
-
-
-        public MainVm()
-        {
-            SetupRelayCommands();
-            IsRegistered = true;
-           // Userdata.LoadCountryNames();
-
-            Qnnee = Model.QneUtils.to_qnnee("-26.20,28.04");
-
-           
-        }
-
-
-       
     }
 }
-
-
-

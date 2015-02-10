@@ -4,9 +4,9 @@
         Title="Window1" Height="300" Width="300">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="101*"/>
-            <ColumnDefinition Width="26*"/>
-            <ColumnDefinition Width="165*"/>
+            <ColumnDefinition Width="101*" />
+            <ColumnDefinition Width="26*" />
+            <ColumnDefinition Width="165*" />
         </Grid.ColumnDefinitions>
 
     </Grid>

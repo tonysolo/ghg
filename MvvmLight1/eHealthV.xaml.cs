@@ -1,31 +1,31 @@
-﻿namespace MvvmLight1
+﻿using System.Windows.Controls;
+
+namespace MvvmLight1
 {
     /// <summary>
-    /// Description for MvvmView1.
+    ///     Description for MvvmView1.
     /// </summary>
     public partial class EHealthV
     {
         /// <summary>
-        /// Initializes a new instance of the MvvmView1 class.
+        ///     Initializes a new instance of the MvvmView1 class.
         /// </summary>
         public EHealthV()
         {
             InitializeComponent();
         }
 
-        private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
 
-       // private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-       // {
+        // private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        // {
 
         //}
-   
     }
 
-    class EHealthVImpl : EHealthV
+    internal class EHealthVImpl : EHealthV
     {
     }
 }

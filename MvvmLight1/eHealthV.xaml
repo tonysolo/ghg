@@ -1,12 +1,12 @@
 ﻿<Window x:Class="MvvmLight1.EHealthV"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="eHealth"  
+        Title="eHealth"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
-       
+
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         Height="450"
@@ -14,105 +14,119 @@
         IsEnabled="True"
         DataContext="{Binding EHealth, Source={StaticResource Locator}}">
     <Grid>
-        <DockPanel  LastChildFill="True" Margin="0,0,0,-9">
+        <DockPanel LastChildFill="True" Margin="0,0,0,-9">
             <StackPanel DockPanel.Dock=" Top" Orientation="Horizontal">
-                <Label/>
-                <TextBox/>
+                <Label />
+                <TextBox />
             </StackPanel>
-            <Button DockPanel.Dock="Bottom" Height="20" Margin="40,20,40,20" Content="Save"/>
+            <Button DockPanel.Dock="Bottom" Height="20" Margin="40,20,40,20" Content="Save" />
             <TabControl SelectionChanged="TabControl_SelectionChanged"> <!--SelectionChanged="TabControl_SelectionChanged"-->
-                <TabItem Header = "Details" TabIndex="0">
+                <TabItem Header="Details" TabIndex="0">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock FontSize="8" Text="Name"/>
-                        <TextBox/>
-                        <TextBlock FontSize="8"><Run Text="Date of Birth "/><Run Language="en-gb" Text="                                   "/><Run Text="Gender"/></TextBlock>
+                        <TextBlock FontSize="8" Text="Name" />
+                        <TextBox />
+                        <TextBlock FontSize="8">
+                            <Run Text="Date of Birth " />
+                            <Run Language="en-gb" Text="                                   " /><Run Text="Gender" />
+                        </TextBlock>
                         <StackPanel Orientation="Horizontal">
-                            <DatePicker Width="120"/> 
-                            <TextBlock Margin ="10 5 0 0" FontSize="10" Text ="M"/>
-                            <RadioButton  Margin="0 5,0,0" />
-                            <TextBlock Margin ="0 5 0 0" FontSize="10" Text ="F"/>
+                            <DatePicker Width="120" />
+                            <TextBlock Margin="10 5 0 0" FontSize="10" Text="M" />
+                            <RadioButton Margin="0 5,0,0" />
+                            <TextBlock Margin="0 5 0 0" FontSize="10" Text="F" />
                             <RadioButton Margin="0 5,0,0" />
                         </StackPanel>
-                        <TextBlock FontSize="8" Text="Region of Birth / First Home"/>
+                        <TextBlock FontSize="8" Text="Region of Birth / First Home" />
 
-                        <DockPanel  HorizontalAlignment ="Stretch" FlowDirection="RightToLeft">
-                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸" Command="{Binding EditMap}"/>
-                            <ComboBox Width="auto" ItemsSource="{Binding Regions}"/>
+                        <DockPanel HorizontalAlignment="Stretch" FlowDirection="RightToLeft">
+                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸"
+                                    Command="{Binding EditMap}" />
+                            <ComboBox Width="auto" ItemsSource="{Binding Regions}" />
                         </DockPanel>
 
-                        <TextBlock FontSize="8"><Run Text="Current"/><Run Language="en-gb" Text=" Home "/><Run Text=" Region /"/><Run Language="en-gb" Text=" District"/></TextBlock>
-                        <DockPanel  HorizontalAlignment ="Stretch" FlowDirection="RightToLeft">
-                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸" Command="{Binding EditMap}"/>
-                            <ComboBox Width="auto"/>
+                        <TextBlock FontSize="8">
+                            <Run Text="Current" /><Run Language="en-gb" Text=" Home " /><Run Text=" Region /" />
+                            <Run Language="en-gb" Text=" District" />
+                        </TextBlock>
+                        <DockPanel HorizontalAlignment="Stretch" FlowDirection="RightToLeft">
+                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸"
+                                    Command="{Binding EditMap}" />
+                            <ComboBox Width="auto" />
                         </DockPanel>
 
 
-                        <TextBlock FontSize="8"><Run Language="en-gb" Text="Patient "/><Run Text="Cell"/><Run Language="en-gb" Text=" "/><Run Text="phone"/><Run Language="en-gb" Text=" Number"/></TextBlock>
-                        <TextBox/>
-                        <TextBlock FontSize="8" Text="Partner Name and Cell phone Number"/>
-                        <TextBox/>
-                        <TextBlock FontSize="8"><Run Text="Children Names and "/><Run Language="en-gb" Text="Ages (years)"/></TextBlock>
-                        <TextBox/>
+                        <TextBlock FontSize="8">
+                            <Run Language="en-gb" Text="Patient " /><Run Text="Cell" />
+                            <Run Language="en-gb" Text=" " /><Run Text="phone" />
+                            <Run Language="en-gb" Text=" Number" />
+                        </TextBlock>
+                        <TextBox />
+                        <TextBlock FontSize="8" Text="Partner Name and Cell phone Number" />
+                        <TextBox />
+                        <TextBlock FontSize="8">
+                            <Run Text="Children Names and " /><Run Language="en-gb" Text="Ages (years)" />
+                        </TextBlock>
+                        <TextBox />
 
-                        <TextBlock FontSize="8" Text="Home Address"/>
-                        <TextBox/>
-                        <TextBlock FontSize="8" Text="Work Address"/>
-                        <TextBox/>
+                        <TextBlock FontSize="8" Text="Home Address" />
+                        <TextBox />
+                        <TextBlock FontSize="8" Text="Work Address" />
+                        <TextBox />
 
-                        <TextBlock FontSize="8" Text="eMail Address"/>
-                        <TextBox/>
+                        <TextBlock FontSize="8" Text="eMail Address" />
+                        <TextBox />
                     </StackPanel>
                 </TabItem>
-                
-                
-                <TabItem Header = "Alerts">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="8" Text="Allergies"/>
-                    <TextBox MinLines="3"/>
-                    <TextBlock FontSize="8" Text="Medical Conditions or Alerts"/>
-                    <TextBox MinLines="3"/>
-                    <TextBlock FontSize="8" Text="Chronic Medication"/>
-                    <TextBox MinLines="3"/>
-                    <TextBlock FontSize="8" Text="Statistics"/>
-                    <TextBox MinLines="3" IsReadOnly="True"/>
-                </StackPanel>
-            </TabItem>
-                
-                <TabItem Header = "Last Visit" Height="24" VerticalAlignment="Bottom"></TabItem>
-                
-                <TabItem Header = "All Visits"/>
-                
+
+
+                <TabItem Header="Alerts">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock FontSize="8" Text="Allergies" />
+                        <TextBox MinLines="3" />
+                        <TextBlock FontSize="8" Text="Medical Conditions or Alerts" />
+                        <TextBox MinLines="3" />
+                        <TextBlock FontSize="8" Text="Chronic Medication" />
+                        <TextBox MinLines="3" />
+                        <TextBlock FontSize="8" Text="Statistics" />
+                        <TextBox MinLines="3" IsReadOnly="True" />
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="Last Visit" Height="24" VerticalAlignment="Bottom" />
+
+                <TabItem Header="All Visits" />
+
                 <TabItem Height="22" Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2">
                     <StackPanel>
-                        <TextBlock FontSize="8" Text="Reason for Visit"/>
-                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"  
-                         VerticalScrollBarVisibility="Visible"/>
-                        <TextBlock FontSize="8" Text="ICD10 Code(s)"/>
-                        <TextBox></TextBox>
-                        <TextBlock FontSize="8" Text="Examination General Condition"/>
-                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"  
-                         VerticalScrollBarVisibility="Visible"/>
+                        <TextBlock FontSize="8" Text="Reason for Visit" />
+                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Visible" />
+                        <TextBlock FontSize="8" Text="ICD10 Code(s)" />
+                        <TextBox />
+                        <TextBlock FontSize="8" Text="Examination General Condition" />
+                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Visible" />
 
-                        <TextBlock FontSize="8" Text="Specific Examination"/>
-                        <TextBox MinLines="2" AcceptsReturn="True"  TextWrapping="Wrap"  
-                         VerticalScrollBarVisibility="Visible"/>
-                    <TextBlock FontSize="8" Text="Special Investigations"/>
-                        <TextBox MinLines="2" AcceptsReturn="True"  TextWrapping="Wrap"  
-                         VerticalScrollBarVisibility="Visible"/>
-                        <TextBlock FontSize="8" Text="Comments and Plan"/>
-                        <TextBox MinLines="2" AcceptsReturn="True"  TextWrapping="Wrap"  
-                         VerticalScrollBarVisibility="Visible"/>
+                        <TextBlock FontSize="8" Text="Specific Examination" />
+                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Visible" />
+                        <TextBlock FontSize="8" Text="Special Investigations" />
+                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Visible" />
+                        <TextBlock FontSize="8" Text="Comments and Plan" />
+                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Visible" />
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="8" Margin="2 5 5 5" Text="Next Visit"/>
-                            <DatePicker Margin="5 3 0 0" Width="110"/>
-                            <RadioButton Margin ="5" Content ="Reminder"/>
+                            <TextBlock FontSize="8" Margin="2 5 5 5" Text="Next Visit" />
+                            <DatePicker Margin="5 3 0 0" Width="110" />
+                            <RadioButton Margin="5" Content="Reminder" />
                         </StackPanel>
-                    
-                </StackPanel>
+
+                    </StackPanel>
                 </TabItem> <!--new visit-->
-           
-        </TabControl>
-        <!--Button Height="20" ></--> 
-      </DockPanel>  
+
+            </TabControl>
+            <!--Button Height="20" ></-->
+        </DockPanel>
     </Grid>
 </Window>

@@ -9,21 +9,23 @@ namespace MvvmLight1.Model
 {
     public static class Userdata
     {
-        public static CloudStorageAccount GhgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));      
+        public static CloudStorageAccount GhgAccount =
+            CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+
+        public static int Selectedcountryindex;
+        public static CloudBlobContainer Container;
         public static string[] Regions { get; set; }
         public static string SelectedQnnee { get; set; }
-        public static int Selectedcountryindex;   
-        public static CloudBlobContainer Container;
 
         public static string[] CountryNames
         {
             get
             {
-                var cbc = GhgAccount.CreateCloudBlobClient();
-                var container = cbc.GetContainerReference("countries");
-                var blobs = container.ListBlobs().ToArray();
+                CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
+                CloudBlobContainer container = cbc.GetContainerReference("countries");
+                IListBlobItem[] blobs = container.ListBlobs().ToArray();
                 var sarr = new string[blobs.Length];
-                for (var i = 0; i < sarr.Length; i++)
+                for (int i = 0; i < sarr.Length; i++)
                     sarr[i] = blobs[i].Uri.Segments[2].Substring(0, 2).ToUpper();
                 return sarr;
             }
@@ -32,13 +34,13 @@ namespace MvvmLight1.Model
 
         public static void GetRegions()
         {
-            var cbc = GhgAccount.CreateCloudBlobClient();
-            var container = cbc.GetContainerReference("countries");
+            CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = cbc.GetContainerReference("countries");
             if (Selectedcountryindex < 0) return;
             var sb = new StringBuilder(CountryNames[Selectedcountryindex]);
             sb.Append(".txt");
-            var countryblobname = sb.ToString();
-            var blob = container.GetBlockBlobReference(countryblobname.ToLower());
+            string countryblobname = sb.ToString();
+            CloudBlockBlob blob = container.GetBlockBlobReference(countryblobname.ToLower());
             var ms = new MemoryStream();
             if (blob != null)
             {
@@ -46,12 +48,11 @@ namespace MvvmLight1.Model
                 ms.Position = 0;
             }
             byte[] unib;
-            var ba = ms.GetBuffer();
+            byte[] ba = ms.GetBuffer();
             byte[] uniBytes = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, ba);
 
 
-            
-            var str = Encoding.Unicode.GetString(uniBytes);
+            string str = Encoding.Unicode.GetString(uniBytes);
             Regions = str.Split(',');
             //var str = Encoding.UTF8.GetString(ba, 0, ba.Length);
         }

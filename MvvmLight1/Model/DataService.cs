@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace MvvmLight1.Model
+﻿namespace MvvmLight1.Model
 {
-    
     public class MainDataService : IDataService
     {
-      /* public void GetData(Action<DataItem, Exception> callback)
+        /* public void GetData(Action<DataItem, Exception> callback)
         {
             // Use this to connect to the actual data service
            object o = callback.Target;
@@ -13,9 +10,5 @@ namespace MvvmLight1.Model
             callback(item, null);
         }
 */
-
-
-
-
     }
 }
