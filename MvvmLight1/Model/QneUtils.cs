@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 
 namespace MvvmLight1.Model
 {
@@ -244,21 +245,20 @@ namespace MvvmLight1.Model
 
         public static string MoveS(string qnnee)
         {
-            var n = new char[2];
-            var e = new char[2];
-            var d = new char[1];
+            string str = String.Copy(qnnee);
+            var qStr = str.Substring(0, 1);
+            var nStr = str.Substring(1, 2);
+            var eStr = str.Substring(3, 2);
 
+            string test = "Tony";
+            string x = test.Substring(0, 3);
 
-            qnnee.CopyTo(0, d, 0, 1);
-            qnnee.CopyTo(1, n, 0, 2);
-            qnnee.CopyTo(3, e, 0, 2);
+            
+            var ns = Convert.ToInt16(nStr, 16);
+            var ew = Convert.ToInt16(eStr, 16);
+            var q = Convert.ToInt16(qStr, 16);
 
-            string str = qnnee.Substring(1, 2);
-            short ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-            short ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-            byte q = Convert.ToByte(qnnee.Substring(0, 1), 16);
-
-            bool south = (q & 0x02) == 2;
+            var south = (q & 0x02) == 2;
             if (south)
             {
                 if (ns < 127)

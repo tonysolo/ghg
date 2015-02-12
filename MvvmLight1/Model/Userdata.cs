@@ -42,18 +42,21 @@ namespace MvvmLight1.Model
             string countryblobname = sb.ToString();
             CloudBlockBlob blob = container.GetBlockBlobReference(countryblobname.ToLower());
             var ms = new MemoryStream();
+            string txt ="";
             if (blob != null)
             {
+                txt= blob.DownloadText(Encoding.UTF8);
                 blob.DownloadToStream(ms);
                 ms.Position = 0;
             }
-            byte[] unib;
             byte[] ba = ms.GetBuffer();
             byte[] uniBytes = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, ba);
 
 
             string str = Encoding.Unicode.GetString(uniBytes);
-            Regions = str.Split(',');
+            Regions = txt.Split(',');
+            for (int i = 0; i < Regions.Length; i++) Regions[i].Trim();
+            var q = Regions[0].Trim().Substring(0, 2);
             //var str = Encoding.UTF8.GetString(ba, 0, ba.Length);
         }
 
