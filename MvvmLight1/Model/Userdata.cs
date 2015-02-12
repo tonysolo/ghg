@@ -21,11 +21,11 @@ namespace MvvmLight1.Model
         {
             get
             {
-                CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
-                CloudBlobContainer container = cbc.GetContainerReference("countries");
-                IListBlobItem[] blobs = container.ListBlobs().ToArray();
+                var cbc = GhgAccount.CreateCloudBlobClient();
+                var container = cbc.GetContainerReference("countries");
+                var blobs = container.ListBlobs().ToArray();
                 var sarr = new string[blobs.Length];
-                for (int i = 0; i < sarr.Length; i++)
+                for (var i = 0; i < sarr.Length; i++)
                     sarr[i] = blobs[i].Uri.Segments[2].Substring(0, 2).ToUpper();
                 return sarr;
             }
@@ -34,29 +34,30 @@ namespace MvvmLight1.Model
 
         public static void GetRegions()
         {
-            CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = cbc.GetContainerReference("countries");
+            var cbc = GhgAccount.CreateCloudBlobClient();
+            var container = cbc.GetContainerReference("countries");
             if (Selectedcountryindex < 0) return;
             var sb = new StringBuilder(CountryNames[Selectedcountryindex]);
             sb.Append(".txt");
-            string countryblobname = sb.ToString();
-            CloudBlockBlob blob = container.GetBlockBlobReference(countryblobname.ToLower());
+            var countryblobname = sb.ToString();
+            var blob = container.GetBlockBlobReference(countryblobname.ToLower());
             var ms = new MemoryStream();
-            string txt ="";
+            var txt ="";
             if (blob != null)
             {
                 txt= blob.DownloadText(Encoding.UTF8);
                 blob.DownloadToStream(ms);
                 ms.Position = 0;
             }
-            byte[] ba = ms.GetBuffer();
-            byte[] uniBytes = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, ba);
+            var ba = ms.GetBuffer();
+            var uniBytes = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, ba);
 
 
-            string str = Encoding.Unicode.GetString(uniBytes);
+            var str = Encoding.UTF8.GetString(uniBytes);
             Regions = txt.Split(',');
-            for (int i = 0; i < Regions.Length; i++) Regions[i].Trim();
-            var q = Regions[0].Trim().Substring(0, 2);
+           // foreach (var t in Regions) t.Trim();
+                
+           // var q = Regions[0].Substring(0, 2);//.Trim()
             //var str = Encoding.UTF8.GetString(ba, 0, ba.Length);
         }
 

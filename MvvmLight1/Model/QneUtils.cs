@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Net.Mime;
+using System.Text;
 
 namespace MvvmLight1.Model
 {
     public static class QneUtils
     {
+        
         /// <summary>
         ///     Converts decimal degrees string to district level (7) qnnneee
         /// </summary>
@@ -222,10 +223,11 @@ namespace MvvmLight1.Model
 
         public static string MoveN(string qnnee)
         {
-            short ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-            short ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-            byte q = Convert.ToByte(qnnee.Substring(0, 1), 16);
-            bool north = (q & 0x02) == 0;
+
+            var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+            var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+            var q = Convert.ToByte(qnnee.Substring(0, 1), 16);
+            var north = (q & 0x02) == 0;
             if (north)
             {
                 if (ns < 127)
@@ -245,18 +247,14 @@ namespace MvvmLight1.Model
 
         public static string MoveS(string qnnee)
         {
-            string str = String.Copy(qnnee);
-            var qStr = str.Substring(0, 1);
-            var nStr = str.Substring(1, 2);
-            var eStr = str.Substring(3, 2);
+            return qnnee;
+            var q = Convert.ToInt16(qnnee.Substring(0, 1),16);//Substring(0, 1);
+            var ns = Convert.ToInt16(qnnee.Substring(1, 2),16);
+            var ew = Convert.ToInt16(qnnee.Substring(3, 2),16);
 
-            string test = "Tony";
-            string x = test.Substring(0, 3);
+           // var test = "Tony";
+           // var x = test.Substring(0, 3);
 
-            
-            var ns = Convert.ToInt16(nStr, 16);
-            var ew = Convert.ToInt16(eStr, 16);
-            var q = Convert.ToInt16(qStr, 16);
 
             var south = (q & 0x02) == 2;
             if (south)
