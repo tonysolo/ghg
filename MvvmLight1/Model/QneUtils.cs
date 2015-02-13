@@ -61,7 +61,7 @@ namespace MvvmLight1.Model
         public static string IndexPoint(string qnnee)
         {
             double lat = 0, lon = 0;
-            bool east = (qnnee[0] == '0');
+        //    var east = (qnnee[0] == '0');
 
             switch (qnnee.Length)
             {
@@ -247,7 +247,6 @@ namespace MvvmLight1.Model
 
         public static string MoveS(string qnnee)
         {
-            return qnnee;
             var q = Convert.ToInt16(qnnee.Substring(0, 1),16);//Substring(0, 1);
             var ns = Convert.ToInt16(qnnee.Substring(1, 2),16);
             var ew = Convert.ToInt16(qnnee.Substring(3, 2),16);

@@ -21,7 +21,7 @@ namespace ConsoleApp
             var ghgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
             var container = ghgAccount.CreateCloudBlobClient().GetContainerReference("countries");
             var cbc = container.GetBlockBlobReference("countries.txt");
-            return cbc.DownloadText(Encoding.UTF8);           
+            return cbc.DownloadText();//Encoding.UTF8);           
         }
 
         public static string GetCountry(string country)
@@ -29,7 +29,7 @@ namespace ConsoleApp
             var ghgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
             var container = ghgAccount.CreateCloudBlobClient().GetContainerReference("countries");
             var cbc = container.GetBlockBlobReference(country+".txt");
-            return cbc.DownloadText(Encoding.UTF8);
+            return cbc.DownloadText();//Encoding.UTF8);
         }
 
         public static CloudPageBlob Epidemblob;

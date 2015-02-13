@@ -98,8 +98,10 @@ namespace MvvmLight1.ViewModel
         public void ShowMapDlg()
         {
             Userdata.Selectedcountryindex = CountryIndex;
-            Region = RegionNames[RegionIndex];
-            Userdata.SelectedQnnee = Region;
+            Userdata.Region = RegionNames[RegionIndex];
+            Userdata.SelectedQnnee = Userdata.Region;
+          
+            //QneUtils.CentrePoint(Region);
             RaisePropertyChanged("RegionIndex");
             RaisePropertyChanged("CountryIndex");
 

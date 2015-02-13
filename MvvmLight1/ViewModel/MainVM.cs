@@ -42,6 +42,7 @@ namespace MvvmLight1.ViewModel
 
         private static void ShowMapDlg()
         {
+            //Userdata.Region = Model.Qnnee;
             var v = new MapV();
             v.ShowDialog();
         }

@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
 
@@ -12,6 +13,36 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     public class MapVm : ViewModelBase
     {
+        public static string MoveS(string qnnee)
+        {
+            var x = qnnee.Length;
+           
+            qnnee = qnnee.TrimEnd();
+            qnnee = qnnee.TrimStart();
+            x =  qnnee.Length;
+            var y = qnnee.Substring(qnnee.Length-1, 1);
+            var q = Convert.ToInt16(qnnee.Substring(0, 1), 16);//Substring(0, 1);
+            var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+            var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+            var south = (q & 0x02) == 2;
+            if (south)
+            {
+                if (ns < 127)
+                    ns++;
+            }
+            else //if north will move south until zero north
+            //then step to zero south at the equator, quadrant change,
+            //to draw different boundaries
+            {
+                ns--;
+                if (ns >= 0) return String.Format("{0:x1}{1:x2}{2:x2}", q, ns, ew);
+                q = (byte)(q | 0x02); //change quadrant to south 
+                ns = 0;
+            }
+            return String.Format("{0:x1}{1:x2}{2:x2}", q, ns, ew);
+        }
+
+
         public MapVm()
         {
             Qnnee = Userdata.SelectedQnnee;
@@ -46,7 +77,7 @@ namespace MvvmLight1.ViewModel
 
         private void RegionSouth()
         {
-            Qnnee = QneUtils.MoveS(Qnnee);
+            Qnnee = MoveS(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
             Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
