@@ -14,10 +14,10 @@ namespace MvvmLight1.Model
         public static string to_qnnneee(string deccoords) //input -23.56,23.79
         {
             char[] delim = {','};
-            string[] sarr = deccoords.Split(delim);
-            double lat = Convert.ToDouble(sarr[0]);
-            double lon = Convert.ToDouble(sarr[1]);
-            int q = ((lat >= 0) && (lon >= 0))
+            var sarr = deccoords.Split(delim);
+            var lat = Convert.ToDouble(sarr[0]);
+            var lon = Convert.ToDouble(sarr[1]);
+            var q = ((lat >= 0) && (lon >= 0))
                 ? 0
                 : ((lat >= 0) && (lon < 0))
                     ? 1
@@ -37,10 +37,10 @@ namespace MvvmLight1.Model
         public static string to_qnnee(string deccoords)
         {
             char[] delim = {','};
-            string[] sarr = deccoords.Split(delim);
-            double lat = Convert.ToDouble(sarr[0]);
-            double lon = Convert.ToDouble(sarr[1]);
-            int q = lat >= 0 && lon >= 0
+            var sarr = deccoords.Split(delim);
+            var lat = Convert.ToDouble(sarr[0]);
+            var lon = Convert.ToDouble(sarr[1]);
+            var q = lat >= 0 && lon >= 0
                 ? 0
                 : lat >= 0 && lon < 0
                     ? 1
@@ -48,7 +48,8 @@ namespace MvvmLight1.Model
 
             var latint = (int) (Math.Abs(lat/180)*256);
             var lonint = (int) (Math.Abs(lon/180)*256);
-            return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
+            var s = String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
+            return s;
         }
 
 
@@ -60,20 +61,21 @@ namespace MvvmLight1.Model
         /// <returns>latlon string  as csv</returns>
         public static string IndexPoint(string qnnee)
         {
+           
             double lat = 0, lon = 0;
         //    var east = (qnnee[0] == '0');
 
             switch (qnnee.Length)
             {
                 case 5:
-                    short lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                    short lon5 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                    var lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                    var lon5 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
                     lat = (double) lat5/256*180;
                     lon = (double) lon5/256*180;
                     break;
                 case 7:
-                    short lat7 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                    short lon7 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                    var lat7 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                    var lon7 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
                     lat = (double) lat7/4096*180;
                     lon = (double) lon7/4096*180;
                     break;
@@ -97,8 +99,8 @@ namespace MvvmLight1.Model
             {
                 case 5:
                 {
-                    short lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                    short lon5 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                    var lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                    var lon5 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
                     lat = (double) lat5/256*180;
                     lat1 = (double) (lat5 + 1)/256*180;
                     lon = (double) lon5/256*180;
@@ -107,8 +109,8 @@ namespace MvvmLight1.Model
                     break;
                 case 7:
                 {
-                    short lat7 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                    short lon7 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                    var lat7 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                    var lon7 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
                     lat = (double) lat7/4096*180;
                     lat1 = (double) (lat7 + 1)/4096*180;
                     lon = (double) lon7/4096*180;
@@ -146,8 +148,8 @@ namespace MvvmLight1.Model
 
             if (qnnee.Length == 5) //a region
             {
-                short lat0 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                short lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                var lat0 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                var lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
 
                 if (lat0 < 127)
                     lat1 = (Int16) (lat0 + 1);
@@ -171,8 +173,8 @@ namespace MvvmLight1.Model
             }
             else //qnnee is 7 charaters (A District)
             {
-                short lat0 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
-                short lon0 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
+                var lat0 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
+                var lon0 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
 
                 if (lat0 < 2047)
                     lat1 = (Int16) (lat0 + 1);
@@ -205,7 +207,7 @@ namespace MvvmLight1.Model
         /// <returns>A string containing four decimal degree points</returns>
         public static string LatLon_to_qnnee_boundary(string decdeg)
         {
-            string qne = to_qnnee(decdeg);
+            var qne = to_qnnee(decdeg);
             return Boundary(qne);
         }
 
@@ -217,7 +219,7 @@ namespace MvvmLight1.Model
         /// <returns>A string containing four decimal degree points</returns>
         public static string LatLon_to_qnnneee_boundary(string decdeg)
         {
-            string qne = to_qnnneee(decdeg);
+            var qne = to_qnnneee(decdeg);
             return Boundary(qne);
         }
 
@@ -247,7 +249,10 @@ namespace MvvmLight1.Model
 
         public static string MoveS(string qnnee)
         {
-            var q = Convert.ToInt16(qnnee.Substring(0, 1),16);//Substring(0, 1);
+           // var q = qnnee[0] - '0';
+            //qnnee = qnnee.Substring(qnnee.Length - 5, 5);
+            var q = (char) qnnee[0] - '0';
+            //var q = Convert.ToInt16(qnnee.Substring(0, 1),16);//Substring(0, 1);
             var ns = Convert.ToInt16(qnnee.Substring(1, 2),16);
             var ew = Convert.ToInt16(qnnee.Substring(3, 2),16);
 
@@ -276,10 +281,12 @@ namespace MvvmLight1.Model
 
         public static string MoveE(string qnnee)
         {
-            short ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-            short ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-            byte q = Convert.ToByte(qnnee.Substring(0, 1), 16);
-            bool east = (q & 0x01) == 0;
+            //qnnee = qnnee.Substring(qnnee.Length - 5, 5);
+            var q = (char)qnnee[0] - '0';
+            var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+            var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+           // var q = Convert.ToByte(qnnee.Substring(0, 1), 16);
+            var east = (q & 0x01) == 0;
             if (east)
             {
                 if (ew < 255) ew++;
@@ -300,10 +307,12 @@ namespace MvvmLight1.Model
 
         public static string MoveW(string qnnee)
         {
-            short ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-            short ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-            byte q = Convert.ToByte(qnnee.Substring(0, 1), 16);
-            bool west = (q & 0x01) == 1;
+            //qnnee = qnnee.Substring(qnnee.Length - 5, 5);
+            var q = (char)qnnee[0] - '0';
+            var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+            var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+           // var q = Convert.ToByte(qnnee.Substring(0, 1), 16);
+            var west = (q & 0x01) == 1;
             if (west)
             {
                 if (ew < 255) ew++;
@@ -334,7 +343,7 @@ namespace MvvmLight1.Model
         public static string MoveNsew(string qnnee, char nsew)
         {
             bool isWest;
-            bool isEast = isWest = false;
+            var isEast = isWest = false;
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
             if (qnnee.Length == 5) // 5 character qnnee
@@ -450,10 +459,10 @@ namespace MvvmLight1.Model
         /// <returns>secs</returns>
         private static int SecsToMidnight(string qe)
         {
-            char q = qe[0];
-            int e = Convert.ToByte(qe.Substring(1, 1), 16)*45*60;
-            DateTime dt = DateTime.UtcNow;
-            int secs = dt.Hour*60*60 + dt.Minute*60 + dt.Second;
+            var q = qe[0];
+            var e = Convert.ToByte(qe.Substring(1, 1), 16)*45*60;
+            var dt = DateTime.UtcNow;
+            var secs = dt.Hour*60*60 + dt.Minute*60 + dt.Second;
             secs += (q == '1') || (q == '3') ? -e : e; //west                    
             return secs%0x15180;
         }

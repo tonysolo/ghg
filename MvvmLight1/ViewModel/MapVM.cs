@@ -13,15 +13,11 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     public class MapVm : ViewModelBase
     {
+        /*
         public static string MoveS(string qnnee)
         {
-            var x = qnnee.Length;
-           
-            qnnee = qnnee.TrimEnd();
-            qnnee = qnnee.TrimStart();
-            x =  qnnee.Length;
-            var y = qnnee.Substring(qnnee.Length-1, 1);
-            var q = Convert.ToInt16(qnnee.Substring(0, 1), 16);//Substring(0, 1);
+            var q = (byte)(qnnee[0] - '0');
+           // var q = Convert.ToInt16(qnnee.Substring(0, 1), 16);//Substring(0, 1);
             var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
             var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
             var south = (q & 0x02) == 2;
@@ -41,11 +37,11 @@ namespace MvvmLight1.ViewModel
             }
             return String.Format("{0:x1}{1:x2}{2:x2}", q, ns, ew);
         }
-
+*/
 
         public MapVm()
         {
-            Qnnee = Userdata.SelectedQnnee;
+            Qnnee = Userdata.Region;
             Centre = QneUtils.IndexPoint(Qnnee);
             SetupRelayCommands();
         }
@@ -77,7 +73,7 @@ namespace MvvmLight1.ViewModel
 
         private void RegionSouth()
         {
-            Qnnee = MoveS(Qnnee);
+            Qnnee = QneUtils.MoveS(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
             Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";

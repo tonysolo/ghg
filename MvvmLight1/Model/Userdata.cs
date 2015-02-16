@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.WindowsAzure;
@@ -15,9 +16,16 @@ namespace MvvmLight1.Model
 
         public static int Selectedcountryindex;
         public static CloudBlobContainer Container;
-        public static string[] Regions { get; set; }
-        public static string SelectedQnnee { get; set; }
-        public static string Region { get; set; }
+
+        public static string[] Regions
+        {
+            get { return GetRegions(); }
+        }
+
+
+        public static string SelectedCountry {
+            get { return CountryNames[Selectedcountryindex]; }
+        }
 
         public static string[] CountryNames
         {
@@ -33,39 +41,35 @@ namespace MvvmLight1.Model
             }
         }
 
+        public static string Region { get; set; }
 
-        public static void GetRegions()
+        public static string[] GetRegions()
         {
             var cbc = GhgAccount.CreateCloudBlobClient();
             var container = cbc.GetContainerReference("countries");
-            if (Selectedcountryindex < 0) return;
+            if (Selectedcountryindex < 0) return null;
             var sb = new StringBuilder(CountryNames[Selectedcountryindex]);
             sb.Append(".txt");
             var countryblobname = sb.ToString();
             var blob = container.GetBlockBlobReference(countryblobname.ToLower());
            // var ms = new MemoryStream();
-            var txt ="";
-            if (blob != null)
+           // var txt ="";
+            string[] sarr = null;
+            if (blob == null) return null;
+            var ms = new MemoryStream();
+            blob.DownloadToStream(ms);
+            var s = ms.GetBuffer();
+            var str = Encoding.UTF8.GetString(s);
+            str = str.Trim('\0');
+            sarr = str.Split(',');
+            for (var i=0;i<sarr.Length;i++)
             {
-                txt = blob.DownloadText();
-                //blob.DownloadToStream(ms);
-               // ms.Position = 0;
+                var carr = sarr[i].ToCharArray();
+                carr = Array.FindAll<char>(carr, (c => (char.IsLetterOrDigit(c))));
+                sarr[i] = new string(carr);
             }
-           // var ba = ms.GetBuffer();
-           // var uniBytes = Encoding.Convert(Encoding.UTF8, Encoding.Unicode, ba);
-
-
-          //  var str = Encoding.Unicode.GetString(uniBytes);
-            Regions = txt.Split(',');
-            string x = Regions[1];
-            string y = Regions[1].Trim();
-            int i = x.Length;
-            int j = y.Length;
-
-
-
-            // var q = Regions[0].Substring(0, 2);//.Trim()
-            //var str = Encoding.UTF8.GetString(ba, 0, ba.Length);
+            return sarr;
+            
         }
 
         public static bool Isvalid(string qnnee)

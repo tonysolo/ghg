@@ -46,7 +46,7 @@ namespace ConsoleApp
 
             var latint = (int)(Math.Abs(lat / 180) * 256);
             var lonint = (int)(Math.Abs(lon / 180) * 256);
-            return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
+            return String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint).Trim();
         }
 
  
@@ -111,7 +111,7 @@ namespace ConsoleApp
                         lat = (lat + lat1) / 2;
                         if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
                         if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-                        return String.Format(@"{0:F4},{1:F4}", lat, lon); //comma separated
+                        return String.Format("{0:F4},{1:F4}", lat, lon); //comma separated
                     }
 
                     /// <summary>
