@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Collections.Generic;
@@ -7,17 +8,28 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication7
 {
+    delegate void D(string value);
     class Program
     {
 
+        private static void Test(string t)
+        {
+            if (t == null) return;
+            var lst = t.Where(n => n=='t');
+            foreach(var c in lst)
+                Console.WriteLine(c);
+        }
 
         //private int x = y => { y; };
 
         static void Main(string[] args)
         {
-            const string str = "tony";
-            var test1 = str.Substring(0, 2);
-            Console.WriteLine(test1);
+            D d = Test;
+            d.Invoke("tonytonytony");
+            Console.ReadLine();
+            // const string str = "tony";
+            //  var test1 = str.Substring(0, 2);
+            //  Console.WriteLine(test1);
         }
     }
 }
