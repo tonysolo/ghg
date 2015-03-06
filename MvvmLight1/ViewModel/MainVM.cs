@@ -23,11 +23,26 @@ namespace MvvmLight1.ViewModel
         }
 
 
+        public static string[] CountryShortNames
+        {
+            get { return Userdata.CountryNames; }
+        }
+
+        public string[] RegionNames
+        {
+            get
+            {
+                Userdata.Selectedcountryindex = CountryIndex;
+                return Userdata.Regions;
+            }
+            // RaisePropertyChanged("RegionIndex");
+        }
+
         //       public string Centre { get; private set; }
         //       public string Boundary { get; private set; }
         public string Qnnee { get; private set; }
         public string Qnnneee { get; private set; }
-
+        public int CountryIndex { get; set; }
 
         public RelayCommand EditMap { get; private set; }
         public RelayCommand EditEpidemiology { get; private set; }
@@ -42,10 +57,11 @@ namespace MvvmLight1.ViewModel
 
         private static void ShowMapDlg()
         {
-            //Userdata.Region = Model.Qnnee;
+            if (Userdata.Region == null) return;
             var v = new MapV();
             v.ShowDialog();
         }
+    
 
         private static void ShowEpidemiologyDlg()
         {

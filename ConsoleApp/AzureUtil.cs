@@ -192,23 +192,30 @@ namespace ConsoleApp
                 Patientblob.SetProperties();
             }
 
-            Populationblob = container.GetPageBlobReference("m");
-            if (!Populationblob.Exists())
-            {
-                Populationblob.Create(0xa000); //for development need to increase to 0x800000 X number of patient blobs
-                Populationblob.FetchAttributes();
-                Populationblob.Metadata.Add("nextindex",String.Format("{0:x4}", 0));
-                Populationblob.Properties.ContentEncoding = "application/octet-stream";
-                Populationblob.SetMetadata();
-                Populationblob.SetProperties();
-            }
+           // Populationblob = container.GetPageBlobReference("m"); //this info will be in first pages of patient blob
+           //  {
+           //      Populationblob.Create(0xa000); //for development need to increase to 0x800000 X number of patient blobs
+           //      Populationblob.FetchAttributes();
+           //      Populationblob.Metadata.Add("nextindex",String.Format("{0:x4}", 0));
+           //      Populationblob.Properties.ContentEncoding = "application/octet-stream";
+           //      Populationblob.SetMetadata();
+           //      Populationblob.SetProperties();
+           //  }
 
+            //note for final implementation
+            //images fron scanner of filesytem with all images converted to PDF 
+            //images use a lookuptable 'startpage offset (32bit) and expirydate (16 bit offset from 01/01/2000 (and ? handle dates after 2179))
+            //startpage is page offset (byte offset = offset X 512 (offset<<9)
+            //possible to store 32 million images of 32 kilobytes 
+            //524288 pages 260 megabytes -  with 64 items per page for index table
+            //the space will be reused after expiry date using lookup table search before resorting to nextindex
+            //purpose is to allow unrestricted image storage with recycling storage
             Imageblob = container.GetPageBlobReference("i");
             if (!Imageblob.Exists())
             {
-                Imageblob.Create(0xa000); //for development need to increase to terabyte for release
+                Imageblob.Create(0xa000); //for development need to increase to full terabyte for release
                 Imageblob.FetchAttributes();
-                Imageblob.Metadata.Add("nextindex",String.Format("{0:x4}", 4095));//need millions for release
+                Imageblob.Metadata.Add("nextindex",String.Format("{0:x4}", 4095));//need millions for release {0:x7}
                 Imageblob.Properties.ContentEncoding = "application/octet-stream";
                 Imageblob.SetMetadata();
                 Imageblob.SetProperties();
@@ -319,9 +326,7 @@ namespace ConsoleApp
     }
 
         public static byte[] Testmem1()
-        {
-           
-
+        {         
            const UInt32 x = 0xfecdfecd;     
         var b = BitConverter.GetBytes(x);
        // var c = BitConverter.GetBytes(y);
@@ -336,7 +341,6 @@ namespace ConsoleApp
         //var b1 =  ms.ToArray();
         return page;
        // return c[0];
-
     }
 
 

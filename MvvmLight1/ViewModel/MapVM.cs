@@ -13,32 +13,7 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     public class MapVm : ViewModelBase
     {
-        /*
-        public static string MoveS(string qnnee)
-        {
-            var q = (byte)(qnnee[0] - '0');
-           // var q = Convert.ToInt16(qnnee.Substring(0, 1), 16);//Substring(0, 1);
-            var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-            var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-            var south = (q & 0x02) == 2;
-            if (south)
-            {
-                if (ns < 127)
-                    ns++;
-            }
-            else //if north will move south until zero north
-            //then step to zero south at the equator, quadrant change,
-            //to draw different boundaries
-            {
-                ns--;
-                if (ns >= 0) return String.Format("{0:x1}{1:x2}{2:x2}", q, ns, ew);
-                q = (byte)(q | 0x02); //change quadrant to south 
-                ns = 0;
-            }
-            return String.Format("{0:x1}{1:x2}{2:x2}", q, ns, ew);
-        }
-*/
-
+  
         public MapVm()
         {
             Qnnee = Userdata.Region;
