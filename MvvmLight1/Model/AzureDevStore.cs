@@ -76,7 +76,7 @@ namespace MvvmLight1.Model
         public static string[] CountryNames()
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            CloudConfigurationManager.GetSetting("GHGConnectionString"));
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("countries");
             CloudBlockBlob blockBlob = container.GetBlockBlobReference("countries.txt");
@@ -162,24 +162,22 @@ namespace MvvmLight1.Model
 
         public static void RegisterLoader(string[] loaderArray)
         {
-            CloudStorageAccount account = CldStoreAcc; //CloudStorageAccount.DevelopmentStorageAccount;          
-            CloudBlobContainer cont = account.CreateCloudBlobClient().GetContainerReference(loaderArray[0]); //"2aabb"
+            var account = CldStoreAcc; //CloudStorageAccount.DevelopmentStorageAccount;          
+            var cont = account.CreateCloudBlobClient().GetContainerReference(loaderArray[0]); //"2aabb"
             if (cont == null) return;
             cont.CreateIfNotExists();
-            CloudPageBlob loader = cont.GetPageBlobReference("l");
+            var loader = cont.GetPageBlobReference("l");
             loader.FetchAttributes();
-
             if (! loader.Metadata.ContainsKey("NextLoader")) loader.Metadata.Add("NextLoader", "0");
 
             loaderArray[1] = loader.Metadata["NextLoader"]; //hexadecimal next in sequence id for each loader/provider
-            short ndx = Convert.ToInt16(loaderArray[1], 16);
+            var ndx = Convert.ToInt16(loaderArray[1], 16);
             loader.Metadata["NextLoader"] = String.Format("{0:x}", ndx + 1);
 
-            string json = JsonConvert.SerializeObject(loaderArray.Skip(1));
-            byte[] bytes = Encoding.UTF8.GetBytes(json);
-            int grow = (512 - bytes.Length%512);
+            var json = JsonConvert.SerializeObject(loaderArray.Skip(1));  //skips the qnnee field //should check that loaderdata is <= 512 bytes
+            var bytes = Encoding.UTF8.GetBytes(json);
+            var grow = (512 - bytes.Length%512);
             Array.Resize(ref bytes, bytes.Length + grow);
-
             loader.UploadFromByteArray(bytes, 0, bytes.Length);
         }
 
@@ -190,28 +188,28 @@ namespace MvvmLight1.Model
 
         public static void UploadLoaderData(string[] sarr)
         {
-            string qne = Loaderid.Substring(0, 5);
-            short pagenumber = Convert.ToInt16(Loaderid.Substring(5, Loaderid.Length - 5));
-            int startoffset = pagenumber << 9;
-            string s = JsonConvert.SerializeObject(sarr);
+            var qne = Loaderid.Substring(0, 5);
+            var pagenumber = Convert.ToInt16(Loaderid.Substring(5, Loaderid.Length - 5));
+            var startoffset = pagenumber << 9;
+            var s = JsonConvert.SerializeObject(sarr);
             var a = JsonConvert.DeserializeObject<string[]>(s);
             //var saa = (string[])a;
 
-            CloudStorageAccount account = CloudStorageAccount.DevelopmentStorageAccount;
+            var account = CloudStorageAccount.DevelopmentStorageAccount;
             // var en = account.CreateCloudBlobClient().ListContainers();
 
             account.CreateCloudBlobClient().GetContainerReference("qnnee").CreateIfNotExists();
 
-            CloudBlobContainer container = account.CreateCloudBlobClient().GetContainerReference("qnnee");
+            var container = account.CreateCloudBlobClient().GetContainerReference("qnnee");
             // var container = en.ElementAt(0);
             //string blobname = "tony/manicom";
-            CloudPageBlob loader = container.GetPageBlobReference("/l");
+            var loader = container.GetPageBlobReference("/l");
             loader.Create(8192);
             //const string s1 = "Tony Manicom/n173 blandford road/n north riding, Randburg/n";
-            byte[] sb = Encoding.UTF8.GetBytes(s);
+            var sb = Encoding.UTF8.GetBytes(s);
 
             // byte[] ba = new byte[512];
-            int grow = 512 - ((sb.Length)%512);
+            var grow = 512 - ((sb.Length)%512);
             Array.Resize(ref sb, sb.Length + grow);
             //  for (int i = 0; i < sb.Length; i++) ba[i] = sb[i];      
             //ba.
@@ -219,31 +217,31 @@ namespace MvvmLight1.Model
             // for (int i = 0; i < 512; i++) x[i] = (byte)i;
             loader.UploadFromByteArray(sb, 0, 512);
 
-            CloudPageBlob readerblob = container.GetPageBlobReference("/l");
-            Stream stream = readerblob.OpenRead();
+            var readerblob = container.GetPageBlobReference("/l");
+            var stream = readerblob.OpenRead();
             var buffer = new byte[512];
             stream.Seek(0, SeekOrigin.Begin);
             stream.Read(buffer, 0, 512);
 
 
-            string text = Encoding.UTF8.GetString(buffer);
+            var text = Encoding.UTF8.GetString(buffer);
             //Model.AzureStorage.devListContainers();    
         }
 
         public static void SetupAzureAccount()
         {
             // Settings.Registered = true;
-            CloudStorageAccount account = CloudStorageAccount.DevelopmentStorageAccount;
+            var account = CloudStorageAccount.DevelopmentStorageAccount;
 
-            CloudBlobContainer contain = account.CreateCloudBlobClient().GetContainerReference("2aabb");
-            CloudPageBlob tony = contain.GetPageBlobReference("blob");
+            var contain = account.CreateCloudBlobClient().GetContainerReference("2aabb");
+            var tony = contain.GetPageBlobReference("blob");
             // var s = container.Name;
             tony.Create(8192);
             const string s1 = "Tony Manicom/n173 blandford road/n north riding, Randburg/n";
-            byte[] sb = Encoding.UTF8.GetBytes(s1);
+            var sb = Encoding.UTF8.GetBytes(s1);
 
             // byte[] ba = new byte[512];
-            int grow = 512 - ((sb.Length)%512);
+            var grow = 512 - ((sb.Length)%512);
             Array.Resize(ref sb, sb.Length + grow);
             //  for (int i = 0; i < sb.Length; i++) ba[i] = sb[i];      
             //ba.

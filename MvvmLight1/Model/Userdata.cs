@@ -9,40 +9,30 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace MvvmLight1.Model
 {
-    public static class Userdata
+    public static class Userdata //static class current usewr data -- will lookup azure utilities and keep a session copy
     {
-        public static CloudStorageAccount GhgAccount =
-            CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+       // public static CloudStorageAccount GhgAccount =
+       //     CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
 
-        public static int Selectedcountryindex;
+        public static int Selectedcountryindex = 1;
+
         public static CloudBlobContainer Container;
 
-        public static string[] Regions
-        {
-            get { return GetRegions(); }
-        }
+        public static string SelectedCountry { get { return CountryNames[Selectedcountryindex]; }}
 
-
-        public static string SelectedCountry {
-            get { return CountryNames[Selectedcountryindex]; }
-        }
-
-        public static string[] CountryNames
-        {
-            get
-            {
-                var cbc = GhgAccount.CreateCloudBlobClient();
-                var container = cbc.GetContainerReference("countries");
-                var blobs = container.ListBlobs().ToArray();
-                var sarr = new string[blobs.Length];
-                for (var i = 0; i < sarr.Length; i++)
-                    sarr[i] = blobs[i].Uri.Segments[2].Substring(0, 2).ToUpper();
-                return sarr;
-            }
-        }
+        public static string[] CountryNames {get {return Azure.CountryNames();}}
 
         public static string Region { get; set; }
 
+        public static string Country
+        {
+            get { return SelectedCountry; }
+        }
+    
+     
+
+        public static string[] Regions = Azure.GetRegions(Country);
+/*
         public static string[] GetRegions()
         {
             var cbc = GhgAccount.CreateCloudBlobClient();
@@ -52,8 +42,7 @@ namespace MvvmLight1.Model
             sb.Append(".txt");
             var countryblobname = sb.ToString();
             var blob = container.GetBlockBlobReference(countryblobname.ToLower());
-           // var ms = new MemoryStream();
-           // var txt ="";
+           
             string[] sarr = null;
             if (blob == null) return null;
             var ms = new MemoryStream();
@@ -71,10 +60,12 @@ namespace MvvmLight1.Model
             return sarr;
             
         }
-
+*/
         public static bool Isvalid(string qnnee)
         {
             return Regions.Contains(qnnee);
         }
+
+
     }
 }

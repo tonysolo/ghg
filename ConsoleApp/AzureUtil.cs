@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Windows.Markup;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -13,15 +12,42 @@ namespace ConsoleApp
 {
     public static class AzureGhgStorage
     {
-        public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
-        //public static CloudStorageAccount Csa = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+ /*CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+            CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("countries");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference("countries.txt");
+            string text;
+            using (var memoryStream = new MemoryStream())
+            {
+                blockBlob.DownloadToStream(memoryStream);
+                text = Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+*/
+
+        //public static CloudStorageAccount Csa = CloudStorageAccount.DevelopmentStorageAccount;
+        public static CloudStorageAccount Csa = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
 
         public static string GetCountryList()
         {
-            var ghgAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
-            var container = ghgAccount.CreateCloudBlobClient().GetContainerReference("countries");
-            var cbc = container.GetBlockBlobReference("countries.txt");
-            return cbc.DownloadText();//Encoding.UTF8);           
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+                  CloudConfigurationManager.GetSetting("GHGConnectionString"));
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("countries");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference("countries.txt");       
+
+           
+            string text;
+            using (var memoryStream = new MemoryStream())
+            {
+                
+                blockBlob.DownloadToStream(memoryStream);
+                text = Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+            return text;
+
+            // return cbc.DownloadText();//Encoding.UTF8);           
         }
 
         public static string GetCountry(string country)

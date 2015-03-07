@@ -37,7 +37,7 @@
                           
                           Margin="3 3 3 3"
                           DockPanel.Dock="Left"
-                          ItemsSource="{Binding CountryShortNames}"
+                          ItemsSource="{Binding CountryNames}"
                           SelectedIndex="{Binding CountryIndex}" />
                 
                

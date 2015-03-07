@@ -25,7 +25,11 @@ namespace MvvmLight1.ViewModel
         public int CountryIndex { get; set; }
         public string Region { get; set; } //qnnee region
         public string Country { get; set; } //country short code
-        public string ID { get; set; }
+        public string Id 
+        {
+            get { return ""; } 
+            set { value = ""; } 
+        }
         //stored in loader pageblob // pinoffset set in pageblob and recorded by user
         public int RegionIndex { get; set; } //index    
         public int SecurityChoice { get; set; }
@@ -41,7 +45,7 @@ namespace MvvmLight1.ViewModel
         public bool Loaded { get; set; }
 
 
-        public static string[] CountryShortNames
+        public static string[] CountryNames
         {
             get { return Userdata.CountryNames; }
         }
@@ -82,7 +86,7 @@ namespace MvvmLight1.ViewModel
         public RelayCommand Submit { get; private set; }
         public RelayCommand LoadRegions { get; private set; }
 
-        public void SubmitData()
+        private void SubmitData()
         {
             string[] str =
             {
@@ -95,8 +99,11 @@ namespace MvvmLight1.ViewModel
             AzureUtil.RegisterLoader(str);
         }
 
+        private void GetData() { }
+
         public void ShowMapDlg()
         {
+            CountryIndex = 1;
             Userdata.Selectedcountryindex = CountryIndex;
            // Userdata.Region = Region;
             Region = RegionNames[Userdata.Selectedcountryindex];
@@ -118,7 +125,7 @@ namespace MvvmLight1.ViewModel
         {
             Userdata.Selectedcountryindex = CountryIndex;
             Loaded = false;
-            Userdata.GetRegions(); //Regio(CountryShortNames[CountryIndex]);
+           // Userdata.GetRegions(); //Regio(CountryShortNames[CountryIndex]);
             Loaded = true;
 
             RaisePropertyChanged("RegionIndex");

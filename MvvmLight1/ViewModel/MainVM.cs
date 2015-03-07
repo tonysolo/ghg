@@ -23,7 +23,7 @@ namespace MvvmLight1.ViewModel
         }
 
 
-        public static string[] CountryShortNames
+        public static string[] CountryNames
         {
             get { return Userdata.CountryNames; }
         }

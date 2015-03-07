@@ -109,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\AzureDevStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\Azure.cs" />
     <Compile Include="Model\MapPoint.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="eHealthV.xaml.cs">
@@ -120,7 +124,6 @@
     <Compile Include="MapV.xaml.cs">
       <DependentUpon>MapV.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\AzureDevStore.cs" />
     <Compile Include="Model\QneUtils.cs" />
     <Compile Include="Model\DataItem.cs">
       <SubType>Code</SubType>
