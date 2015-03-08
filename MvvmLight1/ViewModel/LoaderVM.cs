@@ -20,12 +20,15 @@ namespace MvvmLight1.ViewModel
         public LoaderVm()
         {
             SetupRelayCommands();
-            //Country = Userdata.SelectedCountry;
+            Country = Userdata.SelectedCountry;
+            Regions = Userdata.Regions;
+            Region = Userdata.Region;
         }
 
         //public int CountryIndex { get; set; }
+        public string[] Regions { get; set; }
         public string Region { get; set; } //qnnee region
-        public string Country { get{ return Userdata.SelectedCountry; } } //country short code
+        public string Country { get; set; } //country short code
         public string Id 
         {
             get { return ""; } 
@@ -51,15 +54,10 @@ namespace MvvmLight1.ViewModel
             get { return Userdata.CountryNames; }
         }
 
-        public string[] RegionNames
-        {
-            get
-            {
-               // Userdata.Selectedcountryindex = CountryIndex;
-                return Userdata.Regions;
-            }
-            // RaisePropertyChanged("RegionIndex");
-        }
+       // public string[] Regions
+        //{
+        //    get { return Userdata.Regions; }          
+        //}
 
         public static string[] Providers
         {
@@ -107,17 +105,18 @@ namespace MvvmLight1.ViewModel
             //CountryIndex = 1;
             //Userdata.Selectedcountryindex = CountryIndex;
            // Userdata.Region = Region;
-            Region = RegionNames[Userdata.Selectedcountryindex];
-            var i = Region.Length;
+           // Region = RegionNames[Userdata.Selectedcountryindex];
+            //var i = Region.Length;
+           
+            Region = Regions[RegionIndex];
             Userdata.Region = Region;
-            Region = Userdata.Region;
             QneUtils.IndexPoint(Region);
             QneUtils.CentrePoint(Region);
             RaisePropertyChanged("Region");
             //RaisePropertyChanged("RegionIndex");
             //RaisePropertyChanged("Center");
             //RaisePropertyChanged("CountryIndex");
-
+            //Userdata.Region = Region;
             var v = new MapV();
             v.ShowDialog();
         }

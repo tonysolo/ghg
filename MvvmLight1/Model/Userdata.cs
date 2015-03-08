@@ -7,14 +7,20 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 
+
 namespace MvvmLight1.Model
 {
-    public static class Userdata //static class current usewr data -- will lookup azure utilities and keep a session copy
+    //static class current user data -- will lookup azure utilities and then keep a session copy
+    //of regions and country names to avoid unnecessary repeat access to azure
+
+    public static class Userdata 
     {
        // public static CloudStorageAccount GhgAccount =
        //     CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+        
 
         public static int Selectedcountryindex;
+       // public static string 
 
         public static CloudBlobContainer Container;
 
@@ -22,16 +28,18 @@ namespace MvvmLight1.Model
 
         public static string[] CountryNames { get {return Azure.CountryNames();}}
 
-        public static string Region { get; set; }
+        public static string[] Regions { get { return Azure.GetRegions(SelectedCountry);}}
 
-       public static string Country
+        public static string Region { get; set; }
+    
+        public static string Country
        {
-           get { return SelectedCountry; }
-        }
+          get { return SelectedCountry; }
+       }
     
      
 
-        public static string[] Regions = Azure.GetRegions(Country);
+        
 /*
         public static string[] GetRegions()
         {

@@ -42,7 +42,7 @@ namespace MvvmLight1.ViewModel
         //       public string Boundary { get; private set; }
         public string Qnnee { get; private set; }
         public string Qnnneee { get; private set; }
-        public int CountryIndex { get; set; }
+        public static int CountryIndex { get; set; }
 
         public RelayCommand EditMap { get; private set; }
         public RelayCommand EditEpidemiology { get; private set; }
@@ -71,7 +71,7 @@ namespace MvvmLight1.ViewModel
 
         private static void ShowLoaderDlg()
         {
-            //Userdata.LoadCountryNames();
+            Userdata.Selectedcountryindex = CountryIndex;
             var v = new LoaderV();
             v.ShowDialog();
         }

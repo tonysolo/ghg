@@ -35,7 +35,7 @@
                             Command="{Binding LoadRegions}" Content="&#xE005;"
                             IsEnabled="{Binding Loaded}" />
                     <ComboBox Width="68" Margin=" 2 0 4 0"
-                              ItemsSource="{Binding RegionNames}"
+                              ItemsSource="{Binding Regions}"
                               SelectedIndex="{Binding RegionIndex}" />
                 </StackPanel>
 
