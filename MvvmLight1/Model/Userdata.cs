@@ -14,19 +14,19 @@ namespace MvvmLight1.Model
        // public static CloudStorageAccount GhgAccount =
        //     CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
 
-        public static int Selectedcountryindex = 1;
+        public static int Selectedcountryindex;
 
         public static CloudBlobContainer Container;
 
         public static string SelectedCountry { get { return CountryNames[Selectedcountryindex]; }}
 
-        public static string[] CountryNames {get {return Azure.CountryNames();}}
+        public static string[] CountryNames { get {return Azure.CountryNames();}}
 
         public static string Region { get; set; }
 
-        public static string Country
-        {
-            get { return SelectedCountry; }
+       public static string Country
+       {
+           get { return SelectedCountry; }
         }
     
      

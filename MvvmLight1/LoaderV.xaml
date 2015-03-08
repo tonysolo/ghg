@@ -26,10 +26,10 @@
                         FontSize="12"
                         Content="&#x2638;"
                         Command="{Binding EditMap}" />
-                <ComboBox Width="50"
+                <TextBox Width="50"
                           DockPanel.Dock="Left"
-                          ItemsSource="{Binding CountryShortNames}"
-                          SelectedIndex="{Binding CountryIndex}" />
+                          Text="{Binding Country}"/>
+                         
                 <StackPanel Orientation="Horizontal">
                     <Button Margin="3 0 2 0" Width="25"
                             Command="{Binding LoadRegions}" Content="&#xE005;"

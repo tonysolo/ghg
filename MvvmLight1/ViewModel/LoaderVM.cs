@@ -20,11 +20,12 @@ namespace MvvmLight1.ViewModel
         public LoaderVm()
         {
             SetupRelayCommands();
+            //Country = Userdata.SelectedCountry;
         }
 
-        public int CountryIndex { get; set; }
+        //public int CountryIndex { get; set; }
         public string Region { get; set; } //qnnee region
-        public string Country { get; set; } //country short code
+        public string Country { get{ return Userdata.SelectedCountry; } } //country short code
         public string Id 
         {
             get { return ""; } 
@@ -54,7 +55,7 @@ namespace MvvmLight1.ViewModel
         {
             get
             {
-                Userdata.Selectedcountryindex = CountryIndex;
+               // Userdata.Selectedcountryindex = CountryIndex;
                 return Userdata.Regions;
             }
             // RaisePropertyChanged("RegionIndex");
@@ -103,8 +104,8 @@ namespace MvvmLight1.ViewModel
 
         public void ShowMapDlg()
         {
-            CountryIndex = 1;
-            Userdata.Selectedcountryindex = CountryIndex;
+            //CountryIndex = 1;
+            //Userdata.Selectedcountryindex = CountryIndex;
            // Userdata.Region = Region;
             Region = RegionNames[Userdata.Selectedcountryindex];
             var i = Region.Length;
@@ -123,7 +124,7 @@ namespace MvvmLight1.ViewModel
 
         public void GetRegions()
         {
-            Userdata.Selectedcountryindex = CountryIndex;
+            //Userdata.Selectedcountryindex = CountryIndex;
             Loaded = false;
            // Userdata.GetRegions(); //Regio(CountryShortNames[CountryIndex]);
             Loaded = true;
