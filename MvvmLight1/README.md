@@ -1,33 +1,34 @@
 # Global Health Grid (GHG)#
-#Processing #
 
-The  purpose of this application is to store Healthcare information for Epidemiology and E-Health. It uses *Cloud Storage and GIS Maps* for storing and retrieving health data using a *Grid system* that defines regions of approximately 80 X 80 Km at the equator.
+### e-Health Records ##
+e-Health is sought by all countries as the means to contain costs and improve access to healthcare. Unfortunately there have been failures in some countries and resistance to change without clear clinical benefits. This implementation is a simple clinical record of the patients alerts and chronic medication, risks and preferences and short clinical notes for each visit. Unlike other implementations it can store handwritten notes and scans as and other information for patients to share with any healthcare provider they consult. It is provides population health management using actionable data. The data is stored using Microsoft Azure Page blobs and includes storage of text as well as images such as scans, handwritten notes, xrays, ECGs and future data sources such as wearable devices.
 
-GHG has two applications: *Epidemiology* (e-epidemiology) and *Patient clinical records* (e-health).
+###Scope #
 
-### e-Epidemiology and e-Health ###
- 
-Both applications share features so they have been combined in a single program for recording patient clinical records and epidemiology statistics.
+This is a global scale application to store Healthcare information for Epidemiology and E-Health. It uses *Cloud Storage and GIS Maps* for storing and retrieving health data using a *Grid system* that defines regions of 42 arc minutes - 80 X 80 Km at the equator.
 
-E-Health is clinical information. It contains details for treatment, prescriptions and referrals. It belongs to the patient and is stored privately in the patient's private e-health record.
+GHG has two purposes: *e-Epidemiology* and  and *e-health*.
 
-E-Epidemiology is information about the disease: the ICD10 diagnostic codes and other data - it uses no person identifiable information and it is kept in shared storage and used for epidemiology statistics and surveillance.
+E-Health is about clinical management. It contains details for treatment, prescriptions and referrals. E-health data belongs to the patient and is stored confidentially in the patient's private e-health record. E-health records are stored in a repository that allows patients to access their medical record wherever needed. 
 
-   
-### GHG - Azure Cloud Blob Storage Containers###
+E-Epidemiology is information about the diseases occurring in the population: it contains diagnostic codes and other data without any person identifiable information and used for healthcare statistics, surveillance and planning.
 
-Microsoft Azure blob storage is used to store data. There is a separate **storage container for each GIS region** that in turn **contains three page blobs**. Each region is set up the same way: a unique container name containing with three page blobs **named 'P','L' and 'E'**
+##Data Storage   
+### Azure Cloud Blob Storage ###
 
-Name|Purpose|Data Structure
+Microsoft Azure blob storage is used to store all the data according to geographic regions (GIS). There is a separate **storage container for each GIS region** which in turn contains eleven binary large objects (BLOB's)** - 'P','L','E', I0 ... to I7** as shown in the following table:
+
+BLOB|Purpose|Data Structure
 :--:|:------------------------------|:------------------------|
 **P** | Patient e-Health|64 Kilobytes (128 pages) for each patient
 **L** | Loaders (providers)| 1 Kilobyte (2 pages) for each provider
 **E** | Epidemiology|All patients for the region (variable length allocated for each day using index table)
-**I[0..11]**|Images|Images from 16Kb to 32Mb ranges in separate blobs
+**I0 .. I7**|Images| Ranges from 32Kb to 4Mb  in 8 separate blobs
 
-### Container Names ('qnnee') ### 
 
-Container names are strings consisting of 5 hexadecimal characters, "qnnee"
+### Azure Container Names ('qnnee') ### 
+
+Container names are strings consisting of 5 hexadecimal characters defining a GIS region "qnnee" (quadrant, latitude and longitude).
 
     nn = degrees latitude / 180 * 256;
     ee = degrees Longitude /180 * 256;
@@ -40,34 +41,33 @@ The "qnnee" values range from "00000" to "37fff" and represent regions separated
 
 ### Patient and Provider ID's ##
 
-Unique ID's consist of the region and the page offset in the 'P' blob or 'L' blob for patients or providers.
+Unique ID's for patients and providers are equivalent to their data offset in the 'P' blob or 'L' blobs.
 
-For locating data, patient e-Health data will align with 64Kb boundaries so the location in the 'P' blob will be: 
-
+Patient's e-Health data aligns with 64Kb boundaries so the data location in the 'P' blob will be: 
 
     Start Location = ID<<16
 
+Similarly provider data aligns with 4Kb boundaries in the 'L' blob  at 
 
+    Start Location = ID<<12
 
-The purpose of the software is to maximise the value of the data. To provide ways to simplify collecting and using the data.
+## Processing ## 
 
-## e-Health Processing ## 
+The purpose of the software is to maximise the value of the data. To provide ways to simplify collecting and then fully using the data.
  
-### e-Health Records ##
-There is much confusion about e-health, dissatisfaction and failures in some countries including the UK. This implementation is a simple clinical record of the patients alerts and chronic medication, risks and preferences and short clinical notes for each visit. Unlike other implementations, this is a complete health information registry for patients to share their information with any healthcare provider they consult. It is designed for population health management using actionable data, for individual patients information and for recording epidemiology in near real time. The data is stored using Microsoft Azure Page blobs and includes storage of text as well as images such as scans, handwritten notes, xrays, ECGs and future data sources such as wearable devices.
-
 ### Actionable Data / Population Health Management##
-The design supports actionable data. The e-health record will flag risky behaviour such as a missed appointment or vaccination. An Azure worker role periodically checks all the records in a region and acts by sending an SMS to the patient or a healthcare visitor to follow up the problem.
+The design supports actionable data. The e-health record will flag risky behaviour such as a missed appointment or vaccination. An Azure worker role periodically checks all the records in a region and could, for example, act by sending an SMS to the patient or a healthcare visitor to follow up the problem.
 
-Actionable data could be a solution to many serious health problems like maternal and child mortality, HIV and TB medication compliance. It will be valuable for organising telemedicine and for implementing Population Health Management. This would be done automatically and at low cost.
+Similarly actionable data could be a solution to many serious health problems like maternal and child mortality, HIV and TB medication compliance. It will also be valuable for organising telemedicine, health visitors and appointment reminders. This would be done automatically and at low cost.
 
 ### Scheduled Processing ## 
-Azure storage queues will be used for scheduling tasks such as sending appointment reminders to patients on a specific day. For long delays the task could be flagged in the patients e-Health record as actionable data.
+Azure storage queues will be used for scheduling tasks such as appointment reminders on a specific day. For long delays the task could be flagged in the patient's e-Health record as actionable data.
 
 ## Epidemiology ## 
-Epidemiology is possibly the most important feature of the application. Before cloud storage, computing and GIS it would have been impossible to collect, process and map complete geographic healthcare data in real time.
-This application gives healthcare providers a simple way to upload a short record of the conditions they treat every day. A cloud process continually sorts and files the information according to region and time.
-The table shows how it works. Data is spread across 8 storage queues and setting the visibility to hide the data until the owner region reaches midnight (solar time). At that time the data for the region becomes visible for processing. This arrangement extends the processing time to 6 hours a day for each region. 
+Epidemiology is possibly the most important property of the application. Before cloud computing and GIS it would have been impossible to collect, process and map geographic healthcare data in real time.
+This application gives healthcare providers a simple way to record the conditions they treat every day without person identifiable data. A cloud process continually sorts and files epidemiology for regions and the country and updates the information overnight.
+
+The table shows how epidemiology works. Data is spread across 8 storage queues and setting the visibility to hide the data until the owner region reaches midnight. At that time the data for the region becomes visible for processing. This arrangement extends the processing time to 6 hours a day for each region. 
 
 ### Processing using Azure Queue Storage and Epidemiology data##
 
@@ -83,34 +83,37 @@ The table shows how it works. Data is spread across 8 storage queues and setting
 |**7**|7|15|23|31|
 
 
-#Azure Page Blob Storage #
+##Azure Page Blob Storage #
 ###Blobs 'P' and L' Patients and Providers (Loaders)
-Patient and Provider data are fixed length records and stored at fixed offsets in their respective page blobs. Azure provides a useful 'GetPageRanges(offset,length)' method to retrieve to occupied page ranges at specific offsets to guide retrieval and editing details. This process is handled by the client software. 
+Patient, Provider and Image data are fixed length records and stored at fixed offsets in their respective page blobs. Azure processing provides a useful 'GetPageRanges(offset,length)' method to retrieve the occupied page ranges from specific offsets to guide efficient retrieval and editing. 
 
-Epidemiology data is queued and then stored into the Epidemiology blob by an Azure Worker Role daily scheduled task.
+###Blob 'E (Epidemiology):
+Epidemiology data is queued and then stored into the 
+epidemiology blob by an Azure Worker Role using a daily scheduled task. 
 
 ###Blobs 'I0' to 'I11' .. (12 image ranges) 
 
-Six kilobyte Ranges: 16,32,64,128,256 and 512KB 
-Six megabyte Ranges: 1,2,4,8,16 and 32MB
+Six Kilobyte Ranges: 16,32,64,128,256 and 512KB 
+Six Megabyte Ranges: 1,2,4,8,16 and 32MB
+The idea is to have fixed length records for efficient storage and retrieval and to manage the duration of storage from 1 month to 20 years.
 
 The storage of image data includes an intermediate step to set a 'file allocation table' to track how long to keep images (in weeks). Images, scans, ECG trace...etc will occupy most of the data storage space in e-health records. Items such as handwritten 'to-do lists' will require less than one week storage, whereas other information might need to be stored for years. The volume of storage is managed to ensure that space is always available for new images.
 
-The file allocation table (FAT) provides a single byte to store the number of weeks to store the image (maximum 255 = 256 weeks, 0 == deleted at week end). Each entry (position) in the FAT corresponds to the image data offset and its value is decremented weekly (using an Azure Worker Role weekly scheduled task). The image data is deleted and space recycled after its FAT value passes zero.
+The file allocation table (FAT) provides a single byte to store the number of weeks to store the image (maximum 255 months or 20 years, 0 = deleted at month end). Each entry (position) in the FAT corresponds to the image data offset and its value is decremented weekly (using an Azure Worker Role weekly scheduled task). The image data is deleted and space recycled after its FAT value passes zero.
 
 Images will be PDF files converted to byte arrays and stored in the lowest fitting page blob.
 
-The image index will be stored with the patients data and easily retrieved for viewing.
-##Summary
-Organising countries into 'qnnee' regions is a simple process requiring a few minutes to complete.
+The image index will be stored with the patients data and efficiently retrieved for viewing.
+##Other Details
+Organising countries into 'qnnee' regions is a once-off task that requires a few minutes to set up each country.
 
-Each 'qnnee' region serves as a container and is automatically when the program runs with page blobs for patients(P) ,providers/loaders(L), epidemiology(E) and twelve images blobs(I0 to I11).
+When the program runs page blobs for patients(P), providers/loaders(L), epidemiology(E) and the eight images blobs(I0 to I7) are automatically added as required.
 
-Azure charges 0.5 cents (US) per gigabyte for data used. This application manages data efficiently making it practical to implement epidemiology and ehealth for any country at low cost.
+Azure charges 0.5 cents (US) per gigabyte only for data used. This application manages data efficiently making it practical to implement epidemiology and ehealth for any country at very low cost.
 
-The ehealth design is similar to a standard paper record medical practice but with the advantage of digital storage of patient records, images, digital prescriptions, telemedicine and population health management and appointment reminders.
+The process is similar to a standard medical practice paper records with the advantages of automation for storing images, digital prescriptions, telemedicine, population health management and appointment reminders.
 
-The application is presently implemented for Windows WPF.
+The application is presently implemented for Windows WPF with plans for other platforms in future. It would be very practical for tablet devices.
 
  
 
