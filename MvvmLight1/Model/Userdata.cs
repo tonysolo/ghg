@@ -8,30 +8,32 @@ namespace MvvmLight1.Model
 
     public static class Userdata
     {
-        private static string[] _countries;
-        private static string[] _regions;
-        private static int _countryindex;
-
-        public static int Selectedcountryindex { get { return _countryindex; } 
-                                                set { _countryindex = value;
-                                                    _regions = null;
-                                                }}
+        public static string[] Countries;
+        public static string[] Regions;
+        public static int Selectedcountryindex;
+        public static int RegionIndex;
 
         public static CloudBlobContainer Container;
 
         public static string SelectedCountry
         {
-            get { return _countries[Selectedcountryindex]; }
+            get { return Countries[Selectedcountryindex]; }
         }
 
-        public static string[] CountryNames { get { return _countries ?? (_countries = Azure.CountryNames()); }}
+        public static string[] CountryNames 
+        { get { return Countries ?? Azure.CountryNames(); }}
 
-        public static string[] Regions { get { return _regions ?? (_regions = Azure.GetRegions(SelectedCountry)); } }
+        public static string[] RegionsNames
+        { get { return Regions ?? Azure.GetRegions(SelectedCountry); }}
+     
+        public static string Region
+        {
+            get { return (RegionIndex < RegionsNames.Length) ? RegionsNames[RegionIndex]:""; }
+           
+        }
 
-        public static string Region { get; set; }
+        // public static string Country { get { return SelectedCountry; } }
 
-       // public static string Country { get { return SelectedCountry; } }
-
-        public static bool Isvalid(string qnnee) { return Regions.Contains(qnnee); }
+       public static bool Isvalid(string qnnee) { return Regions.Contains(qnnee); }
     }
 }

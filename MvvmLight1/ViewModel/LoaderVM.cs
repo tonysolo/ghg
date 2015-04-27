@@ -21,7 +21,7 @@ namespace MvvmLight1.ViewModel
         {
             SetupRelayCommands();
             Country = Userdata.SelectedCountry;
-            Regions = Userdata.Regions;
+            Regions = Userdata.RegionsNames;
             Region = Userdata.Region;
         }
 
@@ -109,7 +109,7 @@ namespace MvvmLight1.ViewModel
             //var i = Region.Length;
            
             Region = Regions[RegionIndex];
-            Userdata.Region = Region;
+            //Userdata.Region = Region;
             QneUtils.IndexPoint(Region);
             QneUtils.CentrePoint(Region);
             RaisePropertyChanged("Region");

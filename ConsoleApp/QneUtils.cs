@@ -11,9 +11,9 @@ namespace ConsoleApp
         /// </summary>
         /// <param name="deccoords">string</param>
         /// <returns>string qnnneee</returns>
-        public static string to_qnnneee(string deccoords) //input -23.56,23.79
+        public static string to_qnnneee(string deccoords) //testinjg input -23.56,23.79
         {
-
+            //test
             char[] delim = { ',' };
             var sarr = deccoords.Split(delim);
             var lat = System.Convert.ToDouble(sarr[0]);

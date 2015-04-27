@@ -10,7 +10,8 @@ namespace MvvmLight1.ViewModel
     ///     <para>
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
-    /// </summary>
+    /// </summary> 
+ 
     public class MapVm : ViewModelBase
     {
   
