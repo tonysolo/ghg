@@ -1,5 +1,4 @@
-﻿using System;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
 
@@ -10,11 +9,9 @@ namespace MvvmLight1.ViewModel
     ///     <para>
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
-    /// </summary> 
- 
+    /// </summary>
     public class MapVm : ViewModelBase
     {
-  
         public MapVm()
         {
             Qnnee = Userdata.Region;

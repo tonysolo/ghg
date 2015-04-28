@@ -61,7 +61,7 @@ namespace MvvmLight1.ViewModel
             var v = new MapV();
             v.ShowDialog();
         }
-    
+
 
         private static void ShowEpidemiologyDlg()
         {

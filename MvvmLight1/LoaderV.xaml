@@ -27,9 +27,9 @@
                         Content="&#x2638;"
                         Command="{Binding EditMap}" />
                 <TextBox Width="50"
-                          DockPanel.Dock="Left"
-                          Text="{Binding Country}"/>
-                         
+                         DockPanel.Dock="Left"
+                         Text="{Binding Country}" />
+
                 <StackPanel Orientation="Horizontal">
                     <Button Margin="3 0 2 0" Width="25"
                             Command="{Binding LoadRegions}" Content="&#xE005;"

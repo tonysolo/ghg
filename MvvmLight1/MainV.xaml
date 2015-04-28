@@ -32,24 +32,24 @@
 
         <StackPanel Orientation="Vertical" Margin="3,10,3,178">
             <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
-                <TextBox Margin="3 3 3 3" Width="55" Text="Country"/>
+                <TextBox Margin="3 3 3 3" Width="55" Text="Country" />
                 <ComboBox Width="50"
-                          
+
                           Margin="3 3 3 3"
                           DockPanel.Dock="Left"
                           ItemsSource="{Binding CountryNames}"
                           SelectedIndex="{Binding CountryIndex}" />
-                
-               
+
+
             </StackPanel>
-            
+
             <StackPanel Orientation="Horizontal" Height="Auto">
-                 <Button Content=" Register " Margin="3 3 3 3" Command="{Binding EditLoader}" />
+                <Button Content=" Register " Margin="3 3 3 3" Command="{Binding EditLoader}" />
                 <Button Content=" Help ? " Margin="6 3 3 3" Command="{Binding EditMap}" />
-                
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="Auto">
-                    <Label Content="Login Code" FontSize="8" Foreground="Black" Margin="3 0 0 0" />
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="Auto">
+                <Label Content="Login Code" FontSize="8" Foreground="Black" Margin="3 0 0 0" />
                 <Label Margin="10 0 0 0" Content="PIN" FontSize="8" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="3,0,0,0">

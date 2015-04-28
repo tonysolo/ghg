@@ -17,23 +17,29 @@ namespace MvvmLight1.Model
 
         public static string SelectedCountry
         {
-            get { return Countries[Selectedcountryindex]; }
+            get { return CountryNames[Selectedcountryindex]; }
         }
 
-        public static string[] CountryNames 
-        { get { return Countries ?? Azure.CountryNames(); }}
+        public static string[] CountryNames
+        {
+            get { return Countries ?? Azure.CountryNames(); }
+        }
 
-        public static string[] RegionsNames
-        { get { return Regions ?? Azure.GetRegions(SelectedCountry); }}
-     
+        public static string[] RegionsNames()
+        {
+           return Regions ?? Azure.GetRegions(SelectedCountry);
+        }
+
         public static string Region
         {
-            get { return (RegionIndex < RegionsNames.Length) ? RegionsNames[RegionIndex]:""; }
-           
+            get { return ((RegionIndex < Regions.Length)&&(Regions!=null)) ? Regions[RegionIndex] : ""; }
         }
 
         // public static string Country { get { return SelectedCountry; } }
 
-       public static bool Isvalid(string qnnee) { return Regions.Contains(qnnee); }
+        public static bool Isvalid(string qnnee)
+        {
+            return Regions.Contains(qnnee);
+        }
     }
 }

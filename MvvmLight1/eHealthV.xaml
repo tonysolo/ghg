@@ -15,8 +15,8 @@
         DataContext="{Binding EHealth, Source={StaticResource Locator}}">
     <Grid Margin="0,0,-8,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="16*"/>
-            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="16*" />
+            <ColumnDefinition Width="19*" />
         </Grid.ColumnDefinitions>
         <DockPanel LastChildFill="True" Margin="0,0,0,-9" Grid.ColumnSpan="2">
             <!--StackPanel DockPanel.Dock=" Top" Orientation="Horizontal">
@@ -29,10 +29,11 @@
                 <TabItem Header="Details" TabIndex="0">
                     <!--StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="20"></-->
                     <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-                        <TextBlock FontSize="8" Text="Name                                      Date of Birth                              Gender" />
+                        <TextBlock FontSize="8"
+                                   Text="Name                                      Date of Birth                              Gender" />
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Width = "100"/>
-                            <DatePicker Width="102"/>
+                            <TextBox Width="100" />
+                            <DatePicker Width="102" />
                             <TextBlock Margin="5 5 0 0" FontSize="10" Text="M" />
                             <RadioButton Margin="0 5,0,0" />
                             <TextBlock Margin="0 5 0 0" FontSize="10" Text="F" />
@@ -40,15 +41,15 @@
                         </StackPanel>
 
 
-
-                        <TextBlock FontSize="8" Text="Region of Birth / First Home                Current Region / District" />
+                        <TextBlock FontSize="8"
+                                   Text="Region of Birth / First Home                Current Region / District" />
 
                         <DockPanel HorizontalAlignment="Left" FlowDirection="LeftToRight">
-                            <ComboBox Width="100" ItemsSource="{Binding Regions}"/>
+                            <ComboBox Width="100" ItemsSource="{Binding Regions}" />
                             <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸"
-                                    Command="{Binding EditMap}"/>
+                                    Command="{Binding EditMap}" />
 
-                            <ComboBox Width="100" Margin="5,0,0,0"/>
+                            <ComboBox Width="100" Margin="5,0,0,0" />
                             <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸"
                                     Command="{Binding EditMap}" />
 
@@ -56,9 +57,7 @@
                         </DockPanel>
 
 
-                        <DockPanel HorizontalAlignment="Stretch" FlowDirection="RightToLeft">
-
-                        </DockPanel>
+                        <DockPanel HorizontalAlignment="Stretch" FlowDirection="RightToLeft" />
 
 
                         <TextBlock FontSize="8">
@@ -72,12 +71,12 @@
                         <TextBlock FontSize="8">
                             <Run Text="Children - Names and " /><Run Language="en-gb" Text="Ages (years)" />
                         </TextBlock>
-                        <TextBox MaxLines="3" AcceptsReturn="True" AllowDrop="True" VerticalContentAlignment="Top"/>
+                        <TextBox MaxLines="3" AcceptsReturn="True" AllowDrop="True" VerticalContentAlignment="Top" />
 
                         <TextBlock FontSize="8" Text="Home Address" />
-                        <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                        <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
                         <TextBlock FontSize="8" Text="Work Address" />
-                        <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                        <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
 
                         <TextBlock FontSize="8" Text="eMail Address" />
                         <TextBox />
@@ -114,7 +113,6 @@
                                  VerticalScrollBarVisibility="Visible" />
 
 
-
                         <TextBlock FontSize="8" Text="Special Investigations" />
                         <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
                                  VerticalScrollBarVisibility="Visible" />
@@ -125,7 +123,7 @@
 
                         <StackPanel Height="15" Orientation="Horizontal">
                             <TextBlock FontSize="8" Text="Images and Scans" />
-                            <Button FontSize ="8" Content = "Scan Document" />
+                            <Button FontSize="8" Content="Scan Document" />
 
                         </StackPanel>
                         <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"

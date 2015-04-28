@@ -21,7 +21,7 @@ namespace MvvmLight1.ViewModel
         {
             SetupRelayCommands();
             Country = Userdata.SelectedCountry;
-            Regions = Userdata.RegionsNames;
+            Regions = Userdata.RegionsNames();
             Region = Userdata.Region;
         }
 
@@ -29,11 +29,13 @@ namespace MvvmLight1.ViewModel
         public string[] Regions { get; set; }
         public string Region { get; set; } //qnnee region
         public string Country { get; set; } //country short code
-        public string Id 
+
+        public string Id
         {
-            get { return ""; } 
-            set { value = ""; } 
+            get { return ""; }
+            set { value = ""; }
         }
+
         //stored in loader pageblob // pinoffset set in pageblob and recorded by user
         public int RegionIndex { get; set; } //index    
         public int SecurityChoice { get; set; }
@@ -54,7 +56,7 @@ namespace MvvmLight1.ViewModel
             get { return Userdata.CountryNames; }
         }
 
-       // public string[] Regions
+        // public string[] Regions
         //{
         //    get { return Userdata.Regions; }          
         //}
@@ -98,16 +100,18 @@ namespace MvvmLight1.ViewModel
             AzureUtil.RegisterLoader(str);
         }
 
-        private void GetData() { }
+        private void GetData()
+        {
+        }
 
         public void ShowMapDlg()
         {
             //CountryIndex = 1;
             //Userdata.Selectedcountryindex = CountryIndex;
-           // Userdata.Region = Region;
-           // Region = RegionNames[Userdata.Selectedcountryindex];
+            // Userdata.Region = Region;
+            // Region = RegionNames[Userdata.Selectedcountryindex];
             //var i = Region.Length;
-           
+
             Region = Regions[RegionIndex];
             //Userdata.Region = Region;
             QneUtils.IndexPoint(Region);
@@ -125,7 +129,7 @@ namespace MvvmLight1.ViewModel
         {
             //Userdata.Selectedcountryindex = CountryIndex;
             Loaded = false;
-           // Userdata.GetRegions(); //Regio(CountryShortNames[CountryIndex]);
+            // Userdata.GetRegions(); //Regio(CountryShortNames[CountryIndex]);
             Loaded = true;
 
             RaisePropertyChanged("RegionIndex");
