@@ -40,7 +40,7 @@
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09E;"
                     Command="{Binding MoveRegionWest}" />
             <Button Width="20" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE005;" Command="{Binding }"/>
-            <TextBox Width="150" ToolTip="{Binding Qnnee}" />
+            <TextBox Width="50" ToolTip="{Binding Qnnee}" Text ="{Binding Qnnee}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE004;" />
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE002;" />
 

@@ -24,7 +24,7 @@ namespace MvvmLight1.ViewModel
             }
             
             var test = "";
-            SavedQnnee = "";
+            
           //  var cns =  CountryNames ?? Azure.CountryNames().ToArray();
           //  var cn = Azure.CountryNames().ToArray();
 
@@ -33,6 +33,7 @@ namespace MvvmLight1.ViewModel
             //Qnnee = QneUtils.to_qnnee("-26.20,28.04");
             //this.Countries = SharedData.CountryNames;
            // SharedData.Region = "23456";
+            SavedQnnee = SharedData.Region;
             Qnnee = SharedData.Region;
             Centre = SharedData.Region;
             Centre = QneUtils.IndexPoint(Qnnee);
@@ -43,7 +44,7 @@ namespace MvvmLight1.ViewModel
 
         public string Centre { get; private set; }
         public string Boundary { get; private set; }
-        public string Qnnee { get; private set; }
+        public string Qnnee { get; set; }
         public string Qnnneee { get; private set; }
         public string Fill { get; private set; }
         public string SavedQnnee { get; private set; }
@@ -116,7 +117,7 @@ namespace MvvmLight1.ViewModel
             MoveRegionEast = new RelayCommand(RegionEast);
             MoveRegionWest = new RelayCommand(RegionWest);
             MoveRegionSouth = new RelayCommand(RegionSouth);
-            SaveQnnee = new RelayCommand(Saveqnnee);
+            SaveQnnee   =    new RelayCommand(Saveqnnee);
         }
 
 

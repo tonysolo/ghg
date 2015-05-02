@@ -17,6 +17,7 @@ namespace MvvmLight1.ViewModel
            // var s = SharedData.Region;
             Qnnee = SharedData.Region;
             Centre = QneUtils.IndexPoint(Qnnee);
+            
             SetupRelayCommands();
         }
 
