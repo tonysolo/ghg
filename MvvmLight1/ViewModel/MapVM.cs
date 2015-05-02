@@ -14,7 +14,8 @@ namespace MvvmLight1.ViewModel
     {
         public MapVm()
         {
-            Qnnee = Userdata.Region;
+           // var s = SharedData.Region;
+            Qnnee = SharedData.Region;
             Centre = QneUtils.IndexPoint(Qnnee);
             SetupRelayCommands();
         }
@@ -37,7 +38,7 @@ namespace MvvmLight1.ViewModel
             Qnnee = QneUtils.MoveN(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
-            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
             RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Centre");
@@ -49,7 +50,7 @@ namespace MvvmLight1.ViewModel
             Qnnee = QneUtils.MoveS(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
-            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
             RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Centre");
@@ -61,7 +62,7 @@ namespace MvvmLight1.ViewModel
             Qnnee = QneUtils.MoveE(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
-            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
             RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Centre");
@@ -73,7 +74,7 @@ namespace MvvmLight1.ViewModel
             Qnnee = QneUtils.MoveW(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
-            Fill = Userdata.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
             RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Centre");

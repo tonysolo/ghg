@@ -61,8 +61,8 @@ namespace MvvmLight1.Model
         {
             double lat = 0, lon = 0;
             //    var east = (qnnee[0] == '0');
-
-            switch (qnnee.Length)
+            
+            switch(qnnee.Length)
             {
                 case 5:
                     short lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
@@ -79,6 +79,7 @@ namespace MvvmLight1.Model
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
+         
             return String.Format("{0:F2},{1:F2}", lat, lon);
         }
 

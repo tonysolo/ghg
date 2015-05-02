@@ -109,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MapV.xaml.cs">
+      <DependentUpon>MapV.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Model\AzureDevStore.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -120,9 +124,6 @@
     </Compile>
     <Compile Include="LoaderV.xaml.cs">
       <DependentUpon>LoaderV.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MapV.xaml.cs">
-      <DependentUpon>MapV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\QneUtils.cs" />
     <Compile Include="Model\DataItem.cs">
@@ -137,14 +138,16 @@
     <Compile Include="Model\shared.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Userdata.cs" />
+    <Compile Include="Model\SharedData.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\eHealthVM.cs" />
     <Compile Include="ViewModel\EpidemVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\LoaderVM.cs" />
-    <Compile Include="ViewModel\MapVM.cs" />
     <Compile Include="ViewModel\CoordVM.cs" />
+    <Compile Include="ViewModel\MapVM.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModel\SettingsVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="CoordV.xaml.cs">

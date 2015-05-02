@@ -42,7 +42,6 @@ namespace ConsoleApp
             stream.Seek(0, System.IO.SeekOrigin.Begin);
             stream.Read(buffer, 0, 512);
             var s = Encoding.UTF8.GetString(buffer);
-            var v = "";
             //Model.AzureStorage.devListContainers();     
         }
 

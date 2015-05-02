@@ -66,7 +66,7 @@ namespace MvvmLight1.ViewModel
 
         public MapVm Map
         {
-            get { return ServiceLocator.Current.GetInstance<MapVm>(); }
+           get { return ServiceLocator.Current.GetInstance<MapVm>(); }
         }
 
         public EHealthVm EHealth

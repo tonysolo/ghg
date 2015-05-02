@@ -17,7 +17,7 @@ namespace MvvmLight1.ViewModel
     ///     It could include ghg accounts in other subsciptions but this is not a likely
     ///     requirement.
     /// </summary>
-    public class SettingsVM : ViewModelBase
+    public class SettingsVm : ViewModelBase
     {
         // public string[] Subscriptions {get{ return Enum.GetNames(typeof(Model.subscription));}}//hard coded
         //  public string[] Accounts { get { return Model.settings.accounts; } } }//hard coded 0 to 5

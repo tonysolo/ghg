@@ -14,6 +14,27 @@ namespace MvvmLight1.Model
             CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
 
 
+        /// <summary>
+        /// registers a new loader
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns>string index</returns>
+     /*   public static int RegisterNewLoader(string json)
+        {
+            GhgAccount = "GHGConnetionString";
+            var bytes = Encoding.UTF8.GetBytes(json);
+            var grow = (512 - bytes.Length % 512);
+            Array.Resize(ref bytes, bytes.Length + grow);
+            var s = SetNextLoaderIndex();
+            if (s == -1) return s;
+            // var p = Convert.ToInt32(s, 16);
+            var ms = new MemoryStream(bytes);
+            var start = s << 10;
+            Loaderblob.WritePages(ms, start);
+            return s;
+        }
+*/
+
         public static string[] CountryNames()
         {
             CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
@@ -31,8 +52,8 @@ namespace MvvmLight1.Model
             if (countryname == null) return null;
             CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
             CloudBlobContainer container = cbc.GetContainerReference("countries");
-            //if (Selectedcountryindex < 0) return null;
-            // var sb = new StringBuilder(CountryNames[Selectedcountryindex]);
+            //if (SelectedCountryIndex < 0) return null;
+            // var sb = new StringBuilder(CountryNames[SelectedCountryIndex]);
             // sb.Append(".txt");
             string countryblobname = countryname + ".txt";
             CloudBlockBlob blob = container.GetBlockBlobReference(countryblobname.ToLower());

@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
@@ -8,13 +11,117 @@ namespace MvvmLight1.ViewModel
     public class MainVm : ViewModelBase
     {
         public MainVm()
-        {
-            SetupRelayCommands();
+        {       
             IsRegistered = true;
-            // Userdata.LoadCountryNames();
+            try
+            {
+           var cns = SharedData.CountryNames;
+            }
+            catch (System.TypeInitializationException)
+            {
 
-            Qnnee = QneUtils.to_qnnee("-26.20,28.04");
+                var x = "";
+            }
+            
+            var test = "";
+            SavedQnnee = "";
+          //  var cns =  CountryNames ?? Azure.CountryNames().ToArray();
+          //  var cn = Azure.CountryNames().ToArray();
+
+            //string[] tm = {"Tony","Manicom"};
+           // SharedData.CountryNames = tm;
+            //Qnnee = QneUtils.to_qnnee("-26.20,28.04");
+            //this.Countries = SharedData.CountryNames;
+           // SharedData.Region = "23456";
+            Qnnee = SharedData.Region;
+            Centre = SharedData.Region;
+            Centre = QneUtils.IndexPoint(Qnnee);
+            SetupRelayCommands();
         }
+
+
+
+        public string Centre { get; private set; }
+        public string Boundary { get; private set; }
+        public string Qnnee { get; private set; }
+        public string Qnnneee { get; private set; }
+        public string Fill { get; private set; }
+        public string SavedQnnee { get; private set; }
+
+
+        public RelayCommand Search { get; private set; } //to implement patient search in region
+        public RelayCommand MoveRegionNorth { get; private set; }
+        public RelayCommand MoveRegionEast { get; private set; }
+        public RelayCommand MoveRegionWest { get; private set; }
+        public RelayCommand MoveRegionSouth { get; private set; }
+        public RelayCommand SaveQnnee { get; private set; }
+
+        private void RegionNorth()
+        {
+            Qnnee = QneUtils.MoveN(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
+            Boundary = QneUtils.Boundary(Qnnee);
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
+
+        private void RegionSouth()
+        {
+            Qnnee = QneUtils.MoveS(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
+            Boundary = QneUtils.Boundary(Qnnee);
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
+
+        private void RegionEast()
+        {
+            Qnnee = QneUtils.MoveE(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
+            Boundary = QneUtils.Boundary(Qnnee);
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
+
+        private void RegionWest()
+        {
+            Qnnee = QneUtils.MoveW(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
+            Boundary = QneUtils.Boundary(Qnnee);
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
+
+        private void Saveqnnee()
+        {
+            SavedQnnee = Qnnee;
+            RaisePropertyChanged("SavedQnnee");
+        }
+
+        private void SetupRelayCommands()
+        {
+            MoveRegionNorth = new RelayCommand(RegionNorth);
+            MoveRegionEast = new RelayCommand(RegionEast);
+            MoveRegionWest = new RelayCommand(RegionWest);
+            MoveRegionSouth = new RelayCommand(RegionSouth);
+            SaveQnnee = new RelayCommand(Saveqnnee);
+        }
+
+
+
+
 
         public bool IsRegistered
         {
@@ -25,24 +132,50 @@ namespace MvvmLight1.ViewModel
 
         public static string[] CountryNames
         {
-            get { return Userdata.CountryNames; }
+            get { return SharedData.CountryNames; }
         }
 
         public string[] RegionNames
         {
             get
             {
-                Userdata.Selectedcountryindex = CountryIndex;
-                return Userdata.Regions;
+                //SharedData.SelectedCountryIndex = CountryIndex;
+                return SharedData.RegionNames;
             }
-            // RaisePropertyChanged("RegionIndex");
+          //set { Userdata.SelectedCountryIndex = CountryIndex; }
+          //      RaisePropertyChanged("CountryIndex");
+        }
+
+        public int CountryIndex
+        {
+            get
+            {
+                return SharedData.SelectedCountryIndex;
+            }
+            set
+            {
+                SharedData.SelectedCountryIndex = value;
+                RaisePropertyChanged("CountryIndex");
+            }
         }
 
         //       public string Centre { get; private set; }
         //       public string Boundary { get; private set; }
+        /*
         public string Qnnee { get; private set; }
         public string Qnnneee { get; private set; }
-        public static int CountryIndex { get; set; }
+
+        public int CountryIndex {
+            get
+            {
+                return SharedData.SelectedCountryIndex;               
+            }
+            set
+            {   
+                SharedData.SelectedCountryIndex = value;
+                RaisePropertyChanged("CountryIndex");
+            }
+        }
 
         public RelayCommand EditMap { get; private set; }
         public RelayCommand EditEpidemiology { get; private set; }
@@ -57,9 +190,10 @@ namespace MvvmLight1.ViewModel
 
         private static void ShowMapDlg()
         {
-            if (Userdata.Region == null) return;
+            if (SharedData.Region == null) return;
             var v = new MapV();
             v.ShowDialog();
+            
         }
 
 
@@ -69,9 +203,9 @@ namespace MvvmLight1.ViewModel
             v.ShowDialog();
         }
 
-        private static void ShowLoaderDlg()
+        private void ShowLoaderDlg()
         {
-            Userdata.Selectedcountryindex = CountryIndex;
+            SharedData.SelectedCountryIndex = CountryIndex;
             var v = new LoaderV();
             v.ShowDialog();
         }
@@ -90,5 +224,78 @@ namespace MvvmLight1.ViewModel
             EditLoader = new RelayCommand(ShowLoaderDlg);
             EditEhealth = new RelayCommand(ShowEhealthDlg);
         }
+
+
+
+ public string Centre { get; private set; }
+        public string Boundary { get; private set; }
+        public string Qnnee { get; private set; }
+        public string Qnnneee { get; private set; }
+        public string Fill { get; private set; }
+
+
+        public RelayCommand Search { get; private set; } //to implement patient search in region
+        public RelayCommand MoveRegionNorth { get; private set; }
+        public RelayCommand MoveRegionEast { get; private set; }
+        public RelayCommand MoveRegionWest { get; private set; }
+        public RelayCommand MoveRegionSouth { get; private set; }
+
+        private void RegionNorth()
+        {
+            Qnnee = QneUtils.MoveN(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
+            Boundary = QneUtils.Boundary(Qnnee);
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
+
+        private void RegionSouth()
+        {
+            Qnnee = QneUtils.MoveS(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
+            Boundary = QneUtils.Boundary(Qnnee);
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
+
+        private void RegionEast()
+        {
+            Qnnee = QneUtils.MoveE(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
+            Boundary = QneUtils.Boundary(Qnnee);
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
+
+        private void RegionWest()
+        {
+            Qnnee = QneUtils.MoveW(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
+            Boundary = QneUtils.Boundary(Qnnee);
+            Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            RaisePropertyChanged("Qnnee");
+            RaisePropertyChanged("Boundary");
+            RaisePropertyChanged("Centre");
+            RaisePropertyChanged("Fill");
+        }
+
+        private void SetupRelayCommands()
+        {
+            MoveRegionNorth = new RelayCommand(RegionNorth);
+            MoveRegionEast = new RelayCommand(RegionEast);
+            MoveRegionWest = new RelayCommand(RegionWest);
+            MoveRegionSouth = new RelayCommand(RegionSouth);
+        }
+         */
     }
+    
 }
