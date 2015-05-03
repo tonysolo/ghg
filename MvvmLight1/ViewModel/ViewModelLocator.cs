@@ -49,7 +49,7 @@ namespace MvvmLight1.ViewModel
 
             SimpleIoc.Default.Register<MainVm>(); //<MainViewModel>()
             SimpleIoc.Default.Register<LoaderVm>();
-            SimpleIoc.Default.Register<MapVm>();
+            //SimpleIoc.Default.Register<MapVm>();
             SimpleIoc.Default.Register<EHealthVm>();
             SimpleIoc.Default.Register<EpidemVm>();
         }
@@ -64,10 +64,10 @@ namespace MvvmLight1.ViewModel
             get { return ServiceLocator.Current.GetInstance<LoaderVm>(); }
         }
 
-        public MapVm Map
-        {
-           get { return ServiceLocator.Current.GetInstance<MapVm>(); }
-        }
+       // public MapVm Map
+       // {
+         //  get { return ServiceLocator.Current.GetInstance<MapVm>(); }
+        //}
 
         public EHealthVm EHealth
         {

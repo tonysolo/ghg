@@ -4,6 +4,17 @@ namespace MvvmLight1.Model
 {
     public static class QneUtils
     {
+
+        public static string Setzoom4()
+        {
+            return "4";
+        }
+
+       public static string Setzoom6()
+        {
+            return "6";
+        }
+
         /// <summary>
         ///     Converts decimal degrees string to district level (7) qnnneee
         /// </summary>

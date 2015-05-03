@@ -6,7 +6,7 @@
         WindowStyle="ToolWindow"
         Title="Global Health Grid" Height="400" Width="300"
         DataContext="{Binding Map, Source={StaticResource Locator}}">
-    <Grid>
+    <Grid Height="370" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="25" />
@@ -15,7 +15,7 @@
                CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Mode="Road"
                Center="{Binding Centre}"
-               ZoomLevel="4" Margin="0,-5,0,5">
+               ZoomLevel="{Binding Zoom}" Margin="0,-5,0,5">
             <m:Pushpin Location="{Binding Centre}" Background="{Binding Fill}" />
             <m:MapPolygon Fill="RoyalBlue"
                           Locations="{Binding Boundary}"
@@ -41,8 +41,9 @@
                     Command="{Binding MoveRegionWest}" />
             <Button Width="20" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE005;" Command="{Binding }"/>
             <TextBox Width="50" ToolTip="{Binding Qnnee}" Text ="{Binding Qnnee}"/>
-            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE004;" />
-            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE002;" />
+            <!--<Zoomlevel ="{Binding Zoom}"/>-->
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE004;" Command="{Binding SetZoom4}" />
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE002;" Command="{Binding SetZoom6}" Height="20" VerticalAlignment="Top"/>
 
         </StackPanel>
 

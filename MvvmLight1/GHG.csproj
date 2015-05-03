@@ -145,9 +145,6 @@
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\LoaderVM.cs" />
     <Compile Include="ViewModel\CoordVM.cs" />
-    <Compile Include="ViewModel\MapVM.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ViewModel\SettingsVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="CoordV.xaml.cs">

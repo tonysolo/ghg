@@ -33,6 +33,7 @@ namespace MvvmLight1.ViewModel
             //Qnnee = QneUtils.to_qnnee("-26.20,28.04");
             //this.Countries = SharedData.CountryNames;
            // SharedData.Region = "23456";
+            
             SavedQnnee = SharedData.Region;
             Qnnee = SharedData.Region;
             Centre = SharedData.Region;
@@ -41,8 +42,9 @@ namespace MvvmLight1.ViewModel
         }
 
 
-
+      
         public string Centre { get; private set; }
+        public string Zoom { get; private set; }
         public string Boundary { get; private set; }
         public string Qnnee { get; set; }
         public string Qnnneee { get; private set; }
@@ -55,6 +57,8 @@ namespace MvvmLight1.ViewModel
         public RelayCommand MoveRegionEast { get; private set; }
         public RelayCommand MoveRegionWest { get; private set; }
         public RelayCommand MoveRegionSouth { get; private set; }
+        public RelayCommand SetZoom4 { get; private set; }
+        public RelayCommand SetZoom6 { get; private set; }
         public RelayCommand SaveQnnee { get; private set; }
 
         private void RegionNorth()
@@ -111,6 +115,22 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("SavedQnnee");
         }
 
+        private void Zoom4()
+        {
+            Zoom = "10";
+            RaisePropertyChanged("Zoom");
+           // RaisePropertyChanged("ZoomLevel");
+        }
+
+      private void Zoom6()
+        {
+          Zoom = "20";
+          RaisePropertyChanged("Zoom");
+          //RaisePropertyChanged("ZoomLevel");
+        }
+
+     
+
         private void SetupRelayCommands()
         {
             MoveRegionNorth = new RelayCommand(RegionNorth);
@@ -118,6 +138,8 @@ namespace MvvmLight1.ViewModel
             MoveRegionWest = new RelayCommand(RegionWest);
             MoveRegionSouth = new RelayCommand(RegionSouth);
             SaveQnnee   =    new RelayCommand(Saveqnnee);
+            SetZoom4 = new RelayCommand(Zoom4);
+            SetZoom6 = new RelayCommand(Zoom6);
         }
 
 

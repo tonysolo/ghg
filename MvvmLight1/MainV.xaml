@@ -21,9 +21,10 @@
         </Grid.RowDefinitions>
         <m:Map x:Name="MyMap"
                CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
-               Mode="Road"
+               Mode="Road"               
+               ZoomLevel="3"
                Center="{Binding Centre}"
-               ZoomLevel="4">
+               >
             <m:Pushpin Location="{Binding Centre}" Background="{Binding Fill}" />
             <m:MapPolygon Fill="RoyalBlue"
                           Locations="{Binding Boundary}"
@@ -47,8 +48,8 @@
                     Command="{Binding MoveRegionWest}" />
             <Button Width="20" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE005;" Command="{Binding SaveQnnee}" Height="20" VerticalAlignment="Top"/>
             <TextBox Width="50" Text ="{Binding Qnnee}"/>     
-            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE004;" />
-            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE002;" />
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE004;" Command="{Binding SetZoom4}"/>
+            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE002;" Command="{Binding SetZoom6}"/>
 
         </StackPanel>
         <!--Login Tab-->
@@ -385,6 +386,9 @@
         </TabControl>
      </Grid>
 </Window>
+    
+ 
+
     
 <!--Window.Resources>
         <ResourceDictionary>

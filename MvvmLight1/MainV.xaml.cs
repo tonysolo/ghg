@@ -14,7 +14,10 @@ namespace MvvmLight1
         public MainV()
         {
             InitializeComponent();
+            //this.MyMap.Center.Latitude = 12.34;
+            
             Closing += (s, e) => ViewModelLocator.Cleanup();
+           
         }
     }
 }

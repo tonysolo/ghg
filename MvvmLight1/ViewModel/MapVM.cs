@@ -12,15 +12,17 @@ namespace MvvmLight1.ViewModel
     /// </summary>
     public class MapVm : ViewModelBase
     {
+
         public MapVm()
         {
-           // var s = SharedData.Region;
-            Qnnee = SharedData.Region;
-            Centre = QneUtils.IndexPoint(Qnnee);
-            
-            SetupRelayCommands();
+            // var s = SharedData.Region;
+            //Qnnee = SharedData.Region;
+           // Centre = QneUtils.IndexPoint(Qnnee);
+           // Zoom = "4";
+           // SetupRelayCommands();
         }
-
+/*
+        public string Zoom { get; set; }
         public string Centre { get; private set; }
         public string Boundary { get; private set; }
         public string Qnnee { get; private set; }
@@ -33,6 +35,24 @@ namespace MvvmLight1.ViewModel
         public RelayCommand MoveRegionEast { get; private set; }
         public RelayCommand MoveRegionWest { get; private set; }
         public RelayCommand MoveRegionSouth { get; private set; }
+        public RelayCommand SetZoom4 { get; private set; }
+        public RelayCommand SetZoom6 { get; private set; }
+
+        private void Zoom4()
+        {
+            Zoom = QneUtils.Setzoom4();
+            RaisePropertyChanged("Zoom");
+        }
+
+
+        private void Zoom6()
+        {
+            Zoom = QneUtils.Setzoom6();
+            RaisePropertyChanged("Zoom");
+        }
+
+
+       
 
         private void RegionNorth()
         {
@@ -88,6 +108,8 @@ namespace MvvmLight1.ViewModel
             MoveRegionEast = new RelayCommand(RegionEast);
             MoveRegionWest = new RelayCommand(RegionWest);
             MoveRegionSouth = new RelayCommand(RegionSouth);
+            SetZoom4 = new RelayCommand(Zoom4);
+            SetZoom6 = new RelayCommand(Zoom6);
         }
-    }
+  */  }
 }
