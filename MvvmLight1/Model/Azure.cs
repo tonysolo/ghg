@@ -42,7 +42,7 @@ namespace MvvmLight1.Model
             IListBlobItem[] blobs = container.ListBlobs().ToArray();
             var sarr = new string[blobs.Length];
             for (int i = 0; i < sarr.Length; i++)
-                sarr[i] = blobs[i].Uri.Segments[2].Substring(0, 2).ToUpper();
+                sarr[i] = blobs[i].Uri.Segments[2].Substring(0,2).ToUpper();
             return sarr;
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Maps.MapControl.WPF;
 using MvvmLight1.Model;
 
 namespace MvvmLight1.ViewModel
@@ -13,17 +14,21 @@ namespace MvvmLight1.ViewModel
         public MainVm()
         {       
             IsRegistered = true;
-            try
-            {
-           var cns = SharedData.CountryNames;
-            }
-            catch (System.TypeInitializationException)
-            {
+            MessageBox.Show("Select County");
+            SharedData.SelectedCountryIndex = 3;
+           // try
+          //  {
+          // var cns = SharedData.CountryNames;
+          //  }
+          //  catch (System.TypeInitializationException)
+          //  {
 
-                var x = "";
-            }
+            //    var x = "";
+          //  }
             
-            var test = "";
+
+
+           // var test = "";
             
           //  var cns =  CountryNames ?? Azure.CountryNames().ToArray();
           //  var cn = Azure.CountryNames().ToArray();
@@ -42,12 +47,12 @@ namespace MvvmLight1.ViewModel
         }
 
 
-      
+        //public string[] CountryNames { get; private set; }
         public string Centre { get; private set; }
         public string Zoom { get; private set; }
         public string Boundary { get; private set; }
         public string Qnnee { get; set; }
-        public string Qnnneee { get; private set; }
+       // public string Qnnneee { get; private set; }
         public string Fill { get; private set; }
         public string SavedQnnee { get; private set; }
 
@@ -79,10 +84,16 @@ namespace MvvmLight1.ViewModel
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
             Fill = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
-            RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("Fill");
+            RaisePropertyChanged(()=>Qnnee);
+            //RaisePropertyChanged("Qnnee");
+            //RaisePropertyChanged("Boundary");
+            RaisePropertyChanged(()=>Boundary) ;
+           // RaisePropertyChanged("Centre");
+            RaisePropertyChanged(()=>Centre);
+           // RaisePropertyChanged("Fill");
+            RaisePropertyChanged(()=>Fill);
+            //var window = Application.Current.Windows[1];
+           
         }
 
         private void RegionEast()
@@ -124,8 +135,9 @@ namespace MvvmLight1.ViewModel
 
       private void Zoom6()
         {
+         
           Zoom = "20";
-          RaisePropertyChanged("Zoom");
+          RaisePropertyChanged(()=>Zoom);
           //RaisePropertyChanged("ZoomLevel");
         }
 

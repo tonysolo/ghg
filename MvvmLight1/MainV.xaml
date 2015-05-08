@@ -25,10 +25,12 @@
                ZoomLevel="3"
                Center="{Binding Centre}"
                >
+               <!--Center="{Binding Centre}"-->
             <m:Pushpin Location="{Binding Centre}" Background="{Binding Fill}" />
             <m:MapPolygon Fill="RoyalBlue"
                           Locations="{Binding Boundary}"
                           Opacity="0.7" />
+            
         </m:Map>
         <StackPanel Grid.Row="1" Height="20"
                     Orientation="Horizontal"

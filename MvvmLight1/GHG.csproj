@@ -95,6 +95,9 @@
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -142,6 +145,12 @@
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\eHealthVM.cs" />
     <Compile Include="ViewModel\EpidemVM.cs" />
+    <Compile Include="ViewModel\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewModel\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\LoaderVM.cs" />
     <Compile Include="ViewModel\CoordVM.cs" />
@@ -149,6 +158,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="CoordV.xaml.cs">
       <DependentUpon>CoordV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Page Include="eHealthV.xaml">
       <SubType>Designer</SubType>
@@ -187,6 +199,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CoordV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

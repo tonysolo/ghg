@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Microsoft.Maps.MapControl.WPF;
 using MvvmLight1.ViewModel;
 
 namespace MvvmLight1
@@ -14,7 +15,7 @@ namespace MvvmLight1
         public MainV()
         {
             InitializeComponent();
-            //this.MyMap.Center.Latitude = 12.34;
+            //this.MyMap.Center.
             
             Closing += (s, e) => ViewModelLocator.Cleanup();
            
