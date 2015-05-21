@@ -46,10 +46,10 @@ namespace MvvmLight1.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-
+            SimpleIoc.Default.Register<MapVm>();
             SimpleIoc.Default.Register<MainVm>(); //<MainViewModel>()
             SimpleIoc.Default.Register<LoaderVm>();
-            //SimpleIoc.Default.Register<MapVm>();
+            SimpleIoc.Default.Register<CountryVm>();
             SimpleIoc.Default.Register<EHealthVm>();
             SimpleIoc.Default.Register<EpidemVm>();
         }
@@ -64,10 +64,10 @@ namespace MvvmLight1.ViewModel
             get { return ServiceLocator.Current.GetInstance<LoaderVm>(); }
         }
 
-       // public MapVm Map
-       // {
-         //  get { return ServiceLocator.Current.GetInstance<MapVm>(); }
-        //}
+        public CountryVm Country
+        {
+           get { return ServiceLocator.Current.GetInstance<CountryVm>(); }
+        }
 
         public EHealthVm EHealth
         {
@@ -77,6 +77,11 @@ namespace MvvmLight1.ViewModel
         public EpidemVm Epidem
         {
             get { return ServiceLocator.Current.GetInstance<EpidemVm>(); }
+        }
+
+        public MapVm Maps
+        {
+            get { return ServiceLocator.Current.GetInstance<MapVm>(); }
         }
 
         public static void Cleanup()

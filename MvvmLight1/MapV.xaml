@@ -4,8 +4,8 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Title="Global Health Grid" Height="400" Width="300"
-        DataContext="{Binding Map, Source={StaticResource Locator}}">
+        Title="Global Health Grid" Height="410" Width="300"
+        DataContext="{Binding Maps, Source={StaticResource Locator}}">
     <Grid Height="370" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -15,9 +15,12 @@
                CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Mode="Road"
                Center="{Binding Centre}"
-               ZoomLevel="{Binding Zoom}" Margin="0,-5,0,5">
-            <m:Pushpin Location="{Binding Centre}" Background="{Binding Fill}" />
-            <m:MapPolygon Fill="RoyalBlue"
+               ZoomLevel="{Binding Zoom}" Margin="0,2,0,22" Grid.RowSpan="2"
+               >
+            <m:Pushpin Location="{Binding Centre}" Background="{Binding Fill}" /> 
+            <m:MapPolygon 
+                         
+                          Stroke="Black"
                           Locations="{Binding Boundary}"
                           Opacity="0.7" />
         </m:Map>
@@ -33,14 +36,15 @@
                     Command="{Binding MoveRegionSouth}" />
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE0A0;"
                     Command="{Binding MoveRegionNorth}" />
+             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09E;"
+                    Command="{Binding MoveRegionWest}" />
             <!--Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00E;" Command="{Binding Search}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE010;" Command="{Binding Search}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE011;" Command="{Binding Search}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00f;" Command="{Binding Search}"/-->
-            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09E;"
-                    Command="{Binding MoveRegionWest}" />
+           
             <Button Width="20" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE005;" Command="{Binding }"/>
-            <TextBox Width="50" ToolTip="{Binding Qnnee}" Text ="{Binding Qnnee}"/>
+            <TextBox Width="50" ToolTip = "{Binding Qnnee}" Text = "{Binding Qnnee}" />
             <!--<Zoomlevel ="{Binding Zoom}"/>-->
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE004;" Command="{Binding SetZoom4}" />
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE002;" Command="{Binding SetZoom6}" Height="20" VerticalAlignment="Top"/>

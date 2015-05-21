@@ -14,41 +14,27 @@ namespace MvvmLight1.ViewModel
         public MainVm()
         {       
             IsRegistered = true;
-            MessageBox.Show("Select County");
-            SharedData.SelectedCountryIndex = 3;
-           // try
-          //  {
-          // var cns = SharedData.CountryNames;
-          //  }
-          //  catch (System.TypeInitializationException)
-          //  {
+                 
+           //SavedQnnee = SharedData.Region;
+           // Qnnee = SharedData.Region;
+           // Centre = SharedData.Region;
+          //  Centre = QneUtils.IndexPoint(Qnnee);
+           // SetupRelayCommands();
+            //var cv = new CountryView();
+            //bool ok = (bool)cv.ShowDialog();
+        }
 
-            //    var x = "";
-          //  }
-            
+        public bool IsRegistered
+        {
+            get { return Settings.Registered; }
+            set { Settings.Registered = value; }
 
-
-           // var test = "";
-            
-          //  var cns =  CountryNames ?? Azure.CountryNames().ToArray();
-          //  var cn = Azure.CountryNames().ToArray();
-
-            //string[] tm = {"Tony","Manicom"};
-           // SharedData.CountryNames = tm;
-            //Qnnee = QneUtils.to_qnnee("-26.20,28.04");
-            //this.Countries = SharedData.CountryNames;
-           // SharedData.Region = "23456";
-            
-            SavedQnnee = SharedData.Region;
-            Qnnee = SharedData.Region;
-            Centre = SharedData.Region;
-            Centre = QneUtils.IndexPoint(Qnnee);
-            SetupRelayCommands();
         }
 
 
-        //public string[] CountryNames { get; private set; }
-        public string Centre { get; private set; }
+
+       // public string[] CountryNames { get; private set; }
+/*        public string Centre { get; private set; }
         public string Zoom { get; private set; }
         public string Boundary { get; private set; }
         public string Qnnee { get; set; }
@@ -154,15 +140,11 @@ namespace MvvmLight1.ViewModel
             SetZoom6 = new RelayCommand(Zoom6);
         }
 
+*/
 
 
 
-
-        public bool IsRegistered
-        {
-            get { return Settings.Registered; }
-            set { Settings.Registered = value; }
-        }
+      
 
 
         public static string[] CountryNames
@@ -181,24 +163,24 @@ namespace MvvmLight1.ViewModel
           //      RaisePropertyChanged("CountryIndex");
         }
 
-        public int CountryIndex
-        {
-            get
-            {
-                return SharedData.SelectedCountryIndex;
-            }
-            set
-            {
-                SharedData.SelectedCountryIndex = value;
-                RaisePropertyChanged("CountryIndex");
-            }
-        }
+     //   public int CountryIndex
+      //  {
+        //    get
+       //     {
+        //        return SharedData.SelectedCountryIndex;
+        //    }
+        //    set
+       //     {
+       //         SharedData.SelectedCountryIndex = value;
+        //        RaisePropertyChanged("CountryIndex");
+         //   }
+      //  }
 
         //       public string Centre { get; private set; }
         //       public string Boundary { get; private set; }
-        /*
-        public string Qnnee { get; private set; }
-        public string Qnnneee { get; private set; }
+       
+       // public string Qnnee { get; private set; }
+       // public string Qnnneee { get; private set; }
 
         public int CountryIndex {
             get
@@ -260,7 +242,7 @@ namespace MvvmLight1.ViewModel
             EditEhealth = new RelayCommand(ShowEhealthDlg);
         }
 
-
+/*
 
  public string Centre { get; private set; }
         public string Boundary { get; private set; }
@@ -322,7 +304,7 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("Centre");
             RaisePropertyChanged("Fill");
         }
-
+ 
         private void SetupRelayCommands()
         {
             MoveRegionNorth = new RelayCommand(RegionNorth);
@@ -330,7 +312,7 @@ namespace MvvmLight1.ViewModel
             MoveRegionWest = new RelayCommand(RegionWest);
             MoveRegionSouth = new RelayCommand(RegionSouth);
         }
-         */
+        */
     }
     
 }

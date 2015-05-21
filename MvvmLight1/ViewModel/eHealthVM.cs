@@ -22,16 +22,16 @@ namespace MvvmLight1.ViewModel
 
         public RelayCommand EditMap { get; private set; }
 
-       // private static void ShowMapDlg()
-       // {
-        //    var v = new MapV();
-        //    v.ShowDialog();
-      //  }
+        private static void ShowMapDlg()
+        {
+            var v = new MapV();
+            v.ShowDialog();
+        }
 
 
         private void SetupRelayCommands()
         {
-          // EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);  
+           EditMap = new RelayCommand(ShowMapDlg);  
         }
     }
 }

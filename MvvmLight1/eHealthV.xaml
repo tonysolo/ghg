@@ -9,8 +9,8 @@
 
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Height="420"
-        Width="287"
+        Height="450"
+        Width="250"
         IsEnabled="True"
         DataContext="{Binding EHealth, Source={StaticResource Locator}}">
     <Grid Margin="0,0,-8,0">
@@ -46,11 +46,11 @@
 
                         <DockPanel HorizontalAlignment="Left" FlowDirection="LeftToRight">
                             <ComboBox Width="100" ItemsSource="{Binding Regions}" />
-                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸"
+                            <Button Width="25" FontSize="12" FontFamily="Segoe UI Symbol" Content="&#xE12B;"
                                     Command="{Binding EditMap}" />
 
                             <ComboBox Width="100" Margin="5,0,0,0" />
-                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸"
+                            <Button Width="25" FontSize="12" FontFamily="Segoe UI Symbol" Content="&#xE12B;"
                                     Command="{Binding EditMap}" />
 
 

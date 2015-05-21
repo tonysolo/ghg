@@ -1,6 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using Microsoft.Maps.MapControl.WPF;
+using MvvmLight1.Model;
+
 
 namespace MvvmLight1.ViewModel
 {
@@ -15,19 +20,25 @@ namespace MvvmLight1.ViewModel
 
         public MapVm()
         {
-            // var s = SharedData.Region;
-            //Qnnee = SharedData.Region;
-           // Centre = QneUtils.IndexPoint(Qnnee);
-           // Zoom = "4";
-           // SetupRelayCommands();
+
+            SetupRelayCommands();
+            SavedQnnee = SharedData.Region;
+            Qnnee = SharedData.Region;
+            Centre = SharedData.Region;
+            Centre = QneUtils.IndexPoint(Qnnee);
+            Zoom = "6";
+
         }
-/*
+
+
+
+        public string SavedQnnee { get; set; }
         public string Zoom { get; set; }
-        public string Centre { get; private set; }
-        public string Boundary { get; private set; }
-        public string Qnnee { get; private set; }
-        public string Qnnneee { get; private set; }
-        public string Fill { get; private set; }
+        public string Centre { get; set; }
+        public string Boundary { get; set; }
+        public string Qnnee { get; set; }
+        public string Qnnneee { get; set; }
+        public string Fill { get; set; }
 
 
         public RelayCommand Search { get; private set; } //to implement patient search in region
@@ -111,5 +122,5 @@ namespace MvvmLight1.ViewModel
             SetZoom4 = new RelayCommand(Zoom4);
             SetZoom6 = new RelayCommand(Zoom6);
         }
-  */  }
+    }
 }

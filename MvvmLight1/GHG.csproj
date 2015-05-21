@@ -142,6 +142,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\SharedData.cs" />
+    <Compile Include="CountryV.xaml.cs">
+      <DependentUpon>CountryV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\eHealthVM.cs" />
     <Compile Include="ViewModel\EpidemVM.cs" />
@@ -154,6 +157,8 @@
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\LoaderVM.cs" />
     <Compile Include="ViewModel\CoordVM.cs" />
+    <Compile Include="ViewModel\CountryVM.cs" />
+    <Compile Include="ViewModel\MapVM.cs" />
     <Compile Include="ViewModel\SettingsVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="CoordV.xaml.cs">
@@ -187,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MapV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CountryV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

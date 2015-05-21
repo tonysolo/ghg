@@ -10,29 +10,35 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
 
-        Height="600"
-        Width="400"
+        Height="500"
+        Width="250"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-<Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot">
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="241*"/>
+            <ColumnDefinition Width="151*"/>
+        </Grid.ColumnDefinitions>-->
         <Grid.RowDefinitions>
-            <RowDefinition Height ="300"/>
+            <!--<RowDefinition Height ="300"/>-->
             <RowDefinition Height="20"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <m:Map x:Name="MyMap"
+        <!--<m:Map x:Name="MyMap"
                CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Mode="Road"               
                ZoomLevel="3"
                Center="{Binding Centre}"
                >
-               <!--Center="{Binding Centre}"-->
+               -->
+        <!--Center="{Binding Centre}"-->
+        <!--
             <m:Pushpin Location="{Binding Centre}" Background="{Binding Fill}" />
             <m:MapPolygon Fill="RoyalBlue"
                           Locations="{Binding Boundary}"
                           Opacity="0.7" />
             
-        </m:Map>
-        <StackPanel Grid.Row="1" Height="20"
+        </m:Map>-->
+        <!--<StackPanel Grid.Row="1" Height="20"
                     Orientation="Horizontal"
                     FlowDirection="RightToLeft">
 
@@ -42,10 +48,12 @@
                     Command="{Binding MoveRegionSouth}" />
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE0A0;"
                     Command="{Binding MoveRegionNorth}" />
-            <!--Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00E;" Command="{Binding Search}"/>
+            -->
+        <!--Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00E;" Command="{Binding Search}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE010;" Command="{Binding Search}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE011;" Command="{Binding Search}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00f;" Command="{Binding Search}"/-->
+        <!--
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09E;"
                     Command="{Binding MoveRegionWest}" />
             <Button Width="20" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE005;" Command="{Binding SaveQnnee}" Height="20" VerticalAlignment="Top"/>
@@ -53,197 +61,215 @@
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE004;" Command="{Binding SetZoom4}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE002;" Command="{Binding SetZoom6}"/>
 
-        </StackPanel>
-        <!--Login Tab-->
-            <TabControl 
-          Grid.Row="2"  
+        </StackPanel>-->
+        <!--Login Tab SelectionChanged="TabControl_SelectionChanged"  -->
+        <TabControl 
+          Grid.Row="1" Grid.ColumnSpan="2" Height="450" VerticalAlignment="Top" 
+            
             >
             <TabItem      
         DataContext="{Binding Main, Source={StaticResource Locator}}" 
         Header="Login"
         >
-                
-                <StackPanel Orientation="Vertical" Margin="0,10,0,10">
+                <StackPanel Orientation="Vertical" Margin="0,5,0,10">
                     <StackPanel Orientation="Horizontal" Margin="3,0,0,0">
                         <TextBox Height=" 20" Width="70" Margin="0 0 0 0" Background="Beige" />
                         <TextBox Margin="0 0 0 0" Height=" 20" Width="40" Background="Beige" />
-                        <Button Content="Login" Margin="3 3 3 3" Height="24"/> 
-                        <Label Content = "(provider registration and PIN)"/>      
-                                
-                                
+                        <Button
+                             FontFamily="Segoe UI Symbol"
+                        FontSize="12"
+                        Content="&#xe0e7;" Margin="3 3 3 3" Height="20" Width="20"/>
+                        <Label Content = "(Login and PIN)"/>
+
+
                     </StackPanel>
-                    <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
-                <TextBox Margin="3 3 3 3" Width="55" Text="Country" />
-                <ComboBox Width="50"                         
+                    <StackPanel Height="25" VerticalAlignment="Top" Orientation="Horizontal">
+                        <TextBox Margin="3 3 3 3" Width="55" Text="CountryVM" />
+                        <ComboBox Width="50"                         
                           Margin="3 3 3 3"
                           DockPanel.Dock="Left"
                           ItemsSource = "{Binding CountryNames}"
                           SelectedIndex ="{Binding CountryIndex}" />
 
 
-            </StackPanel>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Height="Auto">
-                <Button Content=" Register " Margin="3 3 3 3" Command="{Binding EditLoader}" />
-                <Button Content=" Help ? " Margin="6 3 3 3" Command="{Binding EditMap}" />
+                    <StackPanel Orientation="Horizontal" Height="Auto">
+                        <Button Content=" Register " Margin="3 3 3 3" Command="{Binding EditLoader}" />
+                        <Button Content=" Help ? " Margin="6 3 3 3" Command="{Binding EditMap}" />
 
-            </StackPanel>
+                    </StackPanel>
                     <!--
             <StackPanel Orientation="Horizontal" Height="Auto">
                 <Label Content="Login Code" FontSize="8" Foreground="Black" Margin="3 0 0 0" />
                 <Label Margin="10 0 0 0" Content="PIN" FontSize="8" />
             </StackPanel>
             -->
-            <!--" IsEnabled="{Binding isRegistered}"-->
-            <Button HorizontalAlignment="Left" Width="60" Margin="3 3 3 3" Content="Search" Command="{Binding EditMap}" />
-            <!--Button HorizontalAlignment="Left" Width="80" Margin="3 3 3 3" Content="Epidemiology"
+                    <!--" IsEnabled="{Binding isRegistered}"-->
+                    <!--<Button HorizontalAlignment="Left" Width="60" Margin="3 3 3 3" Content="Search" Command="{Binding EditMap}" />-->
+                    <!--Button HorizontalAlignment="Left" Width="80" Margin="3 3 3 3" Content="Epidemiology"
                     Command="{Binding EditEpidemiology}" IsEnabled="{Binding IsRegistered}" />
             <Button HorizontalAlignment="Left" Width="80" Margin="3 3 3 3" Content="e-Health"
                     Command="{Binding EditEhealth}" /-->
 
-        </StackPanel>
+                </StackPanel>
 
-   
-                
-        </TabItem>
-                <!--e-health tab-->
-             <TabItem Header="E-Health"
+
+
+            </TabItem>
+            <!--e-health tab-->
+            <TabItem Header="E-Health"
                 DataContext="{Binding EHealth, Source={StaticResource Locator}}" Height="22" VerticalAlignment="Bottom">
-        
-             <Grid Margin="0,0,0,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="16*" />
-            <ColumnDefinition Width="19*" />
-        </Grid.ColumnDefinitions>
-        <DockPanel LastChildFill="True" Margin="0,0,0,-9" Grid.ColumnSpan="2">
-            <!--StackPanel DockPanel.Dock=" Top" Orientation="Horizontal">
+
+                <Grid Margin="0,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16*" />
+                        <ColumnDefinition Width="19*" />
+                    </Grid.ColumnDefinitions>
+                    <DockPanel LastChildFill="True" Margin="0,0,0,-9" Grid.ColumnSpan="2">
+                        <!--StackPanel DockPanel.Dock=" Top" Orientation="Horizontal">
                 <Label />
                 <TextBox />
             </-->
-            <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 10 0 10" Content="Save" />
-            <TabControl>
-                <!--SelectionChanged="TabControl_SelectionChanged"-->
-                <TabItem Header="Details" TabIndex="0">
-                    <!--StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="20"></-->
-                    <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-                        <TextBlock FontSize="8"
-                                   Text="Name                                      Date of Birth                              Gender" />
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Width="100" />
-                            <DatePicker Width="102" />
-                            <TextBlock Margin="5 5 0 0" FontSize="10" Text="M" />
-                            <RadioButton Margin="0 5,0,0" />
-                            <TextBlock Margin="0 5 0 0" FontSize="10" Text="F" />
-                            <RadioButton Margin="0 5,0,0" />
-                        </StackPanel>
+                        <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 0 0 10" Content="Save" />
+                        <TabControl>
+                            <!--SelectionChanged="TabControl_SelectionChanged"-->
+                            <TabItem Header="Details" TabIndex="0">
+                                <!--StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="20"></-->
+                                <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                                    <TextBlock FontSize="8" Text="Name                                           FirstName" />
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox Width = "120" />
+                                        <TextBox Width = "100"/>
+                                    </StackPanel>
+                                    <TextBlock FontSize="8" Text ="Date of Birth                              Gender"/>
+                                    <StackPanel Orientation="Horizontal">
+                                    <DatePicker Width="102" />
+                                   
+                                        <TextBlock Margin="5 5 0 0" FontSize="10" Text="M" />
+                                        <RadioButton Margin="0 5,0,0" />
+                                    
+                                        <TextBlock Margin="0 5 0 0" FontSize="10" Text="F" />
+                                        <RadioButton Margin="0 5,0,0" />
+                                     </StackPanel>
+                                    
+                                    <!--</StackPanel>-->
+
+                                    <StackPanel Orientation="Vertical">
+                                    <TextBlock FontSize="8" Text="Region of Birth"/>
+                                    
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox Width="100" ItemsSource="{Binding Regions}" Margin ="0 0 0 0"/>
+                                        <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe12b;" Command = "{Binding EditMap}"/>
+                                    </StackPanel>    
+                                   </StackPanel> 
+                                    
+                                    <StackPanel Orientation="Vertical">
+                                    <TextBlock FontSize="8" Text="Current Region"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <ComboBox Width="100" ItemsSource="{Binding Regions}" />
+                                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe12b;" Command = "{Binding EditMap}" />
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                        
+                                     
+                                        
+                                        
+                                 
 
 
-                        <TextBlock FontSize="8"
-                                   Text="Region of Birth / First Home                Current Region / District" />
-
-                        <DockPanel HorizontalAlignment="Left" FlowDirection="LeftToRight">
-                            <ComboBox Width="100" ItemsSource="{Binding Regions}" />
-                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸"
-                                    Command="{Binding EditMap}" />
-
-                            <ComboBox Width="100" Margin="5,0,0,0" />
-                            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="☸"
-                                    Command="{Binding EditMap}" />
+                                    <DockPanel HorizontalAlignment="Stretch" FlowDirection="RightToLeft" />
 
 
-                        </DockPanel>
-
-
-                        <DockPanel HorizontalAlignment="Stretch" FlowDirection="RightToLeft" />
-
-
-                        <TextBlock FontSize="8">
+                                    <TextBlock FontSize="8">
                             <Run Language="en-gb" Text="Patient " /><Run Text="Cell" />
                             <Run Language="en-gb" Text=" " /><Run Text="phone" />
                             <Run Language="en-gb" Text=" Number" />
-                        </TextBlock>
-                        <TextBox />
-                        <TextBlock FontSize="8" Text="Partner Name and Cell phone Number" />
-                        <TextBox />
-                        <TextBlock FontSize="8">
+                                    </TextBlock>
+                                    <TextBox />
+                                    <TextBlock FontSize="8" Text="Partner Name and Cell phone Number" />
+                                    <TextBox />
+                                    <TextBlock FontSize="8">
                             <Run Text="Children - Names and " /><Run Language="en-gb" Text="Ages (years)" />
-                        </TextBlock>
-                        <TextBox MaxLines="3" AcceptsReturn="True" AllowDrop="True" VerticalContentAlignment="Top" />
+                                    </TextBlock>
+                                    <TextBox MaxLines="3" AcceptsReturn="True" AllowDrop="True" VerticalContentAlignment="Top" />
 
-                        <TextBlock FontSize="8" Text="Home Address" />
-                        <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
-                        <TextBlock FontSize="8" Text="Work Address" />
-                        <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+                                    <TextBlock FontSize="8" Text="Home Address" />
+                                    <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+                                    <TextBlock FontSize="8" Text="Work Address" />
+                                    <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
 
-                        <TextBlock FontSize="8" Text="eMail Address" />
-                        <TextBox />
-                    </StackPanel>
-                </TabItem>
+                                    <TextBlock FontSize="8" Text="eMail Address" />
+                                    <TextBox />
+                                </StackPanel>
+                            </TabItem>
 
 
-                <TabItem Header="Alerts">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock FontSize="8" Text="Allergies" />
-                        <TextBox MinLines="3" />
-                        <TextBlock FontSize="8" Text="Medical Conditions or Alerts" />
-                        <TextBox MinLines="3" />
-                        <TextBlock FontSize="8" Text="Chronic Medication" />
-                        <TextBox MinLines="3" />
-                        <TextBlock FontSize="8" Text="Preferences" />
-                        <TextBox MinLines="3" IsReadOnly="True" />
-                    </StackPanel>
-                </TabItem>
+                            <TabItem Header="Alerts">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock FontSize="8" Text="Allergies" />
+                                    <TextBox MinLines="3" />
+                                    <TextBlock FontSize="8" Text="Medical Conditions or Alerts" />
+                                    <TextBox MinLines="3" />
+                                    <TextBlock FontSize="8" Text="Chronic Medication" />
+                                    <TextBox MinLines="3" />
+                                    <TextBlock FontSize="8" Text="Preferences" />
+                                    <TextBox MinLines="3" IsReadOnly="True" />
+                                </StackPanel>
+                            </TabItem>
 
-                <!--TabItem Header="Last Visit" Height="24" VerticalAlignment="Bottom" /-->
+                            <!--TabItem Header="Last Visit" Height="24" VerticalAlignment="Bottom" /-->
 
-                <TabItem Header="Visits" />
+                            <TabItem Header="Visits" />
 
-                <TabItem Height="22" Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2">
-                    <StackPanel>
-                        <TextBlock FontSize="8" Text="History" />
-                        <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
+                            <TabItem Height="22" Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2">
+                                <StackPanel>
+                                    <TextBlock FontSize="8" Text="History" />
+                                    <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
                                  VerticalScrollBarVisibility="Visible" />
-                        <!--TextBlock FontSize="8" Text="ICD10 Code(s)" />
+                                    <!--TextBlock FontSize="8" Text="ICD10 Code(s)" />
                         <TextBox /-->
-                        <TextBlock FontSize="8" Text="Physical Examination" />
-                        <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
+                                    <TextBlock FontSize="8" Text="Physical Examination" />
+                                    <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
                                  VerticalScrollBarVisibility="Visible" />
 
 
-                        <TextBlock FontSize="8" Text="Special Investigations" />
-                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
+                                    <TextBlock FontSize="8" Text="Special Investigations" />
+                                    <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
                                  VerticalScrollBarVisibility="Visible" />
-                        <TextBlock FontSize="8" Text="Comments and Plan" />
-                        <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
+                                    <TextBlock FontSize="8" Text="Comments and Plan" />
+                                    <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
                                  VerticalScrollBarVisibility="Visible" />
 
 
-                        <StackPanel Height="15" Orientation="Horizontal">
-                            <TextBlock FontSize="8" Text="Images and Scans" />
-                            <Button FontSize="8" Content="Scan Document" />
+                                    <StackPanel Height="15" Orientation="Horizontal">
+                                        <TextBlock FontSize="8" Text="Images and Scans" />
+                                        <Button FontSize="8" Content="Scan Document" />
 
-                        </StackPanel>
-                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
+                                    </StackPanel>
+                                    <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
                                  VerticalScrollBarVisibility="Visible" />
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="8" Margin="2 5 5 5" Text="Next Visit" />
-                            <DatePicker Margin="5 3 0 0" Width="110" />
-                            <RadioButton Margin="5" Content="Send Reminder" />
-                        </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="8" Margin="2 5 5 5" Text="Next Visit" />
+                                        <DatePicker Margin="5 3 0 0" Width="110" />
+                                        <RadioButton Margin="5" Content="Send Reminder" />
+                                    </StackPanel>
 
-                    </StackPanel>
-                </TabItem>
-                <!--new visit-->
+                                </StackPanel>
+                            </TabItem>
+                            <!--new visit-->
 
-            </TabControl>
-            <!--Button Height="20" ></-->
-        </DockPanel>
-    </Grid>    
-                 
-                 
-                 
+                        </TabControl>
+                        <!--Button Height="20" ></-->
+                    </DockPanel>
+                </Grid>
+
+
+
             </TabItem>
-            
+
             <!--Epidemiology tab-->
             <TabItem Header="Epidemiology"
                 DataContext="{Binding Epidem, Source={StaticResource Locator}}"      
@@ -251,9 +277,7 @@
                 <Grid>
                     <DockPanel
             LastChildFill="True">
-                        <StatusBar
-                Height="25"
-                DockPanel.Dock="Bottom" />
+                        <!--<StatusBar Height="25" DockPanel.Dock="Bottom" />-->
                         <StackPanel
                 Width="50"
                 DockPanel.Dock="Left">
@@ -262,8 +286,6 @@
                     FontFamily="Segoe UI Symbol"
                     FontSize="16"
                     Text="&#xE202;" />
-
-
                             <ListBox Height="130" />
                             <TextBlock
                     Margin="12"
@@ -303,7 +325,7 @@
                         Width="20"
                         FontFamily="Segoe UI Symbol"
                         FontSize="12"
-                        Content="&#x2638;"
+                        Content="&#xe12b;"
                         Command="{Binding EditMap}" />
                                 <ComboBox />
                             </DockPanel>
@@ -350,7 +372,7 @@
                         DockPanel.Dock="Right"
                         FontFamily="Segoe UI Symbol"
                         FontSize="12"
-                        Content="&#x2638;"
+                        Content="&#xe12b;"
                         Command="{Binding EditMap}" />
                                 <ComboBox
 
@@ -372,26 +394,28 @@
 
                             <TextBox />
 
+        <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 5 0 5" Content="Save" />                     
+                            
                         </StackPanel>
-
+                       
                     </DockPanel>
 
                 </Grid>
 
             </TabItem>
-            
+
             <!--Statistics Tab-->
             <TabItem Header="Stats">
-                
+
             </TabItem>
 
         </TabControl>
-     </Grid>
+    </Grid>
 </Window>
-    
- 
 
-    
+
+
+
 <!--Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

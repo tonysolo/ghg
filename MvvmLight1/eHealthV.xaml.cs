@@ -3,12 +3,12 @@
 namespace MvvmLight1
 {
     /// <summary>
-    ///     Description for MvvmView1.
+    ///     Description for CountryView.
     /// </summary>
     public partial class EHealthV
     {
         /// <summary>
-        ///     Initializes a new instance of the MvvmView1 class.
+        ///     Initializes a new instance of the CountryView class.
         /// </summary>
         public EHealthV()
         {

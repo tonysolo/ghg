@@ -4,7 +4,7 @@
         Title="GHG" Height="200" Width="150">
     <Grid>
         <StackPanel Orientation="Vertical" Height="170" VerticalAlignment="Top">       
-            <TextBlock Text="Select Country"/>
+            <TextBlock Text="Select CountryVM"/>
             <ListBox Height="120" 
                      Margin ="0 0 0 5" />
                      <!--SelectedIndex="{Binding Index}"

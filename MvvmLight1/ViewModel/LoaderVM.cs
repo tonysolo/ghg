@@ -22,7 +22,7 @@ namespace MvvmLight1.ViewModel
         public LoaderVm()
         {            
             SetupRelayCommands();            
-            //Country = SharedData.SelectedCountry;          
+            //CountryVM = SharedData.SelectedCountry;          
             Regions = SharedData.RegionNames;       
             Region =  SharedData.Region;
             //ResetProperties();
@@ -30,7 +30,7 @@ namespace MvvmLight1.ViewModel
 
         private void ResetProperties()
         {
-            RaisePropertyChanged("Country");
+            RaisePropertyChanged("CountryVM");
             RaisePropertyChanged("Regions");
             RaisePropertyChanged("Region");
         }
