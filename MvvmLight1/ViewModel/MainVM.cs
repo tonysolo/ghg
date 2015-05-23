@@ -210,7 +210,6 @@ namespace MvvmLight1.ViewModel
             if (SharedData.Region == null) return;
             var v = new MapV();
             v.ShowDialog();
-            
         }
 
 

@@ -148,12 +148,6 @@
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\eHealthVM.cs" />
     <Compile Include="ViewModel\EpidemVM.cs" />
-    <Compile Include="ViewModel\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ViewModel\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\LoaderVM.cs" />
     <Compile Include="ViewModel\CoordVM.cs" />

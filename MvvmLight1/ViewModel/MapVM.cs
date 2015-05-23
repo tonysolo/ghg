@@ -1,10 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.Maps.MapControl.WPF;
-using MvvmLight1.Model;
 
 
 namespace MvvmLight1.ViewModel
