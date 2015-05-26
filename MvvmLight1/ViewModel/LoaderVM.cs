@@ -35,7 +35,7 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("Region");
         }
 
-        //public int CountryIndex { get; set; }
+        public int CountryIndex { get; set; }
         public string[] Regions { get; set; }
         public string Region { get; set; } //qnnee region
         public string Country { get; set; } //country short code
@@ -120,13 +120,13 @@ namespace MvvmLight1.ViewModel
         public void ShowMapDlg()
         {
             //CountryIndex = 1;
-            //Userdata.SelectedCountryIndex = CountryIndex;
+            SharedData.SelectedCountryIndex = CountryIndex;
             // Userdata.Region = Region;
             // Region = RegionNames[Userdata.SelectedCountryIndex];
             //var i = Region.Length;
 
-            Region = Regions[RegionIndex];
-            //Userdata.Region = Region;
+            Region = SharedData.Region;
+           // SharedData.SelectedCountryIndex = Region;
             QneUtils.IndexPoint(Region);
             QneUtils.CentrePoint(Region);
             RaisePropertyChanged("Region");

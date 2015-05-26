@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Windows.Forms;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
 
@@ -18,15 +19,19 @@ namespace MvvmLight1.ViewModel
         {
 
             SetupRelayCommands();
-            SavedQnnee = SharedData.Region;
+            SavedQnnee = SharedData.Region;         
             Qnnee = SharedData.Region;
-            Centre = SharedData.Region;
-            Centre = QneUtils.IndexPoint(Qnnee);
+            Centre = QneUtils.CentrePoint(Qnnee);
             Zoom = "6";
-
+        //    Invalidate();
         }
 
 
+        private void Invalidate()
+        {
+       RaisePropertyChanged("Qnnee");
+       RaisePropertyChanged("Centre");
+        }
 
         public string SavedQnnee { get; set; }
         public string Zoom { get; set; }
