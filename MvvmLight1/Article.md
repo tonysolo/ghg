@@ -13,12 +13,12 @@ There is worldwide interest in e-health, encouraged by the World Health Organisa
 A simple low cost e-health system is possible with direct use of cloud storage.
 
 
-The system I plan uses Microsoft Azure Page Blob storage directly
+The system I plan uses Microsoft Azure Page Blob storage.
 
 
 The system includes processing of health provider registration, patients' e-health and large scale epidemiology and image storage.
 
-Healthcare data is stored according to geographic regions. This allows combining healthcare with population and economic data from SEDAC which is similarly GIS indexed.
+Healthcare data is stored according to geographic region which allows it to be combined with population and economic data from the 'Socioeconomic Data and Applications Centre data' (SEDAC) which is similarly GIS indexed.
 
 The application names regions for Azure cloud storage using 5 characters ('QNNEE') where:
   'Q' is the Earth's quadrant 'North-east,'North-west','South-east or 'South-west' : '0','1','2', or '3'.
