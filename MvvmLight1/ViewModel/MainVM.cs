@@ -11,9 +11,12 @@ namespace MvvmLight1.ViewModel
 {
     public class MainVm : ViewModelBase
     {
+
+
         public MainVm()
         {       
             IsRegistered = true;
+            SetupRelayCommands();
          //   CountryIndex = 0;
         }
 
@@ -45,9 +48,7 @@ namespace MvvmLight1.ViewModel
         }
 
        // public RelayCommand EditMap { get; private set; }
-        public RelayCommand EditEpidemiology { get; private set; }
-        public RelayCommand EditLoader { get; private set; }
-        public RelayCommand EditEhealth { get; private set; }
+       
 
         private void ShowMesg()
         {
@@ -81,6 +82,12 @@ namespace MvvmLight1.ViewModel
             var v = new EHealthV();
             v.ShowDialog();
         }
+
+
+        public RelayCommand EditEpidemiology { get; private set; }
+        public RelayCommand EditLoader { get; private set; }
+        public RelayCommand EditEhealth { get; private set; }
+
 
 
         private void SetupRelayCommands()

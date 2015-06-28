@@ -96,7 +96,7 @@
 
                     <StackPanel Orientation="Horizontal" Height="Auto">
                         <Button Content=" Register " Margin="3 3 3 3" Command="{Binding EditLoader}" />
-                        <Button Content=" Help ? " Margin="6 3 3 3" Command="{Binding EditMap}" />
+                        <Button Content=" Help ? " Margin="6 3 3 3" Command="{Binding EditLoader}" />
 
                     </StackPanel>
                     <!--
