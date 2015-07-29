@@ -4,40 +4,42 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Title="Global Health Grid" Height="410" Width="300"
+        Title="Global Health Grid" Height="410" Width="300"     
         DataContext="{Binding Maps, Source={StaticResource Locator}}">
     <Grid Height="370" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />           
         </Grid.RowDefinitions>
+        
         <m:Map x:Name="MyMap"
                CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
-               Mode="Road"
-               Center="{Binding Centre}"
-               ZoomLevel="{Binding Zoom}" Margin="0,2,0,22" Grid.RowSpan="2"
+               Mode="Road" 
+               Center ="-26.2022,28.0436"               
+               ZoomLevel="4"
                >
-            <m:Pushpin Location="{Binding Centre}" Background="{Binding Fill}" /> 
-            <m:MapPolygon 
-                         
-                          Stroke="Black"
-                          Locations="{Binding Boundary}"
-                          Opacity="0.7" />
+            <m:Pushpin Location = "{Binding Centre}" 
+                       Foreground = "{Binding FillColor}" /> 
+            <m:MapPolygon Stroke = "Black"
+                          StrokeThickness = "5"
+                          Locations = "{Binding Boundary}"
+                          Fill = "Blue"
+                          Opacity = "0.7" />
         </m:Map>
 
 
-        <StackPanel Grid.Row="1" Height="20"
-                    Orientation="Horizontal"
-                    FlowDirection="RightToLeft">
+        <StackPanel Grid.Row ="1" Height="20"
+                    Orientation ="Horizontal"
+                    FlowDirection ="RightToLeft">
             
-            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09F;"
-                    Command="{Binding MoveRegionEast}" />
-            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE0A1;"
-                    Command="{Binding MoveRegionSouth}" />
-            <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE0A0;"
-                    Command="{Binding MoveRegionNorth}" />
-             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09E;"
-                    Command="{Binding MoveRegionWest}" />
+            <Button Width = "15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09F;"
+                    Command = "{Binding MoveRegionEast}" />
+            <Button Width = "15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE0A1;"
+                    Command = "{Binding MoveRegionSouth}" />
+            <Button Width ="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE0A0;"
+                    Command ="{Binding MoveRegionNorth}" />
+             <Button Width ="15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09E;"
+                    Command ="{Binding MoveRegionWest}" />
             <!--Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE00E;" Command="{Binding Search}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE010;" Command="{Binding Search}"/>
             <Button Width="15" FontFamily="Segoe UI Symbol" FontSize ="12" Content="&#xE011;" Command="{Binding Search}"/>

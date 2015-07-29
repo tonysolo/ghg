@@ -46,12 +46,13 @@ namespace MvvmLight1.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-            SimpleIoc.Default.Register<MapVm>();
+           
             SimpleIoc.Default.Register<MainVm>(); //<MainViewModel>()
             SimpleIoc.Default.Register<LoaderVm>();
             SimpleIoc.Default.Register<CountryVm>();
             SimpleIoc.Default.Register<EHealthVm>();
             SimpleIoc.Default.Register<EpidemVm>();
+            SimpleIoc.Default.Register<MapVm>();
         }
 
         public MainVm Main
@@ -66,7 +67,7 @@ namespace MvvmLight1.ViewModel
 
         public CountryVm Country
         {
-           get { return ServiceLocator.Current.GetInstance<CountryVm>(); }
+            get { return ServiceLocator.Current.GetInstance<CountryVm>(); }
         }
 
         public EHealthVm EHealth

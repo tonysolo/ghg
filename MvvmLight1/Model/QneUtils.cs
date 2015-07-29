@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Globalization;
 
 namespace MvvmLight1.Model
 {
     public static class QneUtils
     {
+        public static  CultureInfo Ci = new CultureInfo("en-us");
 
         public static string Setzoom4()
         {
@@ -70,6 +72,8 @@ namespace MvvmLight1.Model
         /// <returns>latlon string  as csv</returns>
         public static string IndexPoint(string qnnee)
         {
+           
+
             double lat = 0, lon = 0;
             //    var east = (qnnee[0] == '0');
             
@@ -90,8 +94,8 @@ namespace MvvmLight1.Model
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-         
-            return String.Format("{0:F2},{1:F2}", lat, lon);
+        // var s = String.Format("{0} {1:en-US}", lat, lon);
+            return lat.ToString("F2", Ci) + ',' + lon.ToString("F2", Ci);
         }
 
 
@@ -199,10 +203,10 @@ namespace MvvmLight1.Model
                 if (lon0 == 0) lon0 = 1;
                 if (lon1 == 0) lon1 = 1;
 
-                saa[0] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon0));
-                saa[1] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat0, lon1));
-                saa[2] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat1, lon1));
-                saa[3] = IndexPoint(String.Format("{0:x1}{1:x3}{2:x3}", q, lat1, lon0));
+                saa[0] = IndexPoint(String.Format("{0:x1}{1:0.0.00}{2:0.00}", q, lat0, lon0));
+                saa[1] = IndexPoint(String.Format("{0:x1}{1:0.0}{2:0.00}", q, lat0, lon1));
+                saa[2] = IndexPoint(String.Format("{0:x1}{1:0.00}{2:0.00}", q, lat1, lon1));
+                saa[3] = IndexPoint(String.Format("{0:x1}{1:0.00}{2:0.00}", q, lat1, lon0));
             }
             return String.Join(" ", saa);
         }
@@ -231,7 +235,9 @@ namespace MvvmLight1.Model
             var qne = to_qnnneee(decdeg);
             return Boundary(qne);
         }
-
+/*
+  replaced by composite MoveNSEW(qnnee,nsew)
+ 
         public static string MoveN(string qnnee)
         {
             var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
@@ -338,7 +344,7 @@ namespace MvvmLight1.Model
             }
             return String.Format("{0:x1}{1:x2}{2:x2}", q, ns, ew);
         }
-
+*/
         /// <Summary>
         ///     Moves coordinate position North South East or West. Takes care of
         ///     hemisphere - moving north in southern hemisphere requires moving towards

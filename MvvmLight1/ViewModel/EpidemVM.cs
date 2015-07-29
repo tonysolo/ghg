@@ -22,38 +22,38 @@ namespace MvvmLight1.ViewModel
 
         public string[] Genders
         {
-            get { return Enum.GetNames(typeof (Gender)); }
+            get { return Enum.GetNames(typeof(Gender)); }
         }
 
         // public string[] AgeGroups { get {return AzureAccess.Qnames;} }
         public string[] AgeGroups
         {
-            get { return Enum.GetNames(typeof (Agegroup)); }
+            get { return Enum.GetNames(typeof(Agegroup)); }
         }
 
         public string[] Facilities
         {
-            get { return Enum.GetNames(typeof (Facilty)); }
+            get { return Enum.GetNames(typeof(Facilty)); }
         }
 
         public string[] Stays
         {
-            get { return Enum.GetNames(typeof (Stay)); }
+            get { return Enum.GetNames(typeof(Stay)); }
         }
 
         public string[] Funders
         {
-            get { return Enum.GetNames(typeof (Funder)); }
+            get { return Enum.GetNames(typeof(Funder)); }
         }
 
         public string[] Treaters
         {
-            get { return Enum.GetNames(typeof (Treater)); }
+            get { return Enum.GetNames(typeof(Treater)); }
         }
 
         public string[] Qualifications
         {
-            get { return Enum.GetNames(typeof (Providers)); }
+            get { return Enum.GetNames(typeof(Providers)); }
         }
 
         public string[] Regions { get; set; } //will have to be set from map info

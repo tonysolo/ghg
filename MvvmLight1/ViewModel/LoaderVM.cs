@@ -30,7 +30,7 @@ namespace MvvmLight1.ViewModel
 
         private void ResetProperties()
         {
-            RaisePropertyChanged("CountryVM");
+            //RaisePropertyChanged("CountryVM");
             RaisePropertyChanged("Regions");
             RaisePropertyChanged("Region");
         }
