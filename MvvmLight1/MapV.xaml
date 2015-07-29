@@ -19,7 +19,8 @@
                ZoomLevel="4"
                >
             <m:Pushpin Location = "{Binding Centre}" 
-                       Foreground = "{Binding FillColor}" /> 
+                       Background ="{Binding FillColor}"
+                        /> 
             <m:MapPolygon Stroke = "Black"
                           StrokeThickness = "5"
                           Locations = "{Binding Boundary}"

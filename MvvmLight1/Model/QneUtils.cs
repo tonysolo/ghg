@@ -5,14 +5,14 @@ namespace MvvmLight1.Model
 {
     public static class QneUtils
     {
-        public static  CultureInfo Ci = new CultureInfo("en-us");
+        public static CultureInfo Ci = new CultureInfo("en-us");
 
         public static string Setzoom4()
         {
             return "4";
         }
 
-       public static string Setzoom6()
+        public static string Setzoom6()
         {
             return "6";
         }
@@ -36,7 +36,7 @@ namespace MvvmLight1.Model
 
             var latint = (int) (Math.Abs(lat/180)*4096);
             var lonint = (int) (Math.Abs(lon/180)*4096);
-            return String.Format("{0:x1}{1:x3}{2:x3}", q, latint, lonint);
+            return String.Format(Ci,"{0:x1}{1:x3}{2:x3}", q, latint, lonint);
         }
 
 
@@ -59,7 +59,7 @@ namespace MvvmLight1.Model
 
             var latint = (int) (Math.Abs(lat/180)*256);
             var lonint = (int) (Math.Abs(lon/180)*256);
-            var s = String.Format("{0:x1}{1:x2}{2:x2}", q, latint, lonint);
+            var s = String.Format(Ci,"{0:x1}{1:x2}{2:x2}", q, latint, lonint);
             return s;
         }
 
@@ -72,12 +72,10 @@ namespace MvvmLight1.Model
         /// <returns>latlon string  as csv</returns>
         public static string IndexPoint(string qnnee)
         {
-           
-
             double lat = 0, lon = 0;
             //    var east = (qnnee[0] == '0');
-            
-            switch(qnnee.Length)
+
+            switch (qnnee.Length)
             {
                 case 5:
                     var lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
@@ -94,8 +92,8 @@ namespace MvvmLight1.Model
             }
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-        // var s = String.Format("{0} {1:en-US}", lat, lon);
-            return lat.ToString("F2", Ci) + ',' + lon.ToString("F2", Ci);
+            // var s = String.Format("{0} {1:en-US}", lat, lon);
+            return lat.ToString("F2",Ci) + ',' + lon.ToString("F2", Ci);
         }
 
 
@@ -235,8 +233,100 @@ namespace MvvmLight1.Model
             var qne = to_qnnneee(decdeg);
             return Boundary(qne);
         }
+
+
+
+        /// <Summary>
+        ///     Moves coordinate position North South East or West. Takes care of
+        ///     hemisphere - moving north in southern hemisphere requires moving towards
+        ///     equator while northern hemisphere north moves towards pole.
+        ///     Handles 40 arcmin regions and 2.6 arc min district
+        /// </summary>
+        /// <param name="qnnee"></param>
+        /// <param name="nsew">direction 'n','s','e','w'</param>
+        /// <returns>region coordinates</returns>
+        public static string MoveNsew(string qnnee, char nsew)
+        {
+            bool isWest;
+            var isEast = isWest = false;
+            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
+
+
+            if (qnnee.Length == 5) // 5 character qnnee
+            {
+                var q = qnnee[0];
+                var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                if (q == '1') ew *= -1;
+                if (q == '2') ns *= -1;
+                if (q == '3')
+                {
+                    ns *= -1;
+                    ew *= -1;
+                }
+
+                //ew = 512 + ew;
+                //BUG moving accross the prime meridian skips a cell - fixed
+                // bool isneg;
+                switch (nsew)
+                {
+                    case 'n':
+                        if (ns < 127) ns++;
+                        break;
+                    case 's':
+                        if (ns > -127) ns--;
+                        break;
+                    case 'e':
+                        ew++;
+                        isWest = (ew == 0);
+                        break;
+                    case 'w': //isneg = (ew < 0);
+                        ew--;
+                        isEast = (ew == 0);
+                        break;
+                }
+
+                q = (ns >= 0 & (ew > 0) | ((ew == 0) & (isEast))
+                    ? '0'
+                    : ns >= 0 & (ew < 0) | ((ew == 0) & (isWest))
+                        ? '1'
+                        : ns < 0 & (ew < 0) | ((ew == 0) & (isWest)) ? '3' : '2'); //03 sw or SE
+                // ns > 0  & (ew >0 ) |((ew==0)&(isWest))  2); //10 se / sw
+                // if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
+                // if (ew == 0x00) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
+
+                qnnee = String.Format("{0}{1:x2}{2:x2}", q, Math.Abs(ns), Math.Abs(ew));
+
+                return qnnee;
+            }
+            return "";
+        }
+
+
+        /// <summary>
+                ///     Calculates Seconds to midnight for timezones
+                /// </summary>
+                /// <param name="qe">2 hexadecimal charaster string quadrant and longitide</param>
+                /// <returns>secs</returns>
+            private static
+            int SecsToMidnight 
+            (string
+            qe)
+            {
+                var q = qe[0];
+                var e = Convert.ToByte(qe.Substring(1, 1), 16)*45*60;
+                var dt = DateTime.UtcNow;
+                var secs = dt.Hour*60*60 + dt.Minute*60 + dt.Second;
+                secs += (q == '1') || (q == '3') ? -e : e; //west                    
+                return secs%0x15180;
+            }
+        
+        }
+    }
+
 /*
-  replaced by composite MoveNSEW(qnnee,nsew)
+
+ // replaced by composite MoveNSEW(qnnee,nsew)
  
         public static string MoveN(string qnnee)
         {
@@ -344,73 +434,13 @@ namespace MvvmLight1.Model
             }
             return String.Format("{0:x1}{1:x2}{2:x2}", q, ns, ew);
         }
-*/
-        /// <Summary>
-        ///     Moves coordinate position North South East or West. Takes care of
-        ///     hemisphere - moving north in southern hemisphere requires moving towards
-        ///     equator while northern hemisphere north moves towards pole.
-        ///     Handles 40 arcmin regions and 2.6 arc min district
-        /// </summary>
-        /// <param name="qnnee"></param>
-        /// <param name="nsew">direction 'n','s','e','w'</param>
-        /// <returns>region coordinates</returns>
-        public static string MoveNsew(string qnnee, char nsew)
-        {
-            bool isWest;
-            var isEast = isWest = false;
-            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
+  }
 
-            byte q;
-            int ns;
-            int ew;
-            if (qnnee.Length == 5) // 5 character qnnee
-            {
-                q = (byte) qnnee[0];
-                ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                if (q == '1') ew *= -1;
-                if (q == '2') ns *= -1;
-                if (q == '3')
-                {
-                    ns *= -1;
-                    ew *= -1;
-                }
 
-                //ew = 512 + ew;
-                //BUG moving accross the prime meridian skips a cell - fixed
-                // bool isneg;
-                switch (nsew)
-                {
-                    case 'n':
-                        if (ns < 127) ns++;
-                        break;
-                    case 's':
-                        if (ns > -127) ns--;
-                        break;
-                    case 'e':
-                        ew++;
-                        isWest = (ew == 0);
-                        break;
-                    case 'w': //isneg = (ew < 0);
-                        ew--;
-                        isEast = (ew == 0);
-                        break;
-                }
+        
 
-                q = (byte) (ns >= 0 & (ew > 0) | ((ew == 0) & (isEast))
-                    ? 0: ns >= 0 & (ew < 0) | ((ew == 0) & (isWest))
-                        ? 1: ns < 0 & (ew < 0) | ((ew == 0) & (isWest)) ? 3 : 2); //03 sw or SE
-                // ns > 0  & (ew >0 ) |((ew==0)&(isWest))  2); //10 se / sw
-                // if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
-                // if (ew == 0x00) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
-
-                qnnee = String.Format("{0:x1}{1:x2}{2:x2}", q, Math.Abs(ns), Math.Abs(ew));
-
-                return qnnee;
-            }
-
-            if (qnnee.Length != 7) return "";
-            q = (byte) qnnee[0];
+    if (qnnee.Length != 7) return "";
+            q = qnnee[0];
             ns = Convert.ToInt16(qnnee.Substring(1, 3), 16);
             ew = Convert.ToInt16(qnnee.Substring(4, 3), 16);
             if (q == '1') ew *= -1;
@@ -442,13 +472,13 @@ namespace MvvmLight1.Model
                     break;
             }
 
-            q = (byte) (ns >= 0 & ew >= 0
-                ? 0
+            q = (ns >= 0 & ew >= 0
+                ? '0'
                 : //00 ne
-                ns >= 0 & ew < 0
-                    ? 1
+                (ns >= 0 & ew < 0)
+                    ? '1'
                     : //01 nw
-                    ns < 0 & ew < 0 ? 3 : 2); //10 se / sw
+                    (ns < 0) & (ew < 0) ? '3' : '2'); //10 se / sw
             // ((ns < 0) & (ew < 0)) ? 3 :
 
             if (ew == 0xfff) q = (byte) (q ^ 0x01); //record the changeover details in 'q'
@@ -458,21 +488,6 @@ namespace MvvmLight1.Model
 
             return qnnee;
         }
-
-        //--------------------------------------------------------------------------
-        /// <summary>
-        ///     Calculates Seconds to midnight for timezones
-        /// </summary>
-        /// <param name="qe">2 hexadecimal charaster string quadrant and longitide</param>
-        /// <returns>secs</returns>
-        private static int SecsToMidnight(string qe)
-        {
-            var q = qe[0];
-            var e = Convert.ToByte(qe.Substring(1, 1), 16)*45*60;
-            var dt = DateTime.UtcNow;
-            var secs = dt.Hour*60*60 + dt.Minute*60 + dt.Second;
-            secs += (q == '1') || (q == '3') ? -e : e; //west                    
-            return secs%0x15180;
-        }
-    }
-}
+*/
+                //--------------------------------------------------------------------------
+ 
