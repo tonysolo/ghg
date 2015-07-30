@@ -22,9 +22,8 @@ namespace MvvmLight1.ViewModel
             //Savedqnnee = SharedData.Region;         
             Qnnee = SharedData.Region;
             Centre = QneUtils.CentrePoint(Qnnee);
-            //PinCentre = Centre;
-            //Zoom4();
-            //Invalidate();
+            Invalidate();
+            
         }
 
 
@@ -35,6 +34,7 @@ namespace MvvmLight1.ViewModel
             RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Centre");
             RaisePropertyChanged("FillColor");
+            
 
         }
 
@@ -48,6 +48,7 @@ namespace MvvmLight1.ViewModel
         public string Qnnee { get; set; }
         public string Qnnneee { get; set; }
         public string FillColor { get; set; }
+        //public string _Locations { get; set; }
 
 
         //public RelayCommand Search { get; private set; } //to implement patient search in region
@@ -78,12 +79,12 @@ namespace MvvmLight1.ViewModel
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
             FillColor = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "Blue";
+            //_Locations = "47.6424,-122.3219 47.8424,-122.1747 47.5814,-122.1747";
             RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("FillColor");
-
-
+           // RaisePropertyChanged("Centre");
+           // RaisePropertyChanged("FillColor");
+ //RaisePropertyChanged("_Locations");
         }
 
         private void RegionSouth()
@@ -92,11 +93,12 @@ namespace MvvmLight1.ViewModel
             Qnnee = QneUtils.MoveNsew(Qnnee, 's');//QneUtils.MoveS(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
-            FillColor = SharedData.Isvalid(Qnnee) ? "White" : "";
+            FillColor = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "Blue";
             RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("FillColor");
+           RaisePropertyChanged("Boundary");
+           // RaisePropertyChanged("Centre");
+           // RaisePropertyChanged("FillColor");
+
         }
 
         private void RegionEast()
@@ -104,11 +106,11 @@ namespace MvvmLight1.ViewModel
             Qnnee = QneUtils.MoveNsew(Qnnee, 'e');//QneUtils.MoveE(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
-            FillColor = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            FillColor = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "Blue";
             RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("FillColor");
+           RaisePropertyChanged("Boundary");
+           // RaisePropertyChanged("Centre");
+           // RaisePropertyChanged("FillColor");
         }
 
         private void RegionWest()
@@ -116,11 +118,11 @@ namespace MvvmLight1.ViewModel
             Qnnee = QneUtils.MoveNsew(Qnnee, 'w');//QneUtils.MoveW(Qnnee);
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
-            FillColor = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "";
+            FillColor = SharedData.Isvalid(Qnnee) ? "RoyalBlue" : "Blue";
             RaisePropertyChanged("Qnnee");
-            RaisePropertyChanged("Boundary");
-            RaisePropertyChanged("Centre");
-            RaisePropertyChanged("FillColor");
+           RaisePropertyChanged("Boundary");
+           // RaisePropertyChanged("Centre");
+           // RaisePropertyChanged("FillColor");
         }
 
         private void SetupRelayCommands()

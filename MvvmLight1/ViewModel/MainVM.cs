@@ -45,6 +45,7 @@ namespace MvvmLight1.ViewModel
                 SharedData.SelectedCountryIndex = value;
                 RaisePropertyChanged("CountryIndex");
                 SharedData.SelectedRegionIndex = 0;
+               // RaisePropertyChanged("RegionIndex");
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MvvmLight1.Model;
 
 namespace MvvmLight1.ViewModel
 {
@@ -13,11 +14,10 @@ namespace MvvmLight1.ViewModel
     {
         public EHealthVm()
         {
-            SetupRelayCommands();
-            Regions = new[] {"Sandton", "Fourways", "Pretoria"};
+            SetupRelayCommands();          
         }
 
-        public string[] Regions { get; set; }
+        public string[] Regions { get { return SharedData.RegionNames; } }
 
 
         public RelayCommand EditMap { get; private set; }
@@ -27,7 +27,6 @@ namespace MvvmLight1.ViewModel
             var v = new MapV();
             v.ShowDialog();
         }
-
 
         private void SetupRelayCommands()
         {

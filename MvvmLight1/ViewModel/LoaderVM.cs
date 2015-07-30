@@ -131,7 +131,7 @@ namespace MvvmLight1.ViewModel
             QneUtils.CentrePoint(Region);
             RaisePropertyChanged("Region");
             //RaisePropertyChanged("RegionIndex");
-            //RaisePropertyChanged("Center");
+            RaisePropertyChanged("Center");
             //RaisePropertyChanged("CountryIndex");
             //Userdata.Region = Region;
             var v = new MapV();
