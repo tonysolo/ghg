@@ -120,6 +120,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Azure.cs" />
+    <Compile Include="Model\GeoBoundary.cs" />
     <Compile Include="Model\MapPoint.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="eHealthV.xaml.cs">

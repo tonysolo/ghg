@@ -134,7 +134,7 @@ namespace MvvmLight1.Model
 
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-            return String.Format(@"{0:F4},{1:F4}", lat, lon); //comma separated
+            return String.Format(Ci,"{0:F4},{1:F4}", lat, lon); //comma separated
         }
 
 
@@ -177,10 +177,10 @@ namespace MvvmLight1.Model
                 //if (lon0 == 0) lon0 = 1;
                 // if (lon1 == 0) lon1 = 1;
 
-                saa[0] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
-                saa[1] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
-                saa[2] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat1, lon1));
-                saa[3] = IndexPoint(String.Format("{0:x1}{1:x2}{2:x2}", q, lat1, lon0));
+                saa[0] = IndexPoint(String.Format(Ci,"{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
+                saa[1] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
+                saa[2] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat1, lon1));
+                saa[3] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat1, lon0));
             }
             else //qnnee is 7 charaters (A District)
             {
@@ -201,10 +201,10 @@ namespace MvvmLight1.Model
                 if (lon0 == 0) lon0 = 1;
                 if (lon1 == 0) lon1 = 1;
 
-                saa[0] = IndexPoint(String.Format("{0:x1}{1:0.0.00}{2:0.00}", q, lat0, lon0));
-                saa[1] = IndexPoint(String.Format("{0:x1}{1:0.0}{2:0.00}", q, lat0, lon1));
-                saa[2] = IndexPoint(String.Format("{0:x1}{1:0.00}{2:0.00}", q, lat1, lon1));
-                saa[3] = IndexPoint(String.Format("{0:x1}{1:0.00}{2:0.00}", q, lat1, lon0));
+                saa[0] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.0.00}{2:0.00}", q, lat0, lon0));
+                saa[1] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.0}{2:0.00}", q, lat0, lon1));
+                saa[2] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.00}{2:0.00}", q, lat1, lon1));
+                saa[3] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.00,}{2:0.00}", q, lat1, lon0));
             }
             return String.Join(" ", saa);
         }
@@ -295,7 +295,7 @@ namespace MvvmLight1.Model
                 // if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
                 // if (ew == 0x00) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
 
-                qnnee = String.Format("{0}{1:x2}{2:x2}", q, Math.Abs(ns), Math.Abs(ew));
+                qnnee = String.Format(Ci,"{0}{1:x2}{2:x2}", q, Math.Abs(ns), Math.Abs(ew));
 
                 return qnnee;
             }

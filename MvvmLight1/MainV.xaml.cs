@@ -16,7 +16,8 @@ namespace MvvmLight1
         {
             InitializeComponent();
             //this.MyMap.Center.
-            
+           // SetValue();
+           // ViewModel.ViewModelLocator.
             Closing += (s, e) => ViewModelLocator.Cleanup();
            
         }

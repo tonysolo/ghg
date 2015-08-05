@@ -5,7 +5,9 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         Title="Global Health Grid" Height="410" Width="300"     
-        DataContext="{Binding Maps, Source={StaticResource Locator}}">
+        DataContext="{Binding Maps, Source={StaticResource Locator}}"
+        >
+      
     <Grid Height="370" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -16,17 +18,14 @@
                CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Mode="Road" 
                Center = "{Binding Centre}"                          
-               ZoomLevel="4" Margin="0,1,0,0"
-               >
-            <!--
-            
-            "-26.2022,28.0436"
+               ZoomLevel="4" Margin="0,1,0,0"               
+               >       
+           
             <m:Pushpin Location = "{Binding Centre}" 
                        Background ="{Binding FillColor}"
                         /> 
-            -->
-                      <m:MapPolygon Fill="Blue" 
-                                     
+            
+                      <m:MapPolygon Fill="Blue"                                      
                           Locations = "{Binding Boundary}"
                           Opacity="0.7"/>
 
@@ -34,7 +33,7 @@
 
        <!-- Stroke="Green" StrokeThickness="2"-->
 
-
+        
         <StackPanel Grid.Row ="1" Height="20"
                     Orientation ="Horizontal"
                     FlowDirection ="RightToLeft">

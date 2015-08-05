@@ -44,7 +44,7 @@ namespace MvvmLight1.ViewModel
             {   
                 SharedData.SelectedCountryIndex = value;
                 RaisePropertyChanged("CountryIndex");
-                SharedData.SelectedRegionIndex = 0;
+                //SharedData.SelectedRegionIndex = 0;
                // RaisePropertyChanged("RegionIndex");
             }
         }
@@ -74,7 +74,7 @@ namespace MvvmLight1.ViewModel
 
         private void ShowLoaderDlg()
         {
-            SharedData.SelectedCountryIndex = CountryIndex;
+            //SharedData.SelectedCountryIndex = CountryIndex;
             var v = new LoaderV();
             v.ShowDialog();
         }

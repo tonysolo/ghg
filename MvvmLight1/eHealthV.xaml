@@ -15,10 +15,11 @@
         DataContext="{Binding EHealth, Source={StaticResource Locator}}">
     <Grid Margin="0,0,-8,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="16*" />
-            <ColumnDefinition Width="19*" />
+            <ColumnDefinition Width="57*" />
+            <ColumnDefinition Width="22*" />
+            <ColumnDefinition Width="46*"/>
         </Grid.ColumnDefinitions>
-        <DockPanel LastChildFill="True" Margin="0,0,0,-9" Grid.ColumnSpan="2">
+        <DockPanel LastChildFill="True" Margin="0,0,0,-9" Grid.ColumnSpan="3">
             <!--StackPanel DockPanel.Dock=" Top" Orientation="Horizontal">
                 <Label />
                 <TextBox />

@@ -120,7 +120,7 @@ namespace MvvmLight1.ViewModel
         public void ShowMapDlg()
         {
             //CountryIndex = 1;
-            SharedData.SelectedCountryIndex = CountryIndex;
+            //SharedData.SelectedCountryIndex = CountryIndex;
             // Userdata.Region = Region;
             // Region = RegionNames[Userdata.SelectedCountryIndex];
             //var i = Region.Length;

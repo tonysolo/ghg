@@ -12,6 +12,7 @@
 
         Height="500"
         Width="250"
+        Left = "{Binding left}"
         
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid x:Name="LayoutRoot">

@@ -7,8 +7,8 @@
     {
         public MapV()
         {
-            InitializeComponent();
-                      
+            InitializeComponent();                     
         }
+
     }
 }
