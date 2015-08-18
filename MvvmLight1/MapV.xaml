@@ -25,7 +25,7 @@
                        Background ="{Binding FillColor}"
                         /> 
             
-                      <m:MapPolygon Fill="Blue"                                      
+                      <m:MapPolygon Fill="Aquamarine"                                   
                           Locations = "{Binding Boundary}"
                           Opacity="0.7"/>
 

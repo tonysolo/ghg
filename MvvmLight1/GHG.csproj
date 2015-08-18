@@ -120,6 +120,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Azure.cs" />
+    <Compile Include="Model\Provider.cs" />
+    <Compile Include="Model\Patient.cs" />
+    <Compile Include="Model\Visit.cs" />
     <Compile Include="Model\GeoBoundary.cs" />
     <Compile Include="Model\MapPoint.cs" />
     <Compile Include="Design\DesignDataService.cs" />
