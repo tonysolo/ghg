@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 
 namespace MvvmLight1.Model
-{//need to make public access
+{
+    //need to make the class public access
+    //need static utility class to store patients providers and images to azure
     class provider
     {
         provider() { }
