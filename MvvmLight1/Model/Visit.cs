@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 
 namespace MvvmLight1.Model
-{
+{//need to make public access
     class visit
     {
         DateTime date { get; set; }
         string referral { get; set; }
         string description { get; set; }
-
         string presciption { get; set; }
         List<byte[]> images { get; set; } //change to string[] image address qnnee/i...
         string advise { get; set; }
