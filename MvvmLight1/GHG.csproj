@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Model\Azure.cs" />
     <Compile Include="Model\imagelocator.cs" />
+    <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Provider.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\Visit.cs" />

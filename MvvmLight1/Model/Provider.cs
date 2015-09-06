@@ -7,12 +7,13 @@ namespace MvvmLight1.Model
 {
     //need to make the class public access
     //need static utility class to store patients providers and images to azure
-    class provider
+    class provider : person
     {
         provider() { }
         provider(string json) { }
-        string name { get; set; }
-        string gender { get; set; }
+        //string name { get; set; }
+        //string gender { get; set; }
+        //public string qnnneee { get; set; }
         string specialty { get; set; }
         string qualification { get; set; }
         string[] commonicds { get; set; }  //top40

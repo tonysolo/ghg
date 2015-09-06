@@ -10,7 +10,8 @@ namespace MvvmLight1.Model
         public string name { get; set; }
         public string address { get; set; }
         public string cellphone { get; set; }
-        public string email { get; set; }       
+        public string email { get; set; } 
+        public string qnnneee { get; set; }      
     }
 
 }
