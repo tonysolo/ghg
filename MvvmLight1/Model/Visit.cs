@@ -11,10 +11,10 @@ namespace MvvmLight1.Model
         string referral { get; set; }
         string description { get; set; }
         string presciption { get; set; }
-        List<byte[]> images { get; set; } //change to string[] image address qnnee/i...
+        List<string> images { get; set; } //change to string[] image address qnnee/i...
         string advise { get; set; }
-        string save() { return null; } // saves to azure images and returns offset and length 
-                                       // vist size will be less than 512 bytes
+        string saveimage() { return null; } // saves to azure images and returns offset and length 
+                                       // visit size will be less than 512 bytes
 
         public void addate()
         {

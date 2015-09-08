@@ -11,6 +11,7 @@ namespace MvvmLight1.Model
         UInt16 offset { get; set; }
         ushort length { get; set; }
         char imagesize { get; set; }
+        bool compressed = false;
         //tostring() return .... qnnee | image range | offset | length 
         // or image range | page offset | byte length // because qnnee is the same as the patient region
         byte[] image { get; set; }

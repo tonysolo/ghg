@@ -1,3 +1,7 @@
+There is an urgent need to move ahead with e-health and population health management in order to deal with HIV TB and other epidemics.
+
+The solution suggested her uses Microsoft Azure page blob storage which is based on low cost commodity components and incredibly good value - 50 cents per gigabyte per month (1/20 of a cent per megabyte) - allowing patient records to be stored at a fraction of the cost of paper with the added advantage of digital data for population heal managenent, epidemiology and individual patient's e-health.
+
 # Global Health Grid - what it does: #
 
 This is a geographic information system (GIS) for healthcare that provides three solutions: 

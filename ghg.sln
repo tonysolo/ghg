@@ -6,11 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GHG", "MvvmLight1\GHG.csproj", "{BA8B1914-733A-4A7A-8089-09617F7E7545}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{729FBA13-D6F4-4FF2-A6C8-527E92CE373A}"
-	ProjectSection(SolutionItems) = preProject
-		ghg.wiki\GHG.md = ghg.wiki\GHG.md
-		ghg.wiki\GHG1.md = ghg.wiki\GHG1.md
-		todo.txt = todo.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D1A52CA3-D275-4AF2-A84C-71C09AE7B31A}"
 	ProjectSection(SolutionItems) = preProject

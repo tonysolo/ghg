@@ -16,8 +16,8 @@ namespace MvvmLight1.Model
         //string email { get; set; }
         //string address { get; set; }
        // public string qnnneee { get; set; }
-        string[] alerts { get; set; }
         person nextofkin { get; set; }
+ string[] alerts { get; set; }
         List<visit> visits { get; set; }
         List<patient> dependants { get; set; }
 
@@ -25,9 +25,16 @@ namespace MvvmLight1.Model
         {
             name = "tony";
             address = "123";
-            nextofkin.qnnneee = "1222333";
-           
+            nextofkin.qnnneee = "1222333";         
         }
+
+        public patient(string json)
+        {
+
+        }
+
+
+
     }
 
     //public class provider : person
