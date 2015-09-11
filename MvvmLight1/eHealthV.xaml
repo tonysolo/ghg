@@ -9,8 +9,6 @@
 
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Height="450"
-        Width="250"
         IsEnabled="True"
         DataContext="{Binding EHealth, Source={StaticResource Locator}}">
     <Grid Margin="0,0,-8,0">
@@ -25,7 +23,7 @@
                 <TextBox />
             </-->
             <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 5 0 10" Content="Save" />
-            <TabControl SelectionChanged="TabControl_SelectionChanged" Width="274">
+            <TabControl SelectionChanged="TabControl_SelectionChanged" Background="{x:Null}">
                 <!--SelectionChanged="TabControl_SelectionChanged"-->
                 <TabItem Header="Details" TabIndex="0">
                     <!--StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="20"></-->

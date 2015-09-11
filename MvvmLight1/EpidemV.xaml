@@ -8,12 +8,9 @@
         Title="Epidemiology"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Height="450"
-        Width="250"
-        DataContext="{Binding Epidem, Source={StaticResource Locator}}">
+        DataContext="{Binding Epidem, Source={StaticResource Locator}}" Width="250" Height="450" FontFamily="Segoe UI Symbol">
     <Grid>
-        <DockPanel
-            LastChildFill="True">
+        <DockPanel>
             <StatusBar
                 Height="25"
                 DockPanel.Dock="Bottom" />
@@ -43,7 +40,8 @@
                 <DatePicker />
                 <TextBlock
                     FontSize="8"
-                    Text="ICD's" />
+                    Text="ICD's"
+                    />
                 <TextBox />
                 <TextBlock
                     FontSize="8"

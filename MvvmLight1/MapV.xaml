@@ -4,8 +4,8 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Title="Global Health Grid" Height="410" Width="300"     
-        DataContext="{Binding Maps, Source={StaticResource Locator}}"
+        Title="Global Health Grid"     
+        DataContext="{Binding Maps, Source={StaticResource Locator}}" Width="300" Height="400"
         >
       
     <Grid Height="370" VerticalAlignment="Top">
@@ -17,7 +17,7 @@
         <m:Map x:Name="MyMap"
                CredentialsProvider="Au0w73KFAsyMNjehXLTx7QH_IhB_DuXhcU9NyRa_mOqRCzngMjl7cqW91fzRB4Y-"
                Mode="Road" 
-               Center = "{Binding Centre}"                          
+               Center = "{Binding Centre}"   
                ZoomLevel="4" Margin="0,1,0,0"               
                >       
            

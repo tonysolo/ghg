@@ -9,13 +9,14 @@
         Title="Global Health Grid"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-
-        Height="500"
-        Width="250"
         Left = "{Binding left}"
         
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="127*"/>
+            <ColumnDefinition Width="115*"/>
+        </Grid.ColumnDefinitions>
         <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="241*"/>
             <ColumnDefinition Width="151*"/>
@@ -66,11 +67,11 @@
         </StackPanel>-->
         <!--Login Tab SelectionChanged="TabControl_SelectionChanged"  -->
         <TabControl 
-          Grid.Row="1" Height="450" VerticalAlignment="Top"          
+          Grid.Row="1" Height="450" VerticalAlignment="Top" Grid.ColumnSpan="2"          
             >
             <TabItem      
         DataContext="{Binding Main, Source={StaticResource Locator}}" 
-        Header="Login"
+        Header="?" ToolTip="Provider Login or Registation"
         >
                 <StackPanel Orientation="Vertical" Margin="0,5,0,10">
                     <StackPanel Orientation="Horizontal" Margin="3,0,0,0">

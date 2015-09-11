@@ -16,11 +16,7 @@
         DataContext="{Binding Loader, Source={StaticResource Locator}}">
     <Grid>
         <StackPanel Margin="10,10,5,0">
-            <TextBlock>
-                <Run Text="CountryVM" />
-                <Run Language="en-gb" Text="" />
-                <Run Text="Region" />
-            </TextBlock>
+            <TextBlock Text="Region"/>
             <DockPanel LastChildFill="True">
                 <Button DockPanel.Dock="Right"
                         Width="25"

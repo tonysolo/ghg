@@ -20,7 +20,7 @@ namespace MvvmLight1.Model
         {
             date = DateTime.Now;
             byte[] ba = new byte[100];
-            images.Add(ba);
+            //images.Add(ba);
         }
 
        public  visit()
