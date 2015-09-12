@@ -67,11 +67,11 @@
         </StackPanel>-->
         <!--Login Tab SelectionChanged="TabControl_SelectionChanged"  -->
         <TabControl 
-          Grid.Row="1" Height="450" VerticalAlignment="Top" Grid.ColumnSpan="2"          
+          Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2"          
             >
             <TabItem      
         DataContext="{Binding Main, Source={StaticResource Locator}}" 
-        Header="?" ToolTip="Provider Login or Registation"
+        Header="  ?  " ToolTip="Provider Login or Registation"
         >
                 <StackPanel Orientation="Vertical" Margin="0,5,0,10">
                     <StackPanel Orientation="Horizontal" Margin="3,0,0,0">
@@ -120,22 +120,22 @@
             </TabItem>
             <!--e-health tab-->
             <TabItem Header="E-Health"
-                DataContext="{Binding EHealth, Source={StaticResource Locator}}" Height="22" VerticalAlignment="Bottom">
+                DataContext="{Binding EHealth, Source={StaticResource Locator}}" Height="22" VerticalAlignment="Bottom" Width=" 70">
 
                 <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="16*" />
                         <ColumnDefinition Width="19*" />
                     </Grid.ColumnDefinitions>
-                    <DockPanel LastChildFill="True" Margin="0,0,0,-9" Grid.ColumnSpan="2">
+                    <DockPanel LastChildFill="True" Margin="10,0,10,10" Grid.Column ="2">
                         <!--StackPanel DockPanel.Dock=" Top" Orientation="Horizontal">
                 <Label />
                 <TextBox />
             </-->
-                        <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 0 0 10" Content="Save" />
-                        <TabControl>
+                        <Button DockPanel.Dock="Bottom" Height="20" Width="70" Margin="0 0 0 10" Content="Save" />
+                        <TabControl Margin="0 10">
                             <!--SelectionChanged="TabControl_SelectionChanged"-->
-                            <TabItem Header="Details" TabIndex="0">
+                            <TabItem Header="Details" TabIndex="0" Width="50">
                                 <!--StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="20"></-->
                                 <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
                                     <TextBlock FontSize="8" Text="Name                                           FirstName" />
@@ -202,7 +202,7 @@
                             </TabItem>
 
 
-                            <TabItem Header="Alerts">
+                            <TabItem Header="Alerts" Width = "70">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock FontSize="8" Text="Allergies" />
                                     <TextBox MinLines="3" />
@@ -217,9 +217,9 @@
 
                             <!--TabItem Header="Last Visit" Height="24" VerticalAlignment="Bottom" /-->
 
-                            <TabItem Header="Visits" />
+                            <TabItem Header="Visits" Width=" 70"/>
 
-                            <TabItem Height="22" Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2">
+                            <TabItem Height="22" Width ="70"  Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2">
                                 <StackPanel>
                                     <TextBlock FontSize="8" Text="History" />
                                     <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
@@ -259,6 +259,14 @@
                         </TabControl>
                         <!--Button Height="20" ></-->
                     </DockPanel>
+                    <ListView x:Name="listView" Margin="0,0,-5,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn  />
+                                <GridViewColumn/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
 
 
@@ -268,7 +276,7 @@
             <!--Epidemiology tab-->
             <TabItem Header="Epidemiology"
                 DataContext="{Binding Epidem, Source={StaticResource Locator}}"      
-                     >
+                   Width=" 100"  >
                 <Grid>
                     <DockPanel
             LastChildFill="True">
@@ -400,7 +408,7 @@
             </TabItem>
 
             <!--Statistics Tab-->
-            <TabItem Header="Stats">
+            <TabItem Header="Statistics" Width="70">
 
             </TabItem>
 
