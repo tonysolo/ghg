@@ -12,8 +12,6 @@ namespace MvvmLight1.Model
     {
         public static CloudStorageAccount GhgAccount =
             CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
-
-
         /// <summary>
         /// registers a new loader
         /// </summary>
@@ -52,27 +50,22 @@ namespace MvvmLight1.Model
             if (countryname == null) return null;
             CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
             CloudBlobContainer container = cbc.GetContainerReference("countries");
-            //if (SelectedCountryIndex < 0) return null;
-            // var sb = new StringBuilder(CountryNames[SelectedCountryIndex]);
-            // sb.Append(".txt");
-            string countryblobname = countryname + ".txt";
+           
+            //string countryblobname = countryname + ".txt";
+            string countryblobname = "za.txt";
             CloudBlockBlob blob = container.GetBlockBlobReference(countryblobname.ToLower());
 
-            string[] sarr = null;
+           
             if (blob == null) return null;
             var ms = new MemoryStream();
             blob.DownloadToStream(ms);
             byte[] s = ms.GetBuffer();
             string str = Encoding.UTF8.GetString(s);
             str = str.Trim('\0');
-            sarr = str.Split(',');
-            for (int i = 0; i < sarr.Length; i++)
-            {
-                char[] carr = sarr[i].ToCharArray();
-                carr = Array.FindAll(carr, (c => (char.IsLetterOrDigit(c))));
-                sarr[i] = new string(carr);
-            }
-            return sarr;
+            
+            var acc = new ghgaccount(str);
+            
+            return acc.regions;
         }
     }
 }

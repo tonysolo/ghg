@@ -11,8 +11,9 @@ namespace MvvmLight1.Model
         string referral { get; set; }
         string description { get; set; }
         string presciption { get; set; }
-        List<string> images { get; set; } //change to string[] image address qnnee/i...
         string advise { get; set; }
+        DateTime nextvisit { get; set; }
+        List<string> images { get; set; } //change to string[] image address qnnee/i...    
         string saveimage() { return null; } // saves to azure images and returns offset and length 
                                        // visit size will be less than 512 bytes
 
@@ -25,12 +26,13 @@ namespace MvvmLight1.Model
 
        public  visit()
         {
-            string str = "tony";
+            
             description = null;
         }
 
         public void savetoazure()
         {
+//save to storage queue ...
 // bool imageok = saveimages to azure
 //if (this.Size =< 512) and imageok save to azure otrherwise warn failure and exit 
         }
