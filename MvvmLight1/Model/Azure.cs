@@ -51,8 +51,8 @@ namespace MvvmLight1.Model
             CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
             CloudBlobContainer container = cbc.GetContainerReference("countries");
            
-            //string countryblobname = countryname + ".txt";
-            string countryblobname = "za.txt";
+            string countryblobname = countryname + ".txt";
+           // string countryblobname = "za.txt";
             CloudBlockBlob blob = container.GetBlockBlobReference(countryblobname.ToLower());
 
            
@@ -62,10 +62,7 @@ namespace MvvmLight1.Model
             byte[] s = ms.GetBuffer();
             string str = Encoding.UTF8.GetString(s);
             str = str.Trim('\0');
-            
-            var acc = new ghgaccount(str);
-            
-            return acc.regions;
+            return str.Split(',');
         }
     }
 }

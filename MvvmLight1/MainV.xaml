@@ -23,9 +23,11 @@
             <RowDefinition Height="20"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe1f6;" Command = "{Binding EditMap}" Background="{x:Null}" ToolTip="Provider Log-In and Registation "/>
-
+        <StackPanel Orientation = "Horizontal" Grid.ColumnSpan="2">
+            <ListBox Width="80" ItemsSource="{Binding UserAccounts}" />   
+        <TextBox Width="60" Text="  pincode" IsEnabled="True"></TextBox>
+        <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe1f6;" Command = "{Binding EditLoader}" Background="{x:Null}" ToolTip="Provider Log-In and Registation " Height="20" VerticalAlignment="Top"/>
+</StackPanel>
         <TabControl          
           Grid.Row="2" VerticalAlignment="Top" 
           Grid.ColumnSpan="3"           

@@ -20,11 +20,11 @@ namespace MvvmLight1.ViewModel
         ///     Initializes a new instance of the MvvmViewModel1 class.
         /// </summary>
         public LoaderVm()
-        {            
-            SetupRelayCommands();            
-            //CountryVM = SharedData.SelectedCountry;          
-            Regions = SharedData.RegionNames;       
-            Region =  SharedData.Region;
+        {
+            SetupRelayCommands();
+            Country = SharedData.CountryName;          
+            Regions = SharedData.RegionNames;
+            Region = SharedData.Region;
             //ResetProperties();
         }
 
@@ -64,7 +64,10 @@ namespace MvvmLight1.ViewModel
 
         public static string[] CountryNames
         {
-            get { return SharedData.CountryNames; }
+            get
+            {
+                return SharedData.CountryNames;
+            }
         }
 
         // public string[] Regions
@@ -74,7 +77,7 @@ namespace MvvmLight1.ViewModel
 
         public static string[] Providers
         {
-            get { return Enum.GetNames(typeof (Providers)); }
+            get { return Enum.GetNames(typeof(Providers)); }
         }
 
         public static string[] SecurityQuestions
@@ -89,7 +92,7 @@ namespace MvvmLight1.ViewModel
         }
 
 
-       
+
         public RelayCommand<System.Windows.Window> CloseCommand
         {
             get; private set;
@@ -109,7 +112,7 @@ namespace MvvmLight1.ViewModel
                 FirstName, Initials, Surname, Cellphone, Email, RegAurthority, RegNumber
             };
             this.Cleanup();
-           // LoaderWindow.
+            // LoaderWindow.
             //AzureUtil.RegisterLoader(str);
         }
 
@@ -126,7 +129,7 @@ namespace MvvmLight1.ViewModel
             //var i = Region.Length;
 
             Region = SharedData.Region;
-           // SharedData.SelectedCountryIndex = Region;
+            // SharedData.SelectedCountryIndex = Region;
             QneUtils.IndexPoint(Region);
             QneUtils.CentrePoint(Region);
             RaisePropertyChanged("Region");

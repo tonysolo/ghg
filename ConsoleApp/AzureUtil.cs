@@ -114,7 +114,7 @@ namespace ConsoleApp
             var lookupPos = days % 128;
             var lookupBuf = new byte[512];
 
-            var epidDataOffset = 256 * 128 * 4;//bytes (32768 UInt32's)
+           // var epidDataOffset = 256 * 128 * 4;//bytes (32768 UInt32's)
 
             var lookupStream = Epidemblob.OpenRead();
             lookupStream.Seek(lookupPage * 512, SeekOrigin.Begin);//go to the lookup page start of page boundary
@@ -373,28 +373,28 @@ namespace ConsoleApp
        
     }
 
-    public class Test
-    {
-        public static void Main()
-        { 
-           // AzureEhealth.SetupEpidemStorage(AzureEhealth.Csa, "21f29");
-           // AzureGhgStorage.StoreEpidemiology(AzureEhealth.Csa, "21f29", DateTime.Today, "Testing testing testing 123444");
-            //var s = String.Format("{0:x8}", 268435457);
-           // Console.WriteLine();
-           var s = AzureGhgStorage.GetCountryList().Split(',');
-            Console.WriteLine("Test");
-            foreach (var t in s)
-                Console.WriteLine(t);
-            Console.ReadLine();
-            s = AzureGhgStorage.GetCountry("gb").Split(',');
-            Console.WriteLine("Test1");
- foreach (var t in s)
-                Console.WriteLine(t);
-Console.ReadLine();
-        }
+//    public class Test
+//    {
+//        public static void Main()
+//        { 
+//           // AzureEhealth.SetupEpidemStorage(AzureEhealth.Csa, "21f29");
+//           // AzureGhgStorage.StoreEpidemiology(AzureEhealth.Csa, "21f29", DateTime.Today, "Testing testing testing 123444");
+//            //var s = String.Format("{0:x8}", 268435457);
+//           // Console.WriteLine();
+//           var s = AzureGhgStorage.GetCountryList().Split(',');
+//            Console.WriteLine("Test");
+//            foreach (var t in s)
+//                Console.WriteLine(t);
+//            Console.ReadLine();
+//            s = AzureGhgStorage.GetCountry("gb").Split(',');
+//            Console.WriteLine("Test1");
+// foreach (var t in s)
+//                Console.WriteLine(t);
+//Console.ReadLine();
+//        }
 
    
-    }
+//    }
 
 //Console.WriteLine(Encoding.UTF8.GetString(AzureEhealth.Testmem(4,7)));
 //Console.Write(AzureEhealth.Testmem1().ToString());            

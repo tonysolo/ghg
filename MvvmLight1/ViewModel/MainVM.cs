@@ -14,11 +14,13 @@ namespace MvvmLight1.ViewModel
 
 
         public MainVm()
-        {       
+        {
             IsRegistered = true;
             SetupRelayCommands();
-         //   CountryIndex = 0;
+            //   CountryIndex = 0;
         }
+
+
 
         public bool IsRegistered
         {
@@ -26,6 +28,10 @@ namespace MvvmLight1.ViewModel
             set { Settings.Registered = value; }
         }
 
+        public static string[] UserAccounts
+        {
+            get { return SharedData.UserAccount; }
+        }
 
 
         public static string[] CountryNames
@@ -33,24 +39,25 @@ namespace MvvmLight1.ViewModel
             get { return SharedData.CountryNames; }
         }
 
-   
 
-        public int CountryIndex {
+
+        public int CountryIndex
+        {
             get
             {
-                return SharedData.SelectedCountryIndex;               
+                return SharedData.SelectedCountryIndex;
             }
             set
-            {   
+            {
                 SharedData.SelectedCountryIndex = value;
                 RaisePropertyChanged("CountryIndex");
                 //SharedData.SelectedRegionIndex = 0;
-               // RaisePropertyChanged("RegionIndex");
+                // RaisePropertyChanged("RegionIndex");
             }
         }
 
-       // public RelayCommand EditMap { get; private set; }
-       
+        // public RelayCommand EditMap { get; private set; }
+
 
         private void ShowMesg()
         {
@@ -58,12 +65,12 @@ namespace MvvmLight1.ViewModel
         }
 
 
-       // private static void ShowMapDlg()
-      //  {
-      //      if (SharedData.Region == null) return;
-       //     var v = new MapV();
-       //     v.ShowDialog();
-       // }
+        // private static void ShowMapDlg()
+        //  {
+        //      if (SharedData.Region == null) return;
+        //     var v = new MapV();
+        //     v.ShowDialog();
+        // }
 
 
         private static void ShowEpidemiologyDlg()
@@ -94,12 +101,12 @@ namespace MvvmLight1.ViewModel
 
         private void SetupRelayCommands()
         {
-           // EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);         
+            // EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);         
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             EditLoader = new RelayCommand(ShowLoaderDlg);
             EditEhealth = new RelayCommand(ShowEhealthDlg);
         }
 
     }
-    
+
 }
