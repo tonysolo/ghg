@@ -13,25 +13,28 @@
         
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid x:Name="LayoutRoot">
-        <Grid.ColumnDefinitions>
+        
+        
+        <!--Grid.ColumnDefinitions>
             <ColumnDefinition Width="25"/>
             <ColumnDefinition Width="21*"/>
             <ColumnDefinition Width="19*"/>
-        </Grid.ColumnDefinitions>
+        </-->
 
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation = "Horizontal" Grid.ColumnSpan="2">
-            <ListBox Width="80" ItemsSource="{Binding UserAccounts}" />   
-        <TextBox Width="60" Text="  pincode" IsEnabled="True"></TextBox>
-        <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe1f6;" Command = "{Binding EditLoader}" Background="{x:Null}" ToolTip="Provider Log-In and Registation " Height="20" VerticalAlignment="Top"/>
-</StackPanel>
-        <TabControl          
-          Grid.Row="2" VerticalAlignment="Top" 
-          Grid.ColumnSpan="3"           
-            >
+        
+        
+        <StackPanel Orientation = "Horizontal">
+            <ListBox Width="80" ItemsSource="{Binding UserAccounts}" />
+            <TextBox Width="40" Text="pin" IsEnabled="True"/>
+            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe1f6;" Background="{x:Null}" ToolTip="Provider Log-In and Registation "/>
+            <Button  Width="50" FontSize="12" Content = "Register" Height="20" VerticalAlignment="Bottom" Margin="30,0,0,0"  Command = "{Binding EditLoader}"/>
+        </StackPanel>
+        <TabControl Grid.Row="1" VerticalAlignment="Top">
 
 
             <!--<TabItem                 
@@ -57,8 +60,8 @@
                 </StackPanel>
 </TabItem>-->
 
-                <!--e-health tab-->
-                <TabItem Header = "E-Health"
+            <!--e-health tab-->
+            <TabItem Header = "E-Health"
                 DataContext="{Binding EHealth, Source={StaticResource Locator}}" 
                      Height="22" 
                      VerticalAlignment="Bottom" 
@@ -68,298 +71,167 @@
                      d:LayoutOverrides="LeftMargin, RightMargin"
                 >
 
-                    <Grid Margin="0,0,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="11*" />
-                            <ColumnDefinition Width="51*"/>
-                            <ColumnDefinition Width="283*"/>
-                            <ColumnDefinition Width="409*" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <DockPanel LastChildFill="True" Margin="10,0,10,10" Grid.Column ="3">
-
-                            <Button DockPanel.Dock="Bottom" Height="20" Width="90" Margin="0 0 0 0" Content="Save Changes" />
-                            
-                            <TabControl Margin="0 10">
-
-                                <TabItem Header="Details" TabIndex="0" Width="50">
-
-                                    <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-                                        <TextBlock FontSize="8" Text="Name                                           FirstName" />
-
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBox Width = "120" />
-                                            <TextBox Width = "100"/>
-                                        </StackPanel>
-                                        <TextBlock FontSize="8" Text ="Date of Birth                              Gender"/>
-                                        <StackPanel Orientation="Horizontal">
-                                            <DatePicker Width="102" />
-
-                                            <TextBlock Margin="5 5 0 0" FontSize="10" Text="M" />
-                                            <RadioButton Margin="0 5,0,0" />
-
-                                            <TextBlock Margin="0 5 0 0" FontSize="10" Text="F" />
-                                            <RadioButton Margin="0 5,0,0" />
-                                        </StackPanel>
-
-
-
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock FontSize="8" Text="Region of Birth"/>
-
-                                            <StackPanel Orientation="Horizontal">
-                                                <ComboBox Width="100" ItemsSource="{Binding Regions}" Margin ="0 0 0 0"/>
-                                                <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe12b;" Command = "{Binding EditMap}"/>
-                                            </StackPanel>
-                                        </StackPanel>
-
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock FontSize="8" Text="Current Region"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ComboBox Width="100" ItemsSource="{Binding Regions}" />
-                                                <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe12b;" Command = "{Binding EditMap}" />
-                                            </StackPanel>
-
-                                        </StackPanel>
-
-                                        <DockPanel HorizontalAlignment="Stretch" FlowDirection="RightToLeft" />
-
-
-                                        <TextBlock FontSize="8">
-                            <Run Language="en-gb" Text="Patient " /><Run Text="Cell" />
-                            <Run Language="en-gb" Text=" " /><Run Text="phone" />
-                            <Run Language="en-gb" Text=" Number" />
-                                        </TextBlock>
-                                        <TextBox />
-                                        <TextBlock FontSize="8" Text="Partner Name and Cell phone Number" />
-                                        <TextBox />
-                                        <TextBlock FontSize="8">
-                            <Run Text="Children - Names and " /><Run Language="en-gb" Text="Ages (years)" />
-                                        </TextBlock>
-                                        <TextBox MaxLines="3" AcceptsReturn="True" AllowDrop="True" VerticalContentAlignment="Top" />
-
-                                        <TextBlock FontSize="8" Text="Home Address" />
-                                        <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
-                                        <TextBlock FontSize="8" Text="Work Address" />
-                                        <TextBox MaxLines="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
-
-                                        <TextBlock FontSize="8" Text="eMail Address" />
-                                        <TextBox />
-                                    </StackPanel>
-                                </TabItem>
-
-
-                                <TabItem Header="Alerts" Width = "70">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock FontSize="8" Text="Allergies" />
-                                        <TextBox MinLines="3" />
-                                        <TextBlock FontSize="8" Text="Medical Conditions or Alerts" />
-                                        <TextBox MinLines="3" />
-                                        <TextBlock FontSize="8" Text="Chronic Medication" />
-                                        <TextBox MinLines="3" />
-                                        <TextBlock FontSize="8" Text="Preferences" />
-                                        <TextBox MinLines="3" IsReadOnly="True" />
-                                    </StackPanel>
-                                </TabItem>
-
-
-                                <TabItem Header="Visits" Width=" 70"/>
-
-                                <TabItem Height="22" Width ="70"  Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2">
-                                    <StackPanel>
-                                        <TextBlock FontSize="8" Text="History" />
-                                        <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
-                                 VerticalScrollBarVisibility="Visible" />
-
-                                        <TextBlock FontSize="8" Text="Physical Examination" />
-                                        <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
-                                 VerticalScrollBarVisibility="Visible" />
-
-
-                                        <TextBlock FontSize="8" Text="Special Investigations" />
-                                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
-                                 VerticalScrollBarVisibility="Visible" />
-                                        <TextBlock FontSize="8" Text="Comments and Plan" />
-                                        <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"
-                                 VerticalScrollBarVisibility="Visible" />
-
-
-                                        <StackPanel Height="15" Orientation="Horizontal">
-                                            <TextBlock FontSize="8" Text="Images and Scans" />
-                                            <Button FontSize="8" Content="Scan Document" />
-
-                                        </StackPanel>
-                                        <TextBox MinLines="2" AcceptsReturn="True" TextWrapping="Wrap"
-                                 VerticalScrollBarVisibility="Visible" />
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock FontSize="8" Margin="2 5 5 5" Text="Next Visit" />
-                                            <DatePicker Margin="5 3 0 0" Width="110" />
-                                            <RadioButton Margin="5" Content="Send Reminder" />
-                                        </StackPanel>
-
-                                    </StackPanel>
-                                </TabItem>
-                                <!--new visit-->
-
-                            </TabControl>
-                            <!--Button Height="20" ></-->
-                        </DockPanel>
-                        <ListView x:Name="listView" Margin="-5,0,0,22" Grid.ColumnSpan="3">
-                            <ListView.View>
-                                <GridView>
-                                    <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
+                <Grid Margin="0,0,0,0">                 
+                    
+                    
+                    <!--DockPanel LastChildFill="True" Margin="10,0,10,32" Grid.Column ="4">
+                    </-->
+                    
+                    
+                    <ListView x:Name="listView" Margin="0,0,0,50" Grid.ColumnSpan="4">
+                        <ListView.View>
+                            <GridView>
+                                <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
                                 <GridViewColumn Header="Patient" Width="120"/>
                                 <GridViewColumn Header="Age" Width="40" TextBlock.TextAlignment="Left"/>
-                                    <GridViewColumn Header="Sex" Width="50"/>
-                                    <GridViewColumn Header="Last Visit" Width="100"/>
-                                    <GridViewColumn Header="Details..." Width="150"/>
-                                    
+                                <GridViewColumn Header="Sex" Width="50"/>
+                                <GridViewColumn Header="Last Visit" Width="100"/>
+                                <GridViewColumn Header="Details..." Width="150"/>
+                                <GridViewColumn/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
 
-                                    <GridViewColumn/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </Grid>
-                </TabItem>
-
-                <!--Epidemiology tab-->
-                <TabItem Header="Epidemiology"
+            <!--Epidemiology tab-->
+            <TabItem Header="Epidemiology"
                 DataContext="{Binding Epidem, Source={StaticResource Locator}}"      
                    Width=" 100" Background="{x:Null}"  >
-                    <Grid>
-                        <DockPanel
+                <Grid>
+                    <DockPanel
             LastChildFill="True">
-                            <!--<StatusBar Height="25" DockPanel.Dock="Bottom" />-->
-                            <StackPanel
+                        <!--<StatusBar Height="25" DockPanel.Dock="Bottom" />-->
+                        <StackPanel
                 Width="50"
                 DockPanel.Dock="Left">
-                                <TextBlock
+                            <TextBlock
                     Margin="12"
                     FontFamily="Segoe UI Symbol"
                     FontSize="16"
                     Text="&#xE202;" />
-                                <ListBox Height="130" />
-                                <TextBlock
+                            <ListBox Height="130" />
+                            <TextBlock
                     Margin="12"
                     FontFamily="Segoe UI Symbol"
                     FontSize="16"
                     Text="&#xE10B;" />
-                                <ListBox
+                            <ListBox
                     Height="170" />
-                            </StackPanel>
-                            <StackPanel>
-                                <TextBlock
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock
                     FontSize="8"
                     Text="Date" />
-                                <DatePicker />
-                                <TextBlock
+                            <DatePicker />
+                            <TextBlock
                     FontSize="8"
                     Text="ICD's" />
-                                <TextBox />
-                                <TextBlock
+                            <TextBox />
+                            <TextBlock
                     FontSize="8"
                     Text="Age" />
-                                <ComboBox
+                            <ComboBox
                     ItemsSource="{Binding AgeGroups}"
                     SelectedIndex="0" />
-                                <TextBlock
+                            <TextBlock
                     FontSize="8"
                     Text="Gender" />
-                                <ComboBox
+                            <ComboBox
                     ItemsSource="{Binding Genders}"
                     SelectedIndex="0" />
-                                <TextBlock
+                            <TextBlock
                     FontSize="8"
                     Text="From Region" />
-                                <DockPanel>
-                                    <Button
+                            <DockPanel>
+                                <Button
                         DockPanel.Dock="Right"
                         Width="20"
                         FontFamily="Segoe UI Symbol"
                         FontSize="12"
                         Content="&#xe12b;"
                         Command="{Binding EditMap}" />
-                                    <ComboBox />
-                                </DockPanel>
+                                <ComboBox />
+                            </DockPanel>
 
 
-                                <TextBlock
+                            <TextBlock
                     FontSize="8"
                     Text="Referred by" />
 
-                                <ComboBox
+                            <ComboBox
                     ItemsSource="{Binding Qualifications}"
                     SelectedIndex="0" />
 
-                                <TextBlock
+                            <TextBlock
                     FontSize="8" Text="Treated by" />
 
-                                <ComboBox
+                            <ComboBox
                     ItemsSource="{Binding Qualifications}"
                     SelectedIndex="2" />
 
-                                <TextBlock
+                            <TextBlock
                     FontSize="8"
                     Text="Specialty" />
 
-                                <ComboBox
+                            <ComboBox
                     ItemsSource="{Binding Treaters}"
                     SelectedIndex="0" />
 
-                                <TextBlock
+                            <TextBlock
                     FontSize="8"
                     Text="Facility" />
 
-                                <ComboBox
+                            <ComboBox
                     ItemsSource="{Binding Facilities}"
                     SelectedIndex="0" />
-                                <TextBlock
+                            <TextBlock
                     FontSize="8"
                     Text="Treatment Region" />
 
-                                <DockPanel>
+                            <DockPanel>
 
-                                    <Button
+                                <Button
                         Width="20"
                         DockPanel.Dock="Right"
                         FontFamily="Segoe UI Symbol"
                         FontSize="12"
                         Content="&#xe12b;"
                         Command="{Binding EditMap}" />
-                                    <ComboBox
+                                <ComboBox
 
                         ItemsSource="{Binding Regions}"                         
                                     />
-                                    <!--SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"-->
-                                </DockPanel>
-                                <TextBlock
+                                <!--SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"-->
+                            </DockPanel>
+                            <TextBlock
                     FontSize="8"
                     Text="InOut" />
 
-                                <ComboBox
+                            <ComboBox
                     ItemsSource="{Binding Stays}"
                     SelectedIndex="{Binding Stay}" />
 
-                                <TextBlock
+                            <TextBlock
                     FontSize="8"
                     Text="{Binding Staymessage}" />
 
-                                <TextBox />
+                            <TextBox />
 
-                                <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 5 0 5" Content="Save" />
+                            <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 5 0 5" Content="Save" />
 
-                            </StackPanel>
+                        </StackPanel>
 
-                        </DockPanel>
+                    </DockPanel>
 
-                    </Grid>
+                </Grid>
 
-                </TabItem>
+            </TabItem>
 
-                <!--Statistics Tab-->
-                <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
-
+            <!--Statistics Tab-->
+            <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
         </TabControl>
+        <Button  Height="20" Width="90" Margin="0 0 0 5" Content="Save Changes" Grid.Row="2" />
     </Grid>
 </Window>
 
