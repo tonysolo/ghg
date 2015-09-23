@@ -11,30 +11,29 @@
         WindowStyle="ToolWindow"
         Left = "{Binding left}"
         
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
-    <Grid x:Name="LayoutRoot">
-        
-        
-        <!--Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25"/>
-            <ColumnDefinition Width="21*"/>
-            <ColumnDefinition Width="19*"/>
-        </-->
+        DataContext="{Binding Main, Source={StaticResource Locator}}" Width="360" Height="550">
+    <Grid x:Name="LayoutRoot" Width="340" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin">
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0"/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition/>
+            <RowDefinition Height="*" />
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        
-        
-        <StackPanel Orientation = "Horizontal">
+
+
+        <StackPanel Orientation = "Horizontal" Margin="10,0,-70,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.ColumnSpan="2">
             <ListBox Width="80" ItemsSource="{Binding UserAccounts}" />
-            <TextBox Width="40" Text="pin" IsEnabled="True"/>
+            <TextBox Width="40" Text="  pin" IsEnabled="True"/>
             <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe1f6;" Background="{x:Null}" ToolTip="Provider Log-In and Registation "/>
             <Button  Width="50" FontSize="12" Content = "Register" Height="20" VerticalAlignment="Bottom" Margin="30,0,0,0"  Command = "{Binding EditLoader}"/>
         </StackPanel>
-        <TabControl Grid.Row="1" VerticalAlignment="Top">
+        <TabControl Grid.Row="1" Margin="0,10" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
 
 
             <!--<TabItem                 
@@ -64,33 +63,52 @@
             <TabItem Header = "E-Health"
                 DataContext="{Binding EHealth, Source={StaticResource Locator}}" 
                      Height="22" 
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Top" 
                      Width=" 70" 
-                     Margin="-3.001,-2,3,0" 
-                     HorizontalAlignment="Right" 
-                     d:LayoutOverrides="LeftMargin, RightMargin"
+                     Margin="0,0,0,0" 
+                     HorizontalAlignment="Right"
                 >
 
-                <Grid Margin="0,0,0,0">                 
-                    
-                    
+                <Grid Margin="0,0,-47,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="31*"/>
+                        <ColumnDefinition Width="115*"/>
+                        <ColumnDefinition Width="174*"/>
+                        <!--<ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="2*"/>-->
+                    </Grid.ColumnDefinitions>
+
+
                     <!--DockPanel LastChildFill="True" Margin="10,0,10,32" Grid.Column ="4">
                     </-->
-                    
-                    
-                    <ListView x:Name="listView" Margin="0,0,0,50" Grid.ColumnSpan="4">
+
+
+                    <ListView x:Name="listView" Margin="0,0,0,0"  Background="{x:Null}" Grid.ColumnSpan="3">
+                        <!--" Button Content="test" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
                         <ListView.View>
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
-                                <GridViewColumn Header="Patient" Width="120"/>
+                                <GridViewColumn Header="Patient" Width="100"/>
                                 <GridViewColumn Header="Age" Width="40" TextBlock.TextAlignment="Left"/>
-                                <GridViewColumn Header="Sex" Width="50"/>
-                                <GridViewColumn Header="Last Visit" Width="100"/>
-                                <GridViewColumn Header="Details..." Width="150"/>
-                                <GridViewColumn/>
+                                <GridViewColumn Header="Sex" Width="30"/>
+                                <GridViewColumn Header="Last Visit" Width="80"/>
+                                <GridViewColumn Header="Next Visit" Width="80"/>
+
+                                <!--GridViewColumn/-->
+
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <!--<ListViewItem>
+                        -->
+                    <!--<Button 
+                            TextBlock.TextAlignment="Left"                          
+                            Content="Tony" 
+                            Background="White" 
+                            Block.TextAlignment="Left" Width="200"                         
+                         />-->
+                    <!--
+                    </ListViewItem>-->
                 </Grid>
             </TabItem>
 
@@ -116,8 +134,7 @@
                     FontFamily="Segoe UI Symbol"
                     FontSize="16"
                     Text="&#xE10B;" />
-                            <ListBox
-                    Height="170" />
+                            <ListBox Height = "170" />
                         </StackPanel>
                         <StackPanel>
                             <TextBlock
@@ -218,7 +235,7 @@
 
                             <TextBox />
 
-                            <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 5 0 5" Content="Save" />
+                            <!--Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 5 0 5" Content="Save" /-->
 
                         </StackPanel>
 
@@ -231,7 +248,8 @@
             <!--Statistics Tab-->
             <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
         </TabControl>
-        <Button  Height="20" Width="90" Margin="0 0 0 5" Content="Save Changes" Grid.Row="2" />
+        <Button Margin="113,0,87,5" Content="Save Changes" Grid.Row="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+        <Button x:Name="button" Content="New Visit" Margin="10,0,0,5" Grid.Row="2" HorizontalAlignment="Left" Width="78" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
     </Grid>
 </Window>
 

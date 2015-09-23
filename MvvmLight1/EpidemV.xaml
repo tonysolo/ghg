@@ -6,7 +6,7 @@
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
         Title="Epidemiology"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation= "CenterOwner"
         WindowStyle="ToolWindow"
         DataContext="{Binding Epidem, Source={StaticResource Locator}}" Width="250" Height="450" FontFamily="Segoe UI Symbol">
     <Grid>

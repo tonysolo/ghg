@@ -1,0 +1,14 @@
+MarkdownPad Bug Report
+------------------------------------------------
+Timestamp: 08/18/2015 19:13:02
+Software Version: 2.5.0.27920
+Bug Reporter Version: 1.1.0.35216
+CLR Version: 4.0.30319.42000
+------------------------------------------------
+Operating System: Microsoft Windows NT 6.2.9200.0
+CPU Architecture: 64-bit
+Number of CPU Cores: 8
+Display Resolution (Virtual): 1920 x 1080
+------------------------------------------------
+Error Description: Awesomium web-browser framework. This View has crashed error with Windows 10
+------------------------------------------------
