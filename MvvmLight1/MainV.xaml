@@ -249,7 +249,8 @@
             <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
         </TabControl>
         <Button Margin="113,0,87,5" Content="Save Changes" Grid.Row="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
-        <Button x:Name="button" Content="New Visit" Margin="10,0,0,5" Grid.Row="2" HorizontalAlignment="Left" Width="78" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <Button x:Name="button" Content="New Visit" Margin="10,0,0,5" Grid.Row="2" HorizontalAlignment="Left" Width="78" 
+                d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
     </Grid>
 </Window>
 
