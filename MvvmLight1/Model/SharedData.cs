@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Globalization;
 
 namespace MvvmLight1.Model
 {
@@ -8,6 +9,7 @@ namespace MvvmLight1.Model
 
     public static class SharedData
     {
+        public static CultureInfo Ci = new CultureInfo("en-us");
         private static string[] _regionnames;
         private static string[] _countrynames;
         private static int _selectedcountryindex;
@@ -63,6 +65,7 @@ namespace MvvmLight1.Model
             get
             {
                 var s = RegionNames[SelectedRegionIndex];
+                if (s.Length == 6) s = s.Substring(1);         
                 return s;
             }
         }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Globalization;
 
+
+
 namespace MvvmLight1.Model
 {
     public static class QneUtils
     {
-        public static CultureInfo Ci = new CultureInfo("en-us");
+     public static CultureInfo Ci = new CultureInfo("en-us");   
 
         public static string Setzoom4()
         {
@@ -36,7 +38,8 @@ namespace MvvmLight1.Model
 
             var latint = (int)(Math.Abs(lat / 180) * 4096);
             var lonint = (int)(Math.Abs(lon / 180) * 4096);
-            return String.Format(Ci, "{0:x1}{1:x3}{2:x3}", q, latint, lonint);
+            var s = String.Format("Ci,{0:x1}{1:x3}{2:x3}", q, latint, lonint);
+            return s.Trim();
         }
 
 
@@ -59,8 +62,8 @@ namespace MvvmLight1.Model
 
             var latint = (int)(Math.Abs(lat / 180) * 256);
             var lonint = (int)(Math.Abs(lon / 180) * 256);
-            var s = String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, latint, lonint);
-            return s;
+            var s = String.Format(Ci,"{0:x1}{1:x2}{2:x2}", q, latint, lonint);
+            return s.Trim();
         }
 
 
@@ -78,12 +81,14 @@ namespace MvvmLight1.Model
             switch (qnnee.Length)
             {
                 case 5:
+                case 6:
                     var lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                     var lon5 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
                     lat = (double)lat5 / 256 * 180;
                     lon = (double)lon5 / 256 * 180;
                     break;
                 case 7:
+                case 8:
                     var lat7 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
                     var lon7 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
                     lat = (double)lat7 / 4096 * 180;
@@ -93,7 +98,7 @@ namespace MvvmLight1.Model
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
             // var s = String.Format("{0} {1:en-US}", lat, lon);
-            return lat.ToString("F2", Ci) + ',' + lon.ToString("F2", Ci);
+            return lat.ToString("F2",Ci) + ',' + lon.ToString("F2",Ci);
         }
 
 
@@ -105,11 +110,18 @@ namespace MvvmLight1.Model
         public static string CentrePoint(string qnnee)
         {
             double lat = 0, lon = 0, lat1 = 0, lon1 = 0;
-
+            qnnee = qnnee.Trim();
             switch (qnnee.Length)
             {
                 case 5:
+                case 6:
                     {
+                        for (int i = 0; i < qnnee.Length; i++)
+                        {
+                            var x = qnnee[i];
+                                x = qnnee[i];
+                        }
+
                         var lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
                         var lon5 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
                         lat = (double)lat5 / 256 * 180;
@@ -119,6 +131,7 @@ namespace MvvmLight1.Model
                     }
                     break;
                 case 7:
+                case 8:
                     {
                         var lat7 = Convert.ToInt16(qnnee.Substring(1, 3), 16);
                         var lon7 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
@@ -134,7 +147,7 @@ namespace MvvmLight1.Model
 
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-            return String.Format(Ci, "{0:F4},{1:F4}", lat, lon); //comma separated
+            return String.Format(Ci,"{0:F4},{1:F4}", lat, lon); //comma separated
         }
 
 
@@ -177,10 +190,10 @@ namespace MvvmLight1.Model
                 //if (lon0 == 0) lon0 = 1;
                 // if (lon1 == 0) lon1 = 1;
 
-                saa[0] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
-                saa[1] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
-                saa[2] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat1, lon1));
-                saa[3] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat1, lon0));
+                saa[0] = IndexPoint(String.Format(Ci,"{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
+                saa[1] = IndexPoint(String.Format(Ci,"{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
+                saa[2] = IndexPoint(String.Format(Ci,"{0:x1}{1:x2}{2:x2}", q, lat1, lon1));
+                saa[3] = IndexPoint(String.Format(Ci,"{0:x1}{1:x2}{2:x2}", q, lat1, lon0));
             }
             else //qnnee is 7 charaters (A District)
             {
@@ -201,10 +214,10 @@ namespace MvvmLight1.Model
                 if (lon0 == 0) lon0 = 1;
                 if (lon1 == 0) lon1 = 1;
 
-                saa[0] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.0.00}{2:0.00}", q, lat0, lon0));
-                saa[1] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.0}{2:0.00}", q, lat0, lon1));
-                saa[2] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.00}{2:0.00}", q, lat1, lon1));
-                saa[3] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.00,}{2:0.00}", q, lat1, lon0));
+                saa[0] = IndexPoint(String.Format(Ci,"{0:x1}{1:0.0.00}{2:0.00}", q, lat0, lon0));
+                saa[1] = IndexPoint(String.Format(Ci,"{0:x1}{1:0.0}{2:0.00}", q, lat0, lon1));
+                saa[2] = IndexPoint(String.Format(Ci,"{0:x1}{1:0.00}{2:0.00}", q, lat1, lon1));
+                saa[3] = IndexPoint(String.Format(Ci,"{0:x1}{1:0.00,}{2:0.00}", q, lat1, lon0));
             }
             return String.Join(" ", saa);
         }
@@ -295,7 +308,7 @@ namespace MvvmLight1.Model
                 // if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
                 // if (ew == 0x00) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
 
-                qnnee = String.Format(Ci, "{0}{1:x2}{2:x2}", q, Math.Abs(ns), Math.Abs(ew));
+                qnnee = String.Format(Ci,"{0:x1}{1:x2}{2:x2}", q, Math.Abs(ns), Math.Abs(ew));
 
                 return qnnee;
             }

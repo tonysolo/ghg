@@ -8,7 +8,7 @@
         DataContext="{Binding Maps, Source={StaticResource Locator}}" Width="300" Height="400"
         >
       
-    <Grid Height="370" VerticalAlignment="Top">
+    <Grid Height="350" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="25" />           
@@ -36,7 +36,8 @@
         
         <StackPanel Grid.Row ="1" Height="20"
                     Orientation ="Horizontal"
-                    FlowDirection ="RightToLeft">
+                    FlowDirection ="RightToLeft"
+                    IsEnabled="{Binding validqnnee}">
             
             <Button Width = "15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09F;"
                     Command = "{Binding MoveRegionEast}" />

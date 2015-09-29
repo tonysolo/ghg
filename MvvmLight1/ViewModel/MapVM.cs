@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
+using System.Globalization; 
 
 
 namespace MvvmLight1.ViewModel
@@ -12,16 +13,18 @@ namespace MvvmLight1.ViewModel
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
     /// </summary>
+    ///
     public class MapVm : ViewModelBase
     {
 
         public MapVm()
         {
-
+            //public static CultureInfo Ci = new CultureInfo("en-us");
             SetupRelayCommands();
             //Savedqnnee = SharedData.Region;         
             Qnnee = SharedData.Region;
             Centre = QneUtils.CentrePoint(Qnnee);
+            validqnnee = Qnnee.Length == 5;
             //RaisePropertyChanged("Centre");           
         }
 
@@ -41,6 +44,7 @@ namespace MvvmLight1.ViewModel
         //public string PinCentre { get; set; }
         //public string StartCentre { get; set; }
         //public string Topx;
+        public bool validqnnee { get; set; }
         public string PinColour { get; set; }
         public string Zoom { get; set; }
         public string Centre { get; set; }
