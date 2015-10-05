@@ -9,7 +9,7 @@ namespace MvvmLight1.Model
         public qnnee(string s) //string qnnee constructor
         {
             _qne = new byte[3];
-            _qne[0] = Convert.ToByte(s.Substring(0, 1), 16);
+            _qne[0] = Convert.ToByte(s.Substring(0, 1),16);
             _qne[1] = Convert.ToByte(s.Substring(1, 2), 16);
             _qne[2] = Convert.ToByte(s.Substring(3, 2), 16);
         }
