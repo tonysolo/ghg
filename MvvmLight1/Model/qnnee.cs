@@ -61,6 +61,40 @@ namespace MvvmLight1.Model
             if (iswest()) { x[2]++; return; }
         }
 
+        /// <summary>
+        ///     private method used by the library
+        ///     latlon string point closest to meridian and equator
+        /// </summary>
+        /// <param name="qnnee">5 or 7 character hex </param>
+        /// <returns>latlon string  as csv</returns>
+        public static string IndexPoint(string qnnee)
+        {
+            double lat = 0, lon = 0;
+            //    var east = (qnnee[0] == '0');
+
+            switch (_qne.Length)
+            {
+                case 3:
+              
+                    //var lat5 = Convert.ToInt16(qnnee.Substring(1, 2), 16);
+                   // var lon5 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
+                    lat = (double)_qne[1] / 256 * 180;
+                    lon = (double)_qne[2] / 256 * 180;
+                    break;
+                case 5:   // need this later for 5 byte qne      
+                    {
+
+                    }
+                //    var lon5 = Convert.ToInt16(qnnee.Substring(3,2), 16);
+                 //   lon = (double)lon7 / 4096 * 180;
+                  //  break;
+            
+            if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
+            if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
+            // var s = String.Format("{0} {1:en-US}", lat, lon);
+            return lat.ToString("F2", Ci) + ',' + lon.ToString("F2", Ci);
+        }
+
         public string toString()
         {
             return string.Format("{0:x1}{1:x2}{2:x2}", _qne[0], _qne[1], _qne[2]);
