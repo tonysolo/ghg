@@ -16,7 +16,7 @@ namespace MvvmLight1.ViewModel
     ///
     public class MapVm : ViewModelBase
     {
-
+        qnnee qne;
         public MapVm()
         {
             //public static CultureInfo Ci = new CultureInfo("en-us");
@@ -25,6 +25,7 @@ namespace MvvmLight1.ViewModel
             Qnnee = SharedData.Region;
             Centre = QneUtils.CentrePoint(Qnnee);
             validqnnee = Qnnee.Length == 5;
+            qne = new qnnee(Qnnee);
             //RaisePropertyChanged("Centre");           
         }
 
@@ -80,7 +81,9 @@ namespace MvvmLight1.ViewModel
 
         private void RegionNorth()
         {
-            Qnnee = QneUtils.MoveNsew(Qnnee, 'n');//QneUtils.MoveN(Qnnee);
+            //Qnnee = QneUtils.MoveNsew(Qnnee, 'n');
+            //QneUtils.MoveN(Qnnee);
+            qne.movN()
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
             FillColor = SharedData.Isvalid(Qnnee) ? "Blue" : "White";
@@ -108,7 +111,8 @@ namespace MvvmLight1.ViewModel
 
         private void RegionEast()
         {
-            Qnnee = QneUtils.MoveNsew(Qnnee, 'e');//QneUtils.MoveE(Qnnee);
+            //Qnnee = QneUtils.MoveNsew(Qnnee, 'e');//QneUtils.MoveE(Qnnee);
+            //
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
             FillColor = SharedData.Isvalid(Qnnee) ? "Blue" : "White";

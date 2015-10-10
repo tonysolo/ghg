@@ -25,6 +25,7 @@ namespace MvvmLight1.ViewModel
             Country = SharedData.CountryName;          
             Regions = SharedData.RegionNames;
             Region = SharedData.Region;
+            CountryIndex = 0;
             //ResetProperties();
         }
 

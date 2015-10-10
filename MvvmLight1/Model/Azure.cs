@@ -1,42 +1,58 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.WindowsAzure;
+
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Shared;
 
 namespace MvvmLight1.Model
 {
-    public static class Azure
+    public  class Azure
     {
-        public static CloudStorageAccount GhgAccount =
-            CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("GHGConnectionString"));
+        // static string accountName = "devstoreaccount1";
+        //  static string accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        // static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials creds = new StorageCredentials(accountName, accountKey);
+        // static CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
+
+        // public static CloudStorageAccount Account = 
+        //  CloudStorageAccount(System.Configuration.AppSettingsReader("GHGConnectionString"));
+        static string accountName = "ghg";
+        static string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
+        //string accountName = "devstoreaccount1";
+        //string accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+
+        static StorageCredentials creds = new StorageCredentials(accountName, accountKey);
+        static CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
+
+
+
         /// <summary>
         /// registers a new loader
         /// </summary>
         /// <param name="json"></param>
         /// <returns>string index</returns>
-     /*   public static int RegisterNewLoader(string json)
-        {
-            GhgAccount = "GHGConnetionString";
-            var bytes = Encoding.UTF8.GetBytes(json);
-            var grow = (512 - bytes.Length % 512);
-            Array.Resize(ref bytes, bytes.Length + grow);
-            var s = SetNextLoaderIndex();
-            if (s == -1) return s;
-            // var p = Convert.ToInt32(s, 16);
-            var ms = new MemoryStream(bytes);
-            var start = s << 10;
-            Loaderblob.WritePages(ms, start);
-            return s;
-        }
-*/
+        /*   public static int RegisterNewLoader(string json)
+           {
+               GhgAccount = "GHGConnetionString";
+               var bytes = Encoding.UTF8.GetBytes(json);
+               var grow = (512 - bytes.Length % 512);
+               Array.Resize(ref bytes, bytes.Length + grow);
+               var s = SetNextLoaderIndex();
+               if (s == -1) return s;
+               // var p = Convert.ToInt32(s, 16);
+               var ms = new MemoryStream(bytes);
+               var start = s << 10;
+               Loaderblob.WritePages(ms, start);
+               return s;
+           }
+   */
 
         public static string[] CountryNames()
         {
-            CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
+            CloudBlobClient cbc = account.CreateCloudBlobClient();
             CloudBlobContainer container = cbc.GetContainerReference("countries");
             IListBlobItem[] blobs = container.ListBlobs().ToArray();
             var sarr = new string[blobs.Length];
@@ -64,14 +80,12 @@ namespace MvvmLight1.Model
         public static string[] GetRegions(string countryname)
         {
             if (countryname == null) return null;
-            CloudBlobClient cbc = GhgAccount.CreateCloudBlobClient();
+            CloudBlobClient cbc = account.CreateCloudBlobClient();
             CloudBlobContainer container = cbc.GetContainerReference("countries");
 
             string countryblobname = countryname + ".txt";
             // string countryblobname = "za.txt";
             CloudBlockBlob blob = container.GetBlockBlobReference(countryblobname.ToLower());
-
-
             if (blob == null) return null;
             var ms = new MemoryStream();
             blob.DownloadToStream(ms);

@@ -67,6 +67,17 @@ namespace MvvmLight1.Model
             return s.Trim();
         }
 
+        //public static byte[] toByteArray(string qnnee)
+        //{
+        ////    byte[] ba = new byte[3];
+        ////    ba[1] = Convert.ToByte(qnnee.Substring(1, 2),16);
+        // //   ba[2] = Convert.ToByte(qnnee.Substring(3, 2), 16);
+        //    if (ba[0] == 1) ee *= -1;
+        //    else if (ba[0] == 2) nn *= -1;
+        //    else if (ba[0]) == 3){ ee *= -1;nn *= -1; }
+        //    return 
+
+        //}
 
         /// <summary>
         ///     private method used by the library
@@ -294,11 +305,11 @@ namespace MvvmLight1.Model
                         break;
                     case 'e':
                         ew++;
-                        isWest = (ew == 0);
+                        //isWest = (ew == 0);
                         break;
                     case 'w': //isneg = (ew < 0);
                         ew--;
-                        isEast = (ew == 0);
+                        //isEast = (ew == 0);
                         break;
                 }
 
