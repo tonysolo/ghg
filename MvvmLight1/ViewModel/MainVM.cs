@@ -19,9 +19,7 @@ namespace MvvmLight1.ViewModel
             IsRegistered = true;
             SetupRelayCommands();
             //   CountryIndex = 0;
-            ListViewItem lvi = new ListViewItem();
-
-            
+            ListViewItem lvi = new ListViewItem();        
         }
 
 
@@ -55,8 +53,7 @@ namespace MvvmLight1.ViewModel
             {
                 SharedData.SelectedCountryIndex = value;
                 RaisePropertyChanged("CountryIndex");
-                //SharedData.SelectedRegionIndex = 0;
-                // RaisePropertyChanged("RegionIndex");
+              
             }
         }
 

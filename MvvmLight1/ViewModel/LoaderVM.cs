@@ -25,15 +25,8 @@ namespace MvvmLight1.ViewModel
             Country = SharedData.CountryName;          
             Regions = SharedData.RegionNames;
             Region = SharedData.Region;
-            CountryIndex = 0;
+            CountryIndex = SharedData.SelectedCountryIndex;
             //ResetProperties();
-        }
-
-        private void ResetProperties()
-        {
-            //RaisePropertyChanged("CountryVM");
-            RaisePropertyChanged("Regions");
-            RaisePropertyChanged("Region");
         }
 
         public int CountryIndex { get; set; }
@@ -71,10 +64,7 @@ namespace MvvmLight1.ViewModel
             }
         }
 
-        // public string[] Regions
-        //{
-        //    get { return Userdata.Regions; }          
-        //}
+      
 
         public static string[] Providers
         {
@@ -128,7 +118,6 @@ namespace MvvmLight1.ViewModel
             // Userdata.Region = Region;
             // Region = RegionNames[Userdata.SelectedCountryIndex];
             //var i = Region.Length;
-
             Region = SharedData.Region;
             // SharedData.SelectedCountryIndex = Region;
             QneUtils.IndexPoint(Region);
@@ -142,16 +131,21 @@ namespace MvvmLight1.ViewModel
             v.ShowDialog();
         }
 
+        private void ResetProperties()
+        {
+            RaisePropertyChanged("Regions");
+            RaisePropertyChanged("Region");
+            RaisePropertyChanged("RegionIndex");
+        }
 
         public void GetRegions()
         {
-            //Userdata.SelectedCountryIndex = CountryIndex;
+            SharedData.SelectedCountryIndex = CountryIndex;     
             Loaded = false;
-            // Userdata.GetRegions(); //Regio(CountryShortNames[CountryIndex]);
+            Regions = SharedData.RegionNames; //Regio(CountryShortNames[CountryIndex]);
             Loaded = true;
-
-            RaisePropertyChanged("RegionIndex");
-            RaisePropertyChanged("RegionNames");
+            RegionIndex = 0;
+            ResetProperties();         
         }
 
 
@@ -160,7 +154,6 @@ namespace MvvmLight1.ViewModel
             EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);        
             LoadRegions = new RelayCommand(GetRegions);
             Submit = new RelayCommand(SubmitData);
-            //CloseCommand =new RelayCommand<Window>(Close);
             Loaded = true;
         }
     }

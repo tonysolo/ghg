@@ -272,62 +272,33 @@ namespace MvvmLight1.Model
         /// <returns>region coordinates</returns>
         public static string MoveNsew(string qnnee, char nsew)
         {
-            qnnee _qne = new Model.qnnee(qnnee);
+            //qnnee _qne = new Model.qnnee(qnnee);
 
-            bool isWest;
-            var isEast = isWest = false;
-            if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
+           // bool isWest;
+           // var isEast = isWest = false;
+          //  if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
 
-            if (qnnee.Length == 5) // 5 character qnnee
-            {
-                var q = qnnee[0];
-                var ns = Convert.ToInt16(qnnee.Substring(1, 2), 16);
-                var ew = Convert.ToInt16(qnnee.Substring(3, 2), 16);
-                if (q == '1') ew *= -1;
-                if (q == '2') ns *= -1;
-                if (q == '3')
-                {
-                    ns *= -1;
-                    ew *= -1;
-                }
-
-                //ew = 512 + ew;
-                //BUG moving accross the prime meridian skips a cell - fixed
-                // bool isneg;
                 switch (nsew)
                 {
-                    case 'n':
-                        if (ns < 127) ns++;
-                        break;
-                    case 's':
-                        if (ns > -127) ns--;
-                        break;
-                    case 'e':
-                        ew++;
-                        //isWest = (ew == 0);
-                        break;
-                    case 'w': //isneg = (ew < 0);
-                        ew--;
-                        //isEast = (ew == 0);
-                        break;
+                    case 'n': qnnee_util.movN(ref qnnee); break;
+                    
+                    case 's': qnnee_util.movS(ref qnnee); break;
+                      
+                       
+                    case 'e': qnnee_util.movE(ref qnnee);break;
+                       
+                      
+                    case 'w': qnnee_util.movW(ref qnnee);break;
+                    
                 }
 
-                q = (ns >= 0 & (ew > 0) | ((ew == 0) & (isEast))
-                    ? '0'
-                    : ns >= 0 & (ew < 0) | ((ew == 0) & (isWest))
-                        ? '1'
-                        : ns < 0 & (ew < 0) | ((ew == 0) & (isWest)) ? '3' : '2'); //03 sw or SE
-                // ns > 0  & (ew >0 ) |((ew==0)&(isWest))  2); //10 se / sw
-                // if (ew == 0xff) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
-                // if (ew == 0x00) q = (byte)(q ^ 0x01);//record the changeover details in 'q'
-
-                qnnee = String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, Math.Abs(ns), Math.Abs(ew));
+              
 
                 return qnnee;
             }
-            return "";
-        }
+          
+     
 
 
         /// <summary>
