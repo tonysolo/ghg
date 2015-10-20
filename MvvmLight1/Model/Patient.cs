@@ -16,24 +16,29 @@ namespace MvvmLight1.Model
         //string email { get; set; }
         //string address { get; set; }
        // public string qnnneee { get; set; }
-        person nextofkin { get; set; }
- string[] alerts { get; set; }
-        List<visit> visits { get; set; }
+        person nextofkin { get; set; }  // or carer
+        List<condition> alerts { get; set; }
+        List<visit> visits { get; set; }     
         List<patient> dependants { get; set; }
+        DateTime nextvisit { get; set; }
 
         public patient()
         {
             name = "tony";
             address = "123";
+            //nextofkin.
             nextofkin.qnnneee = "1222333";         
         }
 
-        public patient(string json)
+        public patient(string healthid)
+        {
+//check provider is in same county
+        }
+
+        public void save_to_azure()
         {
 
         }
-
-
 
     }
 

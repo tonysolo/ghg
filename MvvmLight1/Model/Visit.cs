@@ -6,16 +6,17 @@ using System.Text;
 namespace MvvmLight1.Model
 {//need to make public access
     class visit
-    {
-        DateTime date { get; set; }
+    { // ?? visit size will be less than 512 bytes
+        DateTime date { get; set; } //get set to convert to dt
         string referral { get; set; }
         string description { get; set; }
+        List<condition> condition { get; set; } //change to delim string
         string presciption { get; set; }
         string advise { get; set; }
-        DateTime nextvisit { get; set; }
-        List<string> images { get; set; } //change to string[] image address qnnee/i...    
-        string saveimage() { return null; } // saves to azure images and returns offset and length 
-                                       // visit size will be less than 512 bytes
+        DateTime nextvisit { get; set; } //get set to convert to dt
+        List<string> images { get; set; } //change to delim string image address qnnee/i...    
+        int[] saveimage() { return null; } // saves to azure images and returns offset and length []
+                               
 
         public void addate()
         {
@@ -36,6 +37,12 @@ namespace MvvmLight1.Model
 // bool imageok = saveimages to azure
 //if (this.Size =< 512) and imageok save to azure otrherwise warn failure and exit 
         }
+
+        public void checkandupdate()
+        {
+
+        }
+
     }
 
 

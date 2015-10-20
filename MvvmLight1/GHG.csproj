@@ -121,6 +121,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Azure.cs" />
+    <Compile Include="Model\condition.cs" />
     <Compile Include="Model\ghgaccount.cs" />
     <Compile Include="Model\imagelocator.cs" />
     <Compile Include="Model\Person.cs" />
