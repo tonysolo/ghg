@@ -17,7 +17,25 @@ epidemiology top 40 list and save in loader registration page
 
 ? Write SAMJ article
 
-I think this might something of a gamechanger for public health. Many of the previous e-health attempts have failed. This one
+
+I think this might something of a gamechanger for public health. Its a practical ehealth design that uses Azure Page Blobs
+(which are similar to disk storage). There is no database or file system, patients are simply allocated a range of pages to 
+store their e-health record. Providers' data and all e-health related data are simlilarly managed. There are numerous advantages
+including low cost, huge scale and performance.
+
+The core concept is how page blobs are allocated. It idea is to provide every patient with a relatively small 64 kilobyte record 
+to store basic information including alerts, contacts and dependents and then the ability to link to other data such as images and
+scans stored in separate page blobs. This gives the flexibility to record as much data as needed for each patient.
+Page blobs capacity is 1 terabyte (2^40) providing storage for 16 million patients (2^24).
+
+Of cource many countries have populations that greatly exceed 16 million and to solve that problem, populations are divided into 
+smaller geographic regions using a biographic region - the patients region of birth or region of first dwelling in the country.
+
+
+
+
+
+Many of the previous e-health attempts have failed. This one
 uses a much simpler geographic (GIS) mechanism without needing a database. We will see once its built.
 
 
