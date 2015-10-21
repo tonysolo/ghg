@@ -7,8 +7,7 @@ namespace MvvmLight1.Model
 {
     public class person
     {
-        private string _name;
-
+       // private string _name;
         public string name { get; set; }
         public string address { get; set; }
         public string cellphone { get; set; }

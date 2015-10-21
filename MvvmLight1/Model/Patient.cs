@@ -5,17 +5,10 @@ using System.Text;
 
 namespace MvvmLight1.Model
 {
-  
     public class patient : person
-    {//need to make public access
-     // person _person = new person();
-     //name { get; set; }
+    {
         DateTime dateofbirth { get; set; }
-        char gender { get; set; }
-        //string cellphone { get; set; }
-        //string email { get; set; }
-        //string address { get; set; }
-       // public string qnnneee { get; set; }
+        char gender { get; set; }             
         person nextofkin { get; set; }  // or carer
         List<condition> alerts { get; set; }
         List<visit> visits { get; set; }     
@@ -37,7 +30,7 @@ namespace MvvmLight1.Model
 
         public void save_to_azure()
         {
-
+//limit to 64 kb prepend 3 bytes - 8bit version / 16bit length
         }
 
     }
