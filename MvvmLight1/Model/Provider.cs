@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
+
 
 namespace MvvmLight1.Model
 {
-   
+
     //need static utility class to store patients providers and images to azure
     //providers are clinical providers - loaders include clerical to register patients
     //provider app will list all their current patients next appointments and options to check for updates by other providers
-   public class provider : person
+    public class provider : person
     {
         provider() { }
         provider(string json) { }
@@ -23,7 +21,7 @@ namespace MvvmLight1.Model
         string[] commonicds { get; set; }  //top40
         string[] commonvisits { get; set; }  //top40
         string[] commonprescripions { get; set; } //top40
-        List<patient> recentpatients {get; set;}
+        ObservableCollection<patient> recentpatients {get; set;}
         string tojson() { return ""; }
 
         byte[] toUTF8data() { return null; } //put this in shared library
@@ -31,6 +29,9 @@ namespace MvvmLight1.Model
         bool getpatient(string qnexxx) //? combine with getpatient_sa_id by checking if starts with valid qnnee
         {
             patient p = new patient();
+            recentpatients.Add(p);
+            //var p1 = recentpatients[0];
+            //recentpatients.
             //check patient is in same county as provider
             //and check if patient exists
             //patient p = getpatient

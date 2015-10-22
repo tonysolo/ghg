@@ -11,8 +11,8 @@
         WindowStyle="ToolWindow"
         Left = "{Binding left}"
         
-        DataContext="{Binding Main, Source={StaticResource Locator}}" Width="360" Height="550">
-    <Grid x:Name="LayoutRoot" Width="340" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin">
+        DataContext="{Binding Main, Source={StaticResource Locator}}" Width="400" Height="550">
+    <Grid x:Name="LayoutRoot" Width="380" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin">
 
 
         <Grid.ColumnDefinitions>
@@ -69,11 +69,11 @@
                      HorizontalAlignment="Right"
                 >
 
-                <Grid Margin="0,0,-47,0">
+                <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="31*"/>
                         <ColumnDefinition Width="115*"/>
-                        <ColumnDefinition Width="174*"/>
+                        <ColumnDefinition Width="200*"/>
                         <!--<ColumnDefinition Width="11*"/>
                         <ColumnDefinition Width="2*"/>-->
                     </Grid.ColumnDefinitions>
@@ -90,9 +90,9 @@
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
                                 <GridViewColumn Header="Patient" Width="100"/>
                                 <GridViewColumn Header="Age" Width="40" TextBlock.TextAlignment="Left"/>
-                                <GridViewColumn Header="Sex" Width="30"/>
+                                <GridViewColumn Header="G" Width="30"/>
                                 <GridViewColumn Header="Last Visit" Width="80"/>
-                                <GridViewColumn Header="Next Visit" Width="80"/>
+                                <GridViewColumn Header="Next Visit" Width="60"/>
 
                                 <!--GridViewColumn/-->
 
@@ -248,9 +248,11 @@
             <!--Statistics Tab-->
             <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
         </TabControl>
-        <Button Margin="113,0,87,5" Content="Save Changes" Grid.Row="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
-        <Button x:Name="button" Content="New Visit" Margin="10,0,0,5" Grid.Row="2" HorizontalAlignment="Left" Width="78" 
-                d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+        <StackPanel Grid.Row="2"  Orientation="Horizontal" FlowDirection = "RightToLeft" HorizontalAlignment="Right" Height="20">
+            <Button Content="Save Changes"  Margin="5 0 0 0"/>
+            <Button Content="Add Patient"  Margin="5 0 0 0"/>
+            <Button Content="New Visit" Margin="5 0 0 0"/>          
+        </StackPanel>
     </Grid>
 </Window>
 

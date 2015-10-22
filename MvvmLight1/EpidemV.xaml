@@ -33,7 +33,7 @@
                 <ListBox
                     Height="170" />
             </StackPanel>
-            <StackPanel>
+            <StackPanel Width="170" Margin="0 0 20 0">
                 <TextBlock
                     FontSize="8"
                     Text="Date" />

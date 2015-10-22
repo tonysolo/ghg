@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MvvmLight1.Model
 {
@@ -22,14 +19,14 @@ namespace MvvmLight1.Model
 
         override public string ToString()
         {
-            var sarr = new string[5];
+            string[] sarr = new string[5];
             sarr[0] = name;
             sarr[1] = address;
             sarr[2] = cellphone;
             sarr[3] = email;
             sarr[4] = qnnneee;
             for (int i = 0; i < 5; i++) { remove_delim(ref sarr[i]); }
-            return String.Format("{0:sarr[0]}|{1:sarr[1]}|{2:sarr[2]}|{3:sarr[3]}|{4:sarr[4]}");
+            return String.Format("{0}|{1}|{2}|{3}|{4}",sarr[0],sarr[1],sarr[2],sarr[3],sarr[4]);
         }
     }
 }
