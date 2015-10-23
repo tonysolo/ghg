@@ -89,6 +89,7 @@
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
                                 <GridViewColumn Header="Patient" Width="100"/>
+                                                <!--DisplayMemberBinding=""-->
                                 <GridViewColumn Header="Age" Width="40" TextBlock.TextAlignment="Left"/>
                                 <GridViewColumn Header="G" Width="30"/>
                                 <GridViewColumn Header="Last Visit" Width="80"/>
@@ -248,10 +249,11 @@
             <!--Statistics Tab-->
             <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
         </TabControl>
-        <StackPanel Grid.Row="2"  Orientation="Horizontal" FlowDirection = "RightToLeft" HorizontalAlignment="Right" Height="20">
-            <Button Content="Save Changes"  Margin="5 0 0 0"/>
-            <Button Content="Add Patient"  Margin="5 0 0 0"/>
-            <Button Content="New Visit" Margin="5 0 0 0"/>          
+        <StackPanel Grid.Row="2"  Orientation="Horizontal"  HorizontalAlignment="Right" Height="20"> 
+            <TextBlock Text="-Stored Patients- "/>
+            <Button Content="Add"  Margin="5 0 0 0" ToolTip="Add to List"/>
+            <Button Content="E-Health"  Margin="5 0 0 0"/>
+            <Button Content="Remove" Margin="5 0 0 0"/>          
         </StackPanel>
     </Grid>
 </Window>
