@@ -6,7 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
-
+        Width="350"
+        Height="450"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         IsEnabled="True"
@@ -25,7 +26,7 @@
             <Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 5 0 10" Content="Save" />
             <TabControl SelectionChanged="TabControl_SelectionChanged" Background="{x:Null}">
                 <!--SelectionChanged="TabControl_SelectionChanged"-->
-                <TabItem Header="Details" TabIndex="0" Width="100">
+                <TabItem Header="Details" TabIndex="0" Width="60">
                     <!--StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="20"></-->
                     <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
                         <TextBlock FontSize="8"
@@ -83,10 +84,11 @@
                 </TabItem>
 
 
-                <TabItem Header="Alerts" Width="100">
+                <TabItem Header="Alerts" Width="60">
                     <StackPanel Orientation="Vertical">
                         <TextBlock FontSize="8" Text="Allergies" />
-                        <TextBox MinLines="3" />
+                        <TextBox MinLines="3" Height="55" Width="300" Cursor="IBeam" AcceptsReturn="True" AcceptsTab="True" HorizontalAlignment="Left" TextWrapping ="Wrap"
+                                 VerticalScrollBarVisibility ="Auto"/>
                         <TextBlock FontSize="8" Text="Medical Conditions or Alerts" />
                         <TextBox MinLines="3" />
                         <TextBlock FontSize="8" Text="Chronic Medication" />
@@ -98,9 +100,9 @@
 
                 <!--TabItem Header="Last Visit" Height="24" VerticalAlignment="Bottom" /-->
 
-                <TabItem Header="Visits" Width="100" />
+                <TabItem Header="Visits" Width="60" />
 
-                <TabItem Height="22" Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2" Width="100">
+                <TabItem Height="22" Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2" Width="60">
                     <StackPanel>
                         <TextBlock FontSize="8" Text="History" />
                         <TextBox MinLines="3" AcceptsReturn="True" TextWrapping="Wrap"

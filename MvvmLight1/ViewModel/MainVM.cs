@@ -19,7 +19,7 @@ namespace MvvmLight1.ViewModel
             IsRegistered = true;
             SetupRelayCommands();
             //   CountryIndex = 0;
-            ListViewItem lvi = new ListViewItem();        
+            ListViewItem lvi = new ListViewItem();
         }
 
 
@@ -53,7 +53,7 @@ namespace MvvmLight1.ViewModel
             {
                 SharedData.SelectedCountryIndex = value;
                 RaisePropertyChanged("CountryIndex");
-              
+
             }
         }
 
@@ -90,14 +90,33 @@ namespace MvvmLight1.ViewModel
         private static void ShowEhealthDlg()
         {
             var v = new EHealthV();
+            MessageBox.Show("Show Ehealth");
             v.ShowDialog();
         }
+
+        private static void AddEhealthDlg()
+        {
+            var v = new EHealthV();
+            MessageBox.Show("If Registered for E-Health, use patient's E-Health Id or SA ID Number");
+
+            v.ShowDialog();
+        }
+
+        private static void HideEhealthDlg()
+        {
+            var v = new EHealthV();
+
+            MessageBox.Show("Hide Ehealth");
+            v.ShowDialog();
+        }
+
 
 
         public RelayCommand EditEpidemiology { get; private set; }
         public RelayCommand EditLoader { get; private set; }
         public RelayCommand EditEhealth { get; private set; }
-
+        public RelayCommand AddEhealth { get; private set; }
+        public RelayCommand HideEhealth { get; private set; }
 
 
         private void SetupRelayCommands()
@@ -106,6 +125,8 @@ namespace MvvmLight1.ViewModel
             EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             EditLoader = new RelayCommand(ShowLoaderDlg);
             EditEhealth = new RelayCommand(ShowEhealthDlg);
+            AddEhealth = new RelayCommand(AddEhealthDlg);
+            HideEhealth = new RelayCommand(HideEhealthDlg);
         }
 
     }

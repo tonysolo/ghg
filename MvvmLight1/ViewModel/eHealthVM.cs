@@ -17,6 +17,10 @@ namespace MvvmLight1.ViewModel
             SetupRelayCommands();          
         }
 
+
+
+
+
         public string[] Regions { get { return SharedData.RegionNames; } }
 
 

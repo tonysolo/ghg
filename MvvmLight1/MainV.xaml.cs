@@ -26,5 +26,10 @@ namespace MvvmLight1
         {
 
         }
+
+        private void listView_SelectionChanged_1(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
