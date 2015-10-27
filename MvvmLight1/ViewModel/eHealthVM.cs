@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
+using System.Collections.Generic;
 
 namespace MvvmLight1.ViewModel
 {
@@ -14,10 +15,15 @@ namespace MvvmLight1.ViewModel
     {
         public EHealthVm()
         {
-            SetupRelayCommands();          
+            SetupRelayCommands();
+            selectedpatientindex = 0;          
         }
 
+        public List<patient> Patients;
 
+        int selectedpatientindex;
+
+        public patient selectedpatient { get { return Patients[selectedpatientindex]; } }
 
 
 
