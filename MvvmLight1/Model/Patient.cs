@@ -7,20 +7,30 @@ namespace MvvmLight1.Model
 {
     public class patient : person
     {
-        DateTime dateofbirth { get; set; }
-        char gender { get; set; }             
+        public DateTime dateofbirth { get; set; }
+        public char gender { get; set; }             
         person nextofkin { get; set; }  // or carer
         List<condition> alerts { get; set; }
-        List<visit> visits { get; set; }     
+        List<visit> visits { get; set; } 
+        //List<patient> patients { get; set; }   
         List<patient> dependants { get; set; }
-        DateTime nextvisit { get; set; }
+        public DateTime nextvisit { get; set; }
+        public DateTime lastvisit { get; set; }
+        public int age { get { return (int)(DateTime.Today - dateofbirth).Days / 365; } }
+
+
+        public string nextv
+        {
+            get { return nextvisit.ToString("dd MM yyyy"); }
+        }   
 
         public patient()
         {
-            name = "tony";
-            address = "123";
+            //name = "Tony M";
+            //gender = 'M';
+            //address = "123";
             //nextofkin.
-            nextofkin.qnnneee = "1222333";         
+            //nextofkin.qnnneee = "1222333";         
         }
 
         public patient(string healthid)
@@ -33,9 +43,15 @@ namespace MvvmLight1.Model
 //limit to 64 kb prepend 3 bytes - 8bit version / 16bit length
         }
 
+       
+               
+   
+
+}
+
     }
 
     //public class provider : person
     //{ }
 
-}
+

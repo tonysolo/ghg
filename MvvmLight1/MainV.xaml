@@ -83,17 +83,29 @@
                     </-->
 
 
-                    <ListView x:Name="listView" Margin="0,0,0,0"  Background="{x:Null}" Grid.ColumnSpan="3" SelectionChanged="listView_SelectionChanged_1">
+                    <ListView x:Name="listView" Margin="0,0,0,0"  
+                              Background="{x:Null}" Grid.ColumnSpan="3" 
+                              SelectionChanged="listView_SelectionChanged_1"
+                              ItemsSource="{Binding Patients}"
+                              >
                         <!--" Button Content="test" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
                         <ListView.View>
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
-                                <GridViewColumn Header="Patient" Width="100"/>
-                                                <!--DisplayMemberBinding=""-->
-                                <GridViewColumn Header="Age" Width="40" TextBlock.TextAlignment="Left"/>
-                                <GridViewColumn Header="M/F" Width="30"/>
-                                <GridViewColumn Header="Last Visit" Width="80"/>
-                                <GridViewColumn Header="Next Visit" Width="60"/>
+                                <GridViewColumn Header="Patient" Width="100"
+                                                DisplayMemberBinding = "{Binding name}"/>
+                                <GridViewColumn Header="Age" Width="40" TextBlock.TextAlignment="Left"
+                                                DisplayMemberBinding="{Binding age}"
+                                                />
+                                <GridViewColumn Header="M/F" Width="30"
+                                                 DisplayMemberBinding="{Binding gender}"
+                                                />
+                                <GridViewColumn Header="Last Visit" Width="80"
+                                                DisplayMemberBinding="{Binding lastvisit, StringFormat = dd/MM/yyyy}"
+                                                />
+                                <GridViewColumn Header="Next Visit" Width="60"
+                                                DisplayMemberBinding="{Binding nextvisit, StringFormat=dd/MM/yyyy}"
+                                                />
                                 
 
                                 <!--GridViewColumn/-->

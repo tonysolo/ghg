@@ -13,6 +13,7 @@ namespace MvvmLight1.Model
 
         public void remove_delim(ref string str)
         {
+            if ( str != null )
             str.Replace('|', ';');
         }
 

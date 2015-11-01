@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         IsEnabled="True"
-        DataContext="{Binding EHealth, Source={StaticResource Locator}}">
+        DataContext="{Binding EHealthVM, Source={StaticResource Locator}}">
     <Grid Margin="0,0,-8,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="57*" />
@@ -100,7 +100,7 @@
 
                 <!--TabItem Header="Last Visit" Height="24" VerticalAlignment="Bottom" /-->
 
-                <TabItem Header="Visits" Width="60" />
+                <TabItem Header="Visits" Width="60" Height="24" VerticalAlignment="Top" />
 
                 <TabItem Height="22" Header="New Visit" VerticalAlignment="Bottom" Margin="-5,0,1,-2" Width="60">
                     <StackPanel>
