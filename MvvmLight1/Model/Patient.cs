@@ -5,6 +5,13 @@ using System.Text;
 
 //patients get 64 kilobytes of data
 //visits store links to images (so massive ehealth storage using images is possible) 
+//layout
+// 0 name,address,cel,email,qnnneee,dob,gender,nok,relationship,address,cell,email,qnnneee
+// 1 Alerts ...
+// 2 Visits ... next visit
+// 3 Dependants qnneexxx,qnneexxx..
+
+
 
 namespace MvvmLight1.Model
 {

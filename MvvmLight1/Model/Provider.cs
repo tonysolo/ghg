@@ -8,6 +8,16 @@ namespace MvvmLight1.Model
     //providers are clinical providers - loaders include clerical to register patients
     //provider app will list all their current patients next appointments and options to check for updates by other providers
     //providers get 4 megabytes storage so they can store a local copy of their recent patients and other important data
+
+    //data layout:
+
+    // 0 name,address,cell,email,qnnneee,regauth,regnum,specialty,qualif
+    // 1  commICDs ,,,
+    // 2  commVisits ,,,
+    // 3  commVisits presciptions ,,,
+    // 4  recentPatients qnneexxxx plus data ,,,
+
+
     public class provider : person
     {
         provider() { }
@@ -22,7 +32,7 @@ namespace MvvmLight1.Model
         string[] commonicds { get; set; }  //top40
         string[] commonvisits { get; set; }  //top40
         string[] commonprescripions { get; set; } //top40
-        ObservableCollection<patient> recentpatients {get; set;}
+        ObservableCollection<patient> recentpatients { get; set; }
         string tocsv() { return ""; }  //?tojson
 
         byte[] toUTF8data() { return null; } //put this in shared library
@@ -54,7 +64,7 @@ namespace MvvmLight1.Model
         void trimrecentpatients() //removes the oldest accessed 
         { }
 
-        void updatepatient(int ndx) {}     //checks and updates changes by provides 
+        void updatepatient(int ndx) { }     //checks and updates changes by provides 
 
 
     }
