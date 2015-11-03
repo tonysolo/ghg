@@ -6,14 +6,15 @@ using System.Text;
 namespace MvvmLight1.Model
 {
     public class patient : person
-    {
+    {   
+        public string id { get; set; } //qnneepxxxx
         public DateTime dateofbirth { get; set; }
         public char gender { get; set; }             
         person nextofkin { get; set; }  // or carer
         List<condition> alerts { get; set; }
         List<visit> visits { get; set; } 
-        //List<patient> patients { get; set; }   
-        List<patient> dependants { get; set; }
+        //List<patient> patients { get; set; }   //provider property
+        List<string> dependants { get; set; }  //qnneepxxxx <patient>
         public DateTime nextvisit { get; set; }
         public DateTime lastvisit { get; set; }
         public int age { get { return (int)(DateTime.Today - dateofbirth).Days / 365; } }
@@ -37,6 +38,8 @@ namespace MvvmLight1.Model
         {
 //check provider is in same county
         }
+
+
 
         public void save_to_azure()
         {
