@@ -7,10 +7,11 @@ namespace MvvmLight1.Model
     //need static utility class to store patients providers and images to azure
     //providers are clinical providers - loaders include clerical to register patients
     //provider app will list all their current patients next appointments and options to check for updates by other providers
+    //providers get 4 megabytes storage so they can store a local copy of their recent patients and other important data
     public class provider : person
     {
         provider() { }
-        provider(string json) { }
+        provider(string csv) { }  //?use json
         //string name { get; set; }
         //string gender { get; set; }
         //public string qnnneee { get; set; }
@@ -22,7 +23,7 @@ namespace MvvmLight1.Model
         string[] commonvisits { get; set; }  //top40
         string[] commonprescripions { get; set; } //top40
         ObservableCollection<patient> recentpatients {get; set;}
-        string tojson() { return ""; }
+        string tocsv() { return ""; }  //?tojson
 
         byte[] toUTF8data() { return null; } //put this in shared library
 

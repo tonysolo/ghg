@@ -10,13 +10,13 @@ namespace MvvmLight1.Model
         DateTime date { get; set; } //get set to convert to dt
         string referral { get; set; }
         string description { get; set; }
-        List<condition> condition { get; set; } //change to delim string
+        List<condition> condition { get; set; } //change <condition>  to delim string
         string presciption { get; set; }
         string advise { get; set; }
         DateTime nextvisit { get; set; } //get set to convert to dt
-        List<string> images { get; set; } //change to delim string image address qnnee/i...    
+        List<string> images { get; set; } //change to delim string name and image address qnnee/i...    
         int[] saveimage() { return null; } // saves to azure images and returns offset and length []
-                               
+                                           //set the expiry months
 
         public void addate()
         {

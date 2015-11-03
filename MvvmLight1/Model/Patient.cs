@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+//patients get 64 kilobytes of data
+//visits store links to images (so massive ehealth storage using images is possible) 
+
 namespace MvvmLight1.Model
 {
     public class patient : person
