@@ -53,7 +53,6 @@ namespace MvvmLight1.ViewModel
             {
                 SharedData.SelectedCountryIndex = value;
                 RaisePropertyChanged("CountryIndex");
-
             }
         }
 
@@ -98,7 +97,6 @@ namespace MvvmLight1.ViewModel
         {
             var v = new EHealthV();
             MessageBox.Show("If Registered for E-Health, use patient's E-Health Id or SA ID Number");
-
             v.ShowDialog();
         }
 

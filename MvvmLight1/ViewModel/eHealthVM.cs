@@ -25,7 +25,7 @@ namespace MvvmLight1.ViewModel
             p.dateofbirth = new System.DateTime(1948, 7, 8);       
             p.lastvisit = new System.DateTime(2015, 11, 20);
             p.nextvisit = System.DateTime.MinValue;
-            for (int i=0; i<10; i++)
+            //for (int i=0; i<10; i++)
             Patients.Add(p);       
         }
 
@@ -44,6 +44,7 @@ namespace MvvmLight1.ViewModel
 
 
         public RelayCommand EditMap { get; private set; }
+        public RelayCommand EditEhealth { get; private set; }
 
         private static void ShowMapDlg()
         {
@@ -51,9 +52,18 @@ namespace MvvmLight1.ViewModel
             v.ShowDialog();
         }
 
+        private static void ShowEhealthDlg()
+        {
+            System.Windows.MessageBox.Show("testing 1232344");
+            var v = new EHealthV();
+            v.ShowDialog();
+        }
+
         private void SetupRelayCommands()
         {
-           EditMap = new RelayCommand(ShowMapDlg);  
-        }
+           EditMap = new RelayCommand(ShowMapDlg);
+           EditEhealth = new RelayCommand(ShowEhealthDlg);//public RelayCommand EditEhealth { get; private set; }
+            //edits the selected patient
+}
     }
 }

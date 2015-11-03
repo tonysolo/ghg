@@ -83,11 +83,11 @@
                     </-->
 
 
-                    <ListView x:Name="listView" Margin="0,0,0,0"  
-                              Background="{x:Null}" Grid.ColumnSpan="3" 
-                              SelectionChanged="listView_SelectionChanged_1"
-                              ItemsSource="{Binding Patients}"
+                    <ListView x:Name="listView1" Margin="0,0,0,0"  
+                              Background="{x:Null}" Grid.ColumnSpan="3"                              
+                              ItemsSource="{Binding Patients}"                          
                               >
+                        
                         <!--" Button Content="test" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
                         <ListView.View>
                             <GridView>
@@ -106,12 +106,26 @@
                                 <GridViewColumn Header="Next Visit" Width="60"
                                                 DisplayMemberBinding="{Binding nextvisit, StringFormat=dd/MM/yyyy}"
                                                 />
+                                <GridViewColumn Header="Details" Width="55" >
+                                                <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <Button Command="{Binding ElementName = eHealthV}">  
+                                                        <!--CommandParameter="{Binding}"-->
+                                                    <TextBlock Text="..." />
+                                                </Button>
+                                                        <!--ToolTip="View or Edit e-health record"/>-->
+                                                
+                                            </StackPanel>
+                                        </DataTemplate> 
+                                    </GridViewColumn.CellTemplate>
                                 
-
+</GridViewColumn>
                                 <!--GridViewColumn/-->
 
                             </GridView>
                         </ListView.View>
+                        
                     </ListView>
                     <!--<ListViewItem>
                         -->

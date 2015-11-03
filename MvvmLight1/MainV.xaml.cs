@@ -14,22 +14,10 @@ namespace MvvmLight1
         /// </summary>
         public MainV()
         {
-            InitializeComponent();
-            //this.MyMap.Center.
-           // SetValue();
-           // ViewModel.ViewModelLocator.
-            Closing += (s, e) => ViewModelLocator.Cleanup();
-           
+            InitializeComponent();         
+            Closing += (s, e) => ViewModelLocator.Cleanup();          
         }
 
-        private void listView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void listView_SelectionChanged_1(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
+       
     }
 }

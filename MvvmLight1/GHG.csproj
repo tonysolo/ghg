@@ -142,8 +142,8 @@
     <Compile Include="eHealthV.xaml.cs">
       <DependentUpon>eHealthV.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoaderV.xaml.cs">
-      <DependentUpon>LoaderV.xaml</DependentUpon>
+    <Compile Include="LoaderRegV.xaml.cs">
+      <DependentUpon>LoaderRegV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\QneUtils.cs" />
     <Compile Include="Model\DataItem.cs">
@@ -169,7 +169,7 @@
     <Compile Include="ViewModel\eHealthVM.cs" />
     <Compile Include="ViewModel\EpidemVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
-    <Compile Include="ViewModel\LoaderVM.cs" />
+    <Compile Include="ViewModel\LoaderRegVM.cs" />
     <Compile Include="ViewModel\CoordVM.cs" />
     <Compile Include="ViewModel\CountryVM.cs" />
     <Compile Include="ViewModel\MapVM.cs" />
@@ -185,7 +185,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoaderV.xaml">
+    <Page Include="LoaderRegV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
