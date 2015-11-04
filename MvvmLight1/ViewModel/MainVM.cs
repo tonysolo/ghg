@@ -19,7 +19,7 @@ namespace MvvmLight1.ViewModel
             IsRegistered = true;
             SetupRelayCommands();
             //   CountryIndex = 0;
-            ListViewItem lvi = new ListViewItem();
+            var lvi = new ListViewItem();
         }
 
 
@@ -30,17 +30,10 @@ namespace MvvmLight1.ViewModel
             set { Settings.Registered = value; }
         }
 
-        public static string[] UserAccounts
-        {
-            get { return SharedData.UserAccount; }
-        }
+        public static string[] UserAccounts => SharedData.UserAccount;
 
 
-        public static string[] CountryNames
-        {
-            get { return SharedData.CountryNames; }
-        }
-
+        public static string[] CountryNames => SharedData.CountryNames;
 
 
         public int CountryIndex
@@ -59,7 +52,7 @@ namespace MvvmLight1.ViewModel
         // public RelayCommand EditMap { get; private set; }
 
 
-        private void ShowMesg()
+        public void ShowMesg()
         {
             MessageBox.Show("This is a test");
         }
@@ -73,13 +66,13 @@ namespace MvvmLight1.ViewModel
         // }
 
 
-        private static void ShowEpidemiologyDlg()
+        public static void ShowEpidemiologyDlg()
         {
             var v = new EpidemV();
             v.ShowDialog();
         }
 
-        private void ShowLoaderDlg()
+        public static void ShowLoaderDlg()
         {
             //SharedData.SelectedCountryIndex = CountryIndex;
             var v = new LoaderV();

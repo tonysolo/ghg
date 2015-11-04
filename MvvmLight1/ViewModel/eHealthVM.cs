@@ -16,31 +16,33 @@ namespace MvvmLight1.ViewModel
         public EHealthVm()
         {
             SetupRelayCommands();
-            selectedpatientindex = 0;
+            Selectedpatientindex = 0;
             Patients = new List<patient>();
-            patient p = new patient();
-            p.name = "Tony Manicom";
-            p.email = "tony@turbomed";
-            p.gender = 'M';
-            p.dateofbirth = new System.DateTime(1948, 7, 8);       
-            p.lastvisit = new System.DateTime(2015, 11, 20);
-            p.nextvisit = System.DateTime.MinValue;
+            var p = new patient
+            {
+                name = "Tony Manicom",
+                email = "tony@turbomed",
+                gender = 'M',
+                dateofbirth = new System.DateTime(1948, 7, 8),
+                lastvisit = new System.DateTime(2015, 11, 20),
+                nextvisit = System.DateTime.MinValue
+            };
+
             //for (int i=0; i<10; i++)
             Patients.Add(p);       
         }
 
         public List<patient> Patients { get; set; }
 
-        int selectedpatientindex { get; set; }
+        public int Selectedpatientindex { get; set; }
         //string lastv { get; set; }
         //string nextv { get; set; }
         //string age { get; set; }
 
-        public patient SelectedPatient { get { return Patients[selectedpatientindex]; } }
+        public patient SelectedPatient => Patients[Selectedpatientindex];
 
 
-
-        public string[] Regions { get { return SharedData.RegionNames; } }
+        public string[] Regions => SharedData.RegionNames;
 
 
         public RelayCommand EditMap { get; private set; }
