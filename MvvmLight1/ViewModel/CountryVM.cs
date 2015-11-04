@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using System.Security.Cryptography.X509Certificates;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using MvvmLight1.Model;
 
 namespace MvvmLight1.ViewModel
