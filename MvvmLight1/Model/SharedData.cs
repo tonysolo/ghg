@@ -5,7 +5,7 @@ using System.Globalization;
 namespace MvvmLight1.Model
 {
     //static class current user data -- will lookup azure utilities and then keep a session copy
-    //of regions and country names to avoid unnecessary repeat access to azure
+    //of Regions and country names to avoid unnecessary repeat access to azure
 
     public static class SharedData
     {

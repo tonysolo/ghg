@@ -12,7 +12,7 @@ namespace MvvmLight1.Model
         // static string accountName = "devstoreaccount1";
         //  static string accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         // static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials creds = new StorageCredentials(accountName, accountKey);
-        // static CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
+        // static CloudStorageAccount Account = new CloudStorageAccount(creds, useHttps: true);
 
         // public static CloudStorageAccount Account = 
         //  CloudStorageAccount(System.Configuration.AppSettingsReader("GHGConnectionString"));
@@ -86,9 +86,9 @@ namespace MvvmLight1.Model
 
 
         /*
-                    CloudBlobClient cbc = account.CreateCloudBlobClient();
-                    CloudBlobContainer container = cbc.GetContainerReference("countries");
-                    IListBlobItem[] blobs = container.ListBlobs().ToArray();
+                    CloudBlobClient cbc = Account.CreateCloudBlobClient();
+                    CloudBlobContainer Container = cbc.GetContainerReference("countries");
+                    IListBlobItem[] blobs = Container.ListBlobs().ToArray();
                     var sarr = new string[blobs.Length];
                     for (int i = 0; i < sarr.Length; i++)
                         sarr[i] = blobs[i].Uri.Segments[2].Substring(0,2).ToUpper();

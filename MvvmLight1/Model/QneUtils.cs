@@ -265,7 +265,7 @@ namespace MvvmLight1.Model
         ///     Moves coordinate position North South East or West. Takes care of
         ///     hemisphere - moving north in southern hemisphere requires moving towards
         ///     equator while northern hemisphere north moves towards pole.
-        ///     Handles 40 arcmin regions and 2.6 arc min district
+        ///     Handles 40 arcmin Regions and 2.6 arc min district
         /// </summary>
         /// <param name="qnnee"></param>
         /// <param name="nsew">direction 'n','s','e','w'</param>

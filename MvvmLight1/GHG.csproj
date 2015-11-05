@@ -238,20 +238,11 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="bin\Debug\MvvmLight1.exe.config" />
     <None Include="Model\json1.json" />
@@ -298,6 +289,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\..\AppData\Local\Temp\TFSTemp\vctmp1832_15938.Resources.2661df15.resx">
+      <Link>vctmp1832_15938.Resources.2661df15.resx</Link>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

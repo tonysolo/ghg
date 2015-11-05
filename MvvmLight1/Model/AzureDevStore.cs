@@ -14,7 +14,7 @@ namespace MvvmLight1.Model
     public static class AzureUtil
     {
         private static readonly CloudStorageAccount CldStoreAcc = CloudStorageAccount.DevelopmentStorageAccount;
-        public static string[] CurrentCountry; //placeholder for all current qnnee regions
+        public static string[] CurrentCountry; //placeholder for all current qnnee Regions
         public static string Centreregion = ""; //centre of Region placeholder qnnee
         public static string Loaderid { get; set; }
 
@@ -62,15 +62,15 @@ namespace MvvmLight1.Model
             CloudBlobClient blobClient = dev.CreateCloudBlobClient();
             return blobClient.ListContainers();
             //ToArray<
-            //CloudBlobContainer container = blobClient.GetContainerReference("2aabb");
+            //CloudBlobContainer Container = blobClient.GetContainerReference("2aabb");
             // IEnumerable<CloudBlobContainer> cbc = blobClient.ListContainers();
-            //string s = container.Name;        
+            //string s = Container.Name;        
             //return s; 
         }
 
 
         /// <summary>
-        ///     Gets all the name names for the GHG management account
+        ///     Gets all the name names for the GHG management Account
         /// </summary>
         /// <returns></returns>
         public static string[] CountryNames()
@@ -91,7 +91,7 @@ namespace MvvmLight1.Model
 
 
         /// <summary>
-        ///     Downloads csv strings containing names of regions from blob storage
+        ///     Downloads csv strings containing names of Regions from blob storage
         /// </summary>
         /// <param name="country">string</param>
         /// <returns>CSV string</returns>
@@ -197,12 +197,12 @@ namespace MvvmLight1.Model
             //var saa = (string[])a;
 
             CloudStorageAccount account = CloudStorageAccount.DevelopmentStorageAccount;
-            // var en = account.CreateCloudBlobClient().ListContainers();
+            // var en = Account.CreateCloudBlobClient().ListContainers();
 
             account.CreateCloudBlobClient().GetContainerReference("qnnee").CreateIfNotExists();
 
             CloudBlobContainer container = account.CreateCloudBlobClient().GetContainerReference("qnnee");
-            // var container = en.ElementAt(0);
+            // var Container = en.ElementAt(0);
             //string blobname = "tony/manicom";
             CloudPageBlob loader = container.GetPageBlobReference("/l");
             loader.Create(8192);
@@ -236,7 +236,7 @@ namespace MvvmLight1.Model
 
             CloudBlobContainer contain = account.CreateCloudBlobClient().GetContainerReference("2aabb");
             CloudPageBlob tony = contain.GetPageBlobReference("blob");
-            // var s = container.Name;
+            // var s = Container.Name;
             tony.Create(8192);
             const string s1 = "Tony Manicom/n173 blandford road/n north riding, Randburg/n";
             byte[] sb = Encoding.UTF8.GetBytes(s1);
@@ -250,7 +250,7 @@ namespace MvvmLight1.Model
             // for (int i = 0; i < 512; i++) x[i] = (byte)i;
             // loader.UploadFromByteArray(sb, 0, 512);
 
-            //  var readerblob = container.GetPageBlobReference("l");
+            //  var readerblob = Container.GetPageBlobReference("l");
             //  var stream = readerblob.OpenRead();
             var buffer = new byte[512];
             //  stream.Seek(0, System.IO.SeekOrigin.Begin);

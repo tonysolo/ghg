@@ -8,7 +8,7 @@ namespace MvvmLight1.Model
 
         public static string AzureTrim(string instr) //trims hidden chars
         {
-            string outst = "";
+            var outst = "";
             for (int i = 0; i < instr.Length; i++)
             {
                 if (Char.IsLetterOrDigit(instr[i])) outst += instr[i];
@@ -16,50 +16,50 @@ namespace MvvmLight1.Model
             return outst;
         }
 
-        static bool isnorth(byte[] x) { return (x[0] & 0x02) == 0; }
-        static bool issouth(byte[] x) { return (x[0] & 0x02) == 2; }
-        static bool iseast(byte[] x) { return (x[0] & 0x01) == 0; }
-        static bool iswest(byte[] x) { return (x[0] & 0x01) == 1; }
+        static bool Isnorth(byte[] x) { return (x[0] & 0x02) == 0; }
+        static bool Issouth(byte[] x) { return (x[0] & 0x02) == 2; }
+        static bool Iseast(byte[] x) { return (x[0] & 0x01) == 0; }
+        static bool Iswest(byte[] x) { return (x[0] & 0x01) == 1; }
 
 
-        static public void seteast(ref byte[] x) { x[0] &= 0xfe; return; } //clear bit 0
-        static public void setwest(ref byte[] x) { x[0] |= 0x01; return; } //set bit 0
-        static public void setsouth(ref byte[] x) { x[0] |= 0x02; return; }   // set bit 1
-        static public void setnorth(ref byte[] x) {x[0] &= 0xfd; return; }    //clear bit 1
+        public static void Seteast(ref byte[] x) { x[0] &= 0xfe; return; } //clear bit 0
+        public static void Setwest(ref byte[] x) { x[0] |= 0x01; return; } //set bit 0
+        public static void Setsouth(ref byte[] x) { x[0] |= 0x02; return; }   // set bit 1
+        public static void Setnorth(ref byte[] x) {x[0] &= 0xfd; return; }    //clear bit 1
 
-        static public void movN(ref byte[] x)
+        public static void movN(ref byte[] x)
         {
-            if (isnorth(x) && (x[1] < 127)) { x[1]++; return; }
-            if (issouth(x) && (x[1] > 0)) x[1]--; else setnorth(ref x); return;
+            if (Isnorth(x) && (x[1] < 127)) { x[1]++; return; }
+            if (Issouth(x) && (x[1] > 0)) x[1]--; else Setnorth(ref x); return;
         }
 
 
-        static public void movS(ref byte[] x)
+        public static void movS(ref byte[] x)
         {
-            if (issouth(x) && (x[1] < 127)) { x[1]++; return; }
-            if (isnorth(x) && (x[1] > 0)) x[1]--; else setsouth(ref x); return;
+            if (Issouth(x) && (x[1] < 127)) { x[1]++; return; }
+            if (Isnorth(x) && (x[1] > 0)) x[1]--; else Setsouth(ref x); return;
         }
 
 
-        static public void movE(ref byte[] x)
+        public static void movE(ref byte[] x)
         {
-            if (iswest(x) && (x[2] == 0)) { seteast(ref x); return; }
-            if (iseast(x) && (x[2] == 255)) { setwest(ref x); return; }
-            if (iseast(x)) { x[2]++; return; }
-            if (iswest(x)) { x[2]--; return; }
+            if (Iswest(x) && (x[2] == 0)) { Seteast(ref x); return; }
+            if (Iseast(x) && (x[2] == 255)) { Setwest(ref x); return; }
+            if (Iseast(x)) { x[2]++; return; }
+            if (Iswest(x)) { x[2]--; return; }
         }
 
 
-        static public void movW(ref byte[] x)
+        public static void movW(ref byte[] x)
         {
-            if (iseast(x) && (x[2] == 0)) { setwest(ref x); return; }
-            if (iswest(x) && (x[2] == 255)) { seteast(ref x); return; }
-            if (iseast(x)) { x[2]--; return; }
-            if (iswest(x)) { x[2]++; return; }
+            if (Iseast(x) && (x[2] == 0)) { Setwest(ref x); return; }
+            if (Iswest(x) && (x[2] == 255)) { Seteast(ref x); return; }
+            if (Iseast(x)) { x[2]--; return; }
+            if (Iswest(x)) { x[2]++; return; }
         }
 
         //converts a qnnee string to byte[3]   
-        static byte[] getqnebytes(string st)
+        static byte[] Getqnebytes(string st)
         {
             var s = AzureTrim(st);
             byte[] ba = new byte[3];
@@ -71,37 +71,37 @@ namespace MvvmLight1.Model
 
         //used to get qnnee strings from bytearrays
         //converts byte[3] to 5 character string
-        static string gethexstring(byte[] barr)
+        static string Gethexstring(byte[] barr)
         {
-            return String.Format("{0:x1}{1:x2}{2:x2}", barr[0], barr[1], barr[2]);
+            return string.Format("{0:x1}{1:x2}{2:x2}", barr[0], barr[1], barr[2]);
         }
 
-        static public void movN(ref string x)
+        public static void movN(ref string x)
         {
-            var b = getqnebytes(x);
+            var b = Getqnebytes(x);
             movN(ref b);
-            x = gethexstring(b);
+            x = Gethexstring(b);
         }
 
-        static public void movS(ref string x)
+        public static void movS(ref string x)
         {
-            var b = getqnebytes(x);
+            var b = Getqnebytes(x);
             movS(ref b);
-            x = gethexstring(b);
+            x = Gethexstring(b);
         }
 
-        static public void movE(ref string x)
+        public static void movE(ref string x)
         {
-            var b = getqnebytes(x);
+            var b = Getqnebytes(x);
             movE(ref b);
-            x = gethexstring(b);
+            x = Gethexstring(b);
         }
 
-        static public void movW(ref string x)
+        public static void movW(ref string x)
         {
-            var b = getqnebytes(x);
+            var b = Getqnebytes(x);
             movW(ref b);
-            x = gethexstring(b);
+            x = Gethexstring(b);
         }
 
     }
