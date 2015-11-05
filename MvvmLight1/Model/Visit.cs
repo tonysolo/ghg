@@ -10,7 +10,7 @@ namespace MvvmLight1.Model
         DateTime date { get; set; } //get set to convert to dt
         string referral { get; set; }
         string description { get; set; }
-        List<condition> condition { get; set; } //change <condition>  to delim string
+        List<Condition> condition { get; set; } //change <Condition>  to delim string
         string presciption { get; set; }
         string advise { get; set; }
         DateTime nextvisit { get; set; } //get set to convert to dt

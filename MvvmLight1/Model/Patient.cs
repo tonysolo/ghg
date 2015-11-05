@@ -16,24 +16,21 @@ using System.Text;
 namespace MvvmLight1.Model
 {
     public class Patient : person
-    {   
+    {
         public string Id { get; set; } //qnneepxxxx
         public DateTime Dateofbirth { get; set; }
-        public char Gender { get; set; }             
+        public char Gender { get; set; }
         person Nextofkin { get; set; }  // or carer
-        List<condition> Alerts { get; set; }
-        List<visit> Visits { get; set; } 
+        List<Condition> Alerts { get; set; }
+        List<visit> Visits { get; set; }
         //List<Patient> patients { get; set; }   //Provider property
-        List<string> Dependants { get; set; }  //qnneepxxxx <Patient>
+        List<person> Dependants { get; set; }  //qnneepxxxx <Patient>
         public DateTime Nextvisit { get; set; }
         public DateTime Lastvisit { get; set; }
-        public int Age { get { return (int)(DateTime.Today - Dateofbirth).Days / 365; } }
+        public int Age => (DateTime.Today - Dateofbirth).Days / 365;
 
 
-        public string Nextv
-        {
-            get { return Nextvisit.ToString("dd MM yyyy"); }
-        }   
+        public string Nextv => Nextvisit.ToString("dd MM yyyy");
 
         public Patient()
         {
@@ -46,25 +43,18 @@ namespace MvvmLight1.Model
 
         public Patient(string healthid)
         {
-//check Provider is in same county
+            //check Provider is in same county
         }
 
 
 
         public void save_to_azure()
         {
-//limit to 64 kb prepend 3 bytes - 8bit version / 16bit length
+            //limit to 64 kb prepend 3 bytes - 8bit version / 16bit length
         }
-
-       
-               
-   
-
-}
 
     }
 
-    //public class Provider : person
-    //{ }
+}
 
 

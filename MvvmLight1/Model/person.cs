@@ -2,6 +2,8 @@
 
 namespace MvvmLight1.Model
 {
+
+
     public class person
     {
        // private string _name;

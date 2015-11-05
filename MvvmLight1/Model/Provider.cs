@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 
 namespace MvvmLight1.Model
@@ -32,39 +33,56 @@ namespace MvvmLight1.Model
         string[] Commonicds { get; set; }  //top40
         string[] Commonvisits { get; set; }  //top40
         string[] Commonprescripions { get; set; } //top40
-        ObservableCollection<Patient> Recentpatients { get; set; }
+        private readonly ObservableCollection<Patient> _recentpatients = new ObservableCollection<Patient>();
         string Tocsv() { return ""; }  //?tojson
 
         byte[] ToUtf8Data() { return null; } //put this in shared library
 
-        bool Getpatient(string qnexxx) //? combine with getpatient_sa_id by checking if starts with valid qnnee
+        //gets patient from azure storage and saves it locally to recentpatient list
+
+        bool Getpatient(string qnexxx)
         {
-            Patient p = new Patient();
-            Recentpatients.Add(p);
-            //var p1 = Recentpatients[0];
-            //Recentpatients.
+            var p = new Patient
+            {
+                name = "Tony Manicom",
+                Dateofbirth = new DateTime(1948, 7, 8),
+                Gender = 'M'
+            };
+            _recentpatients.Add(p);
+            //var p1 = _recentpatients[0];
+            //_recentpatients.
             //check Patient is in same county as Provider
             //and check if Patient exists
             //Patient p = Getpatient
-            Recentpatients.Add(new Patient());
+            //_recentpatients.Add(new Patient());
             return true;
         }
 
-        private bool getpatient_sa_id(string sa_id)//looks up sa Id number cross reference to qnneexxxx to load Patient 
-        { return true; }
+        //looks up Id number cross reference to azure qnneexxxx to load Patient
+        private bool getpatient_id(string countryid)
+        {
+            return true;
+        }  //or gets qnneexxx lookup if passes country check
 
+
+        // opens patreg dialog
+        // includes country id for access as well
         bool Registerpatient()
-        {  // opens patreg dialog
-           //must use saID to register that as well
-
+        {
             return true;
         }
 
-        void Trimrecentpatients() //removes the oldest accessed 
-        { }
+        //removes the oldest accessed 
+        void Trimrecentpatients()
+        {
+            
+        }
 
-        void Updatepatient(int ndx) { }     //checks and updates changes by provides 
 
-
+        //checks and updates changes by provide
+        void Updatepatient(int ndx)
+        {
+            
+        }
     }
 }

@@ -229,6 +229,8 @@ namespace MvvmLight1.Model
             //Model.AzureStorage.devListContainers();    
         }
 
+
+
         public static void SetupAzureAccount()
         {
             // Settings.Registered = true;

@@ -5,9 +5,10 @@ using System.Text;
 
 namespace MvvmLight1.Model
 {
-   public class condition
+   public class Condition
     {
-      //  string name;
-      //  string icd10;
+     public string Name { get; set; }
+     public string Icd10 { get; set; }
     }
+
 }
