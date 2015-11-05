@@ -6,7 +6,7 @@ namespace MvvmLight1.Model
 
     //need static utility class to store patients providers and images to azure
     //providers are clinical providers - loaders include clerical to register patients
-    //provider app will list all their current patients next appointments and options to check for updates by other providers
+    //Provider app will list all their current patients next appointments and options to check for updates by other providers
     //providers get 4 megabytes storage so they can store a local copy of their recent patients and other important data
 
     //data layout:
@@ -18,53 +18,52 @@ namespace MvvmLight1.Model
     // 4  recentPatients qnneexxxx plus data ,,,
 
 
-    public class provider : person
+    public class Provider : person
     {
-        provider() { }
-        provider(string csv) { }  //?use json
+        Provider() { }
+        Provider(string csv) { }  //?use json
         //string name { get; set; }
-        //string gender { get; set; }
+        //string Gender { get; set; }
         //public string qnnneee { get; set; }
-        string reg_authority { get; set; }
-        string reg_number { get; set; }
-        string specialty { get; set; }
-        string qualification { get; set; }
-        string[] commonicds { get; set; }  //top40
-        string[] commonvisits { get; set; }  //top40
-        string[] commonprescripions { get; set; } //top40
-        ObservableCollection<patient> recentpatients { get; set; }
-        string tocsv() { return ""; }  //?tojson
+        string RegAuthority { get; set; }
+        string RegNumber { get; set; }
+        string Specialty { get; set; }
+        string Qualification { get; set; }
+        string[] Commonicds { get; set; }  //top40
+        string[] Commonvisits { get; set; }  //top40
+        string[] Commonprescripions { get; set; } //top40
+        ObservableCollection<Patient> Recentpatients { get; set; }
+        string Tocsv() { return ""; }  //?tojson
 
-        byte[] toUTF8data() { return null; } //put this in shared library
+        byte[] ToUtf8Data() { return null; } //put this in shared library
 
-        bool getpatient(string qnexxx) //? combine with getpatient_sa_id by checking if starts with valid qnnee
+        bool Getpatient(string qnexxx) //? combine with getpatient_sa_id by checking if starts with valid qnnee
         {
-            patient p = new patient();
-            recentpatients.Add(p);
-            //var p1 = recentpatients[0];
-            //recentpatients.
-            //check patient is in same county as provider
-            //and check if patient exists
-            //patient p = getpatient
-            if (p == null) return false;
-            recentpatients.Add(new patient());
+            Patient p = new Patient();
+            Recentpatients.Add(p);
+            //var p1 = Recentpatients[0];
+            //Recentpatients.
+            //check Patient is in same county as Provider
+            //and check if Patient exists
+            //Patient p = Getpatient
+            Recentpatients.Add(new Patient());
             return true;
         }
 
-        bool getpatient_sa_id(string sa_id)//looks up sa id number cross reference to qnneexxxx to load patient 
+        private bool getpatient_sa_id(string sa_id)//looks up sa Id number cross reference to qnneexxxx to load Patient 
         { return true; }
 
-        bool registerpatient()
+        bool Registerpatient()
         {  // opens patreg dialog
            //must use saID to register that as well
 
             return true;
         }
 
-        void trimrecentpatients() //removes the oldest accessed 
+        void Trimrecentpatients() //removes the oldest accessed 
         { }
 
-        void updatepatient(int ndx) { }     //checks and updates changes by provides 
+        void Updatepatient(int ndx) { }     //checks and updates changes by provides 
 
 
     }

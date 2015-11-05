@@ -89,7 +89,7 @@ namespace MvvmLight1.ViewModel
         private static void AddEhealthDlg()
         {
             var v = new EHealthV();
-            MessageBox.Show("If Registered for E-Health, use patient's E-Health Id or SA ID Number");
+            MessageBox.Show("If Registered for E-Health, use Patient's E-Health Id or SA ID Number");
             v.ShowDialog();
         }
 

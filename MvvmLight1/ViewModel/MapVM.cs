@@ -57,7 +57,7 @@ namespace MvvmLight1.ViewModel
         //public string _Locations { get; set; }
 
 
-        //public RelayCommand Search { get; private set; } //to implement patient search in region
+        //public RelayCommand Search { get; private set; } //to implement Patient search in region
         public RelayCommand MoveRegionNorth { get; private set; }
         public RelayCommand MoveRegionEast { get; private set; }
         public RelayCommand MoveRegionWest { get; private set; }

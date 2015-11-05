@@ -170,7 +170,7 @@ namespace MvvmLight1.Model
             loader.FetchAttributes();
             if (! loader.Metadata.ContainsKey("NextLoader")) loader.Metadata.Add("NextLoader", "0");
 
-            loaderArray[1] = loader.Metadata["NextLoader"]; //hexadecimal next in sequence id for each loader/provider
+            loaderArray[1] = loader.Metadata["NextLoader"]; //hexadecimal next in sequence Id for each loader/Provider
             short ndx = Convert.ToInt16(loaderArray[1], 16);
             loader.Metadata["NextLoader"] = String.Format("{0:x}", ndx + 1);
 

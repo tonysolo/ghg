@@ -6,7 +6,7 @@ using System.Text;
 //patients get 64 kilobytes of data
 //visits store links to images (so massive ehealth storage using images is possible) 
 //layout
-// 0 name,address,cel,email,qnnneee,dob,gender,nok,relationship,address,cell,email,qnnneee
+// 0 name,address,cel,email,qnnneee,dob,Gender,nok,relationship,address,cell,email,qnnneee
 // 1 Alerts ...
 // 2 Visits ... next visit
 // 3 Dependants qnneexxx,qnneexxx..
@@ -15,38 +15,38 @@ using System.Text;
 
 namespace MvvmLight1.Model
 {
-    public class patient : person
+    public class Patient : person
     {   
-        public string id { get; set; } //qnneepxxxx
-        public DateTime dateofbirth { get; set; }
-        public char gender { get; set; }             
-        person nextofkin { get; set; }  // or carer
-        List<condition> alerts { get; set; }
-        List<visit> visits { get; set; } 
-        //List<patient> patients { get; set; }   //provider property
-        List<string> dependants { get; set; }  //qnneepxxxx <patient>
-        public DateTime nextvisit { get; set; }
-        public DateTime lastvisit { get; set; }
-        public int age { get { return (int)(DateTime.Today - dateofbirth).Days / 365; } }
+        public string Id { get; set; } //qnneepxxxx
+        public DateTime Dateofbirth { get; set; }
+        public char Gender { get; set; }             
+        person Nextofkin { get; set; }  // or carer
+        List<condition> Alerts { get; set; }
+        List<visit> Visits { get; set; } 
+        //List<Patient> patients { get; set; }   //Provider property
+        List<string> Dependants { get; set; }  //qnneepxxxx <Patient>
+        public DateTime Nextvisit { get; set; }
+        public DateTime Lastvisit { get; set; }
+        public int Age { get { return (int)(DateTime.Today - Dateofbirth).Days / 365; } }
 
 
-        public string nextv
+        public string Nextv
         {
-            get { return nextvisit.ToString("dd MM yyyy"); }
+            get { return Nextvisit.ToString("dd MM yyyy"); }
         }   
 
-        public patient()
+        public Patient()
         {
             //name = "Tony M";
-            //gender = 'M';
+            //Gender = 'M';
             //address = "123";
-            //nextofkin.
-            //nextofkin.qnnneee = "1222333";         
+            //Nextofkin.
+            //Nextofkin.qnnneee = "1222333";         
         }
 
-        public patient(string healthid)
+        public Patient(string healthid)
         {
-//check provider is in same county
+//check Provider is in same county
         }
 
 
@@ -64,7 +64,7 @@ namespace MvvmLight1.Model
 
     }
 
-    //public class provider : person
+    //public class Provider : person
     //{ }
 
 
