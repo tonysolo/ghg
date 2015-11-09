@@ -9,20 +9,22 @@ namespace MvvmLight1.Model
 {
     public class Azure
     {
-        // static string accountName = "devstoreaccount1";
-        //  static string accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
-        // static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials creds = new StorageCredentials(accountName, accountKey);
-        // static CloudStorageAccount Account = new CloudStorageAccount(creds, useHttps: true);
+        // static string AccountName = "devstoreaccount1";
+        //  static string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        // static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
+        // static CloudStorageAccount Account = new CloudStorageAccount(Creds, useHttps: true);
 
         // public static CloudStorageAccount Account = 
         //  CloudStorageAccount(System.Configuration.AppSettingsReader("GHGConnectionString"));
-        static string accountName = "ghg";
-        static string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
-        //string accountName = "devstoreaccount1";
-        //string accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        private const string AccountName = "ghg";
+        private const string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
+        //string AccountName = "devstoreaccount1";
 
-        static StorageCredentials creds = new StorageCredentials(accountName, accountKey);
-        static CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
+
+        //string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+
+        private static readonly StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
+        private static readonly CloudStorageAccount Account = new CloudStorageAccount(Creds, useHttps: true);
 
 
 
@@ -47,7 +49,8 @@ namespace MvvmLight1.Model
            }
    */
         //18/10/2015 decided to keep this data local to save reading azure data country list thats always needed on starup 
-        //and seldom changes - records country code | page offset | data length. Perhaps I will put it in azure later
+        //and seldom changes - records country code | page offset | data length. Perhaps I will put it in azure later.
+        //also saved in 
         public static string[] CountryData =
             {
             "ZA|0|1607",
@@ -67,14 +70,14 @@ namespace MvvmLight1.Model
             return sarr;
         }
 
-        public static int[] Offset_and_Length(string Country)
+        public static int[] Offset_and_Length(string country)
         {
             var ol = new int[2];
             var sarr = new string[CountryData.Length];
             for (int i = 0; i < sarr.Length; i++)
             {
                 var dat = CountryData[i].Split('|');
-                if (dat[0] == Country)
+                if (dat[0] == country)
                 {
                     ol[0] = System.Convert.ToInt16(dat[1]) * 512;
                     ol[1] = System.Convert.ToInt16(dat[2]);
@@ -116,7 +119,7 @@ namespace MvvmLight1.Model
         {
             if (countryname == null) return null;
             var x = Offset_and_Length(countryname);
-            var cbc = account.CreateCloudBlobClient();
+            var cbc = Account.CreateCloudBlobClient();
             var container = cbc.GetContainerReference("countries");
             var blob = container.GetPageBlobReference("global");
             var ba = new byte[x[1]];

@@ -20,7 +20,7 @@
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical" Grid.ColumnSpan="2"            >
-            <TextBlock Text="Country Code"/>
+            <TextBlock Text="country Code"/>
             <ComboBox 
                                                   
              ItemsSource = "{Binding CountryNames}"        
