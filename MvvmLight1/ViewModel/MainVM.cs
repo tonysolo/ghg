@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Maps.MapControl.WPF;
 using MvvmLight1.Model;
 
 namespace MvvmLight1.ViewModel
 {
     public class MainVm : ViewModelBase
     {
-
 
         public MainVm()
         {

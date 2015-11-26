@@ -1,10 +1,94 @@
 ﻿using System;
 using System.Globalization;
-
+using System.IO;
+using System.IO.Compression;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Newtonsoft.Json;
 
 
 namespace MvvmLight1.Model
 {
+    public static class global
+    {
+        static string _accountname { get; set; } //ghg 
+        static CloudStorageAccount _selected_account { get; set; }
+
+        public static CloudStorageAccount setcountryaccount(string accname)
+        {
+            if (accname == _accountname) return _selected_account;
+            _accountname = accname;
+            string accountName = "ghg";
+            string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
+            StorageCredentials creds = new StorageCredentials(accountName, accountKey);
+            CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
+            var acc = account.CreateCloudBlobClient();
+            var c = acc.GetContainerReference("countries");
+            var d = c.GetPageBlobReference("global");
+            d.FetchAttributes();
+            string key = d.Metadata[accname];
+            StorageCredentials credentials = new StorageCredentials(accname, key);
+            _selected_account = new CloudStorageAccount(credentials, useHttps: true);
+            return _selected_account;
+            //AccountName = accname;
+        }
+    }
+
+
+    static class jsonutil
+    {
+        public static void Serialize(object value, Stream s)
+        {
+            StreamWriter writer = new StreamWriter(s);
+            JsonTextWriter jsonWriter = new JsonTextWriter(writer);
+            JsonSerializer ser = new JsonSerializer();
+            ser.Serialize(jsonWriter, value);
+            jsonWriter.Flush();
+        }
+
+        public static T Deserialize<T>(Stream s)
+        {
+            StreamReader reader = new StreamReader(s);
+            JsonTextReader jsonReader = new JsonTextReader(reader);
+            JsonSerializer ser = new JsonSerializer();
+            return ser.Deserialize<T>(jsonReader);
+        }
+
+        public static byte[] compress(byte[] data)
+        {
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                using (GZipStream gzipStream = new GZipStream(outStream, CompressionMode.Compress))
+                using (MemoryStream srcStream = new MemoryStream(data))
+                    srcStream.CopyTo(gzipStream);
+                return outStream.ToArray();
+            }
+        }
+
+        public static byte[] decompress(byte[] compressed)
+        {
+            using (MemoryStream inStream = new MemoryStream(compressed))
+            using (GZipStream gzipStream = new GZipStream(inStream, CompressionMode.Decompress))
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                gzipStream.CopyTo(outStream);
+                return outStream.ToArray();
+            }
+        }
+
+
+        public static void resize(ref byte[] b)
+        {
+            var s = b.Length;
+            var adjust = 512 - (s % 512);
+            Array.Resize(ref b, s + adjust);
+        }
+
+    }
+
+
+
+
     public static class QneUtils
     {
 

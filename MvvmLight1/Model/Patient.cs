@@ -15,16 +15,16 @@ using System.Text;
 
 namespace MvvmLight1.Model
 {
-    public class Patient : person
+    public class Patient : Person
     {
         public string Id { get; set; } //qnneepxxxx
         public DateTime Dateofbirth { get; set; }
         public char Gender { get; set; }
-        person Nextofkin { get; set; }  // or carer
+        Person Nextofkin { get; set; }  // or carer
         List<Condition> Alerts { get; set; }
         List<visit> Visits { get; set; }
         //List<Patient> patients { get; set; }   //Provider property
-        List<person> Dependants { get; set; }  //qnneepxxxx <Patient>
+        List<Person> Dependants { get; set; }  //qnneepxxxx <Patient>
         public DateTime Nextvisit { get; set; }
         public DateTime Lastvisit { get; set; }
         public int Age => (DateTime.Today - Dateofbirth).Days / 365;
