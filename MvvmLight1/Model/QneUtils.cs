@@ -56,7 +56,7 @@ namespace MvvmLight1.Model
 
         public static byte[] compress(byte[] data)
         {
-            using (MemoryStream outStream = new MemoryStream())
+            MemoryStream outStream = new MemoryStream();
             {
                 using (GZipStream gzipStream = new GZipStream(outStream, CompressionMode.Compress))
                 using (MemoryStream srcStream = new MemoryStream(data))
@@ -67,7 +67,7 @@ namespace MvvmLight1.Model
 
         public static byte[] decompress(byte[] compressed)
         {
-            using (MemoryStream inStream = new MemoryStream(compressed))
+            MemoryStream inStream = new MemoryStream(compressed);
             using (GZipStream gzipStream = new GZipStream(inStream, CompressionMode.Decompress))
             using (MemoryStream outStream = new MemoryStream())
             {

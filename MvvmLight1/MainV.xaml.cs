@@ -18,6 +18,6 @@ namespace MvvmLight1
             Closing += (s, e) => ViewModelLocator.Cleanup();          
         }
 
-       
-    }
+        
+    } 
 }

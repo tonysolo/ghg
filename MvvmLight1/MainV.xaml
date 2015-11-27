@@ -27,37 +27,27 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Orientation = "Horizontal" Margin="10,0,-70,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.ColumnSpan="2">
-            <ListBox Width="80" ItemsSource="{Binding UserAccounts}" />
+        <StackPanel Orientation = "Horizontal" Margin="10,0,70,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.ColumnSpan="2">
+            <TextBox Name = "Login" Text = "{Binding Login}"  Width ="100"  />
+
             <TextBox Width="40" Text="  pin" IsEnabled="True"/>
-            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" Content="&#xe1f6;" Background="{x:Null}" ToolTip="Provider Log-In and Registation "/>
-            <Button  Width="50" FontSize="12" Content = "Register" Height="20" VerticalAlignment="Bottom" Margin="30,0,0,0"  Command = "{Binding EditLoader}"/>
+            <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" 
+                    Content="&#xe1f6;" Background="{x:Null}" 
+                    ToolTip="Provider Log-In and Registation " Height="20" 
+                    VerticalAlignment="Top"
+                    Command="{Binding LoadEhealthdata}"
+                    />
+            <Button  Width="50" FontSize="12" Content = "Register" Height="20" 
+                     VerticalAlignment="Bottom" Margin="30,0,0,0"  
+                     Command = "{Binding EditLoader}"/>
         </StackPanel>
-        <TabControl Grid.Row="1" Margin="0,10" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-
-
-            <!--<TabItem                 
-               DataContext="{Binding Main, Source={StaticResource Locator}}"                             
-               ToolTip="Provider Login or Registation" VerticalAlignment="Top" d:LayoutOverrides="Height"
+        <TabControl 
+            Grid.Row="1" 
+            Grid.Column="0"
+            Margin="0,10" 
+            d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"
+            DataContext="provider"
             >
-
-                <StackPanel Orientation="Vertical" Margin="0,5,0,10">
-
-                    <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
-                        <Label Margin="3 0 3 3" Width="60" Content = "Countries" />
-                        <ComboBox Width="50" Margin ="3 4 3 4"    
-                          DockPanel.Dock="Left"
-                          ItemsSource = "{Binding CountryNames}"
-                          SelectedIndex ="{Binding CountryIndex}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Height="30">
-                        <Button Content=" Register " Margin="3 5 3 5" Command="{Binding EditLoader}" />
-                        <Button Content=" Help ? " Margin="6 5 3 5" Command="{Binding EditLoader}" />
-                    </StackPanel>
-
-                </StackPanel>
-</TabItem>-->
 
             <!--e-health tab-->
             <TabItem Header = "E-Health"
@@ -71,9 +61,13 @@
 
                 <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="31*"/>
-                        <ColumnDefinition Width="115*"/>
-                        <ColumnDefinition Width="200*"/>
+                        <ColumnDefinition Width="34*"/>
+                        <ColumnDefinition Width="85*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="47*"/>
+                        <ColumnDefinition Width="126*"/>
+                        <ColumnDefinition Width="43*"/>
                         <!--<ColumnDefinition Width="11*"/>
                         <ColumnDefinition Width="2*"/>-->
                     </Grid.ColumnDefinitions>
@@ -84,10 +78,10 @@
 
 
                     <ListView x:Name="listView1" Margin="0,0,0,0"  
-                              Background="{x:Null}" Grid.ColumnSpan="3"                              
+                              Background="{x:Null}" Grid.ColumnSpan="7"                              
                               ItemsSource="{Binding Patients}"                          
                               >
-                        
+
                         <!--" Button Content="test" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
                         <ListView.View>
                             <GridView>
@@ -107,25 +101,25 @@
                                                 DisplayMemberBinding="{Binding Nextvisit, StringFormat=dd/MM/yyyy}"
                                                 />
                                 <GridViewColumn Header="Details" Width="55" >
-                                                <GridViewColumn.CellTemplate>
+                                    <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel>
-                                                <Button Command="{Binding ElementName = eHealthV}">  
-                                                        <!--CommandParameter="{Binding}"-->
+                                                <Button Command="{Binding ElementName = eHealthV}">
+                                                    <!--CommandParameter="{Binding}"-->
                                                     <TextBlock Text="..." />
                                                 </Button>
-                                                        <!--ToolTip="View or Edit e-health record"/>-->
-                                                
+                                                <!--ToolTip="View or Edit e-health record"/>-->
+
                                             </StackPanel>
-                                        </DataTemplate> 
+                                        </DataTemplate>
                                     </GridViewColumn.CellTemplate>
-                                
-</GridViewColumn>
+
+                                </GridViewColumn>
                                 <!--GridViewColumn/-->
 
                             </GridView>
                         </ListView.View>
-                        
+
                     </ListView>
                     <!--<ListViewItem>
                         -->
@@ -276,11 +270,11 @@
             <!--Statistics Tab-->
             <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
         </TabControl>
-        <StackPanel Grid.Row="2"  Orientation="Horizontal"  HorizontalAlignment="Right" Height="20"> 
+        <StackPanel Grid.Row="2"  Orientation="Horizontal"  HorizontalAlignment="Right" Height="20">
             <TextBlock Text="e-health records..."/>
             <Button Command ="{Binding AddEhealth}" Content="+" FontSize="14"  Margin="5 0 0 0" ToolTip="Add e-Health record to Provider's List" Height="20" VerticalAlignment="Top" />
             <Button Command ="{Binding HideEhealth}" Content="-" FontSize="14" Margin="5 0 0 0" ToolTip="Remove e-Health record from Provider's List"  />
-            <Button Command ="{Binding EditEhealth}" Content="..." FontSize="14" Margin="5 0 0 0" ToolTip="View or Edit e-health record"  />          
+            <Button Command ="{Binding EditEhealth}" Content="..." FontSize="14" Margin="5 0 0 0" ToolTip="View or Edit e-health record"  />
         </StackPanel>
     </Grid>
 </Window>

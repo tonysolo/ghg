@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
 using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace MvvmLight1.ViewModel
 {
@@ -17,29 +18,38 @@ namespace MvvmLight1.ViewModel
         {
             SetupRelayCommands();
             Selectedpatientindex = 0;
-            Patients = new List<Patient>();
-            var p = new Patient
+            Patients = new List<patient>();
+            var p = new patient
             {
                 name = "Tony Manicom",
-                email = "tony@turbomed",
-                Gender = 'M',
-                Dateofbirth = new System.DateTime(1948, 7, 8),
-                Lastvisit = new System.DateTime(2015, 11, 20),
-                Nextvisit = System.DateTime.MinValue
+                email = "tony@turbomed.co.za",
+                sex = "M",
+                birthday = new System.DateTime(1948,7,8).ToShortDateString(),
+                nextVisit = new System.DateTime().AddDays(30).ToShortDateString()
+
             };
+            //{
+            //    name = "Tony Manicom",
+            //    email = "tony@turbomed",
+            //    sex = "M",
+            //    birthday = new System.DateTime(1948, 7, 8).ToShortDateString()
+            
+            //    //Lastvisit = new System.DateTime(2015, 11, 20),
+            //    //Nextvisit = System.DateTime.MinValue
+            //};
 
             //for (int i=0; i<10; i++)
-            Patients.Add(p);       
+            Patients.Add(p);
         }
 
-        public List<Patient> Patients { get; set; }
+        public List<patient> Patients { get; set; }
 
         public int Selectedpatientindex { get; set; }
         //string lastv { get; set; }
         //string Nextv { get; set; }
         //string Age { get; set; }
 
-        public Patient SelectedPatient => Patients[Selectedpatientindex];
+        public patient SelectedPatient => Patients[Selectedpatientindex];
 
 
         public string[] Regions => SharedData.RegionNames;
@@ -63,9 +73,12 @@ namespace MvvmLight1.ViewModel
 
         private void SetupRelayCommands()
         {
-           EditMap = new RelayCommand(ShowMapDlg);
-           EditEhealth = new RelayCommand(ShowEhealthDlg);//public RelayCommand EditEhealth { get; private set; }
-            //edits the selected Patient
-}
+            EditMap = new RelayCommand(ShowMapDlg);
+            EditEhealth = new RelayCommand(ShowEhealthDlg);//public RelayCommand EditEhealth { get; private set; }
+                                                           //edits the selected Patient
+        }
+
     }
+
 }
+

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -13,11 +15,12 @@ namespace MvvmLight1.ViewModel
         {
             IsRegistered = true;
             SetupRelayCommands();
+            Login = "-password-";
             //   CountryIndex = 0;
             var lvi = new ListViewItem();
         }
 
-
+        public static string Login { get; set; }
 
         public bool IsRegistered
         {
@@ -63,6 +66,7 @@ namespace MvvmLight1.ViewModel
 
         public static void ShowEpidemiologyDlg()
         {
+            var s = Login;
             var v = new EpidemV();
             v.ShowDialog();
         }
@@ -72,10 +76,12 @@ namespace MvvmLight1.ViewModel
             //SharedData.SelectedCountryIndex = CountryIndex;
             var v = new LoaderV();
             v.ShowDialog();
+            
         }
 
         private static void ShowEhealthDlg()
         {
+            
             var v = new EHealthV();
             MessageBox.Show("Show Ehealth");
             v.ShowDialog();
@@ -91,19 +97,24 @@ namespace MvvmLight1.ViewModel
         private static void HideEhealthDlg()
         {
             var v = new EHealthV();
-
+          
             MessageBox.Show("Hide Ehealth");
             v.ShowDialog();
         }
 
+        private static void LoadEhealth()
+        {
+            Provider p = new Provider(null,null);
+            
 
+        }
 
         public RelayCommand EditEpidemiology { get; private set; }
         public RelayCommand EditLoader { get; private set; }
         public RelayCommand EditEhealth { get; private set; }
         public RelayCommand AddEhealth { get; private set; }
         public RelayCommand HideEhealth { get; private set; }
-
+        public RelayCommand LoadEhealthdata { get; private set; }
 
         private void SetupRelayCommands()
         {
@@ -113,6 +124,7 @@ namespace MvvmLight1.ViewModel
             EditEhealth = new RelayCommand(ShowEhealthDlg);
             AddEhealth = new RelayCommand(AddEhealthDlg);
             HideEhealth = new RelayCommand(HideEhealthDlg);
+            LoadEhealthdata = new RelayCommand(LoadEhealth);
         }
 
     }
