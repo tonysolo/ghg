@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Eventing.Reader;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +17,12 @@ namespace MvvmLight1.ViewModel
             IsRegistered = true;
             SetupRelayCommands();
             Login = "-password-";
-            //   CountryIndex = 0;
+            LoadEhealth();         
             var lvi = new ListViewItem();
         }
+
+        public static ObservableCollection<patient> Patients { get; set; }
+    
 
         public static string Login { get; set; }
 
@@ -104,9 +108,9 @@ namespace MvvmLight1.ViewModel
 
         private static void LoadEhealth()
         {
-            Provider p = new Provider(null,null);
-            
-
+            Provider p = new Provider("ghza=22427=1", "2");
+            Patients = p.Recent;
+           
         }
 
         public RelayCommand EditEpidemiology { get; private set; }

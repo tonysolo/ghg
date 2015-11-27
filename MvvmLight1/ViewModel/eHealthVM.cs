@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using MvvmLight1.Model;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Documents;
 
 namespace MvvmLight1.ViewModel
@@ -18,7 +19,7 @@ namespace MvvmLight1.ViewModel
         {
             SetupRelayCommands();
             Selectedpatientindex = 0;
-            Patients = new List<patient>();
+           // Patients = new List<patient>();
             var p = new patient
             {
                 name = "Tony Manicom",
@@ -39,10 +40,10 @@ namespace MvvmLight1.ViewModel
             //};
 
             //for (int i=0; i<10; i++)
-            Patients.Add(p);
+           // Patients.Add(p);
         }
 
-        public List<patient> Patients { get; set; }
+        public ObservableCollection<patient> Patients { get; set; }
 
         public int Selectedpatientindex { get; set; }
         //string lastv { get; set; }

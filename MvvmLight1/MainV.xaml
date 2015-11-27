@@ -9,7 +9,7 @@
         Title="Global Health Grid"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Left = "{Binding left}"
+        
         
         DataContext="{Binding Main, Source={StaticResource Locator}}" Width="400" Height="550">
     <Grid x:Name="LayoutRoot" Width="380" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin">
@@ -46,12 +46,11 @@
             Grid.Column="0"
             Margin="0,10" 
             d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"
-            DataContext="provider"
             >
-
+<!--DataContext="{Binding EHealth, Source={StaticResource Locator}}"-->
             <!--e-health tab-->
             <TabItem Header = "E-Health"
-                DataContext="{Binding EHealth, Source={StaticResource Locator}}" 
+                 
                      Height="22" 
                      VerticalAlignment="Top" 
                      Width=" 70" 
@@ -77,7 +76,7 @@
                     </-->
 
 
-                    <ListView x:Name="listView1" Margin="0,0,0,0"  
+                    <ListView x:Name="ListView1" Margin="0,0,0,0" 
                               Background="{x:Null}" Grid.ColumnSpan="7"                              
                               ItemsSource="{Binding Patients}"                          
                               >
@@ -86,13 +85,13 @@
                         <ListView.View>
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
-                                <GridViewColumn Header="Patient" Width="100"
+                                <GridViewColumn Header="name" Width="100"
                                                 DisplayMemberBinding = "{Binding name}"/>
-                                <GridViewColumn Header="Age" Width="40" TextBlock.TextAlignment="Left"
-                                                DisplayMemberBinding="{Binding Age}"
+                                <GridViewColumn Header="cell" Width="40" TextBlock.TextAlignment="Left"
+                                                DisplayMemberBinding="{Binding cell}"
                                                 />
-                                <GridViewColumn Header="M/F" Width="30"
-                                                 DisplayMemberBinding="{Binding Gender}"
+                                <GridViewColumn Header="Email" Width="30"
+                                                 DisplayMemberBinding="{Binding email}"
                                                 />
                                 <GridViewColumn Header="Last Visit" Width="80"
                                                 DisplayMemberBinding="{Binding Lastvisit, StringFormat = dd/MM/yyyy}"
