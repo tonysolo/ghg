@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Eventing.Reader;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting;
 using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
@@ -20,6 +22,10 @@ namespace MvvmLight1.ViewModel
             LoadEhealth();         
             var lvi = new ListViewItem();
         }
+
+        public static string Lastvisit { get; set; }
+        public static string Nextvisit { get; set; }
+
 
         public static ObservableCollection<patient> Patients { get; set; }
     

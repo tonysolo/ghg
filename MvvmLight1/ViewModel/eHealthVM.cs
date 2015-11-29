@@ -22,6 +22,7 @@ namespace MvvmLight1.ViewModel
            // Patients = new List<patient>();
             var p = new patient
             {
+                
                 name = "Tony Manicom",
                 email = "tony@turbomed.co.za",
                 sex = "M",
@@ -29,6 +30,7 @@ namespace MvvmLight1.ViewModel
                 nextVisit = new System.DateTime().AddDays(30).ToShortDateString()
 
             };
+            
             //{
             //    name = "Tony Manicom",
             //    email = "tony@turbomed",

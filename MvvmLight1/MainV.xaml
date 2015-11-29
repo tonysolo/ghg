@@ -12,7 +12,7 @@
         
         
         DataContext="{Binding Main, Source={StaticResource Locator}}" Width="400" Height="550">
-    <Grid x:Name="LayoutRoot" Width="380" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin">
+    <Grid x:Name="LayoutRoot" Width="450" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin">
 
 
         <Grid.ColumnDefinitions>
@@ -77,6 +77,7 @@
 
 
                     <ListView x:Name="ListView1" Margin="0,0,0,0" 
+                              Width = "450"
                               Background="{x:Null}" Grid.ColumnSpan="7"                              
                               ItemsSource="{Binding Patients}"                          
                               >
@@ -94,17 +95,17 @@
                                                  DisplayMemberBinding="{Binding email}"
                                                 />
                                 <GridViewColumn Header="Last Visit" Width="80"
-                                                DisplayMemberBinding="{Binding Lastvisit, StringFormat = dd/MM/yyyy}"
+                                                DisplayMemberBinding="{Binding lastVisit, StringFormat = dd/MM/yyyy}"
                                                 />
                                 <GridViewColumn Header="Next Visit" Width="60"
-                                                DisplayMemberBinding="{Binding Nextvisit, StringFormat=dd/MM/yyyy}"
+                                                DisplayMemberBinding="{Binding nextVisit, StringFormat=dd/MM/yyyy}"
                                                 />
                                 <GridViewColumn Header="Details" Width="55" >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel>
-                                                <Button Command="{Binding ElementName = eHealthV}">
-                                                    <!--CommandParameter="{Binding}"-->
+                                                <Button Command="{Binding Patients}">
+                                                    <!--<CommandBinding = "{Binding SelectedPatient}">-->
                                                     <TextBlock Text="..." />
                                                 </Button>
                                                 <!--ToolTip="View or Edit e-health record"/>-->
