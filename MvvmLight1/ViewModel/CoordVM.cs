@@ -8,7 +8,7 @@ namespace MvvmLight1.ViewModel
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
     /// </summary>
-    public class CoordVM : ViewModelBase
+    public class CoordVm : ViewModelBase
     {
     }
 }

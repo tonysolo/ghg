@@ -24,7 +24,7 @@ namespace MvvmLight1.ViewModel
             //Savedqnnee = SharedData.Region;         
             Qnnee = SharedData.Region;
             Centre = QneUtils.CentrePoint(Qnnee);
-            validqnnee = Qnnee.Length == 5;
+            Validqnnee = Qnnee.Length == 5;
            // qne = new qnnee(Qnnee);
             //RaisePropertyChanged("Centre");           
         }
@@ -45,7 +45,7 @@ namespace MvvmLight1.ViewModel
         //public string PinCentre { get; set; }
         //public string StartCentre { get; set; }
         //public string Topx;
-        public bool validqnnee { get; set; }
+        public bool Validqnnee { get; set; }
         public string PinColour { get; set; }
         public string Zoom { get; set; }
         public string Centre { get; set; }
@@ -53,7 +53,7 @@ namespace MvvmLight1.ViewModel
         public string Qnnee { get; set; }
         public string Qnnneee { get; set; }
         public string FillColor { get; set; }
-        public string left { get; set; }
+        public string Left { get; set; }
         //public string _Locations { get; set; }
 
 

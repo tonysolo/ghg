@@ -98,7 +98,7 @@ namespace Microsoft.MapPoint
         /// </param>
         /// <param name="pixelX">Output parameter receiving the X coordinate in pixels.</param>
         /// <param name="pixelY">Output parameter receiving the Y coordinate in pixels.</param>
-        public static void LatLongToPixelXY(double latitude, double longitude, int levelOfDetail, out int pixelX,
+        public static void LatLongToPixelXy(double latitude, double longitude, int levelOfDetail, out int pixelX,
             out int pixelY)
         {
             latitude = Clip(latitude, MinLatitude, MaxLatitude);
@@ -126,7 +126,7 @@ namespace Microsoft.MapPoint
         /// </param>
         /// <param name="latitude">Output parameter receiving the latitude in degrees.</param>
         /// <param name="longitude">Output parameter receiving the longitude in degrees.</param>
-        public static void PixelXYToLatLong(int pixelX, int pixelY, int levelOfDetail, out double latitude,
+        public static void PixelXyToLatLong(int pixelX, int pixelY, int levelOfDetail, out double latitude,
             out double longitude)
         {
             double mapSize = MapSize(levelOfDetail);
@@ -146,7 +146,7 @@ namespace Microsoft.MapPoint
         /// <param name="pixelY">Pixel Y coordinate.</param>
         /// <param name="tileX">Output parameter receiving the tile X coordinate.</param>
         /// <param name="tileY">Output parameter receiving the tile Y coordinate.</param>
-        public static void PixelXYToTileXY(int pixelX, int pixelY, out int tileX, out int tileY)
+        public static void PixelXyToTileXy(int pixelX, int pixelY, out int tileX, out int tileY)
         {
             tileX = pixelX/256;
             tileY = pixelY/256;
@@ -161,7 +161,7 @@ namespace Microsoft.MapPoint
         /// <param name="tileY">Tile Y coordinate.</param>
         /// <param name="pixelX">Output parameter receiving the pixel X coordinate.</param>
         /// <param name="pixelY">Output parameter receiving the pixel Y coordinate.</param>
-        public static void TileXYToPixelXY(int tileX, int tileY, out int pixelX, out int pixelY)
+        public static void TileXyToPixelXy(int tileX, int tileY, out int pixelX, out int pixelY)
         {
             pixelX = tileX*256;
             pixelY = tileY*256;
@@ -178,7 +178,7 @@ namespace Microsoft.MapPoint
         ///     to 23 (highest detail).
         /// </param>
         /// <returns>A string containing the QuadKey.</returns>
-        public static string TileXYToQuadKey(int tileX, int tileY, int levelOfDetail)
+        public static string TileXyToQuadKey(int tileX, int tileY, int levelOfDetail)
         {
             var quadKey = new StringBuilder();
             for (int i = levelOfDetail; i > 0; i--)
@@ -207,7 +207,7 @@ namespace Microsoft.MapPoint
         /// <param name="tileX">Output parameter receiving the tile X coordinate.</param>
         /// <param name="tileY">Output parameter receiving the tile Y coordinate.</param>
         /// <param name="levelOfDetail">Output parameter receiving the level of detail.</param>
-        public static void QuadKeyToTileXY(string quadKey, out int tileX, out int tileY, out int levelOfDetail)
+        public static void QuadKeyToTileXy(string quadKey, out int tileX, out int tileY, out int levelOfDetail)
         {
             tileX = tileY = 0;
             levelOfDetail = quadKey.Length;

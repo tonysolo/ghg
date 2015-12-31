@@ -9,15 +9,15 @@ using Newtonsoft.Json;
 
 namespace MvvmLight1.Model
 {
-    public static class global
+    public static class Global
     {
-        static string _accountname { get; set; } //ghg 
-        static CloudStorageAccount _selected_account { get; set; }
+        static string Accountname { get; set; } //ghg 
+        static CloudStorageAccount SelectedAccount { get; set; }
 
-        public static CloudStorageAccount setcountryaccount(string accname)
+        public static CloudStorageAccount Setcountryaccount(string accname)
         {
-            if (accname == _accountname) return _selected_account;
-            _accountname = accname;
+            if (accname == Accountname) return SelectedAccount;
+            Accountname = accname;
             string accountName = "ghg";
             string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
             StorageCredentials creds = new StorageCredentials(accountName, accountKey);
@@ -28,14 +28,14 @@ namespace MvvmLight1.Model
             d.FetchAttributes();
             string key = d.Metadata[accname];
             StorageCredentials credentials = new StorageCredentials(accname, key);
-            _selected_account = new CloudStorageAccount(credentials, useHttps: true);
-            return _selected_account;
+            SelectedAccount = new CloudStorageAccount(credentials, useHttps: true);
+            return SelectedAccount;
             //AccountName = accname;
         }
     }
 
 
-    static class jsonutil
+    static class Jsonutil
     {
         public static void Serialize(object value, Stream s)
         {
@@ -54,7 +54,7 @@ namespace MvvmLight1.Model
             return ser.Deserialize<T>(jsonReader);
         }
 
-        public static byte[] compress(byte[] data)
+        public static byte[] Compress(byte[] data)
         {
             MemoryStream outStream = new MemoryStream();
             {
@@ -65,7 +65,7 @@ namespace MvvmLight1.Model
             }
         }
 
-        public static byte[] decompress(byte[] compressed)
+        public static byte[] Decompress(byte[] compressed)
         {
             MemoryStream inStream = new MemoryStream(compressed);
             using (GZipStream gzipStream = new GZipStream(inStream, CompressionMode.Decompress))
@@ -77,7 +77,7 @@ namespace MvvmLight1.Model
         }
 
 
-        public static void resize(ref byte[] b)
+        public static void Resize(ref byte[] b)
         {
             var s = b.Length;
             var adjust = 512 - (s % 512);
@@ -276,7 +276,7 @@ namespace MvvmLight1.Model
                 else
                 {
                     lat1 = lat0;
-                    q = (Int16)(3 - q);
+                    q = (Int16)(3 - q);  //? unnecessary
                 }
                 if (lon0 < 255)
                     lon1 = (Int16)(lon0 + 1);
@@ -365,15 +365,15 @@ namespace MvvmLight1.Model
 
                 switch (nsew)
                 {
-                    case 'n': qnnee_util.movN(ref qnnee); break;
+                    case 'n': QnneeUtil.MovN(ref qnnee); break;
                     
-                    case 's': qnnee_util.movS(ref qnnee); break;
+                    case 's': QnneeUtil.MovS(ref qnnee); break;
                       
                        
-                    case 'e': qnnee_util.movE(ref qnnee);break;
+                    case 'e': QnneeUtil.MovE(ref qnnee);break;
                        
                       
-                    case 'w': qnnee_util.movW(ref qnnee);break;
+                    case 'w': QnneeUtil.MovW(ref qnnee);break;
                     
                 }
 

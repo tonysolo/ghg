@@ -37,7 +37,7 @@
         <StackPanel Grid.Row ="1" Height="20"
                     Orientation ="Horizontal"
                     FlowDirection ="RightToLeft"
-                    IsEnabled="{Binding validqnnee}">
+                    IsEnabled="{Binding Validqnnee}">
             
             <Button Width = "15" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE09F;"
                     Command = "{Binding MoveRegionEast}" />

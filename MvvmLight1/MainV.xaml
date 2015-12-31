@@ -87,18 +87,18 @@
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
                                 <GridViewColumn Header="name" Width="100"
-                                                DisplayMemberBinding = "{Binding name}"/>
+                                                DisplayMemberBinding = "{Binding Name}"/>
                                 <GridViewColumn Header="cell" Width="40" TextBlock.TextAlignment="Left"
-                                                DisplayMemberBinding="{Binding cell}"
+                                                DisplayMemberBinding="{Binding Cell}"
                                                 />
                                 <GridViewColumn Header="Email" Width="30"
-                                                 DisplayMemberBinding="{Binding email}"
+                                                 DisplayMemberBinding="{Binding Email}"
                                                 />
                                 <GridViewColumn Header="Last Visit" Width="80"
-                                                DisplayMemberBinding="{Binding lastVisit, StringFormat = dd/MM/yyyy}"
+                                                DisplayMemberBinding="{Binding LastVisit, StringFormat = dd/MM/yyyy}"
                                                 />
                                 <GridViewColumn Header="Next Visit" Width="60"
-                                                DisplayMemberBinding="{Binding nextVisit, StringFormat=dd/MM/yyyy}"
+                                                DisplayMemberBinding="{Binding NextVisit, StringFormat=dd/MM/yyyy}"
                                                 />
                                 <GridViewColumn Header="Details" Width="55" >
                                     <GridViewColumn.CellTemplate>

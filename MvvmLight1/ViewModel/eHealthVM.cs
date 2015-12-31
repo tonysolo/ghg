@@ -20,14 +20,14 @@ namespace MvvmLight1.ViewModel
             SetupRelayCommands();
             Selectedpatientindex = 0;
            // Patients = new List<patient>();
-            var p = new patient
+            var p = new Patient
             {
                 
-                name = "Tony Manicom",
-                email = "tony@turbomed.co.za",
-                sex = "M",
-                birthday = new System.DateTime(1948,7,8).ToShortDateString(),
-                nextVisit = new System.DateTime().AddDays(30).ToShortDateString()
+                Name = "Tony Manicom",
+                Email = "tony@turbomed.co.za",
+                Sex = "M",
+                Birthday = new System.DateTime(1948,7,8).ToShortDateString(),
+                NextVisit = new System.DateTime().AddDays(30).ToShortDateString()
 
             };
             
@@ -45,14 +45,14 @@ namespace MvvmLight1.ViewModel
            // Patients.Add(p);
         }
 
-        public ObservableCollection<patient> Patients { get; set; }
+        public ObservableCollection<Patient> Patients { get; set; }
 
         public int Selectedpatientindex { get; set; }
         //string lastv { get; set; }
         //string Nextv { get; set; }
         //string Age { get; set; }
 
-        public patient SelectedPatient => Patients[Selectedpatientindex];
+        public Patient SelectedPatient => Patients[Selectedpatientindex];
 
 
         public string[] Regions => SharedData.RegionNames;

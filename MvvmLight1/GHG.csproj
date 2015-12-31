@@ -278,12 +278,6 @@
   <ItemGroup>
     <Folder Include="bin\Release\" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\..\..\..\AppData\Local\Temp\TFSTemp\vctmp1832_15938.Resources.2661df15.resx">
-      <Link>vctmp1832_15938.Resources.2661df15.resx</Link>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -36,30 +36,30 @@ namespace Expression.Blend.SampleData.SampleDataSource
 			}
 		}
 
-		private ItemCollection _Collection = new ItemCollection();
+		private ItemCollection _collection = new ItemCollection();
 
 		public ItemCollection Collection
 		{
 			get
 			{
-				return this._Collection;
+				return this._collection;
 			}
 		}
 
-		private string _Property1 = string.Empty;
+		private string _property1 = string.Empty;
 
 		public string Property1
 		{
 			get
 			{
-				return this._Property1;
+				return this._property1;
 			}
 
 			set
 			{
-				if (this._Property1 != value)
+				if (this._property1 != value)
 				{
-					this._Property1 = value;
+					this._property1 = value;
 					this.OnPropertyChanged("Property1");
 				}
 			}
@@ -78,39 +78,39 @@ namespace Expression.Blend.SampleData.SampleDataSource
 			}
 		}
 
-		private bool _Property2 = false;
+		private bool _property2 = false;
 
 		public bool Property2
 		{
 			get
 			{
-				return this._Property2;
+				return this._property2;
 			}
 
 			set
 			{
-				if (this._Property2 != value)
+				if (this._property2 != value)
 				{
-					this._Property2 = value;
+					this._property2 = value;
 					this.OnPropertyChanged("Property2");
 				}
 			}
 		}
 
-		private string _Property1 = string.Empty;
+		private string _property1 = string.Empty;
 
 		public string Property1
 		{
 			get
 			{
-				return this._Property1;
+				return this._property1;
 			}
 
 			set
 			{
-				if (this._Property1 != value)
+				if (this._property1 != value)
 				{
-					this._Property1 = value;
+					this._property1 = value;
 					this.OnPropertyChanged("Property1");
 				}
 			}

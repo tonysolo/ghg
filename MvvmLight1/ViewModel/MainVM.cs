@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Eventing.Reader;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
@@ -27,7 +23,7 @@ namespace MvvmLight1.ViewModel
         public static string Nextvisit { get; set; }
 
 
-        public static ObservableCollection<patient> Patients { get; set; }
+        public static ObservableCollection<Patient> Patients { get; set; }
     
 
         public static string Login { get; set; }
