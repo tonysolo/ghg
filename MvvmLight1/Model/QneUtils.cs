@@ -261,8 +261,8 @@ namespace MvvmLight1.Model
             if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
             var saa = new string[4];
-            Int16 lat1;
-            Int16 lon1;
+            short lat1;
+            short lon1;
             var q = Convert.ToInt16(qnnee.Substring(0, 1), 16);
             saa[0] = IndexPoint(qnnee);
 
@@ -272,14 +272,14 @@ namespace MvvmLight1.Model
                 var lon0 = Convert.ToInt16(qnnee.Substring(3, 2), 16);
 
                 if (lat0 < 127)
-                    lat1 = (Int16)(lat0 + 1);
+                    lat1 = (short)(lat0 + 1);
                 else
                 {
                     lat1 = lat0;
-                    q = (Int16)(3 - q);  //? unnecessary
+                    q = (short)(3 - q);  //? unnecessary
                 }
                 if (lon0 < 255)
-                    lon1 = (Int16)(lon0 + 1);
+                    lon1 = (short)(lon0 + 1);
 
                 else lon1 = lon0;
 
