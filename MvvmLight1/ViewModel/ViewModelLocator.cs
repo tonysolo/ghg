@@ -65,10 +65,7 @@ namespace MvvmLight1.ViewModel
             get { return ServiceLocator.Current.GetInstance<LoaderVm>(); }
         }
 
-        public CountryVm Country
-        {
-            get { return ServiceLocator.Current.GetInstance<CountryVm>(); }
-        }
+        public CountryVm Country => ServiceLocator.Current.GetInstance<CountryVm>();
 
         public EHealthVm EHealth
         {

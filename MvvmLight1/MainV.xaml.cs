@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Microsoft.Maps.MapControl.WPF;
 using MvvmLight1.ViewModel;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace MvvmLight1
 {
@@ -18,6 +19,17 @@ namespace MvvmLight1
             Closing += (s, e) => ViewModelLocator.Cleanup();          
         }
 
-        
+        //private void ListView1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        //{
+        //    MessageBox.Show("Button Clkicked");
+        //}
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+MessageBox.Show("Button Clicked");
+            var p = MainVm.Patients[0];
+            //throw new System.NotImplementedException();
+        }
     } 
 }

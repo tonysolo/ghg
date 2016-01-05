@@ -223,17 +223,40 @@ public class Person
 
 public class Provider : Person
 {
-    public string[] Prov = new String[4];
-    [JsonIgnore]
-    public string PinOffset { get { return Prov[0]; } set { Prov[0] = value; } }
-    [JsonIgnore]
-    public string RegAuthority { get { return Prov[1]; } set { Prov[1] = value; } }
-    [JsonIgnore]
-    public string Specialty { get { return Prov[2]; } set { Prov[2] = value; } }
-    [JsonIgnore]
-    public string Qualification { get { return Prov[3]; } set { Prov[3] = value; } }
 
-    //public List<person> Contacts {get;set;}  -- might be better than obser collection
+    [JsonIgnore] private readonly string[] _prov = new string[4];
+
+    public string PinOffset
+    {
+        get { return _prov[0]; }
+        set { _prov[0] = value; }
+    }
+
+    [JsonIgnore]
+    public string RegAuthority
+    {
+        get { return _prov[1]; }
+        set { _prov[1] = value; }
+    }
+
+    [JsonIgnore]
+    public string Specialty
+    {
+        get { return _prov[2]; }
+        set { _prov[2] = value; }
+    }
+
+    [JsonIgnore]
+    public string Qualification
+    {
+        get { return _prov[3]; }
+        set { _prov[3] = value; }
+    }
+
+    public string[] Prov => _prov;
+
+
+//public List<person> Contacts {get;set;}  -- might be better than obser collection
     public List<string> Top = new List<string>();  //top40 icds
     public List<string> VTop = new List<string>();  //top40 visits
     public List<string> PTop = new List<string>(); //top40 prescriptions
@@ -241,50 +264,49 @@ public class Provider : Person
     public ObservableCollection<Person> Contacts = new ObservableCollection<Person>();
 
 
-    public Provider(string fromazure, string pin)
+    public Provider(string fromazure, string pin) //still need to check pin for auth
     {
-        if (fromazure == null) return;
+        if (fromazure == null) return;  //or invalid pin
         var login = fromazure.Split('=');
         var offset = Convert.ToInt32(login[2], 16) << 22;
-        byte[] compressed;
         var ba = new byte[4];
 
-        var la = Global.Setcountryaccount(login[0]).//"ghza"
+        var lStm = Global.Setcountryaccount(login[0]).//"ghza" read loader
                 CreateCloudBlobClient().
                 GetContainerReference(login[1]).   //"22427" container
                 GetPageBlobReference("L").OpenRead();
         //if (La.Length > offset)
         {
-            la.Seek(offset, SeekOrigin.Begin);
-            la.Read(ba, 0, 4);
+            lStm.Seek(offset, SeekOrigin.Begin);
+            lStm.Read(ba, 0, 4);
             //Array.Resize(ref ba,4);
             var size = BitConverter.ToInt32(ba, 0);
             //size = (size & 0xffffff00);
-            compressed = new byte[size];
-            la.Seek(offset + 4, SeekOrigin.Begin);
-            la.Read(compressed, 0, size);
+            var compressed = new byte[size];
+            lStm.Seek(offset + 4, SeekOrigin.Begin);
+            lStm.Read(compressed, 0, size);
             var decomp = Jsonutil.Decompress(compressed);
             var ms = new MemoryStream(decomp);
-            var p = Jsonutil.Deserialize<Provider>(ms);
+            Jsonutil.Deserialize<Provider>(ms);
 
-            this.Prov = p.Prov;
-            this.Address1 = p.Address1;
-            this.Address2 = p.Address2;
-            this.Address3 = p.Address3;
-            this.Cell = p.Cell;
-            this.Contacts = p.Contacts;
-            this.Details = p.Details;
-            this.Name = p.Name;
-            this.Postalcode = p.Postalcode;
-            this.Qnnneee = p.Qnnneee;
-            this.Qualification = p.Qualification;
-            this.Specialty = p.Specialty;
-            this.VTop = p.VTop;
-            this.Top = p.Top;
-            this.PTop = p.PTop;
-            this.PinOffset = p.PinOffset;
-            this.Recent = p.Recent;
-            if (this.PinOffset != pin) this.PinOffset = null;
+            ////this.Prov = p.Prov;
+            //this.Address1 = p.Address1;
+            //this.Address2 = p.Address2;
+            //this.Address3 = p.Address3;
+            //this.Cell = p.Cell;
+            //this.Contacts = p.Contacts;
+            //this.Details = p.Details;
+            //this.Name = p.Name;
+            //this.Postalcode = p.Postalcode;
+            //this.Qnnneee = p.Qnnneee;
+            //this.Qualification = p.Qualification;
+            //this.Specialty = p.Specialty;
+            //this.VTop = p.VTop;
+            //this.Top = p.Top;
+            //this.PTop = p.PTop;
+            //this.PinOffset = p.PinOffset;
+            //this.Recent = p.Recent;
+            //if (this.PinOffset != pin) this.PinOffset = null;
         }
     }
 

@@ -104,9 +104,13 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel>
-                                                <Button Command="{Binding Patients}">
+                                                <Button 
+                                                    Click="ButtonBase_OnClick"
+                                                    Command="{Binding Patients}">
+                                                  
                                                     <!--<CommandBinding = "{Binding SelectedPatient}">-->
                                                     <TextBlock Text="..." />
+                                                    
                                                 </Button>
                                                 <!--ToolTip="View or Edit e-health record"/>-->
 
