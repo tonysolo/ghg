@@ -56,20 +56,10 @@ namespace MvvmLight1.ViewModel
         public bool Loaded { get; set; }
 
 
-        public static string[] CountryNames
-        {
-            get
-            {
-                return SharedData.CountryNames;
-            }
-        }
+        public static string[] CountryNames => SharedData.CountryNames;
 
-      
 
-        public static string[] Providers
-        {
-            get { return Enum.GetNames(typeof(Providers)); }
-        }
+        public static string[] Providers => Enum.GetNames(typeof(Providers));
 
         public static string[] SecurityQuestions
         {
@@ -97,9 +87,9 @@ namespace MvvmLight1.ViewModel
         {
             string[] str =
             {
-                String.Format("{0:x1}", SecurityChoice),
+                $"{SecurityChoice:x1}",
                 SecurityAnswer,
-                String.Format("{0:x1}", ProviderChoice),
+                $"{ProviderChoice:x1}",
                 FirstName, Initials, Surname, Cellphone, Email, RegAurthority, RegNumber
             };
             this.Cleanup();

@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Orientation = "Horizontal" Margin="10,0,70,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.ColumnSpan="2">
+        <StackPanel Orientation = "Horizontal" Margin="10,0,70,0" d:LayoutOverrides="LeftMargin, RightMargin, TopICDsMargin, BottomMargin" Grid.ColumnSpan="2">
             <TextBox Name = "Login" Text = "{Binding Login}"  Width ="100"  />
 
             <TextBox Width="40" Text="  pin" IsEnabled="True"/>
@@ -45,7 +45,7 @@
             Grid.Row="1" 
             Grid.Column="0"
             Margin="0,10" 
-            d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"
+            d:LayoutOverrides="LeftMargin, RightMargin, TopICDsMargin, BottomMargin"
             >
 <!--DataContext="{Binding EHealth, Source={StaticResource Locator}}"-->
             <!--e-health tab-->

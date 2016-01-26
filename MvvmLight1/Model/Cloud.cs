@@ -221,46 +221,48 @@ public class Person
     public string Postalcode { get { return Details[7]; } set { Details[7] = value; } }
 }
 
+//todo replace Prov and other public storage arrays with single / short names Pr provider Pt patient 
+//todo similarly make all ofter data more compact - it will be machine read
 public class Provider : Person
 {
+public string[] Prov = new string[4];
 
-    [JsonIgnore] private readonly string[] _prov = new string[4];
-
+    [JsonIgnore] 
     public string PinOffset
     {
-        get { return _prov[0]; }
-        set { _prov[0] = value; }
+        get { return Prov[0]; }
+        set { Prov[0] = value; }
     }
 
     [JsonIgnore]
     public string RegAuthority
     {
-        get { return _prov[1]; }
-        set { _prov[1] = value; }
+        get { return Prov[1]; }
+        set { Prov[1] = value; }
     }
 
     [JsonIgnore]
     public string Specialty
     {
-        get { return _prov[2]; }
-        set { _prov[2] = value; }
+        get { return Prov[2]; }
+        set { Prov[2] = value; }
     }
 
     [JsonIgnore]
     public string Qualification
     {
-        get { return _prov[3]; }
-        set { _prov[3] = value; }
+        get { return Prov[3]; }
+        set { Prov[3] = value; }
     }
 
-    public string[] Prov => _prov;
+    //public string[] Prov => _prov;
 
 
 //public List<person> Contacts {get;set;}  -- might be better than obser collection
-    public List<string> Top = new List<string>();  //top40 icds
-    public List<string> VTop = new List<string>();  //top40 visits
-    public List<string> PTop = new List<string>(); //top40 prescriptions
-    public ObservableCollection<Patient> Recent = new ObservableCollection<Patient>();
+    public List<string> TopIcds = new List<string>();  //top40 icds
+    public List<string> TopVisits = new List<string>();  //top40 visits
+    public List<string> TopPrescriptions = new List<string>(); //top40 prescriptions
+    public ObservableCollection<Patient> RecentPatients = new ObservableCollection<Patient>();
     public ObservableCollection<Person> Contacts = new ObservableCollection<Person>();
 
 
@@ -301,11 +303,11 @@ public class Provider : Person
             //this.Qnnneee = p.Qnnneee;
             //this.Qualification = p.Qualification;
             //this.Specialty = p.Specialty;
-            //this.VTop = p.VTop;
-            //this.Top = p.Top;
-            //this.PTop = p.PTop;
+            //this.TopVisits = p.TopVisits;
+            //this.TopICDs = p.TopICDs;
+            //this.TopPrescriptions = p.TopPrescriptions;
             //this.PinOffset = p.PinOffset;
-            //this.Recent = p.Recent;
+            //this.RecentPatients = p.RecentPatients;
             //if (this.PinOffset != pin) this.PinOffset = null;
         }
     }
@@ -353,7 +355,7 @@ public class Visit
     public void Addate()
     {
         Date = DateTime.Now.ToShortDateString();
-        byte[] ba = new byte[100];
+        var ba = new byte[100];
         //images.Add(ba);
     }
 
@@ -381,9 +383,11 @@ public class Patient : Person
     {
         Alerts = new List<MedCondition>();
         Visits = new List<Visit>();
-        Visit visit = new Visit();
-        visit.Date = "";
-        visit.Description = "";
+        var visit = new Visit
+        {
+            Date = "",
+            Description = ""
+        };
         MedCondition mc = new MedCondition("Cor Art Bypass", "C22.0");
         visit.Condition = new List<MedCondition>();
         visit.Condition.Add(mc);
@@ -399,7 +403,7 @@ public class Patient : Person
 
     public string save_to_azure()
     {
-        MemoryStream ms = new MemoryStream();
+        var ms = new MemoryStream();
         Jsonutil.Serialize(this, ms);
         var ba = Jsonutil.Compress(ms.GetBuffer());
         var compressedlen = ba.Length;
@@ -462,7 +466,7 @@ public class Patient : Person
     //	_patient.visits.Add(v);
     //	
     //	for (int i = 0; i < 5; i++)
-    //		provider.Recent.Add(_patient);
+    //		provider.RecentPatients.Add(_patient);
     //
     //	//var reg = registernewprovider("ghza", "22427");
     //

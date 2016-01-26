@@ -20,41 +20,20 @@ namespace MvvmLight1.ViewModel
             SetupRelayCommands();
         }
 
-        public string[] Genders
-        {
-            get { return Enum.GetNames(typeof(Gender)); }
-        }
+        public string[] Genders => Enum.GetNames(typeof(Gender));
 
         // public string[] AgeGroups { get {return AzureAccess.Qnames;} }
-        public string[] AgeGroups
-        {
-            get { return Enum.GetNames(typeof(Agegroup)); }
-        }
+        public string[] AgeGroups => Enum.GetNames(typeof(Agegroup));
 
-        public string[] Facilities
-        {
-            get { return Enum.GetNames(typeof(Facilty)); }
-        }
+        public string[] Facilities => Enum.GetNames(typeof(Facilty));
 
-        public string[] Stays
-        {
-            get { return Enum.GetNames(typeof(Stay)); }
-        }
+        public string[] Stays => Enum.GetNames(typeof(Stay));
 
-        public string[] Funders
-        {
-            get { return Enum.GetNames(typeof(Funder)); }
-        }
+        public string[] Funders => Enum.GetNames(typeof(Funder));
 
-        public string[] Treaters
-        {
-            get { return Enum.GetNames(typeof(Treater)); }
-        }
+        public string[] Treaters => Enum.GetNames(typeof(Treater));
 
-        public string[] Qualifications
-        {
-            get { return Enum.GetNames(typeof(Providers)); }
-        }
+        public string[] Qualifications => Enum.GetNames(typeof(Providers));
 
         public string[] Regions { get; set; } //will have to be set from map info
 
@@ -79,10 +58,7 @@ namespace MvvmLight1.ViewModel
         public string PatientRegion { get; set; }
         public string TreaterRegion { get; set; }
 
-        public string Staymessage
-        {
-            get { return (Stay == 1) ? "Number of Days Admitted" : "Number of Similar Outpatients"; }
-        }
+        public string Staymessage => Stay == 1 ? "Number of Days Admitted" : "Number of Similar Outpatients";
 
 
         public RelayCommand EditMap { get; private set; }

@@ -110,8 +110,8 @@ namespace MvvmLight1.ViewModel
 
         private static void LoadEhealth()
         {
-            Provider p = new Provider("ghza=22427=1", "2");
-            Patients = p.Recent;
+            var p = new Provider("ghza=22427=1", "2");
+            Patients = p.RecentPatients;
            
         }
 

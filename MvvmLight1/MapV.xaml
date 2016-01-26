@@ -4,7 +4,7 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Title="Global Health Grid"     
+        Title="Prescribe"     
         DataContext="{Binding Maps, Source={StaticResource Locator}}" Width="300" Height="400"
         >
       
@@ -21,11 +21,11 @@
                ZoomLevel="4" Margin="0,1,0,0"               
                >       
            
-            <m:Pushpin Location = "{Binding Centre}" 
+            <!--<m:Pushpin Location = "{Binding Centre}" 
                        Background ="{Binding FillColor}"
-                        /> 
+                        />--> 
             
-                      <m:MapPolygon Fill="Aquamarine"                                   
+                      <m:MapPolygon Fill= "MediumSlateBlue"                                  
                           Locations = "{Binding Boundary}"
                           Opacity="0.7"/>
 
