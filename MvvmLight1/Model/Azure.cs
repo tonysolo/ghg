@@ -16,8 +16,14 @@ namespace MvvmLight1.Model
 
         // public static CloudStorageAccount Account = 
         //  CloudStorageAccount(System.Configuration.AppSettingsReader("GHGConnectionString"));
-        private const string AccountName = "ghg";
-        private const string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
+        static string AccountName = "ghg";
+        static string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
+
+        //string accountName = "ghg";
+        //string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ=="; 
+
+
+
         //string AccountName = "devstoreaccount1";
 
 
@@ -31,7 +37,7 @@ namespace MvvmLight1.Model
         /// <summary>
         /// registers a new loader
         /// </summary>
-        /// <param name="json"></param>
+        // <param name="json"></param>
         /// <returns>string index</returns>
         /*   public static int RegisterNewLoader(string json)
            {
