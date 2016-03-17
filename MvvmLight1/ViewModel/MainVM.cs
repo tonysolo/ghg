@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
@@ -17,6 +18,7 @@ namespace MvvmLight1.ViewModel
             Login = "-password-";
             LoadEhealth();         
             var lvi = new ListViewItem();
+            
         }
 
         public static string Lastvisit { get; set; }
@@ -24,6 +26,8 @@ namespace MvvmLight1.ViewModel
 
 
         public static ObservableCollection<Patient> Patients { get; set; }
+
+        
     
 
         public static string Login { get; set; }

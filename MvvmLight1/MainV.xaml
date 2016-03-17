@@ -11,13 +11,14 @@
         WindowStyle="ToolWindow"
         
         
-        DataContext="{Binding Main, Source={StaticResource Locator}}" Width="400" Height="550">
-    <Grid x:Name="LayoutRoot" Width="450" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin">
+        DataContext="{Binding Main, Source={StaticResource Locator}}" Width="387" Height="531">
+    <Grid x:Name="LayoutRoot" Width="390" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top">
 
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="14"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -27,7 +28,7 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Orientation = "Horizontal" Margin="10,0,70,0" d:LayoutOverrides="LeftMargin, RightMargin, TopICDsMargin, BottomMargin" Grid.ColumnSpan="2">
+        <StackPanel Orientation = "Horizontal" Margin="10,0,0,0">
             <TextBox Name = "Login" Text = "{Binding Login}"  Width ="100"  />
 
             <TextBox Width="40" Text="  pin" IsEnabled="True"/>
@@ -44,10 +45,10 @@
         <TabControl 
             Grid.Row="1" 
             Grid.Column="0"
-            Margin="0,10" 
-            d:LayoutOverrides="LeftMargin, RightMargin, TopICDsMargin, BottomMargin"
-            >
-<!--DataContext="{Binding EHealth, Source={StaticResource Locator}}"-->
+            Margin="0,10" >
+            <!--d:LayoutOverrides="LeftMargin, RightMargin, TopICDsMargin, BottomMargin"-->
+
+            <!--DataContext="{Binding EHealth, Source={StaticResource Locator}}"-->
             <!--e-health tab-->
             <TabItem Header = "E-Health"
                  
@@ -58,15 +59,16 @@
                      HorizontalAlignment="Right"
                 >
 
-                <Grid Margin="0,0,0,0">
+                <Grid Margin="0,0,-19,-6">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="34*"/>
-                        <ColumnDefinition Width="85*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="29*"/>
-                        <ColumnDefinition Width="47*"/>
-                        <ColumnDefinition Width="126*"/>
-                        <ColumnDefinition Width="43*"/>
+                        <ColumnDefinition Width="39*"/>
+                        <ColumnDefinition Width="97*"/>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="54*"/>
+                        <ColumnDefinition Width="144*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="38*"/>
                         <!--<ColumnDefinition Width="11*"/>
                         <ColumnDefinition Width="2*"/>-->
                     </Grid.ColumnDefinitions>
@@ -76,13 +78,12 @@
                     </-->
 
 
-                    <ListView x:Name="ListView1" Margin="0,0,0,0" 
-                              Width = "450"
-                              Background="{x:Null}" Grid.ColumnSpan="7"                              
+                    <ListView x:Name="ListView1" Margin="0,0,23.647,0"
+                              Background="{x:Null}" Grid.ColumnSpan="8"                              
                               ItemsSource="{Binding Patients}"                          
                               >
-
-                        <!--" Button Content="test" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
+                        
+                            <!--" Button Content="test" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
                         <ListView.View>
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
@@ -107,10 +108,10 @@
                                                 <Button 
                                                     Click="ButtonBase_OnClick"
                                                     Command="{Binding Patients}">
-                                                  
+
                                                     <!--<CommandBinding = "{Binding SelectedPatient}">-->
                                                     <TextBlock Text="..." />
-                                                    
+
                                                 </Button>
                                                 <!--ToolTip="View or Edit e-health record"/>-->
 
@@ -122,8 +123,9 @@
                                 <!--GridViewColumn/-->
 
                             </GridView>
+                            
                         </ListView.View>
-
+                        
                     </ListView>
                     <!--<ListViewItem>
                         -->
@@ -274,7 +276,7 @@
             <!--Statistics Tab-->
             <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
         </TabControl>
-        <StackPanel Grid.Row="2"  Orientation="Horizontal"  HorizontalAlignment="Right" Height="20">
+        <StackPanel Grid.Row="2"  Orientation="Horizontal"  HorizontalAlignment="Right" Margin="0,5" Width="146">
             <TextBlock Text="e-health records..."/>
             <Button Command ="{Binding AddEhealth}" Content="+" FontSize="14"  Margin="5 0 0 0" ToolTip="Add e-Health record to Provider's List" Height="20" VerticalAlignment="Top" />
             <Button Command ="{Binding HideEhealth}" Content="-" FontSize="14" Margin="5 0 0 0" ToolTip="Remove e-Health record from Provider's List"  />
