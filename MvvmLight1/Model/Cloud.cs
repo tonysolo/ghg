@@ -256,8 +256,6 @@ namespace MvvmLight1.Model
         }
 
         //public string[] Prov => _prov;
-
-
         //public List<person> Contacts {get;set;}  -- might be better than obser collection
         public List<string> TopIcds = new List<string>();  //top40 icds
         public List<string> TopVisits = new List<string>();  //top40 visits
@@ -278,15 +276,16 @@ namespace MvvmLight1.Model
             var login = fromazure.Split('=');
             var offset = Convert.ToInt32(login[2], 16) << 22;  //4 MB offset
 
-            var ba1 = new byte[4194304];  //could reduce (compressed) provider to 1 meg
+            //var ba1 = new byte[4194304];  //could reduce (compressed) provider to 1 meg
 
             var lStm = Global.Setcountryaccount(login[0]).//"ghza" read loader
                 CreateCloudBlobClient().
                 GetContainerReference(login[1]).   //"22427" container
                 GetPageBlobReference("L").OpenRead();
 
+            var ba1 = new byte[4];
             lStm.Seek(offset, SeekOrigin.Begin);
-            lStm.Read(ba1, 0, 1024);         
+            lStm.Read(ba1, 0, 4);       
             var size = BitConverter.ToInt32(ba1, 0);
 
             var compressed = new byte[size];
@@ -337,7 +336,6 @@ namespace MvvmLight1.Model
                     la.WritePages(ms1, offset);
             }
         }
-
     }
 
 

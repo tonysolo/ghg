@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -13,11 +14,10 @@ namespace MvvmLight1.Model
         //  static string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         // static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
         // static CloudStorageAccount Account = new CloudStorageAccount(Creds, useHttps: true);
-
         // public static CloudStorageAccount Account = 
         //  CloudStorageAccount(System.Configuration.AppSettingsReader("GHGConnectionString"));
-        static string AccountName = "ghg";
-        static string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
+        private const string AccountName = "ghg";
+        private const string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
 
         //string accountName = "ghg";
         //string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ=="; 
@@ -80,7 +80,7 @@ namespace MvvmLight1.Model
         {
             var ol = new int[2];
             var sarr = new string[CountryData.Length];
-            for (int i = 0; i < sarr.Length; i++)
+            for (var i = 0; i < sarr.Length; i++)
             {
                 var dat = CountryData[i].Split('|');
                 if (dat[0] == country)
@@ -107,17 +107,8 @@ namespace MvvmLight1.Model
 
         private static bool IsHex(IEnumerable<char> chars)
         {
-            bool isHex;
-            foreach (var c in chars)
-            {
-                isHex = ((c >= '0' && c <= '9') ||
-                         (c >= 'a' && c <= 'f') ||
-                         (c >= 'A' && c <= 'F'));
-
-                if (!isHex)
-                    return false;
-            }
-            return true;
+            if (chars.Select(c => ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))).All(isHex => isHex)) return true;
+            return false;
         }
 
 
