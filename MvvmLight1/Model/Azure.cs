@@ -123,9 +123,10 @@ namespace MvvmLight1.Model
             blob.DownloadRangeToByteArray(ba, 0, x[0], x[1]);
             var str = Encoding.UTF8.GetString(ba);
             var sarr = str.Split(',');
-            foreach (var st in sarr)
-            { if (st.Length == 6) st.Remove(0, 1); }     //sort this bug 
-            return sarr;
+            var sarr1 = new string[sarr.Length];
+            for (var i = 0; i < sarr.Length; i++) //remove extra characters     
+                sarr1[i] = (sarr.Length == 6) ? sarr[i].Remove(0, 1) : sarr[i];
+            return sarr1;
         }
     }
 }

@@ -10,58 +10,7 @@ using Newtonsoft.Json;
 
 namespace MvvmLight1.Model
 {
-    //static partial class Jsonutil
-    //{
-    //    public static void Serialize(object value, Stream s)
-    //    {
-    //        StreamWriter writer = new StreamWriter(s);
-    //        JsonTextWriter jsonWriter = new JsonTextWriter(writer);
-    //        JsonSerializer ser = new JsonSerializer();
-    //        ser.Serialize(jsonWriter, value);
-    //        jsonWriter.Flush();
-    //    }
-
-    //    public static T Deserialize<T>(Stream s)
-    //    {
-    //        StreamReader reader = new StreamReader(s);
-    //        JsonTextReader jsonReader = new JsonTextReader(reader);
-    //        JsonSerializer ser = new JsonSerializer();
-    //        return ser.Deserialize<T>(jsonReader);
-    //    }
-
-    //    public static byte[] Compress(byte[] data)
-    //    {
-    //        MemoryStream outStream = new MemoryStream();     
-    //        using (GZipStream gzipStream = new GZipStream(outStream, CompressionMode.Compress))
-    //        using (MemoryStream srcStream = new MemoryStream(data))
-    //        { 
-    //            srcStream.CopyTo(gzipStream); 
-    //            return outStream.ToArray();
-    //        }
-    //    }
-
-
-    //    public static byte[] Decompress(byte[] compressed)
-    //    {
-    //        MemoryStream inStream = new MemoryStream(compressed);
-    //        using (GZipStream gzipStream = new GZipStream(inStream, CompressionMode.Decompress))
-    //        using (MemoryStream outStream = new MemoryStream())
-    //        {
-    //            gzipStream.CopyTo(outStream);
-    //            return outStream.ToArray();
-    //        }
-    //    }
-
-
-    //    public static void Resize(ref byte[] b)
-    //    {
-    //        var s = b.Length;
-    //        var adjust = 512 - (s % 512);
-    //        Array.Resize(ref b, s + adjust);
-    //    }
-
-    //}
-
+  
 
     internal static class Global
     {

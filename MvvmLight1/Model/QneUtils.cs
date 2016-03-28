@@ -9,31 +9,7 @@ using Newtonsoft.Json;
 
 namespace MvvmLight1.Model
 {
-    //public static class Global
-    //{
-    //    static string Accountname { get; set; } //ghg 
-    //    static CloudStorageAccount SelectedAccount { get; set; }
-
-    //    public static CloudStorageAccount Setcountryaccount(string accname)
-    //    {
-    //        if (accname == Accountname) return SelectedAccount;
-    //        Accountname = accname;
-    //        string accountName = "ghg";
-    //        string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
-    //        StorageCredentials creds = new StorageCredentials(accountName, accountKey);
-    //        CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
-    //        var acc = account.CreateCloudBlobClient();
-    //        var c = acc.GetContainerReference("countries");
-    //        var d = c.GetPageBlobReference("global");
-    //        d.FetchAttributes();
-    //        string key = d.Metadata[accname];
-    //        StorageCredentials credentials = new StorageCredentials(accname, key);
-    //        SelectedAccount = new CloudStorageAccount(credentials, useHttps: true);
-    //        return SelectedAccount;
-    //        //AccountName = accname;
-    //    }
-    //}
-
+ 
 
     static partial class Jsonutil
     {
