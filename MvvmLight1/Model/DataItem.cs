@@ -2,9 +2,9 @@
 {
     public class DataItem
     {
-        public DataItem(string title)
+        public void DataIte(string title)
         {
-            Title = title;
+          //  Title = title;
         }
 
         public string Title { get; private set; }

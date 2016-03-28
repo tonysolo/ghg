@@ -7,7 +7,7 @@ namespace MvvmLight1.Model
 {//need to make public access
     class Imageprocessor
     {
-        string qnnee { get; set; }
+        string qnn { get; set; }
         UInt16 offset { get; set; }
         ushort length { get; set; }
         char imagesize { get; set; }

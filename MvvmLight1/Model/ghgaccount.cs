@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MvvmLight1.Model
 {
-    public class Ghgaccount
+    public class Ghgaccoun
     {
         public Ghgaccount(string account, string container, string[] regions)
         {

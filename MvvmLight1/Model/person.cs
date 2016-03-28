@@ -128,8 +128,6 @@ namespace MvvmLight1.Model
     }
 
 
-
-
     public class Provider : Person
     {
         public string[] _prov = new String[4];
