@@ -19,14 +19,7 @@ namespace MvvmLight1.Model
         private const string AccountName = "ghg";
         private const string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
 
-        //string accountName = "ghg";
-        //string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ=="; 
-
-
-
         //string AccountName = "devstoreaccount1";
-
-
         //string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
 
         private static readonly StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
@@ -111,7 +104,7 @@ namespace MvvmLight1.Model
             return false;
         }
 
-
+//this is slow - need to store this as static data - ie a separate program for each country
         public static string[] GetRegions(string countryname)
         {
             if (countryname == null) return null;
