@@ -11,17 +11,18 @@
         WindowStyle="ToolWindow"
         
         
-        DataContext="{Binding Main, Source={StaticResource Locator}}" Width="615" Height="550">
-    <Grid x:Name="LayoutRoot" Width="600" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top">
+        DataContext="{Binding Main, Source={StaticResource Locator}}" Width="560" Height="550">
+    <Grid x:Name="LayoutRoot" Width="550" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top">
 
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="599*"/>
+            <ColumnDefinition Width="500"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="0"/>
-            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="17"/>
+            <ColumnDefinition Width="69"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -49,10 +50,7 @@
             Grid.Row="1" 
             Grid.Column="0"
             Margin="10,10,0,0" >
-            <!--d:LayoutOverrides="LeftMargin, RightMargin, TopICDsMargin, BottomMargin"-->
 
-            <!--DataContext="{Binding EHealth, Source={StaticResource Locator}}"-->
-            <!--e-health tab-->
             <TabItem Header = "E-Health"
                  
                      Height="22" 
@@ -64,8 +62,8 @@
 
                 <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="80"/>
@@ -91,11 +89,11 @@
                         <ListView.View>
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
-                                <GridViewColumn Header="Name" Width="100"
+                                <GridViewColumn Header="Name" Width="80"
                                                 DisplayMemberBinding = "{Binding Name}"/>
                                 <GridViewColumn Header="Cell" Width="80" TextBlock.TextAlignment="Left"
                                                 DisplayMemberBinding="{Binding Cell}" />
-                                <GridViewColumn Header="Email" Width="100"
+                                <GridViewColumn Header="Email" Width="80"
                                                  DisplayMemberBinding="{Binding Email}"/>
                                 <GridViewColumn Header="Last Visit" Width="80"
                                                 DisplayMemberBinding="{Binding LastVisit, StringFormat = dd/MM/yyyy}"
@@ -103,7 +101,7 @@
                                 <GridViewColumn Header="Next Visit" Width="80"
                                                 DisplayMemberBinding="{Binding NextVisit, StringFormat=dd/MM/yyyy}"
                                                 />
-                                <GridViewColumn Header="Details" Width="130" >
+                                <GridViewColumn Header="Details" Width="80" >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel>
@@ -129,16 +127,7 @@
                         </ListView.View>
 
                     </ListView>
-                    <!--<ListViewItem>
-                        -->
-                    <!--<Button 
-                            TextBlock.TextAlignment="Left"                          
-                            Content="Tony" 
-                            Background="White" 
-                            Block.TextAlignment="Left" Width="200"                         
-                         />-->
-                    <!--
-                    </ListViewItem>-->
+
                 </Grid>
             </TabItem>
 
@@ -148,10 +137,12 @@
                    Width="100" Background="{x:Null}"  >
 
                 <Grid>
-                    <DockPanel Margin="5,0,60,0">
-                        <StatusBar
+                    <DockPanel Margin="5,0,5,0">
+
+                        <!--<StatusBar
                 Height="25"
-                DockPanel.Dock="Bottom" />
+                DockPanel.Dock="Bottom" />-->
+
                         <StackPanel
                 Width="50"
                 DockPanel.Dock="Left">
@@ -160,8 +151,6 @@
                     FontFamily="Segoe UI Symbol"
                     FontSize="16"
                     Text="&#xE202;" />
-
-
                             <ListBox Height="130" />
                             <TextBlock
                     Margin="12"
@@ -171,7 +160,7 @@
                             <ListBox
                     Height="170" />
                         </StackPanel>
-                        <StackPanel Width="120" Margin="0 0 0 0">
+                        <StackPanel Width="120" Margin="-100 0 0 0">
                             <TextBlock
                     FontSize="8"
                     Text="Date" />
@@ -206,8 +195,6 @@
                         Command="{Binding EditMap}" />
                                 <ComboBox />
                             </DockPanel>
-
-
                             <TextBlock
                     FontSize="8"
                     Text="Referred by" />
@@ -275,134 +262,6 @@
                     </DockPanel>
 
                 </Grid>
-
-                <!--<Grid>
-                    <DockPanel
-                        Margin="10"
-            LastChildFill="True">
-                        --><!--<StatusBar Height="25" DockPanel.Dock="Bottom" />--><!--
-                        <StackPanel
-                Width="50"
-                DockPanel.Dock="Left">
-                            <TextBlock
-                    Margin="12"
-                    FontFamily="Segoe UI Symbol"
-                    FontSize="16"
-                    Text="&#xE202;" />
-                            <ListBox Height="130" />
-                            <TextBlock
-                    Margin="12"
-                    FontFamily="Segoe UI Symbol"
-                    FontSize="16"
-                    Text="&#xE10B;" />
-                            <ListBox Height = "160" />
-                        </StackPanel>
-                        <StackPanel Margin="0,0,240,0">
-                            <TextBlock
-                    FontSize="8"
-                    Text="Date" />
-                            <DatePicker />
-                            <TextBlock
-                    FontSize="8"
-                    Text="ICD's" />
-                            <TextBox />
-                            <TextBlock
-                    FontSize="8"
-                    Text="Age" />
-                            <ComboBox
-                    ItemsSource="{Binding AgeGroups}"
-                    SelectedIndex="0" />
-                            <TextBlock
-                    FontSize="8"
-                    Text="Gender" />
-                            <ComboBox
-                    ItemsSource="{Binding Genders}"
-                    SelectedIndex="0" />
-                            <TextBlock
-                    FontSize="8"
-                    Text="From Region" />
-                            <DockPanel>
-                                <Button
-                        DockPanel.Dock="Right"
-                        Width="20"
-                        FontFamily="Segoe UI Symbol"
-                        FontSize="12"
-                        Content="&#xe12b;"
-                        Command="{Binding EditMap}" />
-                                <ComboBox />
-                            </DockPanel>
-
-
-                            <TextBlock
-                    FontSize="8"
-                    Text="Referred by" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Qualifications}"
-                    SelectedIndex="0" />
-
-                            <TextBlock
-                    FontSize="8" Text="Treated by" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Qualifications}"
-                    SelectedIndex="2" />
-
-                            <TextBlock
-                    FontSize="8"
-                    Text="Specialty" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Treaters}"
-                    SelectedIndex="0" />
-
-                            <TextBlock
-                    FontSize="8"
-                    Text="Facility" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Facilities}"
-                    SelectedIndex="0" />
-                            <TextBlock
-                    FontSize="8"
-                    Text="Treatment Region" />
-
-                            <DockPanel>
-
-                                <Button
-                        Width="20"
-                        DockPanel.Dock="Right"
-                        FontFamily="Segoe UI Symbol"
-                        FontSize="12"
-                        Content="&#xe12b;"
-                        Command="{Binding EditMap}" />
-                                <ComboBox
-
-                        ItemsSource="{Binding Regions}"                         
-                                    />
-                                --><!--SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"--><!--
-                            </DockPanel>
-                            <TextBlock
-                    FontSize="8"
-                    Text="InOut" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Stays}"
-                    SelectedIndex="{Binding Stay}" />
-
-                            <TextBlock
-                    FontSize="8"
-                    Text="{Binding Staymessage}" />
-
-                            <TextBox />
-
-                            --><!--Button DockPanel.Dock="Bottom" Height="20" Width="50" Margin="0 5 0 5" Content="Save" /--><!--
-
-                        </StackPanel>
-
-                    </DockPanel>
-
-                </Grid>-->
 
             </TabItem>
 
