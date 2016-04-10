@@ -74,12 +74,12 @@ namespace MvvmLight1.ViewModel
         // }
 
 
-        public static void ShowEpidemiologyDlg()
-        {
-            var s = Login;
-            var v = new EpidemV();
-            v.ShowDialog();
-        }
+        //public static void ShowEpidemiologyDlg()
+        //{
+        //   // var s = Login;
+        //    var v = new EpidemV();
+        //    v.ShowDialog();
+        //}
 
         public static void ShowLoaderDlg()
         {
@@ -129,7 +129,7 @@ namespace MvvmLight1.ViewModel
         private void SetupRelayCommands()
         {
             // EditMap = new RelayCommand(ShowMapDlg); // (ShowMapDlg);         
-            EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
+            //EditEpidemiology = new RelayCommand(ShowEpidemiologyDlg);
             EditLoader = new RelayCommand(ShowLoaderDlg);
             EditEhealth = new RelayCommand(ShowEhealthDlg);
             AddEhealth = new RelayCommand(AddEhealthDlg);

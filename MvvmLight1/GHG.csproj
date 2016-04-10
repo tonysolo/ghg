@@ -139,9 +139,6 @@
       <DependentUpon>LoaderRegV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\QneUtils.cs" />
-    <Compile Include="EpidemV.xaml.cs">
-      <DependentUpon>EpidemV.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\sharedutilities.cs">
       <SubType>Code</SubType>
@@ -189,10 +186,6 @@
       <DependentUpon>MainV.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="EpidemV.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MapV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
