@@ -31,5 +31,10 @@ MessageBox.Show("Button Clicked");
             var p = MainVm.Patients[0];
             //throw new System.NotImplementedException();
         }
+
+        //private void ListView1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        //{
+           
+        //}
     } 
 }
