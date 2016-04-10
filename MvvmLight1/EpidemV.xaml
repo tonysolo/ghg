@@ -8,7 +8,7 @@
         Title="Epidemiology"
         WindowStartupLocation= "CenterOwner"
         WindowStyle="ToolWindow"
-        DataContext="{Binding Epidem, Source={StaticResource Locator}}" Width="250" Height="450" FontFamily="Segoe UI Symbol">
+        DataContext="{Binding Epidem, Source={StaticResource Locator}}" Width="285.857" Height="450" FontFamily="Segoe UI Symbol" ResizeMode="NoResize">
     <Grid>
         <DockPanel>
             <StatusBar
@@ -37,100 +37,90 @@
                 <TextBlock
                     FontSize="8"
                     Text="Date" />
-                <DatePicker />
+                <DatePicker Width="120" />
                 <TextBlock
                     FontSize="8"
-                    Text="ICD's"
+                    Text="ICD's" Width="120"
                     />
-                <TextBox />
+                <TextBox Width="120" />
                 <TextBlock
                     FontSize="8"
-                    Text="Age" />
+                    Text="Age" Width="120" />
                 <ComboBox
                     ItemsSource="{Binding AgeGroups}"
-                    SelectedIndex="0" />
+                    SelectedIndex="0" Width="120" />
                 <TextBlock
                     FontSize="8"
-                    Text="Gender" />
+                    Text="Gender" Width="120" />
                 <ComboBox
                     ItemsSource="{Binding Genders}"
-                    SelectedIndex="0" />
+                    SelectedIndex="0" Width="120" />
                 <TextBlock
                     FontSize="8"
-                    Text="From Region" />
-                <DockPanel>
-                    <Button
-                        DockPanel.Dock="Right"
-                        Width="20"
-                        FontFamily="Segoe UI Symbol"
-                        FontSize="12"
-                        Content="&#x2638;"
-                        Command="{Binding EditMap}" />
-                    <ComboBox />
-                </DockPanel>
+                    Text="From Region" Width="120" />
+                <ComboBox Margin="15,0,35,0" />
+                <Button
+                	FontFamily="Segoe UI Symbol"
+                	FontSize="12"
+                	Content="☸"
+                	Command="{Binding EditMap}" Margin="150,0,0,0" />
 
 
                 <TextBlock
                     FontSize="8"
-                    Text="Referred by" />
+                    Text="Referred by" Width="120" />
 
                 <ComboBox
                     ItemsSource="{Binding Qualifications}"
-                    SelectedIndex="0" />
+                    SelectedIndex="0" Width="120" />
 
                 <TextBlock
-                    FontSize="8" Text="Treated by" />
+                    FontSize="8" Text="Treated by" Width="120" />
 
                 <ComboBox
                     ItemsSource="{Binding Qualifications}"
-                    SelectedIndex="2" />
+                    SelectedIndex="2" Width="120" />
 
                 <TextBlock
                     FontSize="8"
-                    Text="Specialty" />
+                    Text="Specialty" Width="120" />
 
                 <ComboBox
                     ItemsSource="{Binding Treaters}"
-                    SelectedIndex="0" />
+                    SelectedIndex="0" Width="120" />
 
                 <TextBlock
                     FontSize="8"
-                    Text="Facility" />
+                    Text="Facility" Width="120" />
 
                 <ComboBox
                     ItemsSource="{Binding Facilities}"
-                    SelectedIndex="0" />
+                    SelectedIndex="0" Width="120" />
                 <TextBlock
                     FontSize="8"
-                    Text="Treatment Region" />
+                    Text="Treatment Region" Width="120" />
+                <Button
+                	FontFamily="Segoe UI Symbol"
+                	FontSize="12"
+                	Content="☸"
+                	Command="{Binding EditMap}" Margin="150,0,0,0" />
+                <ComboBox
 
-                <DockPanel>
-
-                    <Button
-                        Width="20"
-                        DockPanel.Dock="Right"
-                        FontFamily="Segoe UI Symbol"
-                        FontSize="12"
-                        Content="&#x2638;"
-                        Command="{Binding EditMap}" />
-                    <ComboBox
-
-                        ItemsSource="{Binding Regions}"
-                        SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" />
-                </DockPanel>
+                	ItemsSource="{Binding Regions}"
+                	SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" Margin="15,0,35,0" />
                 <TextBlock
                     FontSize="8"
-                    Text="InOut" />
+                    Text="InOut" Width="120" />
 
                 <ComboBox
                     ItemsSource="{Binding Stays}"
-                    SelectedIndex="{Binding Stay}" />
+                    SelectedIndex="{Binding Stay}" Width="120" />
 
                 <TextBlock
                     FontSize="8"
-                    Text="{Binding Staymessage}" />
+                    Text="{Binding Staymessage}" Width="120" />
 
-                <TextBox />
+                <TextBox Width="120" />
 
             </StackPanel>
 
