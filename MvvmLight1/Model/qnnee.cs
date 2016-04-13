@@ -3,7 +3,8 @@
 namespace MvvmLight1.Model
 {
 
-    public static class QnneeUtil
+    public static class 
+        QnneeUtil
     {
 
         public static string AzureTrim(string instr) //trims hidden chars
