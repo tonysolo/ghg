@@ -5,6 +5,7 @@ using System.IO.Compression;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Newtonsoft.Json;
+using static System.String;
 
 
 namespace MvvmLight1.Model
@@ -68,7 +69,7 @@ namespace MvvmLight1.Model
     public static class QneUtils
     {
 
-        public static CultureInfo Ci = new CultureInfo("en-us");
+        //public static CultureInfo Ci = new CultureInfo("en-us");
 
         public static string Setzoom4()
         {
@@ -99,7 +100,7 @@ namespace MvvmLight1.Model
 
             var latint = (int)(Math.Abs(lat / 180) * 4096);
             var lonint = (int)(Math.Abs(lon / 180) * 4096);
-            var s = String.Format("Ci,{0:x1}{1:x3}{2:x3}", q, latint, lonint);
+            var s = $"{q:x1}{latint:x3}{lonint:x3}";
             return s.Trim();
         }
 
@@ -123,7 +124,7 @@ namespace MvvmLight1.Model
 
             var latint = (int)(Math.Abs(lat / 180) * 256);
             var lonint = (int)(Math.Abs(lon / 180) * 256);
-            var s = String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, latint, lonint);
+            var s = $"{q:x1}{latint:x2}{lonint:x2}";
             return s.Trim();
         }
 
@@ -170,7 +171,7 @@ namespace MvvmLight1.Model
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
             // var s = String.Format("{0} {1:en-US}", lat, lon);
-            return lat.ToString("F2", Ci) + ',' + lon.ToString("F2", Ci);
+            return lat.ToString(@"F2") + ',' + lon.ToString(@"F2");
         }
 
 
@@ -219,7 +220,7 @@ namespace MvvmLight1.Model
 
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-            return String.Format(Ci, "{0:F4},{1:F4}", lat, lon); //comma separated
+            return $@"{lat:F4},{lon:F4}"; //comma separated
         }
 
 
@@ -262,10 +263,10 @@ namespace MvvmLight1.Model
                 //if (lon0 == 0) lon0 = 1;
                 // if (lon1 == 0) lon1 = 1;
 
-                saa[0] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat0, lon0));
-                saa[1] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat0, lon1));
-                saa[2] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat1, lon1));
-                saa[3] = IndexPoint(String.Format(Ci, "{0:x1}{1:x2}{2:x2}", q, lat1, lon0));
+                saa[0] = IndexPoint($"{q:x1}{lat0:x2}{lon0:x2}");
+                saa[1] = IndexPoint($"{0:x1}{1:x2}{2:x2}", q, lat0, lon1);
+                saa[2] = IndexPoint($"{q:x1}{lat1:x2}{lon1:x2}");
+                saa[3] = IndexPoint($"{q:x1}{lat1:x2}{lon0:x2}");
             }
             else //qnnee is 7 charaters (A District)
             {
@@ -273,25 +274,30 @@ namespace MvvmLight1.Model
                 var lon0 = Convert.ToInt16(qnnee.Substring(4, 3), 16);
 
                 if (lat0 < 2047)
-                    lat1 = (Int16)(lat0 + 1);
+                    lat1 = (short)(lat0 + 1);
                 else
                 {
                     lat1 = lat0;
-                    q = (Int16)(3 - q);
+                    q = (short)(3 - q);
                 }
                 if (lon0 < 4095)
-                    lon1 = (Int16)(lon0 + 1);
+                    lon1 = (short)(lon0 + 1);
                 else lon1 = lon0;
 
                 if (lon0 == 0) lon0 = 1;
                 if (lon1 == 0) lon1 = 1;
 
-                saa[0] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.0.00}{2:0.00}", q, lat0, lon0));
-                saa[1] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.0}{2:0.00}", q, lat0, lon1));
-                saa[2] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.00}{2:0.00}", q, lat1, lon1));
-                saa[3] = IndexPoint(String.Format(Ci, "{0:x1}{1:0.00,}{2:0.00}", q, lat1, lon0));
+                saa[0] = IndexPoint($"{q:x1}{lat0:0.0.00}{lon0:0.00}");
+                saa[1] = IndexPoint($"{q:x1}{lat0:0.0}{lon1:0.00}");
+                saa[2] = IndexPoint($"{q:x1}{lat1:0.00}{lon1:0.00}");
+                saa[3] = IndexPoint($"{q:x1}{lat1:0.00,}{lon0:0.00}");
             }
-            return String.Join(" ", saa);
+            return Join(" ", saa);
+        }
+
+        private static string IndexPoint(string v, short q, short lat0, short lon1)
+        {
+            throw new NotImplementedException();
         }
 
 
@@ -339,27 +345,21 @@ namespace MvvmLight1.Model
           //  if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
 
+            // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (nsew)
                 {
                     case 'n': QnneeUtil.MovN(ref qnnee); break;
                     
-                    case 's': QnneeUtil.MovS(ref qnnee); break;
-                      
+                    case 's': QnneeUtil.MovS(ref qnnee); break;                    
                        
                     case 'e': QnneeUtil.MovE(ref qnnee);break;
-                       
-                      
+                                           
                     case 'w': QnneeUtil.MovW(ref qnnee);break;
                     
                 }
-
-              
-
                 return qnnee;
             }
           
-     
-
 
         /// <summary>
         ///     Calculates Seconds to midnight for timezones

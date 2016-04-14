@@ -9,18 +9,12 @@ namespace MvvmLight1.Model
 
     public static class SharedData
     {
-        public static CultureInfo Ci = new CultureInfo("en-us");
+        //public static CultureInfo Ci = new CultureInfo("en-us");
         private static string[] _regionnames;
         private static string[] _countrynames;
         private static int _selectedcountryindex;
 
-        public static string CountryName
-        {
-            get
-            {
-                return CountryNames[SelectedCountryIndex];
-            }
-        }
+        public static string CountryName => CountryNames[SelectedCountryIndex];
 
         public static string SelectedCountry { get; set; }
 
@@ -43,7 +37,7 @@ namespace MvvmLight1.Model
             set;
         }
 
-        public static String[] CountryNames
+        public static string[] CountryNames
         {
             get
             {
