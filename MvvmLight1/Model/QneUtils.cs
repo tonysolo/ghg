@@ -112,6 +112,7 @@ namespace MvvmLight1.Model
         /// <returns>qnnee format latlon string</returns>
         public static string to_qnnee(string deccoords)
         {
+            //CultureInfo ci = CultureInfo.InvariantCulture;
             char[] delim = { ',' };
             var sarr = deccoords.Split(delim);
             var lat = Convert.ToDouble(sarr[0]);
@@ -171,7 +172,7 @@ namespace MvvmLight1.Model
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
             // var s = String.Format("{0} {1:en-US}", lat, lon);
-            return lat.ToString(@"F2") + ',' + lon.ToString(@"F2");
+            return FloatToString(lat) + ',' + FloatToString(lon);
         }
 
 
@@ -220,9 +221,24 @@ namespace MvvmLight1.Model
 
             if ((qnnee[0] == '1') || (qnnee[0] == '3')) lon *= -1;
             if ((qnnee[0] == '2') || (qnnee[0] == '3')) lat *= -1;
-            return $@"{lat:F4},{lon:F4}"; //comma separated
+
+            //doubleNumber = 18934.1879;
+            //var lonst = lon.ToString("F3", CultureInfo.InvariantCulture);
+            //var latst = lat.ToString("F3", CultureInfo.InvariantCulture);
+
+
+            //var lons = string.Format("{F:3,F:3}", lon, lat); 
+
+
+            //return lonst + ',' + latst;
+            return FloatToString(lat) + ',' + FloatToString(lon);
         }
 
+
+        public static string FloatToString(double f)
+        {
+            return f.ToString("F3", CultureInfo.InvariantCulture);
+        }
 
         /// <summary>
         ///     constructs a 4 point boundary from 5 or 7 digit qnnee index point and
@@ -264,7 +280,7 @@ namespace MvvmLight1.Model
                 // if (lon1 == 0) lon1 = 1;
 
                 saa[0] = IndexPoint($"{q:x1}{lat0:x2}{lon0:x2}");
-                saa[1] = IndexPoint($"{0:x1}{1:x2}{2:x2}", q, lat0, lon1);
+                saa[1] = IndexPoint($"{q:x1}{lat0:x2}{lon1:x2}");
                 saa[2] = IndexPoint($"{q:x1}{lat1:x2}{lon1:x2}");
                 saa[3] = IndexPoint($"{q:x1}{lat1:x2}{lon0:x2}");
             }
@@ -284,21 +300,23 @@ namespace MvvmLight1.Model
                     lon1 = (short)(lon0 + 1);
                 else lon1 = lon0;
 
-                if (lon0 == 0) lon0 = 1;
-                if (lon1 == 0) lon1 = 1;
+                //if (lon0 == 0) lon0 = 1;
+                //if (lon1 == 0) lon1 = 1;
 
-                saa[0] = IndexPoint($"{q:x1}{lat0:0.0.00}{lon0:0.00}");
-                saa[1] = IndexPoint($"{q:x1}{lat0:0.0}{lon1:0.00}");
-                saa[2] = IndexPoint($"{q:x1}{lat1:0.00}{lon1:0.00}");
-                saa[3] = IndexPoint($"{q:x1}{lat1:0.00,}{lon0:0.00}");
+                saa[0] = IndexPoint($"{q:x1}{lat0:x:3}{lon0:x:3}");
+                saa[1] = IndexPoint($"{q:x1}{lat0:x:3}{lon1:x:3}");
+                saa[2] = IndexPoint($"{q:x1}{lat1:x:3}{lon1:x:3}");
+                saa[3] = IndexPoint($"{q:x1}{lat1:x:3}{lon0:x:3}");
             }
-            return Join(" ", saa);
+             var s = Join(" ", saa);
+
+            return s;
         }
 
-        private static string IndexPoint(string v, short q, short lat0, short lon1)
-        {
-            throw new NotImplementedException();
-        }
+        //private static string IndexPoint(string v, short q, short lat0, short lon1)
+        //{
+       //     throw new NotImplementedException();
+       // }
 
 
         /// <summary>

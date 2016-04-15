@@ -21,9 +21,9 @@
                ZoomLevel="4" Margin="0,1,0,0"               
                >       
            
-            <!--<m:Pushpin Location = "{Binding Centre}" 
+              <m:Pushpin Location = "{Binding Centre}" 
                        Background ="{Binding FillColor}"
-                        />--> 
+                        /> 
             
                       <m:MapPolygon Fill= "MediumSlateBlue"                                  
                           Locations = "{Binding Boundary}"

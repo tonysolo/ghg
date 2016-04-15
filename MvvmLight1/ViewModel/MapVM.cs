@@ -82,17 +82,14 @@ namespace MvvmLight1.ViewModel
         private void RegionNorth()
         {
             Qnnee = QneUtils.MoveNsew(Qnnee, 'n');
-            //QneUtils.MoveN(Qnnee);
-            //qne.movN();
             Centre = QneUtils.CentrePoint(Qnnee);
             Boundary = QneUtils.Boundary(Qnnee);
             FillColor = SharedData.Isvalid(Qnnee) ? "Blue" : "White";
-            RaisePropertyChanged("Centre");       
+                   
             RaisePropertyChanged("Qnnee");
             RaisePropertyChanged("Boundary");
             RaisePropertyChanged("Centre");
-            RaisePropertyChanged("FillColor");
-  
+            RaisePropertyChanged("FillColor");  
         }
 
         private void RegionSouth()
