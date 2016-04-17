@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace MvvmLight1.Model
 {
     public static class AzureUtil
-    {
+    {                                                                                                                                                                
         private static readonly CloudStorageAccount CldStoreAcc = CloudStorageAccount.DevelopmentStorageAccount;
         public static string[] CurrentCountry; //placeholder for all current qnnee Regions
         public static string Centreregion = ""; //centre of Region placeholder qnnee
@@ -29,7 +29,7 @@ namespace MvvmLight1.Model
                 for (int i = 0; i < sarr.Length; i++) sarr[i] = cqarr[i].Name;
                 return sarr;
             }
-        }
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
         public static string[] BlobContainerNames
         {
@@ -172,7 +172,7 @@ namespace MvvmLight1.Model
 
             loaderArray[1] = loader.Metadata["NextLoader"]; //hexadecimal next in sequence Id for each loader/Provider
             short ndx = Convert.ToInt16(loaderArray[1], 16);
-            loader.Metadata["NextLoader"] = String.Format("{0:x}", ndx + 1);
+            loader.Metadata["NextLoader"] = $"{ndx + 1:x}";
 
             string json = JsonConvert.SerializeObject(loaderArray.Skip(1));
                 //skips the qnnee field //should check that loaderdata is <= 512 bytes
