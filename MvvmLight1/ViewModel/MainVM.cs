@@ -17,8 +17,7 @@ namespace MvvmLight1.ViewModel
             SetupRelayCommands();
             Login = "-password-";
             LoadEhealth();         
-            var lvi = new ListViewItem();
-            
+            var lvi = new ListViewItem();        
         }
 
         public static string Lastvisit { get; set; }
@@ -114,8 +113,25 @@ namespace MvvmLight1.ViewModel
 
         private static void LoadEhealth()
         {
-            var p = new Provider("ghza=22427=1", "2");
-            Patients = p.RecentPatients;
+            //var p = new Provider("ghza=22427=1", "2");
+            Patients = new ObservableCollection<Patient>();
+            for (var i = 0; i < 10; i++)
+            {
+                var p = new Patient
+                {
+                    Name = "Tony Manicom",
+                    Sex = "M",
+                    Cell = "0824102620",
+                    NextVisit = "10/2/2000",
+                    LastVisit = "8/2/2000",
+                    Email = "tony@turbomed.co.za"
+                };
+                Patients.Add(p);
+            }
+
+           // Patients.FirstOrDefault()
+                
+
            
         }
 
