@@ -57,6 +57,8 @@ namespace MvvmLight1.Model
             }
         }
 
+        //Register methods return a unique address to use for storage
+        //returns a new address - "account=qnnee=offset" 
         private static string Registernewprovider(string account, string region)
         {
             var l = Setcountryaccount(account). //"ghza"
@@ -74,6 +76,7 @@ namespace MvvmLight1.Model
             return account + '=' + region + '=' + x;
         }
 
+//returns a new address - "account-qnnee-offset"
         private static string Registernewpatient(string account, string region)
         {
             var p = Setcountryaccount(account). //"ghza"
@@ -91,7 +94,7 @@ namespace MvvmLight1.Model
             return account + '-' + region + '-' + x;
         }
 
-        //
+        //returns a new address - "account|qnnee|blobsize|offset" eg ghza|32222|5|20
         private static string Registernewimage(string account, string region, int imagesize)
         {
             var s =
@@ -132,7 +135,7 @@ namespace MvvmLight1.Model
             I.Metadata["Next"] = x; //(x + 1).ToString("x");
             I.SetMetadata();
             //I.SetMetadata(AccessCondition.GenerateIfMatchCondition(tag));
-            return account + '|' + region + '|' + blobname + '|' + x;
+            return account + '|' + region + '|' + blobname +  '|' + x;
 
         }
 
