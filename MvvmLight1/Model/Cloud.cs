@@ -13,9 +13,9 @@ namespace MvvmLight1.Model
 {
 
 
-    internal static class Global
+    public static class Global
     {
-        private static string Accountname { get; set; } //ghg 
+        public static string Accountname { get; set; } //ghg 
         private static CloudStorageAccount SelectedAccount { get; set; }
 
         public static CloudStorageAccount Setcountryaccount(string accname)

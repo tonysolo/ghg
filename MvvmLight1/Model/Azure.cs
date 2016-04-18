@@ -12,19 +12,22 @@ namespace MvvmLight1.Model
     {
         // static string AccountName = "devstoreaccount1";
         //  static string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        //string accountName = "ghg";
+        //string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
         // static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
         // static CloudStorageAccount Account = new CloudStorageAccount(Creds, useHttps: true);
         // public static CloudStorageAccount Account = 
         //  CloudStorageAccount(System.Configuration.AppSettingsReader("GHGConnectionString"));
-        private const string AccountName = "ghg";
-        private const string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
+       
+            //private const string AccountName = "ghg";
+        //private const string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
 
         //string AccountName = "devstoreaccount1";
         //string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
 
-        private static readonly StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
-        private static readonly CloudStorageAccount Account = new CloudStorageAccount(Creds, useHttps: true);
-
+       // private static readonly StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
+       // private static readonly CloudStorageAccount Account = new CloudStorageAccount(Creds, useHttps: true);
+        private static readonly CloudStorageAccount Account = Global.Setcountryaccount("ghg");
 
 
         /// <summary>
