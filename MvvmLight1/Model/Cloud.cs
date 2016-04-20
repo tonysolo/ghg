@@ -11,8 +11,6 @@ using Newtonsoft.Json;
 
 namespace MvvmLight1.Model
 {
-
-
     public static class Global
     {
         public static string Accountname { get; set; } //ghg 
@@ -136,12 +134,14 @@ namespace MvvmLight1.Model
             I.SetMetadata();
             //I.SetMetadata(AccessCondition.GenerateIfMatchCondition(tag));
             return account + '|' + region + '|' + blobname +  '|' + x;
-
         }
-
-
-
     }
+
+
+
+
+
+
 
     public class MedCondition
     {
@@ -392,7 +392,7 @@ namespace MvvmLight1.Model
     public class Patient : Person
     {
         public string Country { get; set; }
-        public string PatientId { get; set; }
+        private string PatientId { get; set; }
         public string Birthday { get; set; }
         public string Sex { get; set; }
         public Person NextOfKin { get; set; } // next of carer
@@ -401,11 +401,11 @@ namespace MvvmLight1.Model
         public List<Person> Dependants { get; set; } //qnneepxxxx <Patient>
         public string NextVisit { get; set; }
         public string LastVisit { get; set; }
-        public UInt16 Riskflags { get; set; } //disability, poverty, chronic disease, neonate,age,
+        public ushort Riskflags { get; set; } //disability, poverty, chronic disease, neonate,age,
         //smoker,
         public byte Version { get; set; }
-
-
+        //patientid wont be saved to azure - it will be used to generate the 'account/region/page blob' storage address
+        //ie temporary stored in patient data during editing and persisted in the blob name.
         public Patient() : base()
         {
             Alerts = new List<MedCondition>();
@@ -416,7 +416,7 @@ namespace MvvmLight1.Model
                 Description = ""
             };
             var mc = new MedCondition("Cor Art Bypass", "C22.0");
-            visit.Condition = new List<MedCondition> { mc };
+            visit.Condition = new List<MedCondition> {mc};
             Visits.Add(visit);
         }
 
@@ -427,7 +427,7 @@ namespace MvvmLight1.Model
             if (login.Length != 2) return;
         }
 
-        public void save_to_azure()
+        public void save_to_azure(string healthid)
         {
             var ms = new MemoryStream();
             Jsonutil.Serialize(this, ms);
@@ -446,10 +446,10 @@ namespace MvvmLight1.Model
 
             //length 2bytes, version 1byte, compressed data -   expanded modulo 512
         }
+    }
 
 
-
-        //void Main()
+    //void Main()
         //{
         //   Provider p = new Provider("ghza=22427=1", "2");
         //var azure_prov_reg = registernewprovider("ghza", "22427");
@@ -595,4 +595,3 @@ namespace MvvmLight1.Model
         //	MemoryStream ms4 = new MemoryStream(ba3);
         //	var prv = jsonutil.Deserialize<Provider>(ms4);
     }
-}

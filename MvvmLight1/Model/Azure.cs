@@ -8,51 +8,14 @@ using Microsoft.WindowsAzure.Storage.Auth;
 
 namespace MvvmLight1.Model
 {
-    public class Azure
+    public static class Azure
     {
         // static string AccountName = "devstoreaccount1";
         //  static string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
-        //string accountName = "ghg";
-        //string accountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
-        // static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
-        // static CloudStorageAccount Account = new CloudStorageAccount(Creds, useHttps: true);
-        // public static CloudStorageAccount Account = 
-        //  CloudStorageAccount(System.Configuration.AppSettingsReader("GHGConnectionString"));
-       
-            //private const string AccountName = "ghg";
-        //private const string AccountKey = "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
-
-        //string AccountName = "devstoreaccount1";
-        //string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
-
-       // private static readonly StorageCredentials Creds = new StorageCredentials(AccountName, AccountKey);
-       // private static readonly CloudStorageAccount Account = new CloudStorageAccount(Creds, useHttps: true);
+        
         private static readonly CloudStorageAccount Account = Global.Setcountryaccount("ghg");
 
-
-        /// <summary>
-        /// registers a new loader
-        /// </summary>
-        // <param name="json"></param>
-        /// <returns>string index</returns>
-        /*   public static int RegisterNewLoader(string json)
-           {
-               GhgAccount = "GHGConnetionString";
-               var bytes = Encoding.UTF8.GetBytes(json);
-               var grow = (512 - bytes.Length % 512);
-               Array.Resize(ref bytes, bytes.Length + grow);
-               var s = SetNextLoaderIndex();
-               if (s == -1) return s;
-               // var p = Convert.ToInt32(s, 16);
-               var ms = new MemoryStream(bytes);
-               var start = s << 10;
-               Loaderblob.WritePages(ms, start);
-               return s;
-           }
-   */
-        //18/10/2015 decided to keep this data local to save reading azure data country list thats always needed on starup 
-        //and seldom changes - records country code | page offset | data length. Perhaps I will put it in azure later.
-        //also saved in 
+ 
         public static string[] CountryData =
             {
             "ZA|0|1607",
@@ -65,7 +28,7 @@ namespace MvvmLight1.Model
         {
 
             var sarr = new string[CountryData.Length];
-            for (int i = 0; i < sarr.Length; i++)
+            for (var i = 0; i < sarr.Length; i++)
             {
                 sarr[i] = CountryData[i].Split('|')[0];
             }
@@ -89,16 +52,6 @@ namespace MvvmLight1.Model
             return ol;
         }
 
-
-        /*
-                    CloudBlobClient cbc = Account.CreateCloudBlobClient();
-                    CloudBlobContainer Container = cbc.GetContainerReference("countries");
-                    IListBlobItem[] blobs = Container.ListBlobs().ToArray();
-                    var sarr = new string[blobs.Length];
-                    for (int i = 0; i < sarr.Length; i++)
-                        sarr[i] = blobs[i].Uri.Segments[2].Substring(0,2).ToUpper();
-                    return sarr;
-                    */
 
 
         private static bool IsHex(IEnumerable<char> chars)
