@@ -10,7 +10,7 @@ using static System.String;
 
 namespace MvvmLight1.Model
 {
- 
+
 
     static partial class Jsonutil
     {
@@ -308,15 +308,15 @@ namespace MvvmLight1.Model
                 saa[2] = IndexPoint($"{q:x1}{lat1:x:3}{lon1:x:3}");
                 saa[3] = IndexPoint($"{q:x1}{lat1:x:3}{lon0:x:3}");
             }
-             var s = Join(" ", saa);
+            var s = Join(" ", saa);
 
             return s;
         }
 
         //private static string IndexPoint(string v, short q, short lat0, short lon1)
         //{
-       //     throw new NotImplementedException();
-       // }
+        //     throw new NotImplementedException();
+        // }
 
 
         /// <summary>
@@ -358,26 +358,26 @@ namespace MvvmLight1.Model
         {
             //qnnee _qne = new Model.qnnee(qnnee);
 
-           // bool isWest;
-           // var isEast = isWest = false;
-          //  if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
+            // bool isWest;
+            // var isEast = isWest = false;
+            //  if ((qnnee.Length != 5) && (qnnee.Length != 7)) return "";
 
 
             // ReSharper disable once SwitchStatementMissingSomeCases
-                switch (nsew)
-                {
-                    case 'n': QnneeUtil.MovN(ref qnnee); break;
-                    
-                    case 's': QnneeUtil.MovS(ref qnnee); break;                    
-                       
-                    case 'e': QnneeUtil.MovE(ref qnnee);break;
-                                           
-                    case 'w': QnneeUtil.MovW(ref qnnee);break;
-                    
-                }
-                return qnnee;
+            switch (nsew)
+            {
+                case 'n': QnneeUtil.MovN(ref qnnee); break;
+
+                case 's': QnneeUtil.MovS(ref qnnee); break;
+
+                case 'e': QnneeUtil.MovE(ref qnnee); break;
+
+                case 'w': QnneeUtil.MovW(ref qnnee); break;
+
             }
-          
+            return qnnee;
+        }
+
 
         /// <summary>
         ///     Calculates Seconds to midnight for timezones

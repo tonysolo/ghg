@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -12,10 +13,12 @@ namespace MvvmLight1.Model
     {
         // static string AccountName = "devstoreaccount1";
         //  static string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
-        
-        private static readonly CloudStorageAccount Account = Global.Setcountryaccount("ghg");
 
- 
+        //static CloudStorageAccount _storageAccount 
+
+        private static readonly CloudStorageAccount Account = CloudStorageAccount.Parse(
+           CloudConfigurationManager.GetSetting("GHGConnectionString"));
+     
         public static string[] CountryData =
             {
             "ZA|0|1607",

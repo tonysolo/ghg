@@ -32,19 +32,26 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Orientation = "Horizontal" Margin="0,0,0,0">
+        <StackPanel Orientation = "Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right" Width="500">
+            <TextBox Text = "Country"/>
+            <ListBox Height="20" 
+                     AllowDrop="True" 
+                     Width ="50" 
+                     ItemsSource = "{Binding CountryNames}" 
+                     />           
+            <!--<TextBox Name = "Country" Text = "{Binding Login}"  Width ="100"  />-->
             <TextBox Name = "Login" Text = "{Binding Login}"  Width ="100"  />
-
-            <TextBox Width="40" Text="  pin" IsEnabled="True"/>
+            <TextBox Width="40" Text  = "{Binding Pin}" IsEnabled="True"/>
             <Button Width="25" FontSize="12 " FontFamily="Segoe UI Symbol" 
                     Content="&#xe1f6;" Background="{x:Null}" 
                     ToolTip="Provider Log-In and Registation " Height="20" 
                     VerticalAlignment="Top"
                     Command="{Binding LoadEhealthdata}"
                     />
-            <Button  Width="50" FontSize="12" Content = "Register" Height="20" 
-                     VerticalAlignment="Bottom" Margin="30,0,0,0"  
+            <Button  Width="65" FontSize="12" Content = "Add Patient" 
+                     VerticalAlignment="Bottom" Margin="20,0,0,0"  
                      Command = "{Binding EditLoader}"/>
+            <Button Content ="New Patient"  Margin = "10 0 0 0"/>
         </StackPanel>
         <TabControl 
             Grid.Row="1" 
@@ -63,7 +70,7 @@
                 <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="80"/>

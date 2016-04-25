@@ -23,8 +23,6 @@ namespace MvvmLight1.Model
             get;
             set;
         }
-
-
         public static int SelectedCountryIndex
         {
             get { return _selectedcountryindex; }

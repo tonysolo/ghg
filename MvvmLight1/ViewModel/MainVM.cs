@@ -4,7 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.WindowsAzure;
 using MvvmLight1.Model;
+using Microsoft.WindowsAzure.Storage;
 
 namespace MvvmLight1.ViewModel
 {
@@ -13,9 +15,13 @@ namespace MvvmLight1.ViewModel
 
         public MainVm()
         {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+                CloudConfigurationManager.GetSetting("GHGConnectionString"));
             IsRegistered = true;
             SetupRelayCommands();
-            Login = "-password-";
+            Login = "-provider Id-";
+            Pin = "-pin-";
+            CountryNames = SharedData.CountryNames;
             LoadEhealth();         
             var lvi = new ListViewItem();        
         }
@@ -26,10 +32,10 @@ namespace MvvmLight1.ViewModel
 
         public static ObservableCollection<Patient> Patients { get; set; }
 
-        
-    
 
         public static string Login { get; set; }
+
+        public static string Pin { get; set; }
 
         public bool IsRegistered
         {
@@ -40,7 +46,7 @@ namespace MvvmLight1.ViewModel
         public static string[] UserAccounts => SharedData.UserAccount;
 
 
-        public static string[] CountryNames => SharedData.CountryNames;
+        public static string[] CountryNames { get; set; }
 
 
         public int CountryIndex
@@ -113,21 +119,25 @@ namespace MvvmLight1.ViewModel
 
         private static void LoadEhealth()
         {
-            //var p = new Provider("ghza=22427=1", "2");
-            Patients = new ObservableCollection<Patient>();
-            for (var i = 0; i < 10; i++)
-            {
-                var p = new Patient
-                {
-                    Name = "Tony Manicom",
-                    Sex = "M",
-                    Cell = "0824102620",
-                    NextVisit = "10/2/2000",
-                    LastVisit = "8/2/2000",
-                    Email = "tony@turbomed.co.za"
-                };
-                Patients.Add(p);
-            }
+           
+            var pat = new Provider("ghza=22427=1", "2");
+            var prov = pat.Prov;
+            var patients = pat.RecentPatients;
+
+            //Patients = new ObservableCollection<Patient>();
+            //for (var i = 0; i < 10; i++)
+            //{
+            //    var p = new Patient
+            //    {
+            //        Name = "Tony Manicom",
+            //        Sex = "M",
+            //        Cell = "0824102620",
+            //        NextVisit = "10/2/2000",
+            //        LastVisit = "8/2/2000",
+            //        Email = "tony@turbomed.co.za"
+            //    };
+            //    Patients.Add(p);
+           // }
 
            // Patients.FirstOrDefault()
                 
@@ -151,6 +161,7 @@ namespace MvvmLight1.ViewModel
             AddEhealth = new RelayCommand(AddEhealthDlg);
             HideEhealth = new RelayCommand(HideEhealthDlg);
             LoadEhealthdata = new RelayCommand(LoadEhealth);
+            
         }
 
     }
