@@ -233,7 +233,7 @@ namespace MvvmLight1.Model
 
         public static void SetupAzureAccount()
         {
-            // Settings.Registered = true;
+            // SimpleSettings.Registered = true;
             CloudStorageAccount account = CloudStorageAccount.DevelopmentStorageAccount;
 
             CloudBlobContainer contain = account.CreateCloudBlobClient().GetContainerReference("2aabb");

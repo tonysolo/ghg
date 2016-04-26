@@ -127,7 +127,7 @@
     <Compile Include="Model\AzureDevStore.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Azure.cs" />
+    <Compile Include="Model\CountriesRegions.cs" />
     <Compile Include="Model\Cloud.cs" />
     <Compile Include="Model\qnnee.cs" />
     <Compile Include="Model\MapPoint.cs" />
@@ -138,8 +138,8 @@
     <Compile Include="LoaderRegV.xaml.cs">
       <DependentUpon>LoaderRegV.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\QneUtils.cs" />
-    <Compile Include="Model\Settings.cs" />
+    <Compile Include="Model\Compression.cs" />
+    <Compile Include="Model\SimpleSettings.cs" />
     <Compile Include="Model\sharedutilities.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -263,6 +263,7 @@
   <ItemGroup>
     <Content Include="bin\Debug\MvvmLight1.exe" />
     <Content Include="bin\Debug\MvvmLight1.pdb" />
+    <Resource Include="About.txt" />
     <None Include="Article.md" />
     <None Include="Info.md" />
     <Resource Include="Todo.txt" />

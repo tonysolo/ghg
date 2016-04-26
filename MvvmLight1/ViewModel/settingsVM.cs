@@ -27,14 +27,14 @@ namespace MvvmLight1.ViewModel
 
         public int SecurityChoice { get; set; }
 
-        public string[] SecurityQuestions => Settings.Securityquestions;
+        public string[] SecurityQuestions => SimpleSettings.Securityquestions;
 
         public string SecurityAnswer { get; set; }
 
         public bool Registered
         {
-            get { return Settings.Registered; }
-            set { Settings.Registered = value; }
+            get { return SimpleSettings.Registered; }
+            set { SimpleSettings.Registered = value; }
         }
     }
 }

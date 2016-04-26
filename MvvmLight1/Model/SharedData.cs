@@ -39,7 +39,7 @@ namespace MvvmLight1.Model
         {
             get
             {
-                _countrynames = _countrynames ?? Azure.CountryNames();
+                _countrynames = _countrynames ?? CountriesRegions.CountryNames();
                 return _countrynames;
             }
         }
@@ -48,7 +48,7 @@ namespace MvvmLight1.Model
         {
             get
             {
-                return _regionnames = _regionnames ?? Azure.GetRegions(CountryName);
+                return _regionnames = _regionnames ?? CountriesRegions.GetRegions(CountryName);
             }
         }
 

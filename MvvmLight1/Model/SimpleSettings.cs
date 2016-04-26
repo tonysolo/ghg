@@ -1,6 +1,6 @@
 namespace MvvmLight1.Model
 {
-    internal static class Settings
+    internal static class SimpleSettings
     {
         public const string Za = "2202,2203,2204,jjkjk,jhjkkik,jhjkj,ghjghjj,";
         public static bool Registered { get; set; }

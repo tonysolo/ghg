@@ -1,0 +1,43 @@
+﻿Global health grid
+
+I see this as a practical way to implement ehealth.
+
+The idea is to use azure page blobs using a separate blob for each type of data.
+
+All patients are allocated data storage in a "patients blob" with each patient using up to 64 Kilobytes of data.
+Similarly all providers are stored in a "providers blob" with a larger space allocation of 4 Megabytes.
+Images in different size ranges from 2 kilobytes to 4 megabytes in separate image size blobs. These will be linked 
+to the patients clinical data records.
+
+Countries (or the world) can be divided into regions and these reagions treated as containers for page blobs data
+belonging to that region.
+
+ I use a naming converion for containers based on converting GIS coordinates to a hexidecimal sting represention
+ quadrant, latitude and longitude as 5 characters "qnnee" where q is '0' to '3' and nn and ee are '00' to 'ff' values. 
+
+Page blobs have a capacity of 1 terabyte which means that each qnnee region can store 2^24 patients (16 million) and
+2^18 providers (250 thousand) and a similar large number of images. Similarly patients biometric data (iris scans) 
+can be stored per region 
+
+
+Azure only charges for the data storage used so there is no penulty for setting up all regions with maximal allocation.
+
+Each country will be set up in the same way:
+
+A list of regions will be compiled. (I have written a mapping application to do this semi-auromatically).
+
+Patients will register in their region of birth or first landing in the country and receive a next sequence
+number for the region (unique identifier). Providers will register in the region where they work.
+
+A single software application will be written for providers to control the system. This application will include 
+patient registration, recording patients' essential medical data (contacts, preferences, dependants, alerts, allergies)
+as well a list of recent patients. Patients data will be shareable with any provider they wish to share their data with.
+
+The providers application will also be able to record epidemiology and population health managements data. Provders 
+will include clerical providers as well as clinical and technical ones.
+
+From a technical point there are many advantages with this design. Particularly with data management, both for 
+processing and statistics and biometric identification and for planning recycling of data storage in the long term. 
+These things will be possible because the data will be centally stored and accessible for managing.
+
+Tony Manicom

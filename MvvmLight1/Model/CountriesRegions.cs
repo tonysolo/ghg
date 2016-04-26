@@ -9,7 +9,7 @@ using Microsoft.WindowsAzure.Storage.Auth;
 
 namespace MvvmLight1.Model
 {
-    public static class Azure
+    public static class CountriesRegions
     {
         // static string AccountName = "devstoreaccount1";
         //  static string AccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";

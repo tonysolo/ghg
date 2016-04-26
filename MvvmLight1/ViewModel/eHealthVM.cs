@@ -20,7 +20,7 @@ namespace MvvmLight1.ViewModel
             SetupRelayCommands();
             Selectedpatientindex = 0;
            // Patients = new List<patient>();
-            var p = new Patient
+            var p = new Provider.Patient
             {
                 
                 Name = "Tony Manicom",
@@ -45,14 +45,14 @@ namespace MvvmLight1.ViewModel
            // Patients.Add(p);
         }
 
-        public ObservableCollection<Patient> Patients { get; set; }
+        public ObservableCollection<Provider.Patient> Patients { get; set; }
 
         public int Selectedpatientindex { get; set; }
         //string lastv { get; set; }
         //string Nextv { get; set; }
         //string Age { get; set; }
 
-        public Patient SelectedPatient => Patients[Selectedpatientindex];
+        public Provider.Patient SelectedPatient => Patients[Selectedpatientindex];
 
 
         public string[] Regions => SharedData.RegionNames;

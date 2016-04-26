@@ -30,7 +30,7 @@ namespace MvvmLight1.ViewModel
         public static string Nextvisit { get; set; }
 
 
-        public static ObservableCollection<Patient> Patients { get; set; }
+        public static ObservableCollection<Provider.Patient> Patients { get; set; }
 
 
         public static string Login { get; set; }
@@ -39,8 +39,8 @@ namespace MvvmLight1.ViewModel
 
         public bool IsRegistered
         {
-            get { return Settings.Registered; }
-            set { Settings.Registered = value; }
+            get { return SimpleSettings.Registered; }
+            set { SimpleSettings.Registered = value; }
         }
 
         public static string[] UserAccounts => SharedData.UserAccount;

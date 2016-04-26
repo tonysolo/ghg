@@ -63,13 +63,13 @@ namespace MvvmLight1.ViewModel
 
         public static string[] SecurityQuestions
         {
-            get { return Settings.Securityquestions; }
+            get { return SimpleSettings.Securityquestions; }
         }
 
         public bool Registered
         {
-            get { return Settings.Registered; }
-            set { Settings.Registered = value; }
+            get { return SimpleSettings.Registered; }
+            set { SimpleSettings.Registered = value; }
         }
 
 
