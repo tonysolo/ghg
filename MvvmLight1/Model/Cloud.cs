@@ -1,18 +1,13 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using Microsoft.WindowsAzure;
+using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Newtonsoft.Json;
-using System.Threading.Tasks;
-using System.Configuration;
 
 namespace MvvmLight1.Model
 {
@@ -25,12 +20,12 @@ namespace MvvmLight1.Model
         static string Accountname { get; set; } //ghg 
         static CloudStorageAccount SelectedAccount { get; set; }
 
-        static public CloudStorageAccount Setcountryaccount(string accname)
+        public static CloudStorageAccount Setcountryaccount(string accname)
         {
             if (accname == Accountname) return SelectedAccount;
             Accountname = accname;
-            string accountName = "ghg";
-            string accountKey =
+            var accountName = "ghg";
+            var accountKey =
                 "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
             StorageCredentials creds = new StorageCredentials(accountName, accountKey);
             CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
@@ -38,12 +33,26 @@ namespace MvvmLight1.Model
             var c = acc.GetContainerReference("countries");
             var d = c.GetPageBlobReference("global");
             d.FetchAttributes();
-            string key = d.Metadata[accname];
+            var key = d.Metadata[accname];
             StorageCredentials credentials = new StorageCredentials(accname, key);
             SelectedAccount = new CloudStorageAccount(credentials, useHttps: true);
             return SelectedAccount;
             //AccountName = accname;
         }
+
+        //public static Task<CloudStorageAccount> setcc(string accname)
+        //{
+        //    if (accname == Accountname) return SelectedAccount;
+        //    Accountname = accname;
+        //    var accountName = "ghg";
+        //    var accountKey =
+        //        "38Y8V0konokJ4aNWUJMzKJFrzKPh1t2uLqQRABXA3/oLy0EXPxmApIDJYuiD2gF8sPyH0J2skG/0i1V3GhxMtQ==";
+        //    StorageCredentials creds = new StorageCredentials(accountName, accountKey);
+        //    var acc = new CloudStorageAccount(creds, useHttps: true);
+        //    Task<CloudStorageAccount> csa = StorageCredentials(StorageCredentials,bool);
+        //    //  Task<CloudStorageAccount> account = new Task<CloudStorageAccount>(acc);
+        //    return account;
+        //}
 
         private static void UploadProviderToAzure(Provider provider, string countryRegionIndex)
         {
@@ -148,11 +157,6 @@ namespace MvvmLight1.Model
             return account + '|' + region + '|' + blobname + '|' + x;
         }
     }
-
-
-
-
-
 
 
     public class MedCondition
@@ -296,6 +300,13 @@ namespace MvvmLight1.Model
         public ObservableCollection<Patient> RecentPatients = new ObservableCollection<Patient>();
         public ObservableCollection<Person> Contacts = new ObservableCollection<Person>();
 
+        //static void Readlength(AsyncCallback ac)
+        //{
+
+        //}
+
+
+
         /// <summary>
         /// reads provider from azure 
         /// format fromazure = account=container=index
@@ -309,160 +320,172 @@ namespace MvvmLight1.Model
             if (fromazure == null) return;
             var login = fromazure.Split('=');
             var offset = Convert.ToInt32(login[2], 16) << 22;
-            //byte[] compressed;
-            var ba = new byte[4];
 
-            var La = Global.Setcountryaccount(login[0]).//"ghza"
-                    CreateCloudBlobClient().
-                    GetContainerReference(login[1]).   //"22427" container
-                    GetPageBlobReference("L").OpenRead();
-            //if (La.Length > offset)
+
+            var blob = Global.Setcountryaccount(login[0]). //"ghza"
+                CreateCloudBlobClient().
+                GetContainerReference(login[1]). //"22427" container
+                GetPageBlobReference("L");
+            blob.OpenRead();
+
+            var bytes = new byte[4];
+            blob.DownloadRangeToByteArray(bytes, 0, offset, 4); //BitConverter.ToInt32(ba, 0);
+
+
+            var length = BitConverter.ToInt32(bytes, 0);
+            var compressed = new byte[length];
+
+            blob.DownloadRangeToByteArray(compressed, 0, offset + 4, compressed.Length); //provider blob
+
+
+            var prov = Compression.Decompress(compressed);
+
+            var b = new byte[prov.Length];
+            for (var i = 0; i < b.Length; i++) b[i] = prov[i];
+
+            using (var ms = new MemoryStream(b))
             {
-                La.Seek(offset, SeekOrigin.Begin);
-                La.Read(ba, 0, 4);
-                //Array.Resize(ref ba,4);
-                var size = BitConverter.ToInt32(ba, 0);
-                //size = (size & 0xffffff00);
-                var compressed = new byte[size];
-                La.Seek(offset + 4, SeekOrigin.Begin);
-                La.Read(compressed, 0, size);
-                var decomp = Compression.Decompress(compressed);
-                var ms = new MemoryStream(decomp);
-                var p = Compression.Deserialize<Provider>(ms);
 
-                this.Prov = p.Prov;
-                this.Address1 = p.Address1;
-                this.Address2 = p.Address2;
-                this.Address3 = p.Address3;
-                this.Cell = p.Cell;
-                this.Contacts = p.Contacts;
-                this.Details = p.Details;
-                this.Name = p.Name;
-                this.Postalcode = p.Postalcode;
-                this.Qnnneee = p.Qnnneee;
-                this.Qualification = p.Qualification;
-                this.Specialty = p.Specialty;
-                this.TopVisits = p.TopVisits;
-                this.TopPrescriptions = p.TopPrescriptions;
-                this.PinOffset = p.PinOffset;
-                this.RecentPatients = p.RecentPatients;
+                var p = Compression.Deserialize<Provider>(ms);
+                Prov = p.Prov;
+                Address1 = p.Address1;
+                Address2 = p.Address2;
+                Address3 = p.Address3;
+                Cell = p.Cell;
+                Contacts = p.Contacts;
+                Details = p.Details;
+                Name = p.Name;
+                Postalcode = p.Postalcode;
+                Qnnneee = p.Qnnneee;
+                Qualification = p.Qualification;
+                Specialty = p.Specialty;
+                TopVisits = p.TopVisits;
+                TopPrescriptions = p.TopPrescriptions;
+                PinOffset = p.PinOffset;
+                RecentPatients = p.RecentPatients;
                 if (this.PinOffset != pin) this.PinOffset = null;
             }
-
-        }
-
-        //uploads provider
-        //    public void UploadToAzure(string storagereference)
-        //    {
-        //        var login = storagereference.Split('=');
-        //        var offset = Convert.ToInt32(login[2], 16) << 22; // data byte offset in blob
-        //        var la = Global.Setcountryaccount(login[0]). //"ghza" account
-        //            CreateCloudBlobClient().
-        //            GetContainerReference(login[1]). //"22427" container
-        //            GetPageBlobReference("L");
-        //        using (var ms = new MemoryStream())
-        //        {
-        //            Compression.Serialize(this, ms);
-        //            var len = ms.Length;
-        //            var compressedbytes = Compression.Compress(ms.ToArray());
-        //            var len4 = BitConverter.GetBytes(len).Take(4);
-        //            var final = len4.Concat(compressedbytes).ToArray();
-        //            Compression.Resize(ref final);
-        //            using (var ms1 = new MemoryStream(final))
-        //                la.WritePages(ms1, offset);
-        //        }
-        //    }
-        //}
-
-
-
-        public class Visit
-        {
-            // ?? visit size will be less than 512 bytes
-            public string Date { get; set; } //get set to convert to dt	//string date {get;set;}
-            public string Referred { get; set; }
-            public string Description { get; set; } //top40 visits description choice
-            public List<MedCondition> Condition { get; set; } //change <Condition>  to delim string
-            public string Prescription { get; set; } //top40 prescription choice
-            public string Advice { get; set; }
-            public string NextVisit { get; set; } //get set to convert to dt
-            public List<string> Images { get; set; } //change to delim string name and image address qnnee/i...    
-
-            int[] Saveimage()
-            {
-                return null;
-            } // saves to azure images and returns offset and length []
-            //set the expiry months
-
-            public void Addate()
-            {
-                Date = DateTime.Now.ToShortDateString();
-                var ba = new byte[100];
-                //images.Add(ba);
-            }
-
         }
 
 
-        public class Patient : Person
+        private void Readlength(IAsyncResult ar)
         {
-            public string Country { get; set; }
-            private string PatientId { get; set; }
-            public string Birthday { get; set; }
-            public string Sex { get; set; }
-            public Person NextOfKin { get; set; } // next of carer
-            public List<MedCondition> Alerts { get; set; } //List<Condition> Alerts { get; set; }
-            public List<Visit> Visits { get; set; } // top40 visits choice
-            public List<Person> Dependants { get; set; } //qnneepxxxx <Patient>
-            public string NextVisit { get; set; }
-            public string LastVisit { get; set; }
-            public ushort Riskflags { get; set; } //disability, poverty, chronic disease, neonate,age,
-            //smoker,
-            public byte Version { get; set; }
-            //patientid wont be saved to azure - it will be used to generate the 'account/region/page blob' storage address
-            //ie temporary stored in patient data during editing and persisted in the blob name.
-            public Patient() : base()
+            throw new NotImplementedException();
+        }
+    }
+
+    //uploads provider
+    //    public void UploadToAzure(string storagereference)
+    //    {
+    //        var login = storagereference.Split('=');
+    //        var offset = Convert.ToInt32(login[2], 16) << 22; // data byte offset in blob
+    //        var la = Global.Setcountryaccount(login[0]). //"ghza" account
+    //            CreateCloudBlobClient().
+    //            GetContainerReference(login[1]). //"22427" container
+    //            GetPageBlobReference("L");
+    //        using (var ms = new MemoryStream())
+    //        {
+    //            Compression.Serialize(this, ms);
+    //            var len = ms.Length;
+    //            var compressedbytes = Compression.Compress(ms.ToArray());
+    //            var len4 = BitConverter.GetBytes(len).Take(4);
+    //            var final = len4.Concat(compressedbytes).ToArray();
+    //            Compression.Resize(ref final);
+    //            using (var ms1 = new MemoryStream(final))
+    //                la.WritePages(ms1, offset);
+    //        }
+    //    }
+    //}
+
+
+
+    public class Visit
+    {
+        // ?? visit size will be less than 512 bytes
+        public string Date { get; set; } //get set to convert to dt	//string date {get;set;}
+        public string Referred { get; set; }
+        public string Description { get; set; } //top40 visits description choice
+        public List<MedCondition> Condition { get; set; } //change <Condition>  to delim string
+        public string Prescription { get; set; } //top40 prescription choice
+        public string Advice { get; set; }
+        public string NextVisit { get; set; } //get set to convert to dt
+        public List<string> Images { get; set; } //change to delim string name and image address qnnee/i...    
+
+        int[] Saveimage()
+        {
+            return null;
+        } // saves to azure images and returns offset and length []
+        //set the expiry months
+
+        public void Addate()
+        {
+            Date = DateTime.Now.ToShortDateString();
+            var ba = new byte[100];
+            //images.Add(ba);
+        }
+    }
+
+
+    public class Patient : Person
+    {
+        public string Country { get; set; }
+        private string PatientId { get; set; }
+        public string Birthday { get; set; }
+        public string Sex { get; set; }
+        public Person NextOfKin { get; set; } // next of carer
+        public List<MedCondition> Alerts { get; set; } //List<Condition> Alerts { get; set; }
+        public List<Visit> Visits { get; set; } // top40 visits choice
+        public List<Person> Dependants { get; set; } //qnneepxxxx <Patient>
+        public string NextVisit { get; set; }
+        public string LastVisit { get; set; }
+        public ushort Riskflags { get; set; } //disability, poverty, chronic disease, neonate,age,
+        //smoker,
+        public byte Version { get; set; }
+        //patientid wont be saved to azure - it will be used to generate the 'account/region/page blob' storage address
+        //ie temporary stored in patient data during editing and persisted in the blob name.
+        public Patient() : base()
+        {
+            Alerts = new List<MedCondition>();
+            Visits = new List<Visit>();
+            var visit = new Visit
             {
-                Alerts = new List<MedCondition>();
-                Visits = new List<Visit>();
-                var visit = new Visit
-                {
-                    Date = "",
-                    Description = ""
-                };
-                var mc = new MedCondition("Cor Art Bypass", "C22.0");
-                visit.Condition = new List<MedCondition> {mc};
-                Visits.Add(visit);
-            }
+                Date = "",
+                Description = ""
+            };
+            var mc = new MedCondition("Cor Art Bypass", "C22.0");
+            visit.Condition = new List<MedCondition> {mc};
+            Visits.Add(visit);
+        }
 
-            public Patient(string healthid) : base()
-            {
-                PatientId = healthid;
-                string[] login = PatientId.Split('-');
-                if (login.Length != 2) return;
-            }
+        public Patient(string healthid) : base()
+        {
+            PatientId = healthid;
+            string[] login = PatientId.Split('-');
+            if (login.Length != 2) return;
+        }
 
-            public void save_to_azure(string healthid)
-            {
-                var ms = new MemoryStream();
-                Compression.Serialize(this, ms);
-                var ba = Compression.Compress(ms.GetBuffer());
-                var compressedlen = ba.Length;
-                var l = BitConverter.GetBytes(ms.Length).AsEnumerable();
-                l = l.Take(2);
-                Version++;
-                var v = BitConverter.GetBytes(Version);
+        public void save_to_azure(string healthid)
+        {
+            var ms = new MemoryStream();
+            Compression.Serialize(this, ms);
+            var ba = Compression.Compress(ms.GetBuffer());
+            var compressedlen = ba.Length;
+            var l = BitConverter.GetBytes(ms.Length).AsEnumerable();
+            l = l.Take(2);
+            Version++;
+            var v = BitConverter.GetBytes(Version);
 
-                l = l.Take(2).Concat(v.Take(1)).Concat(ba);
-                var buf = ms.GetBuffer();
-                var fin = l.Concat(buf).ToArray();
-                Compression.Resize(ref fin);
-                //save to azure ********
+            l = l.Take(2).Concat(v.Take(1)).Concat(ba);
+            var buf = ms.GetBuffer();
+            var fin = l.Concat(buf).ToArray();
+            Compression.Resize(ref fin);
+            //save to azure ********
 
-                //length 2bytes, version 1byte, compressed data -   expanded modulo 512
-            }
+            //length 2bytes, version 1byte, compressed data -   expanded modulo 512
         }
 
     }
 }
+    
+
 

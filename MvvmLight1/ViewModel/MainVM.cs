@@ -22,16 +22,14 @@ namespace MvvmLight1.ViewModel
             Login = "-provider Id-";
             Pin = "-pin-";
             CountryNames = SharedData.CountryNames;
-            LoadEhealth();         
-            var lvi = new ListViewItem();        
+            LoadEhealth();
+            var lvi = new ListViewItem();
         }
 
         public static string Lastvisit { get; set; }
         public static string Nextvisit { get; set; }
 
-
-        public static ObservableCollection<Provider.Patient> Patients { get; set; }
-
+        public static ObservableCollection<Patient> Patients;
 
         public static string Login { get; set; }
 
@@ -91,12 +89,12 @@ namespace MvvmLight1.ViewModel
             //SharedData.SelectedCountryIndex = CountryIndex;
             var v = new LoaderV();
             v.ShowDialog();
-            
+
         }
 
         private static void ShowEhealthDlg()
         {
-            
+
             var v = new EHealthV();
             MessageBox.Show("Show Ehealth");
             v.ShowDialog();
@@ -112,37 +110,15 @@ namespace MvvmLight1.ViewModel
         private static void HideEhealthDlg()
         {
             var v = new EHealthV();
-          
             MessageBox.Show("Hide Ehealth");
             v.ShowDialog();
         }
 
         private static void LoadEhealth()
         {
-           
             var pat = new Provider("ghza=22427=1", "2");
             var prov = pat.Prov;
-            var patients = pat.RecentPatients;
-
-            //Patients = new ObservableCollection<Patient>();
-            //for (var i = 0; i < 10; i++)
-            //{
-            //    var p = new Patient
-            //    {
-            //        Name = "Tony Manicom",
-            //        Sex = "M",
-            //        Cell = "0824102620",
-            //        NextVisit = "10/2/2000",
-            //        LastVisit = "8/2/2000",
-            //        Email = "tony@turbomed.co.za"
-            //    };
-            //    Patients.Add(p);
-           // }
-
-           // Patients.FirstOrDefault()
-                
-
-           
+            Patients = pat.RecentPatients;
         }
 
         public RelayCommand EditEpidemiology { get; private set; }
@@ -161,7 +137,6 @@ namespace MvvmLight1.ViewModel
             AddEhealth = new RelayCommand(AddEhealthDlg);
             HideEhealth = new RelayCommand(HideEhealthDlg);
             LoadEhealthdata = new RelayCommand(LoadEhealth);
-            
         }
 
     }
