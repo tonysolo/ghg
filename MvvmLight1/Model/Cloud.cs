@@ -294,10 +294,10 @@ namespace MvvmLight1.Model
 
         //public string[] Prov => _prov;
         //public List<person> Contacts {get;set;}  -- might be better than obser collection
-        public List<string> TopIcds = new List<string>(); //top40 icds
-        public List<string> TopVisits = new List<string>(); //top40 visits
-        public List<string> TopPrescriptions = new List<string>(); //top40 prescriptions
-        public ObservableCollection<Patient> RecentPatients = new ObservableCollection<Patient>();
+        public List<string> I_Top = new List<string>(); //top40 icds
+        public List<string> V_Top = new List<string>(); //top40 visits
+        public List<string> P_Top = new List<string>(); //top40 prescriptions
+        public ObservableCollection<Patient> Recent = new ObservableCollection<Patient>();
         public ObservableCollection<Person> Contacts = new ObservableCollection<Person>();
 
         //static void Readlength(AsyncCallback ac)
@@ -340,13 +340,10 @@ namespace MvvmLight1.Model
 
             var prov = Compression.Decompress(compressed);
 
-            var b = new byte[prov.Length];
-            for (var i = 0; i < b.Length; i++) b[i] = prov[i];
-
-            using (var ms = new MemoryStream(b))
-            {
-
-                var p = Compression.Deserialize<Provider>(ms);
+            using (var ms = new MemoryStream(prov))
+            { 
+            var p = Compression.Deserialize<Provider>(ms);
+                
                 Prov = p.Prov;
                 Address1 = p.Address1;
                 Address2 = p.Address2;
@@ -359,19 +356,22 @@ namespace MvvmLight1.Model
                 Qnnneee = p.Qnnneee;
                 Qualification = p.Qualification;
                 Specialty = p.Specialty;
-                TopVisits = p.TopVisits;
-                TopPrescriptions = p.TopPrescriptions;
+                
+                V_Top = p.V_Top;
+                P_Top = p.P_Top;
                 PinOffset = p.PinOffset;
-                RecentPatients = p.RecentPatients;
+                Recent = p.Recent;
+
+                this.Recent = p.Recent;
+                
                 if (this.PinOffset != pin) this.PinOffset = null;
             }
         }
 
-
-        private void Readlength(IAsyncResult ar)
-        {
-            throw new NotImplementedException();
-        }
+        //private void Readlength(IAsyncResult ar)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
     //uploads provider
@@ -428,6 +428,7 @@ namespace MvvmLight1.Model
 
     public class Patient : Person
     {
+       
         public string Country { get; set; }
         private string PatientId { get; set; }
         public string Birthday { get; set; }

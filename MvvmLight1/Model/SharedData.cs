@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Globalization;
 
@@ -69,5 +70,11 @@ namespace MvvmLight1.Model
             var s = qnnee;
             return b;
         }
+
+        public static ObservableCollection<Patient> Patients { get; set; }
+
+        public static int Selectedpatientindex { get; set; }
+
+
     }
 }

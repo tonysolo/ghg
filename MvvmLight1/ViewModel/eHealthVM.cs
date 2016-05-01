@@ -18,31 +18,25 @@ namespace MvvmLight1.ViewModel
         public EHealthVm()
         {
             SetupRelayCommands();
-            Selectedpatientindex = 0;
+           // Selectedpatientindex = 0;
            // Patients = new List<patient>();
+
+            Name = SelectedPatient.Name;
             var p = new Patient
-            {
-                
+            {             
                 Name = "Tony Manicom",
                 Email = "tony@turbomed.co.za",
                 Sex = "M",
                 Birthday = new System.DateTime(1948,7,8).ToShortDateString(),
                 NextVisit = new System.DateTime().AddDays(30).ToShortDateString()
-
             };
     
         }
 
-        public ObservableCollection<Patient> Patients { get; set; }
+        public Patient SelectedPatient => SharedData.Patients[SharedData.Selectedpatientindex];
 
-        public int Selectedpatientindex { get; set; }
-        //string lastv { get; set; }
-        //string Nextv { get; set; }
-        //string Age { get; set; }
-
-        public Patient SelectedPatient => Patients[Selectedpatientindex];
-
-
+        public string Name { get; set; }
+   // => SelectedPatient.Name;
         public string[] Regions => SharedData.RegionNames;
 
 

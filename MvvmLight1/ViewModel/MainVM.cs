@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
@@ -29,8 +30,13 @@ namespace MvvmLight1.ViewModel
         public static string Lastvisit { get; set; }
         public static string Nextvisit { get; set; }
 
-        public static ObservableCollection<Patient> Patients;
+        public static ObservableCollection<Patient> Patients => SharedData.Patients;
 
+        public static int SelectedIndex
+        {
+            get { return SharedData.Selectedpatientindex; }
+            set { SharedData.Selectedpatientindex = value; }
+        }
         public static string Login { get; set; }
 
         public static string Pin { get; set; }
@@ -83,6 +89,8 @@ namespace MvvmLight1.ViewModel
         //    var v = new EpidemV();
         //    v.ShowDialog();
         //}
+       
+
 
         public static void ShowLoaderDlg()
         {
@@ -118,7 +126,7 @@ namespace MvvmLight1.ViewModel
         {
             var pat = new Provider("ghza=22427=1", "2");
             var prov = pat.Prov;
-            Patients = pat.RecentPatients;
+            SharedData.Patients = pat.Recent;
         }
 
         public RelayCommand EditEpidemiology { get; private set; }

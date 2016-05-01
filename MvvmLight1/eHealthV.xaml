@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         IsEnabled="True"
-        DataContext="{Binding EHealthVM, Source={StaticResource Locator}}">
+        DataContext="{Binding EHealth, Source={StaticResource Locator}}">
     <Grid Margin="0,0,-8,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="57*" />
@@ -32,7 +32,7 @@
                         <TextBlock FontSize="8"
                                    Text="Name                                      Date of Birth                              Gender" />
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Width="100" Text="{Binding EHealth.SelectedPatient.name}" />
+                            <TextBox Width="100" Text="{Binding SelectedPatient.Name}" />
                             
                             <DatePicker Width="102" />
                             <TextBlock Margin="5 5 0 0" FontSize="10" Text="M" />
@@ -85,7 +85,7 @@
                 </TabItem>
 
 
-                <TabItem Header="Alerts" Width="60">
+                <TabItem Header="Alerts" Width="60" Margin="-2,0,-2,-2">
                     <StackPanel Orientation="Vertical">
                         <TextBlock FontSize="8" Text="Allergies" />
                         <TextBox MinLines="3" Height="55" Width="300" Cursor="IBeam" AcceptsReturn="True" AcceptsTab="True" HorizontalAlignment="Left" TextWrapping ="Wrap"
