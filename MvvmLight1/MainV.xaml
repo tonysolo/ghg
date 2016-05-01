@@ -5,18 +5,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.ignore.com"
+        x:Name="Window"
         mc:Ignorable="d ignore"
         Title="Global Health Grid"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="ToolWindow"
-        
-        
-        DataContext="{Binding Main, Source={StaticResource Locator}}" Width="560" Height="550">
-    <Grid x:Name="LayoutRoot" Width="550" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top">
+WindowStartupLocation="CenterScreen"
+WindowStyle="ToolWindow"
 
-
+DataContext="{Binding Main, Source={StaticResource Locator}}" Width="560" Height="550">
+    <Grid x:Name="LayoutRoot" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="550"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
@@ -38,7 +36,7 @@
                      AllowDrop="True" 
                      Width ="50" 
                      ItemsSource = "{Binding CountryNames}" 
-                     />           
+                     />
             <!--<TextBox Name = "Country" Text = "{Binding Login}"  Width ="100"  />-->
             <TextBox Name = "Login" Text = "{Binding Login}"  Width ="100"  />
             <TextBox Width="40" Text  = "{Binding Pin}" IsEnabled="True"/>
@@ -58,8 +56,7 @@
             Grid.Column="0"
             Margin="10,10,0,0" >
 
-            <TabItem Header = "E-Health"
-                 
+            <TabItem Header = "E-Health"                
                      Height="22" 
                      VerticalAlignment="Top" 
                      Width=" 70" 
@@ -70,52 +67,42 @@
                 <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="120"/>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="140"/>
-
-                        <!--<ColumnDefinition Width="25*"/>-->
-                        <!--<ColumnDefinition Width="11*"/>
-                        <ColumnDefinition Width="2*"/>-->
+                        <ColumnDefinition Width="140*"/>
                     </Grid.ColumnDefinitions>
-
-
-                    <!--DockPanel LastChildFill="True" Margin="10,0,10,32" Grid.Column ="4">
-                    </-->
-
 
                     <ListView x:Name="ListView1" Margin="0,0,0,0"
                               Background="{x:Null}" Grid.ColumnSpan="7"                              
                               ItemsSource="{Binding Patients}" 
-                                                    
+                              Width="auto"
                               >
                         <!--SelectionChanged="ListView1_SelectionChanged"-->
                         <!--" Button Content="test" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
                         <ListView.View>
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
-                                <GridViewColumn Header="Name" Width="80"
+                                <GridViewColumn Header="Name" Width="100"
                                                 DisplayMemberBinding = "{Binding Name}"/>
-                                <GridViewColumn Header="Cell" Width="80" TextBlock.TextAlignment="Left"
+                                <GridViewColumn Header="Cell" Width="70" TextBlock.TextAlignment="Left"
                                                 DisplayMemberBinding="{Binding Cell}" />
                                 <GridViewColumn Header="Email" Width="80"
                                                  DisplayMemberBinding="{Binding Email}"/>
-                                <GridViewColumn Header="Last Visit" Width="80"
+                                <GridViewColumn Header="Last Visit" Width="60"
                                                 DisplayMemberBinding="{Binding LastVisit, StringFormat = dd/MM/yyyy}"
                                                 />
-                                <GridViewColumn Header="Next Visit" Width="80"
+                                <GridViewColumn Header="Next Visit" Width="60"
                                                 DisplayMemberBinding="{Binding NextVisit, StringFormat=dd/MM/yyyy}"
                                                 />
-                                <GridViewColumn Header="Details" Width="80" >
+                                <GridViewColumn Header="Details" Width="100" >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel>
                                                 <Button 
                                                     Click="ButtonBase_OnClick"
                                                     Command="{Binding Patients}">
-
                                                     <!--<CommandBinding = "{Binding SelectedPatient}">-->
                                                     <TextBlock Text="..." />
 
@@ -257,19 +244,13 @@
                             <ComboBox
                     ItemsSource="{Binding Stays}"
                     SelectedIndex="{Binding Stay}" />
-
                             <TextBlock
                     FontSize="8"
                     Text="{Binding Staymessage}" />
-
                             <TextBox />
-
                         </StackPanel>
-
                     </DockPanel>
-
                 </Grid>
-
             </TabItem>
 
             <!--Statistics Tab-->
