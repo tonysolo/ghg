@@ -6,7 +6,7 @@ namespace MvvmLight1
     /// <summary>
     ///     Interaction logic App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         static App()
         {
