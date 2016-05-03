@@ -7,11 +7,16 @@
              mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary x:Key="Themes" Source="Themes\ExpressionDark.xaml" />
+            <ResourceDictionary x:Key="Themes" Source="Themes\ExpressionDark.xaml" />             
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source = "Colors_Brushes.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+            <!--<ResourceDictionary x:Key = "colorsbrushes.xaml"/>-->
         </ResourceDictionary>
+        
+        <!--<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source= "colorsbrushes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>-->
+        
     </Application.Resources>
 </Application>

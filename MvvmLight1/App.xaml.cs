@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using GalaSoft.MvvmLight.Threading;
+﻿using GalaSoft.MvvmLight.Threading;
 
 namespace MvvmLight1
 {
