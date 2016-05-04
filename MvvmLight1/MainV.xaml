@@ -11,16 +11,17 @@
 WindowStartupLocation="CenterScreen"
 WindowStyle="SingleBorderWindow"
 
-DataContext="{Binding Main, Source={StaticResource Locator}}" 
-        Width="auto" Height="auto"
-        SizeToContent="WidthAndHeight"
-        >
+DataContext="{Binding Main, Source={StaticResource Locator}}"    
+       
     
- 
-    <Grid x:Name="LayoutRoot" Height="600" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="0,0,0,0" Width = "600">
+  
+ Width="auto" Height="550"
+        SizeToContent="WidthAndHeight" d:DesignWidth="566.644"
+   >
+    <Grid x:Name="LayoutRoot" Height="400" HorizontalAlignment="Center" VerticalAlignment="Stretch"  Margin="0,0,0,0" Width = "auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
@@ -46,21 +47,21 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
                      Command = "{Binding EditLoader}"/>
             <Button Content ="New Patient"  Margin = "10 0 0 0"/>
         </StackPanel>
-        
-         <!--Grid.Column="0"-->
-        
+
+        <!--Grid.Column="0"-->
+
         <TabControl 
+            Height="350"
             Grid.Row="1" 
            
-            Margin="0,10,10,0" >
+            Margin="0,0,0,0" >
 
             <TabItem Header = "E-Health"                
-                     Height="22" 
+                     Height="auto" 
                      VerticalAlignment="Top" 
                      Width=" 70" 
                      Margin="0,0,0,0" 
-                     HorizontalAlignment="Right"
-                >
+                     HorizontalAlignment="Right" >
 
                 <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
@@ -73,210 +74,111 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
                     </Grid.ColumnDefinitions>
 
                     <ListView x:Name="ListView1"
-                              Background="{x:Null}" Grid.ColumnSpan="6"                              
+                              Background="{x:Null}" 
+                              Grid.ColumnSpan="6"                              
                               ItemsSource="{Binding Patients}" 
-                              Width="auto"
-                             
+                              Width="auto" 
+                              Height="auto"
                               >
                         <!--SelectionChanged="ListView1_SelectionChanged"-->
                         <!--" Button Content="test" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
                         <ListView.View>
                             <GridView>
                                 <!--GridViewColumn Header="Date" Width="40" TextBlock.TextAlignment="Left"/-->
-                                <GridViewColumn Header="Name" Width="100"
+                                <GridViewColumn Header="Name" Width="auto"
                                                 DisplayMemberBinding = "{Binding Name}"/>
                                 <GridViewColumn Header="Cell" Width="90" TextBlock.TextAlignment="Left"
                                                 DisplayMemberBinding="{Binding Cell}" />
                                 <GridViewColumn Header="Email" Width="95"
                                                  DisplayMemberBinding="{Binding Email}"/>
                                 <GridViewColumn Header="Last Visit" Width="95"
-                                                DisplayMemberBinding="{Binding LastVisit, StringFormat = dd/MM/yyyy}"
-                                                />
+                                                DisplayMemberBinding="{Binding LastVisit, StringFormat = dd/MM/yyyy}" />                                               
                                 <GridViewColumn Header="Next Visit" Width="95"
-                                                DisplayMemberBinding="{Binding NextVisit, StringFormat=dd/MM/yyyy}"
-                                                />
+                                                DisplayMemberBinding="{Binding NextVisit, StringFormat=dd/MM/yyyy}"/>                                               
                                 <GridViewColumn Header="Details" Width="100" >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
-                                                <!--<TextBlock Text="Testing"/>-->
-                                                    <Button 
+                                                <Button 
                                                     Click="ButtonBase_OnClick"
                                                     Command="{Binding Patients}">
                                                     <!--<CommandBinding = "{Binding SelectedPatient}">-->
-                                                    <TextBlock Text="     ...." 
-                                                       
-                                                               />
-
+                                                    <TextBlock Text="     ...."                                                      
+                                                    />
                                                 </Button>
                                                 <!--ToolTip="View or Edit e-health record"/>-->
-
                                             </StackPanel>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
-
                                 </GridViewColumn>
                                 <!--GridViewColumn/-->
-
                             </GridView>
-
                         </ListView.View>
-
                     </ListView>
-               
-    </Grid> 
-
+                </Grid>
             </TabItem>
-
             <!--Epidemiology tab-->
             <TabItem Header="Epidemiology"
                 DataContext="{Binding Epidem, Source={StaticResource Locator}}"      
                    Width="100" Background="{x:Null}"  >
-
                 <Grid>
                     <DockPanel Margin="5,0,5,0"
                      DockPanel.Dock="Bottom">
-                        <!--<StatusBar
-                Height="25"
-                />-->
 
-                        <StackPanel
-                Width="50"
-                DockPanel.Dock="Left">
-                            <TextBlock
-                    Margin="12"
-                    FontFamily="Segoe UI Symbol"
-                    FontSize="16"
-                    Text="&#xE202;" />
-                            <ListBox Height="130" />
-                            <TextBlock
-                    Margin="12"
-                    FontFamily="Segoe UI Symbol"
-                    FontSize="16"
-                    
-                    Text="&#xE10B;" />
-                            <ListBox
-                    Height="170" />
+                        <StackPanel Width="50" DockPanel.Dock="Left">
+                            <TextBlock Margin="12" FontFamily="Segoe UI Symbol" FontSize="14" Text="&#xE202;" />
+                            <ListBox Height="120" />
+                            <TextBlock Margin="12" FontFamily="Segoe UI Symbol" FontSize="14" Text="&#xE10B;" />
+                            <ListBox Height="120" />
                         </StackPanel>
-                        <StackPanel Width="120" Margin="-100 0 0 0">
-                            <TextBlock
-                    FontSize="8"
-                    Text="Date" />
-                            <DatePicker />
-                            <TextBlock
-                    FontSize="8"
-                    Text="ICD's"
-                    />
-                            <TextBox />
-                            <TextBlock
-                    FontSize="8"
-
-                    Text="Age" />
-                            <ComboBox
-                    ItemsSource="{Binding AgeGroups}"
-                    SelectedIndex="0" />
-                            <TextBlock
-                    FontSize="8"
-                    Text="Gender" />
-                            <ComboBox
-                    ItemsSource="{Binding Genders}"
-                    SelectedIndex="0" />
-                            <TextBlock
-                    FontSize="8"
-                    Text="From Region" />
-                            <DockPanel>
-                                <Button
-                        DockPanel.Dock="Right"
-                        Width="20"
-                        FontFamily="Segoe UI Symbol"
-                        FontSize="12"
-                                   
-                        Content="&#x2638;"
-                        Command="{Binding EditMap}" />
-                                <ComboBox />
-                            </DockPanel>
-                            <TextBlock
-                    FontSize="8"
-                    Text="Referred by" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Qualifications}"
-                    SelectedIndex="0" />
-
-                            <TextBlock
-                    FontSize="8" Text="Treated by" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Qualifications}"
-                    SelectedIndex="2" />
-
-                            <TextBlock
-                    FontSize="8"
-                    Text="Specialty" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Treaters}"
-                    SelectedIndex="0" />
-
-                            <TextBlock
-                    FontSize="8"
-                    Text="Facility" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Facilities}"
-                    SelectedIndex="0" />
-                            <TextBlock
-                    FontSize="8"
-                    Text="Treatment Region" />
-
-                            <DockPanel>
-
-                                <Button
-                        Width="20"
-                        DockPanel.Dock="Right"
-                        FontFamily="Segoe UI Symbol"
-                        FontSize="12"
-                        Content="&#x2638;"
-                        Command="{Binding EditMap}" />
-                                <ComboBox
-
-                        ItemsSource="{Binding Regions}"
-                        SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" />
-                            </DockPanel>
-                            <TextBlock
-                    FontSize="8"
-                    Text="InOut" />
-
-                            <ComboBox
-                    ItemsSource="{Binding Stays}"
-                    SelectedIndex="{Binding Stay}" />
-                            <TextBlock
-                    FontSize="8"
-                    Text="{Binding Staymessage}" />
-                            <TextBox />
-                        </StackPanel>
+                        <ScrollViewer>
+                            <StackPanel Width="120" Margin="-100 0 0 0">
+                                <TextBlock FontSize="8" Text="Date" />
+                                <DatePicker />
+                                <TextBlock FontSize="8" Text="ICD's" />
+                                <TextBox />
+                                <TextBlock FontSize="8" Text="Age" />
+                                <ComboBox ItemsSource="{Binding AgeGroups}" SelectedIndex="0" />
+                                <TextBlock FontSize="8" Text="Gender" />
+                                <ComboBox ItemsSource="{Binding Genders}" SelectedIndex="0" />
+                                <TextBlock FontSize="8" Text="From Region" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right" Width="20" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#x2638;" Command="{Binding EditMap}" />
+                                    <ComboBox/>
+                                </DockPanel>
+                                <TextBlock  FontSize="8" Text="Referred by" />
+                                <ComboBox ItemsSource="{Binding Qualifications}" SelectedIndex="0" />
+                                <TextBlock FontSize="8" Text="Treated by" />
+                                <ComboBox ItemsSource="{Binding Qualifications}" SelectedIndex="2" />
+                                <TextBlock FontSize="8" Text="Specialty" />
+                                <ComboBox ItemsSource="{Binding Treaters}" SelectedIndex="0" />
+                                <TextBlock FontSize="8" Text="Facility" />
+                                <ComboBox ItemsSource="{Binding Facilities}" SelectedIndex="0" />
+                                <TextBlock FontSize="8" Text="Treatment Region" />
+                                <DockPanel>
+                                    <Button Width="20" DockPanel.Dock="Right" FontFamily="Segoe UI Symbol" FontSize="12" Content="&#x2638;" Command="{Binding EditMap}" />
+                                    <ComboBox ItemsSource="{Binding Regions}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" />
+                                </DockPanel>
+                                <TextBlock FontSize="8" Text="InOut" />
+                                <ComboBox ItemsSource="{Binding Stays}"  SelectedIndex="{Binding Stay}" />
+                                <TextBlock  FontSize="8" Text="{Binding Staymessage}" />
+                                <TextBox />
+                            </StackPanel>
+                        </ScrollViewer>
                     </DockPanel>
                 </Grid>
             </TabItem>
-
             <!--Statistics Tab-->
             <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
         </TabControl>
-        <StackPanel 
-            x:Name="Stack"
-            Visibility = "Visible"           
-            Grid.Row="2" Grid.Column="0" 
-            Orientation="Horizontal"  HorizontalAlignment="Right" 
-            Margin="0,5,0,0" Width="160">
-            <TextBlock Text="e-health records..." Width="93" Margin="0 4"/>
+        <StackPanel  x:Name="Stack" Visibility = "Visible"  Grid.Row="2" Grid.Column="0"  Orientation="Horizontal"  HorizontalAlignment="Right"  Margin="0,5,0,0" Width="auto" Height="auto">
+            <TextBlock Text="e-health records..." Width="auto" Margin="0 0 0 0" Height="20"/>
             <Button Command ="{Binding AddEhealth}" Content="+" FontSize="14"  Margin="5 0 0 0" ToolTip="Add e-Health record to Provider's List" Height="20" IsEnabled ="True"/>
             <Button Command ="{Binding HideEhealth}" Content="-" FontSize="14" Margin="5 0 0 0" ToolTip="Remove e-Health record from Provider's List"  Height="20" />
             <Button Command ="{Binding EditEhealth}" Content="..." FontSize="14" Margin="5 0 0 0" ToolTip="View or Edit e-health record"   Height="20"  />
         </StackPanel>
         <!--<GridSplitter x:Name="GridSplitter" Grid.Column="6" HorizontalAlignment="Left" Height="100" Margin="499,216,-435,0" Grid.Row="1" VerticalAlignment="Top" Width="5"/>-->
     </Grid>
-
- 
 </Window>
 
 

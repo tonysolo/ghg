@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MvvmLight1"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Border Background = "RedColor"/> 
+    <Border Background="Red"/> 
         
      
 </UserControl>

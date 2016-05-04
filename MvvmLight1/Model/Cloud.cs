@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media.Animation;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
+using System.Net.Http;
+
 
 namespace MvvmLight1.Model
 {
@@ -300,10 +306,7 @@ namespace MvvmLight1.Model
         public ObservableCollection<Patient> Recent = new ObservableCollection<Patient>();
         public ObservableCollection<Person> Contacts = new ObservableCollection<Person>();
 
-        //static void Readlength(AsyncCallback ac)
-        //{
-
-        //}
+        
 
 
 
@@ -329,14 +332,16 @@ namespace MvvmLight1.Model
             blob.OpenRead();
 
             var bytes = new byte[4];
+
             blob.DownloadRangeToByteArray(bytes, 0, offset, 4); //BitConverter.ToInt32(ba, 0);
+            var length = BitConverter.ToInt32(bytes, 0);        //gets length of data - first 4 bytes
 
 
-            var length = BitConverter.ToInt32(bytes, 0);
-            var compressed = new byte[length];
 
-            blob.DownloadRangeToByteArray(compressed, 0, offset + 4, compressed.Length); //provider blob
+            //var barrr = blob.DownloadRangeToByteArray(bytes, 0, offset, 4);
 
+            
+            var compressed = Getcompressedbytes(blob,offset+4,length); //gets the data starting from offset plus 4 bytes and length
 
             var prov = Compression.Decompress(compressed);
 
@@ -366,7 +371,22 @@ namespace MvvmLight1.Model
                 
                 if (this.PinOffset != pin) this.PinOffset = null;
             }
+
+
+          
         }
+
+        private static byte[] Getcompressedbytes(CloudPageBlob blob, int off, int len)
+        {
+            var ba = new byte[len];
+            if (blob.Exists())
+            blob.DownloadRangeToByteArrayAsync(ba,0,off,len).Wait();            
+            return ba;
+        }
+
+      
+
+
 
         //private void Readlength(IAsyncResult ar)
         //{
