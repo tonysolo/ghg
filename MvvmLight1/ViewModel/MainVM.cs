@@ -37,6 +37,11 @@ namespace MvvmLight1.ViewModel
             get { return SharedData.Selectedpatientindex; }
             set { SharedData.Selectedpatientindex = value; }
         }
+
+        public static Patient Patient {
+            get { return SharedData.Patients[SelectedIndex]; }
+            set { SharedData.Patients[SelectedIndex] = value; }
+        }
         public static string Login { get; set; }
 
         public static string Pin { get; set; }
@@ -100,7 +105,7 @@ namespace MvvmLight1.ViewModel
 
         }
 
-        private static void ShowEhealthDlg()
+        public static void ShowEhealthDlg()
         {
 
             var v = new EHealthV();
@@ -129,7 +134,7 @@ namespace MvvmLight1.ViewModel
             SharedData.Patients = pat.Recent;
         }
 
-        public RelayCommand EditEpidemiology { get; private set; }
+        //public RelayCommand EditEpidemiology { get; private set; }
         public RelayCommand EditLoader { get; private set; }
         public RelayCommand EditEhealth { get; private set; }
         public RelayCommand AddEhealth { get; private set; }

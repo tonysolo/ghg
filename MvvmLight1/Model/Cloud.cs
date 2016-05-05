@@ -73,7 +73,7 @@ namespace MvvmLight1.Model
                 Compression.Serialize(provider, ms);
                 //var len = ms.Length;
                 var compressedbytes = Compression.Compress(ms.ToArray());
-                var len = BitConverter.GetBytes((int) compressedbytes.Length);
+                var len = BitConverter.GetBytes((int)compressedbytes.Length);
                 //var len4 = BitConverter.GetBytes(len).Take(4);
                 var final = len.Concat(compressedbytes).ToArray();
                 Compression.Resize(ref final);
@@ -306,7 +306,7 @@ namespace MvvmLight1.Model
         public ObservableCollection<Patient> Recent = new ObservableCollection<Patient>();
         public ObservableCollection<Person> Contacts = new ObservableCollection<Person>();
 
-        
+
 
 
 
@@ -340,15 +340,15 @@ namespace MvvmLight1.Model
 
             //var barrr = blob.DownloadRangeToByteArray(bytes, 0, offset, 4);
 
-            
-            var compressed = Getcompressedbytes(blob,offset+4,length); //gets the data starting from offset plus 4 bytes and length
+
+            var compressed = Getcompressedbytes(blob, offset + 4, length); //gets the data starting from offset plus 4 bytes and length
 
             var prov = Compression.Decompress(compressed);
 
             using (var ms = new MemoryStream(prov))
-            { 
-            var p = Compression.Deserialize<Provider>(ms);
-                
+            {
+                var p = Compression.Deserialize<Provider>(ms);
+
                 Prov = p.Prov;
                 Address1 = p.Address1;
                 Address2 = p.Address2;
@@ -361,30 +361,32 @@ namespace MvvmLight1.Model
                 Qnnneee = p.Qnnneee;
                 Qualification = p.Qualification;
                 Specialty = p.Specialty;
-                
+
                 V_Top = p.V_Top;
                 P_Top = p.P_Top;
                 PinOffset = p.PinOffset;
                 Recent = p.Recent;
 
                 this.Recent = p.Recent;
-                
+
                 if (this.PinOffset != pin) this.PinOffset = null;
             }
 
 
-          
+
         }
 
-        private static byte[] Getcompressedbytes(CloudPageBlob blob, int off, int len)
+        private static byte[] Getcompressedbytes(ICloudBlob blob, int off, int len)
         {
             var ba = new byte[len];
+            System.Windows.MessageBox.Show("Before");
             if (blob.Exists())
-            blob.DownloadRangeToByteArrayAsync(ba,0,off,len).Wait();            
+                blob.DownloadRangeToByteArrayAsync(ba, 0, off, len).Wait();
+            System.Windows.MessageBox.Show("After");
             return ba;
         }
 
-      
+
 
 
 
@@ -448,7 +450,7 @@ namespace MvvmLight1.Model
 
     public class Patient : Person
     {
-       
+
         public string Country { get; set; }
         private string PatientId { get; set; }
         public string Birthday { get; set; }
@@ -474,7 +476,7 @@ namespace MvvmLight1.Model
                 Description = ""
             };
             var mc = new MedCondition("Cor Art Bypass", "C22.0");
-            visit.Condition = new List<MedCondition> {mc};
+            visit.Condition = new List<MedCondition> { mc };
             Visits.Add(visit);
         }
 
@@ -507,6 +509,6 @@ namespace MvvmLight1.Model
 
     }
 }
-    
+
 
 

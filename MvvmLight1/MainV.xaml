@@ -24,9 +24,14 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+            <ColumnDefinition Width="250">
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
 
-
-        <StackPanel  Orientation = "Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right" Width="500">
+        <StackPanel  Orientation = "Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right" Width="250">
             <TextBox Text = "Country"/>
             <ListBox Height="20" 
                      AllowDrop="True" 
@@ -42,10 +47,14 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
                     VerticalAlignment="Top"
                     Command="{Binding LoadEhealthdata}"
                     />
-            <Button  Width="65" FontSize="12" Content = "Add Patient" 
-                     VerticalAlignment="Bottom" Margin="20,0,0,0"  
+            <Button   Width="65" FontSize="12" Content = "Add Patient" 
+                     VerticalAlignment="Bottom" Margin="20,0,0,0"                   
                      Command = "{Binding EditLoader}"/>
-            <Button Content ="New Patient"  Margin = "10 0 0 0"/>
+            <Button Width="65" Content ="New Patient"  
+                    VerticalAlignment="Bottom" Margin = "20 0 0 0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            
         </StackPanel>
 
         <!--Grid.Column="0"-->
@@ -53,7 +62,7 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
         <TabControl 
             Height="350"
             Grid.Row="1" 
-           
+            Grid.Column="0"
             Margin="0,0,0,0" >
 
             <TabItem Header = "E-Health"                
@@ -65,17 +74,17 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
 
                 <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="250"/>
+                        <!--<ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>-->
                     </Grid.ColumnDefinitions>
 
                     <ListView x:Name="ListView1"
                               Background="{x:Null}" 
-                              Grid.ColumnSpan="6"                              
+                              Grid.ColumnSpan="3"                              
                               ItemsSource="{Binding Patients}" 
                               Width="auto" 
                               Height="auto"
@@ -92,9 +101,9 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
                                 <GridViewColumn Header="Email" Width="95"
                                                  DisplayMemberBinding="{Binding Email}"/>
                                 <GridViewColumn Header="Last Visit" Width="95"
-                                                DisplayMemberBinding="{Binding LastVisit, StringFormat = dd/MM/yyyy}" />                                               
+                                                DisplayMemberBinding="{Binding LastVisit, StringFormat = dd/MM/yyyy}" />
                                 <GridViewColumn Header="Next Visit" Width="95"
-                                                DisplayMemberBinding="{Binding NextVisit, StringFormat=dd/MM/yyyy}"/>                                               
+                                                DisplayMemberBinding="{Binding NextVisit, StringFormat=dd/MM/yyyy}"/>
                                 <GridViewColumn Header="Details" Width="100" >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -117,10 +126,34 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
                     </ListView>
                 </Grid>
             </TabItem>
+            <!--<TabItem Header = "Details" 
+                     DataContext="{Binding Patient}"
+                     Height="auto" 
+                     VerticalAlignment="Top" 
+                     Width=" 70" 
+                     Margin="0,0,0,0" 
+                     HorizontalAlignment="Right">
+
+                <Grid Margin="0,0,0,-57" Width="127">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height ="auto"></RowDefinition>
+                        <RowDefinition Height ="15"></RowDefinition>
+                        <RowDefinition Height ="15"></RowDefinition>
+                        <RowDefinition Height ="15"></RowDefinition>
+                        <RowDefinition Height ="15"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Style="{StaticResource OpenButton}" Width="30"></Button>
+                </Grid>
+            </TabItem>-->
             <!--Epidemiology tab-->
-            <TabItem Header="Epidemiology"
+            <TabItem Header="Epidem"
                 DataContext="{Binding Epidem, Source={StaticResource Locator}}"      
-                   Width="100" Background="{x:Null}"  >
+                   Width="50" Background="{x:Null}"  >
                 <Grid>
                     <DockPanel Margin="5,0,5,0"
                      DockPanel.Dock="Bottom">
@@ -161,21 +194,24 @@ DataContext="{Binding Main, Source={StaticResource Locator}}"
                                 </DockPanel>
                                 <TextBlock FontSize="8" Text="InOut" />
                                 <ComboBox ItemsSource="{Binding Stays}"  SelectedIndex="{Binding Stay}" />
-                                <TextBlock  FontSize="8" Text="{Binding Staymessage}" />
-                                <TextBox />
+                                <TextBlock  FontSize="8" Text="{Binding Staymessage}"/>
+
                             </StackPanel>
                         </ScrollViewer>
                     </DockPanel>
                 </Grid>
             </TabItem>
             <!--Statistics Tab-->
-            <TabItem Header="Statistics" Width="70" Background="{x:Null}"/>
+            <TabItem Header="Stats" Width="40" Background="{x:Null}"/>
         </TabControl>
         <StackPanel  x:Name="Stack" Visibility = "Visible"  Grid.Row="2" Grid.Column="0"  Orientation="Horizontal"  HorizontalAlignment="Right"  Margin="0,5,0,0" Width="auto" Height="auto">
             <TextBlock Text="e-health records..." Width="auto" Margin="0 0 0 0" Height="20"/>
             <Button Command ="{Binding AddEhealth}" Content="+" FontSize="14"  Margin="5 0 0 0" ToolTip="Add e-Health record to Provider's List" Height="20" IsEnabled ="True"/>
             <Button Command ="{Binding HideEhealth}" Content="-" FontSize="14" Margin="5 0 0 0" ToolTip="Remove e-Health record from Provider's List"  Height="20" />
-            <Button Command ="{Binding EditEhealth}" Content="..." FontSize="14" Margin="5 0 0 0" ToolTip="View or Edit e-health record"   Height="20"  />
+
+            <Button 
+                Style = "{StaticResource OpenButton}"
+                Command ="{Binding EditEhealth}" Content="..." FontSize="14" Margin="5 0 0 0" ToolTip="View or Edit e-health record"   Height="20"  />
         </StackPanel>
         <!--<GridSplitter x:Name="GridSplitter" Grid.Column="6" HorizontalAlignment="Left" Height="100" Margin="499,216,-435,0" Grid.Row="1" VerticalAlignment="Top" Width="5"/>-->
     </Grid>

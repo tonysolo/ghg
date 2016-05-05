@@ -33,7 +33,12 @@ namespace MvvmLight1.ViewModel
     
         }
 
-        public Patient SelectedPatient => SharedData.Patients[SharedData.Selectedpatientindex];
+        public Patient SelectedPatient
+        {
+            get {return  SharedData.Patients[SharedData.Selectedpatientindex];}
+            set { SharedData.Patients[SharedData.Selectedpatientindex] = value; }
+        }
+       
 
         public string Name { get; set; }
    // => SelectedPatient.Name;

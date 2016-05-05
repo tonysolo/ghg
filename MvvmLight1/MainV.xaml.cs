@@ -29,8 +29,11 @@ namespace MvvmLight1
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             
-            MessageBox.Show("Button Clicked");
-            var p = MainVm.Patients[MainVm.SelectedIndex];
+           // MessageBox.Show("Button Clicked");
+         MainVm.ShowEhealthDlg();
+           
+            //var p = MainVm.Patients[MainVm.SelectedIndex];
+            //MainVm.
             //throw new System.NotImplementedException();
         }
 
